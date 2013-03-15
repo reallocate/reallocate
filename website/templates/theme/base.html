@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>{% block title %}{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="{% block meta_keywords %}{% endblock %}">
+    <meta name="description" content="{% block meta_description %}{% endblock %}">
+
+    <!-- Le styles -->
+    <link href="{{ STATIC_URL }}theme/css/bootstrap.css" rel="stylesheet">
+    <style>
+        body {
+            padding-top: 40px; /* 60px to make the container go all the way to the bottom of the topbar */
+        }
+    </style>
+    <link href="{{ STATIC_URL }}theme/css/bootstrap-responsive.css" rel="stylesheet">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="{{ STATIC_URL }}theme/js/html5shiv.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="{{ STATIC_URL }}theme/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114"
+          href="{{ STATIC_URL }}theme/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72"
+          href="{{ STATIC_URL }}theme/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="{{ STATIC_URL }}theme/ico/apple-touch-icon-57-precomposed.png">
+    <link rel="shortcut icon" href="{{ STATIC_URL }}theme/ico/favicon.png">
+
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/main.css">
+
+    {% block extra_css %}
+    {% endblock %}
+
+</head>
+
+<body>
+
+{% include "theme/top_nav.html" %}
+
+{% block hero %}
+{% endblock %}
+
+<div class="container">
+
+    {% block maincontent %}
+    {% endblock %}
+
+    <br>
+    <br>
+    <br>
+
+    <!-- FOOTER -->
+    <footer>
+        <p class="pull-right"><a href="#">Back to top</a></p>
+        <p>&copy; 2013 Company, Inc. &middot; <a href="/">Privacy</a> &middot; <a href="/">Terms</a></p>
+    </footer>
+
+</div>
+<!-- /container -->
+
+
+
+<!-- Le javascript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+{#<script src="{{ STATIC_URL }}theme/js/jquery.js"></script>#}
+{#<script src="{{ STATIC_URL }}theme/js/bootstrap-transition.js"></script>#}
+{#<script src="{{ STATIC_URL }}theme/js/bootstrap-alert.js"></script>#}
+{#<script src="{{ STATIC_URL }}theme/js/bootstrap-modal.js"></script>#}
+{#<script src="{{ STATIC_URL }}theme/js/bootstrap-dropdown.js"></script>#}
+{#<script src="{{ STATIC_URL }}theme/js/bootstrap-scrollspy.js"></script>#}
+{#<script src="{{ STATIC_URL }}theme/js/bootstrap-tab.js"></script>#}
+{#<script src="{{ STATIC_URL }}theme/js/bootstrap-tooltip.js"></script>#}
+{#<script src="{{ STATIC_URL }}theme/js/bootstrap-popover.js"></script>#}
+{#<script src="{{ STATIC_URL }}theme/js/bootstrap-button.js"></script>#}
+{#<script src="{{ STATIC_URL }}theme/js/bootstrap-collapse.js"></script>#}
+{#<script src="{{ STATIC_URL }}theme/js/bootstrap-carousel.js"></script>#}
+{#<script src="{{ STATIC_URL }}theme/js/bootstrap-typeahead.js"></script>#}
+
+<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script src="http://code.jquery.com/jquery-migrate-1.1.1.min.js"></script>
+
+<script src="{{ STATIC_URL }}theme/js/bootstrap.min.js"></script>
+
+<script>
+{#    {% if not request.user.is_staff %}#}
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-38925689-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+{#    {% endif %}#}
+</script>
+
+{% block bottomscript %}
+{% endblock %}
+
+</body>
+</html>

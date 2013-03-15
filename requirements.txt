@@ -1,0 +1,15 @@
+django==1.5
+South
+psycopg2
+werkzeug
+
+dj-database-url
+django-social-auth
+boto
+django-storages
+django-widget-tweaks
+#python-dateutils
+
+gunicorn # Needed for heroku
+
+

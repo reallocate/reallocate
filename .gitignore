@@ -1,0 +1,9 @@
+*.pyc
+*.pyo
+*.db
+.DS_Store
+.coverage
+local_settings.py
+
+/docs/original-images
+/data.db
