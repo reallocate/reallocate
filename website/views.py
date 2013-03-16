@@ -16,7 +16,7 @@ def private(request):
     }, context_instance=RequestContext(request))
 
 
-def login_test(request):
+def login_page(request):
     return render_to_response('login.html', {
         'a': 'a',
     }, context_instance=RequestContext(request))
