@@ -63,7 +63,10 @@ def private(request):
 #     }, context_instance=RequestContext(request))
 #
 
-def test(request):
+def homepage(request):
+    return render_to_response('homepage.html', {}, context_instance=RequestContext(request))
+    
+def add_project(request):
     # Show the sign page and collect emails
 
     show_invite = True
@@ -81,7 +84,7 @@ def test(request):
             return HttpResponse("error")
 
     myform = ProjectForm()
-    return render_to_response('index.html', {
+    return render_to_response('add_project.html', {
         "myform": myform,
         "show_invite": show_invite
     }, context_instance=RequestContext(request))

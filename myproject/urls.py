@@ -12,7 +12,9 @@ urlpatterns = patterns('',
                        url(r'', include('social_auth.urls')),
                        (r'^logout/$', 'django.contrib.auth.views.logout', {'next_page': '/'}),
 
-                       url(r'^$', 'website.views.test', name='test'),
+                       url(r'^$', 'website.views.homepage', name='homepage'),
+                       url(r'^add_project/$', 'website.views.add_project', name='add_project'),
+                       
                        url(r'^private$', 'website.views.private', name='private'),
                        # url(r'^test$', 'website.views.test', name='test'),
 
