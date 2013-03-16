@@ -233,8 +233,10 @@ SOCIAL_AUTH_UUID_LENGTH = 16
 
 
 # Django storages to store files on S3
-STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+
+if DEPLOY_ENV != 'dev':
+    STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+    DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 
 #############
 # DATABASES #
