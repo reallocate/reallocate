@@ -1,0 +1,24 @@
+[
+  {
+    "model": "website.Project",
+    "pk": 1,
+    "fields": {
+      "name" : "Mountain seal control",
+      "datetime": "2013-01-01 05:00",
+      "status" : "published",
+      "industry" : "seal clubbing",
+      "description" : "SEAAALSSSS"
+    }
+  },
+  {
+    "model": "website.Opportunity",
+    "pk": 1,
+    "fields": {
+      "project": "1",
+      "datetime": "2013-01-01 05:00",
+      "name": "Jameson required",
+      "status": "published",
+      "description": "If one doesn't have jam-o, you cant kill seals"
+    }
+  }
+]
