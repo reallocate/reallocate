@@ -10,6 +10,8 @@ urlpatterns = patterns('',
                        # Examples:
                        # url(r'^$', 'myproject.views.home', name='home'),
                        url(r'', include('social_auth.urls')),
+                       (r'^signup/$', 'website.views.signup'),
+                       (r'^login/$', 'website.views.login_user'),
                        (r'^logout/$', 'django.contrib.auth.views.logout', {'next_page': '/'}),
 
                        url(r'^$', 'website.views.homepage', name='homepage'),
