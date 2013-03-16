@@ -1,5 +1,6 @@
-from models import LandingPage
+from models import Project
 from django.contrib import admin
 
 
-admin.site.register(LandingPage)
+# admin.site.register(LandingPage)
+admin.site.register(Project)
