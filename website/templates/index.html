@@ -60,31 +60,7 @@
     </div>
 
 
-
-
-    <br>
-    <br>
-
-
-    Please Login:<br>
-
-    <a href="{% url "socialauth_begin" 'google' %}">
-        <img src="{{ STATIC_URL }}images/google-icon.png" alt="Google">
-    </a>
-    <a href="{% url "socialauth_begin" 'facebook' %}">
-        <img src="{{ STATIC_URL }}images/facebook-icon.png" alt="Facebook">
-    </a>
-    <a href="{% url "socialauth_begin" 'yahoo' %}">
-        <img src="{{ STATIC_URL }}images/yahoo-icon.png" alt="Yahoo">
-    </a>
-    <br>
-    <br>
-    <br>
-    <br>
-
-    <a href="/private">private</a>
 {% endblock %}
-
 
 {% block bottomscript %}
 {#    <script src="/static/js/main.js"></script>#}

@@ -1,0 +1,35 @@
+{% extends 'theme/base.html' %}
+{% load i18n %}
+
+{% trans "This is the title" as the_title %}
+
+{% block meta_description %}{{ the_title }}{% endblock %}
+{% block title %}{{ the_title }}{% endblock %}
+
+
+{% block maincontent %}
+
+
+    <h1>Login</h1>
+
+    Please Login:<br>
+
+    <a href="{% url "socialauth_begin" 'google' %}">
+        <img src="{{ STATIC_URL }}images/google-icon.png" alt="Google">
+    </a>
+    <a href="{% url "socialauth_begin" 'facebook' %}">
+        <img src="{{ STATIC_URL }}images/facebook-icon.png" alt="Facebook">
+    </a>
+    <a href="{% url "socialauth_begin" 'yahoo' %}">
+        <img src="{{ STATIC_URL }}images/yahoo-icon.png" alt="Yahoo">
+    </a>
+    <br>
+    <br>
+
+    <a href="/private">private</a>
+{% endblock %}
+
+
+{% block bottomscript %}
+{#    <script src="/static/js/main.js"></script>#}
+{% endblock %}
