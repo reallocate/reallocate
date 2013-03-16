@@ -14,7 +14,8 @@ urlpatterns = patterns('',
 
                        url(r'^$', 'website.views.homepage', name='homepage'),
                        url(r'^add_project/$', 'website.views.add_project', name='add_project'),
-                       
+                       url(r'^login_test', 'website.views.login_test', name='login_test'),
+
                        url(r'^private$', 'website.views.private', name='private'),
                        # url(r'^test$', 'website.views.test', name='test'),
 

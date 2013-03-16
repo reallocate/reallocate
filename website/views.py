@@ -15,6 +15,12 @@ def private(request):
     }, context_instance=RequestContext(request))
 
 
+def login_test(request):
+    return render_to_response('login.html', {
+        'a': 'a',
+    }, context_instance=RequestContext(request))
+
+
 # def index(request):
 #     # Show the sign page and collect emails
 #
