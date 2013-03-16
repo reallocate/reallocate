@@ -2,10 +2,11 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.http import HttpResponse
+from django.core.exceptions import ObjectDoesNotExist
 
 from website.lib.ses_email import send_email
 
-from website.models import ProjectForm
+from website.models import ProjectForm, OpportunityForm, Project, Opportunity
 
 
 @login_required
@@ -93,4 +94,31 @@ def add_project(request):
     return render_to_response('add_project.html', {
         "myform": myform,
         "show_invite": show_invite
+    }, context_instance=RequestContext(request))
+
+def add_opportunity(request, *args):
+    # Create new Opportunity
+    
+    print args
+    try:
+        parent_project = Project.objects.get(id=args[0])
+    except ObjectDoesNotExist:
+        return HttpResponse("error - no project found")
+    
+    show_form = True
+    if request.method == "POST":
+        myform = OpportunityForm(request.POST)
+        new_instance = myform.save(commit=False)
+        if myform.is_valid():
+            new_instance.project = parent_project
+            new_instance.save()
+            show_form = False
+        else:
+            return HttpResponse("error")
+ 
+    myform = OpportunityForm()
+    return render_to_response('add_opportunity.html', {
+        "myform": myform,
+        "parent_project": parent_project,
+        "show_form": show_form
     }, context_instance=RequestContext(request))

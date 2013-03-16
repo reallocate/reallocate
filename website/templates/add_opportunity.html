@@ -16,7 +16,7 @@
     <div class="container-fluid">
         <div class="row-fluid">
             <br>
-            <h2>Create a project:</h2>
+            <h2>Create an opportunity for: {{ parent_project.name }} </h2>
             <br>
 
         </div>
@@ -24,7 +24,7 @@
 
             <div class="span12 left">
 
-                {% if show_invite %}
+                {% if show_form %}
                     <form id="signup-form" class="form-horizontal" method="post">{% csrf_token %}
 
                         {% for field in myform %}

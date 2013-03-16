@@ -30,32 +30,28 @@ class ProjectForm(ModelForm):
             'description': Textarea(attrs={'cols': 80, 'rows': 10}),
         }
 
+class Opportunity(models.Model):
+    project = models.ForeignKey(Project)
+    name = models.CharField(max_length=100, blank=True)
+    status = models.CharField(max_length=100, blank=True, default='unpublished')
+    datetime = models.DateTimeField(auto_now_add=True)
+    description = models.CharField(max_length=1000, blank=True)
+    featured = models.BooleanField(default=False, blank=True)
+    # engaged_users = models.ManyToManyField(Users)
+    # prerequisites = models.ManyToManyField(Opportunity)  - assuming that pre-reqs = other opps
+    # time estimate - TODO: do we do this in days?
+    # deliverable - TODO: separate free-form text field
+    # followup gift to volunteer - TODO: separate free-form text field
+    
+    def __unicode__(self):
+        return self.name
 
-        # class LandingPage(models.Model):
-        #     email = models.CharField(max_length=100, blank=True)
-        #     name = models.CharField(max_length=100, blank=True)
-        #     datetime = models.DateTimeField(auto_now_add=True)
-        #     ip_address = models.CharField(max_length=100, blank=True)
-        #     variation = models.CharField(max_length=10, blank=True)
-        #     level = models.CharField(max_length=100, blank=True)
-        #
-        #     comment = models.CharField(max_length=1000, blank=True)
-        #
-        #     def __unicode__(self):
-        #         return self.email
-        #
-        #
-        # class LandingForm(ModelForm):
-        #     class Meta:
-        #         model = LandingPage
-        #         fields = ('email', )
-        #
-        #
-        # class ContributeForm(ModelForm):
-        #     class Meta:
-        #         model = LandingPage
-        #         fields = ('name', 'email', 'comment', )
-        #
-        #         widgets = {
-        #             'comment': Textarea(attrs={'cols': 80, 'rows': 10}),
-        #         }
+class OpportunityForm(ModelForm):
+    class Meta:
+        model = Opportunity
+        fields = ('name', 'description',)
+        
+        widgets = {
+            'description': Textarea(attrs={'cols': 80, 'rows': 10}),
+        }
+
