@@ -72,6 +72,25 @@ def login_page(request):
 
 def homepage(request):
     return render_to_response('homepage.html', {}, context_instance=RequestContext(request))
+
+def view_project(request, *args):
+    try:
+        project = Project.objects.get(id=args[0])
+    except ObjectDoesNotExist:
+        return HttpResponse("error - no project found")
+    return render_to_response('project.html', {
+                            "project": project
+        }, context_instance=RequestContext(request))
+
+def view_opportunity(request, *args):
+    try:
+        opp = Opportunity.objects.get(id=args[0])
+    except ObjectDoesNotExist:
+        return HttpResponse("error - no opportunity found")
+    return render_to_response('opportunity.html', {
+                            "opportunity": opp,
+                            "project": opp.project
+        }, context_instance=RequestContext(request))
     
 def add_project(request):
     # Show the sign page and collect emails

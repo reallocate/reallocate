@@ -13,8 +13,12 @@ urlpatterns = patterns('',
                        (r'^logout/$', 'django.contrib.auth.views.logout', {'next_page': '/'}),
 
                        url(r'^$', 'website.views.homepage', name='homepage'),
+                       
                        url(r'^add_project/$', 'website.views.add_project', name='add_project'),
                        url(r'^project/(.*?)/add_opportunity/$', 'website.views.add_opportunity', name='add_opportunity'),
+                       
+                       url(r'^project/(.*?)$', 'website.views.view_project', name='view_project'),
+                       url(r'^opportunity/(.*?)$', 'website.views.view_opportunity', name='view_opportunity'),
                        
                        url(r'^login', 'website.views.login_page', name='login_page'),
 
