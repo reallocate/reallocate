@@ -1,0 +1,27 @@
+{% extends 'theme/base.html' %}
+{% load i18n %}
+
+{% trans "This is the title" as the_title %}
+
+{% block meta_description %}{{ the_title }}{% endblock %}
+{% block title %}{{ the_title }}{% endblock %}
+
+{% block maincontent %}
+
+    <h1></h1>
+
+    <div class="container-fluid">
+        <div class="row-fluid">
+            Project: {{ project.name }}
+        </div>
+        <div class="row-fluid">
+            Opportunity: {{ opportunity.name }}
+        </div>
+    </div>
+
+
+{% endblock %}
+
+{% block bottomscript %}
+{#    <script src="/static/js/main.js"></script>#}
+{% endblock %}
