@@ -61,29 +61,30 @@
         </div>
         
         <div class="row opportunties_row">
-            <div class="span3">
-                <div class="opportunity_container">
-                    <div class="opportunity_thumb">
-                        <img src="/static/images/darkearth.png"/>
-                    </div>
-                    <div class="opportunity_lower">
-                        <div class="opportunity_short_desc">
-                            Create a new global marketplace to move the world from money to meaning. Connect people with opportunities to use their skills for good!<span class="learn_more"> <a href="">Learn more...</a></span>
+            {% for project in projects %}
+                <div class="span3">
+                    <div class="opportunity_container">
+                        <div class="opportunity_thumb">
+                            <img src="/static/images/darkearth.png"/>
                         </div>
-                        <div class="location">
-                            <a href="">San Francisco, CA</a>
-                        </div>
-                        <div class="organization">
-                            <a href="">ReAllocate</a>
+                        <div class="opportunity_lower">
+                            <div class="">
+                                {{ project.name }}   
+                            </div>
+                            <div class="opportunity_short_desc">
+                                {{ project.description }}   
+                            </div>
+                            <div class="location">
+                                <a href="">San Francisco, CA</a>
+                            </div>
+                            <div class="organization">
+                                <a href="">ReAllocate</a>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="span3">asdf</div>
-            <div class="span3">asdf</div>
-            <div class="span3">asdf</div>
+            {% endfor %}
         </div>
-
 
 {% endblock %}
 

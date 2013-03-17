@@ -7,7 +7,18 @@
       "datetime": "2013-01-01 05:00",
       "status" : "published",
       "industry" : "seal clubbing",
-      "description" : "SEAAALSSSS"
+      "description" : "There is an overabundance of mountain seals and the population must be controlled.  Empty Jameson bottles are required for clubbing"
+    }
+  },
+  {
+    "model": "website.Project",
+    "pk": 2,
+    "fields": {
+      "name" : "Banana Cultivation",
+      "datetime": "2013-01-01 05:00",
+      "status" : "published",
+      "industry" : "Banana Pealing",
+      "description" : "Bannanas need to be peeled for all the monkeys disabled monkeys"
     }
   },
   {
@@ -19,6 +30,17 @@
       "name": "Jameson required",
       "status": "published",
       "description": "If one doesn't have jam-o, you cant kill seals"
+    }
+  },
+    {
+    "model": "website.Opportunity",
+    "pk": 2,
+    "fields": {
+      "project": "1",
+      "datetime": "2013-01-01 05:00",
+      "name": "John Doe",
+      "status": "published",
+      "description": "Hahaha"
     }
   }
 ]

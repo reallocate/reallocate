@@ -31,7 +31,8 @@ def login_page(request):
 # landing_instance.ip_address = request.META['REMOTE_ADDR']
 
 def homepage(request):
-    return render_to_response('homepage.html', {}, context_instance=RequestContext(request))
+    projects = Project.objects.all()[:6]
+    return render_to_response('homepage.html', { 'projects': projects }, context_instance=RequestContext(request))
 
 def test_project(request):
 
@@ -114,9 +115,10 @@ def add_project(request):
         "show_invite": show_invite
     }, context_instance=RequestContext(request))
 
-def add_opportunity(request, *args):
+
+def add_opportunity(request, oid=1):
     # Create new Opportunity
-    parent_project = get_object_or_404(Project, pk=args[0])
+    parent_project = get_object_or_404(Project, pk=oid)
     show_form = True
     
     if request.method == "POST":
