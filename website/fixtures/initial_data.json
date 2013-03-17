@@ -4,8 +4,8 @@
     "model": "auth.user",
     "fields": {
         "username": "admin",
-        "first_name": "",
-        "last_name": "",
+        "first_name": "AFirstname",
+        "last_name": "ALastname",
         "is_active": true,
         "is_superuser": true,
         "is_staff": true,
@@ -15,6 +15,16 @@
         "password": "pbkdf2_sha256$10000$tUp4m519rBEb$vUsACJf4wBVy1UZkj58tUJdHn/tM4jeSEVwFaE57JPc=",
         "email": "admin@reallocate.org",
         "date_joined": "2013-03-17T03:12:31.196Z"
+    }
+  },
+  {
+    "model": "website.UserProfile",
+    "pk": 1,
+    "fields": {
+      "user": 1,
+      "bio" : "I am a real person.",
+      "media_url" : "http://a1.s6img.com/cdn/0009/p/2250559_9176873_lz.jpg",
+      "followed_projects": [1]
     }
   },
   {

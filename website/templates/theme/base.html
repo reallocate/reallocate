@@ -41,7 +41,11 @@
 {% endblock %}
 
 <div class="container main_container">
-
+     
+    {% if topmsg|default:'' != ''%}
+        <div class='topmsg'>{{ topmsg }}</div>
+    {% endif %}
+    
     {% block maincontent %}
     {% endblock %}
 
