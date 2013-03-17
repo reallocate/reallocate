@@ -108,9 +108,10 @@ def add_project(request):
         "show_invite": show_invite
     }, context_instance=RequestContext(request))
 
-def add_opportunity(request, *args):
+
+def add_opportunity(request, oid=1):
     # Create new Opportunity
-    parent_project = get_object_or_404(Project, pk=args[0])
+    parent_project = get_object_or_404(Project, pk=oid)
     show_form = True
     
     if request.method == "POST":
