@@ -18,6 +18,24 @@
     }
   },
   {
+    "pk": 2,
+    "model": "auth.user",
+    "fields": {
+        "username": "TimmyLip",
+        "first_name": "Tim",
+        "last_name": "Lipton",
+        "is_active": true,
+        "is_superuser": true,
+        "is_staff": true,
+        "last_login": "2013-03-17T03:12:54.419Z",
+        "groups": [],
+        "user_permissions": [],
+        "password": "pbkdf2_sha256$10000$tUp4m519rBEb$vUsACJf4wBVy1UZkj58tUJdHn/tM4jeSEVwFaE57JPc=",
+        "email": "tim@reallocate.org",
+        "date_joined": "2013-03-17T03:12:31.196Z"
+    }
+  },
+  {
     "model": "website.UserProfile",
     "pk": 1,
     "fields": {
@@ -190,7 +208,7 @@
         "project": 1,
         "text": "Mike North at TedXSendai",
         "opportunity": 1,
-        "user_profile": 1,
+        "user_profile": 2,
         "media_url": "http://www.youtube.com/watch?v=5adBpmAx1Cc"
     }
 },
@@ -217,19 +235,9 @@
         "media_url": "http://4.bp.blogspot.com/-NPrNZDLLWh8/TWdRcFgOVuI/AAAAAAAAAC0/0UNtjmJp2oo/s1600/steve-prefontaine-poster-olympic.jpg"
     }
 },
+
 {
     "pk": 5,
-    "model": "website.Update",
-    "fields": {
-        "project": 2,
-        "text": "Mike North at TedXSendai",
-        "opportunity": 1,
-        "user_profile": 1,
-        "media_url": "http://www.youtube.com/watch?v=5adBpmAx1Cc"
-    }
-},
-{
-    "pk": 6,
     "model": "website.Update",
     "fields": {
         "project": 2,
@@ -238,6 +246,51 @@
         "user_profile": 1,
         "media_url": ""
     }
+},
+{
+    "pk": 6,
+    "model": "website.Update",
+    "fields": {
+        "project": 3,
+        "text": "Live Action from the Hack Day!",
+        "opportunity": 1,
+        "user_profile": 1,
+        "media_url": "http://www.youtube.com/watch?v=1aT06bbh47A"
+    }
+},
+{
+    "pk": 7,
+    "model": "website.Update",
+    "fields": {
+        "project": 2,
+        "text": "Cordova Community Cold Storage created an opportunity to provide materials",
+        "opportunity": 3,
+        "user_profile": 1,
+        "media_url": "http://www.freakygaming.com/gallery/game_art/starcraft_2/human_space_station.jpg"
+    }
+},
+{
+    "pk": 8,
+    "model": "website.Update",
+    "fields": {
+        "project": 4,
+        "text": "Miracle Brace created an opportunity to build a prototype",
+        "opportunity": 4,
+        "user_profile": 1,
+        "media_url": ""
+    }
+},
+{
+    "pk": 9,
+    "model": "website.Update",
+    "fields": {
+        "project": 4,
+        "text": "I would love to help create the prototype for the brace!",
+        "opportunity": 4,
+        "user_profile": 1,
+        "media_url": ""
+    }
 }
+
 
 ]
