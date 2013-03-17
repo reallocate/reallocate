@@ -2,6 +2,18 @@
     margin-top: 60px
 }
 
+.project_wrap .project_title{
+    height: 70px;    
+}
+
+.project_wrap .vision {
+    height: 100px;
+}
+
+.project_wrap .backstory {
+    height: 100px;    
+}
+
 .form-title {
     margin-left: 30px;
 }
