@@ -10,6 +10,8 @@ from django.views.decorators.csrf import csrf_exempt, csrf_protect
 
 from website.lib.ses_email import send_email
 from models import UserProfile
+from models import Project
+from models import Opportunity
 
 from website.models import ProjectForm, OpportunityForm, Project, Opportunity
 
@@ -32,6 +34,7 @@ def homepage(request):
     return render_to_response('homepage.html', {}, context_instance=RequestContext(request))
 
 def test_project(request):
+
     return render_to_response('project.html', {}, context_instance=RequestContext(request))
 
 @csrf_exempt
@@ -73,9 +76,13 @@ def login_user(request):
     return render_to_response('auth.html',{'state':state, 'username': username})
 
 def view_project(request, *args):
+
     project = get_object_or_404(Project, pk=args[0])
+    opportunities= Opportunity.objects.filter(project=project)
+
     return render_to_response('project.html', {
-                            "project": project
+                            "project": project,
+                            "opportunities":opportunities,
         }, context_instance=RequestContext(request))
 
 def view_opportunity(request, *args):

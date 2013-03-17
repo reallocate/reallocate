@@ -1,0 +1,17 @@
+Metadata-Version: 1.0
+Name: django-storages
+Version: 1.1.6
+Summary: Support for many storages (S3, MogileFS, etc) in Django.
+Home-page: http://code.welldev.org/django-storages/
+Author: David Larlet
+Author-email: david@larlet.fr
+License: BSD
+Description: UNKNOWN
+Platform: UNKNOWN
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Environment :: Web Environment
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: BSD License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Framework :: Django
