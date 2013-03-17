@@ -156,7 +156,7 @@ INSTALLED_APPS = (
     # Admin apps
     'django.contrib.admin',
     'social_auth',
-    'storages',
+    #'storages',
 
     # 'south',  # must be at the end of app list
 )
