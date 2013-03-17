@@ -19,7 +19,8 @@
     }
     
     .home_feature_slider {
-        
+        background: url('/static/images/hero.png');
+        height: 300px;
     }
     .opportunties_row {
         margin-top: 30px;
@@ -50,15 +51,12 @@
 </style>
 {% endblock %}
 
+
+{% block hero %}
+    <div class="home_feature_slider"></div>
+{% endblock %}
 {% block maincontent %}
 
-        <div class="row">
-            <div class="span12 feature_container">
-                <div class="home_feature_slider">
-                    <img src="/static/images/slider1.png"/>
-                </div>
-            </div>
-        </div>
         
         <div class="row opportunties_row">
             {% for project in projects %}
