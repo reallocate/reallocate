@@ -19,8 +19,17 @@
             <div class="nav-collapse collapse">
                 <ul class="nav pull-right" id="auth">
                     {% if user.is_authenticated %}
-                        <li><a href="/logout">Logout</a></li>
-                        <li><a href="/profile">Profile</a></li>
+                        <li class="dropdown">
+                            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                                {{ user.email }}
+                                <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/profile">Profile</a></li>
+                                <li class="divider"></li>
+                                <li><a href="/logout">Logout</a></li>
+                            </ul>
+                        </li> 
                     {% else %}
                         <li><a href="/login">Login</a></li>
                         <li><a href="/signup">Sign Up</a></li>
