@@ -1,5 +1,5 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.exceptions import ObjectDoesNotExist
@@ -73,19 +73,13 @@ def login_user(request):
     return render_to_response('auth.html',{'state':state, 'username': username})
 
 def view_project(request, *args):
-    try:
-        project = Project.objects.get(id=args[0])
-    except ObjectDoesNotExist:
-        return HttpResponse("error - no project found")
+    project = get_object_or_404(Project, pk=args[0])
     return render_to_response('project.html', {
                             "project": project
         }, context_instance=RequestContext(request))
 
 def view_opportunity(request, *args):
-    try:
-        opp = Opportunity.objects.get(id=args[0])
-    except ObjectDoesNotExist:
-        return HttpResponse("error - no opportunity found")
+    opp = get_object_or_404(Opportunity, pk=args[0])
     return render_to_response('opportunity.html', {
                             "opportunity": opp,
                             "project": opp.project
@@ -115,14 +109,9 @@ def add_project(request):
 
 def add_opportunity(request, *args):
     # Create new Opportunity
-    
-    print args
-    try:
-        parent_project = Project.objects.get(id=args[0])
-    except ObjectDoesNotExist:
-        return HttpResponse("error - no project found")
-    
+    parent_project = get_object_or_404(Project, pk=args[0])
     show_form = True
+    
     if request.method == "POST":
         myform = OpportunityForm(request.POST)
         new_instance = myform.save(commit=False)
