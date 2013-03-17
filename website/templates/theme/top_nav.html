@@ -16,6 +16,7 @@
                 </ul>
             </div>
             
+            <div class="nav-collapse collapse">
             <ul class="nav pull-right">
                 {% if user.is_authenticated %}
                     <li><a href="/logout">Logout</a></li>
@@ -24,6 +25,7 @@
                     <li><a href="/signup">Sign Up</a></li>
                 {% endif %}
             </ul>
+            </div>
             <!--/.nav-collapse -->
         </div>
     </div>

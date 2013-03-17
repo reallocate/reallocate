@@ -3,10 +3,19 @@ body {
     background: url('/static/images/gray_jean.png');
     font-family: "Helvetica Neue", Helvetica, Verdana;
 }
-        
+
 .navbar .brand img {
     width: 200px !important;
 }
+
+.navbar .nav a strong {
+    color: #0096BB;
+}
+
+.navbar .nav.pull-right a {
+    color: #0096BB;
+}
+
 .opportunity_container {
     background: #fff;
     height: 360px;
