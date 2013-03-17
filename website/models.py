@@ -11,6 +11,7 @@ class Project(models.Model):
     date_created = models.DateTimeField(auto_now_add=True)
     description = models.CharField(max_length=1000, blank=True)
     media_url = models.CharField(max_length=200, blank=True)
+    followed_by = models.ManyToManyField(User, blank=True)
     def __unicode__(self):
         return "Name: %s" % self.name
 
@@ -59,7 +60,6 @@ class OpportunityForm(ModelForm):
 class UserProfile(models.Model):
     user = models.OneToOneField(User)
     bio = models.CharField(max_length=2000, blank=True)
-    followed_projects = models.ManyToManyField(Project, blank=True)
     media_url = models.CharField(max_length=2000, blank=True)
     # engaged_opportunities = models.ManyToManyField(Opportunity, blank=True)
     # skills

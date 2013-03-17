@@ -41,8 +41,7 @@
     "fields": {
       "user": 1,
       "bio" : "I am a real person.",
-      "media_url" : "http://a1.s6img.com/cdn/0009/p/2250559_9176873_lz.jpg",
-      "followed_projects": [1]
+      "media_url" : "http://a1.s6img.com/cdn/0009/p/2250559_9176873_lz.jpg"
     }
   },
   {
@@ -54,7 +53,8 @@
       "status" : "published",
       "industry" : "seal clubbing",
       "description" : "There is an overabundance of mountain seals and the population must be controlled.  Empty Jameson bottles are required for clubbing",
-      "media_url" : "http://farm9.staticflickr.com/8492/8324935864_1854806f04_z.jpg"    
+      "media_url" : "http://farm9.staticflickr.com/8492/8324935864_1854806f04_z.jpg",
+      "followed_by": [1]
     }
   },
   {
