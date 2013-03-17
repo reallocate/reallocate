@@ -28,6 +28,7 @@ class ProjectForm(ModelForm):
 class Opportunity(models.Model):
     project = models.ForeignKey(Project)
     name = models.CharField(max_length=100, blank=True)
+    media_url = models.CharField(max_length=200, blank=True)
     status = models.CharField(max_length=100, blank=True, default='unpublished')
     datetime = models.DateTimeField(auto_now_add=True)
     description = models.CharField(max_length=1000, blank=True)
