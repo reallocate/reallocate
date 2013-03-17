@@ -85,12 +85,12 @@
         <br>
 
         <div class="row project_row">
-            {% for opportunity in opportunities %}
+            {% for project in projects %}
                 <div class="span3">
                     <div class="project_container">
                         <div class="project_lower">
                             <div class="name">
-                                {{ opportunity.name }}
+                                <a href="/project/{{ project.id }}">{{ project.name }}</a>
                             </div>
 
 {#                            <div class="organization">#}

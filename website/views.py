@@ -90,8 +90,8 @@ def login_user(request):
     return render_to_response('login.html',{'state':state, 'username': username}, context_instance=RequestContext(request))
 
 
-def view_project(request, *args):
-    project = get_object_or_404(Project, pk=args[0])
+def view_project(request, pid=1):
+    project = get_object_or_404(Project, pk=pid)
     opportunities = Opportunity.objects.filter(project=project)
     updates = Update.objects.filter(project=project)
     return render_to_response('project.html', {
