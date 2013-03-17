@@ -20,7 +20,7 @@ from myproject.settings_local import AWS_SECRET_ACCESS_KEY, AWS_ACCESS_KEY_ID
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 APP_NAME = 'reallocate'
-AWS_STORAGE_BUCKET_NAME = 'django-bootstrap'
+AWS_STORAGE_BUCKET_NAME = 'production-reallocate'
 
 
 DEBUG = True
