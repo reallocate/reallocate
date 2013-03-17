@@ -23,14 +23,14 @@ var modify_project_relation = function(elem, action){
             data : { 'project_id': project_id, 'action': action},
             success :function(res){
                if (action == 'follow'){
-                  alert("You have succesfully followed this project");
+                  console.log("You have succesfully followed this project");
                }
                else if(action == 'unfollow'){
-                  alert("You have succesfully unfollowed this project");
+                  console.log("You have succesfully unfollowed this project");
                }
             },
             error : function(res){
-               alert("failure to follow/unfollow");
+               console.log("failure to follow/unfollow");
             }
    });
 }
