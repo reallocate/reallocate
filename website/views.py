@@ -89,6 +89,7 @@ def view_project(request, pid=1):
     model = {
         "project": project,
         "opportunities": Opportunity.objects.filter(project=project),
+        "num_opportunities": Opportunity.objects.filter(project=project).count(),
         "updates": Update.objects.filter(project=project)
     }
     

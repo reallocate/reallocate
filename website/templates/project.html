@@ -48,7 +48,18 @@
         #updates .updateRow {
             border-bottom: 1px solid #7d7d7d;
         }
-
+        
+        .project_top {
+            border-bottom: 1px dotted #444;
+        }
+        
+        .project_top .stat-label {
+            font-weight: 100;
+        }
+        .project_top .number {
+            font-size: 2em;
+            margin-bottom: 5px;
+        }
     </style>
 {% endblock %}
 {% block maincontent %}
@@ -63,46 +74,51 @@
     </div>
     
     <div class="project_wrap container">
-        <div class="row">
-            <div class="span3">
-                <img src="/static/images/cordova1.png"/>
-            </div>
-            <div class="span9">
+        <div class="row-fluid">
+            <div class="span12">
                 <div class="project_title">
-                    <h1 style='float:left;'>{{ project.name }}</h1>
-                    <div class='follow-or-not'>
-                        <a href='#' class='login-required unfollow-project' {% if not is_following %}style='display:none;'{% endif %}project-id="{{ project.id }}">Stop Following</a>
-                        <a href='#' class='login-required follow-project' {% if is_following %}style='display:none;'{% endif %} project-id="{{ project.id }}">Follow</a>
-                    </div>
-                    <div class='num-follower-container'>
-                        <span id='num-following'>{{ num_following }}</span> followers
-                    </div>
-                </div>
-                <div class="vision">
-                    {{ project.description }}
-                </div>
-                <a href='#' class='login-required follow-project' project-id="{{ project.id }}">Follow this project</a>
-                <div class="backstory">
-                    The story | The Team | The Community
+                    <h1 class="text-center">{{ project.name }}</h1>
                 </div>
             </div>
         </div>
-        <div class="row project_lower">
-            <div class="span4" id="opportunity_list">
-                {% for opp in opportunities%}
-                <div class="row-fluid oppRow">
-                    <div class="span2">
-                        <img class="oppThumb" src="{{ opp.media_url }}"/>
+        <div class="row-fluid project_top">
+            <div class="span8 project_media_url">
+                <img src="{{ project.media_url }}"/>
+            </div>
+            
+            <div class="span4">
+                <div class="row-fluid" id="statistics">
+                    <div class="stat span4">
+                        <div id="num-following" class="text-center number">{{ num_following }}</div>
+                        <div class="stat-label text-center">followers</div>
                     </div>
-                    <div class="span10">
-                        <div class="oppTitle"> {{opp.name}} </div>
-                        <div class="oppDescription"> {{opp.description}}</div>
-                        <a href="/opportunity/{{opp.id}}">Get Involved</a>
+                    <div class="stat span4">
+                        <div class="text-center number">0</div>
+                        <div class="stat-label text-center">participants</div>
+                    </div>
+                    <div class="stat span4">
+                        <div class="text-center number">{{ num_opportunities }}</div>
+                        <div class="stat-label text-center">opportunities</div>
                     </div>
                 </div>
-                {% endfor %}
+                
+                <div class='follow-or-not'>
+                    <a href="#" class="btn btn-primary login-required unfollow-project" {% if not is_following %}style='display:none;'{% endif %}project-id="{{ project.id }}">Following</a>
+                    <a href="#" class="btn login-required follow-project" {% if is_following %}style='display:none;'{% endif %} project-id="{{ project.id }}">Follow</a>
+                </div>  
             </div>
-    
+            <div class="row-fluid">
+                <div class="span8">
+                    <div class="vision">
+                        {{ project.description }}
+                    </div>
+                    <div class="backstory">
+                        The story | The Team | The Community
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row-fluid project_lower">
             <div class="span7" id="updates">
                 {% for update in updates%}
                     <div class="row-fluid updateRow">
@@ -118,6 +134,22 @@
                     </div>
                 {% endfor %}
             </div>
+            
+            <div class="span4" id="opportunity_list">
+                {% for opp in opportunities%}
+                <div class="row-fluid oppRow">
+                    <div class="span2">
+                        <img class="oppThumb" src="{{ opp.media_url }}"/>
+                    </div>
+                    <div class="span10">
+                        <div class="oppTitle"> {{opp.name}} </div>
+                        <div class="oppDescription"> {{opp.description}}</div>
+                        <a href="/opportunity/{{opp.id}}">Get Involved</a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+                        
         </div>
 
     </div>
