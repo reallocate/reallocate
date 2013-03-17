@@ -7,56 +7,58 @@
 {% block title %}{{ the_title }}{% endblock %}
 
 {% block extra_css %}
-<style>
-    
-    .navbar .nav {
-        margin: 10px 10px 0 0;
-    }
-    
-    .feature_container {
-        height: 400px;
-        margin-top: 60px;  
-    }
-    
-    .home_feature_slider {
-        background: url('/static/images/hero.png');
-        height: 300px;
-    }
-    .opportunties_row {
-        margin-top: 30px;
-    }
-    
-    .opportunity_container {
-        height: 360px;
-        box-shadow: 2px 2px 7px #5e5e5e;
-        -moz-box-shadow: 2px 2px 7px #5e5e5e;
-        -webkit-box-shadow: 2px 2px 7px #5e5e5e;
-    }
+    <style>
 
-    .opportunity_lower {
-        padding: 10px;   
-    }
-    .opportunity_lower .name {
-            
-    }
+        .navbar .nav {
+            margin: 10px 10px 0 0;
+        }
 
-    .opportunity_lower .short_desc {
-        margin-top:5px;
-        min-height: 90px;
-    }
-    
-    .opportunity_lower .location {
-        margin-top: 5px;
-    }
-    
-    .opportunity_lower .organization {
-        margin-top: 5px;
-    }
-    
-    footer {
-        margin-top: 30px;
-    }
-</style>
+        .feature_container {
+            height: 400px;
+            margin-top: 60px;
+        }
+
+        .home_feature_slider {
+            background: url('/static/images/hero.png');
+            height: 300px;
+        }
+
+        .opportunties_row {
+            margin-top: 30px;
+        }
+
+        .opportunity_container {
+            height: 360px;
+            box-shadow: 2px 2px 7px #5e5e5e;
+            -moz-box-shadow: 2px 2px 7px #5e5e5e;
+            -webkit-box-shadow: 2px 2px 7px #5e5e5e;
+        }
+
+        .opportunity_lower {
+            padding: 10px;
+        }
+
+        .opportunity_lower .name {
+
+        }
+
+        .opportunity_lower .short_desc {
+            margin-top: 5px;
+            min-height: 90px;
+        }
+
+        .opportunity_lower .location {
+            margin-top: 5px;
+        }
+
+        .opportunity_lower .organization {
+            margin-top: 5px;
+        }
+
+        footer {
+            margin-top: 30px;
+        }
+    </style>
 {% endblock %}
 
 
@@ -79,29 +81,13 @@
     <div class="row-fluid">
 
     <div class="span3 left">
-        Projects:
+        <h3>Projects:</h3>
         <br>
-        <br>
-        <br>
-
-        <div class="row project_row">
-            {% for project in projects %}
-                <div class="span3">
-                    <div class="project_container">
-                        <div class="project_lower">
-                            <div class="name">
-                                <a href="/project/{{ project.id }}">{{ project.name }}</a>
-                            </div>
-
-{#                            <div class="organization">#}
-{#                                (<a href="">ReAllocate</a>)#}
-{#                            </div>#}
-
-                        </div>
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
+        {% for project in projects %}
+            <div class="project_container">
+                <a href="/project/{{ project.id }}">{{ project.name }}</a>
+            </div>
+        {% endfor %}
     </div>
 
     <div class="span9">
@@ -137,6 +123,6 @@
 {% endblock %}
 
 {% block bottomscript %}
-{#    <script src="/static/js/main.js"></script>#}
+    {#    <script src="/static/js/main.js"></script>#}
 {% endblock %}
 
