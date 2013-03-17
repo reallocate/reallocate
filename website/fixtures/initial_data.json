@@ -198,11 +198,11 @@
     "pk": 3,
     "model": "website.Update",
     "fields": {
-        "project": 1,
-        "text": "Link to hamsters! http://3.bp.blogspot.com/_4cAVYhmiaXU/S7FZcZ2iDKI/AAAAAAAAAn4/yH0vbDxFflU/s1600/HPIM1595.JPG",
-        "opportunity": 1,
+        "project": 2,
+        "text": "\"Rural Alaskans rely on subsistence food for their way of life. This means they harvest, process and store their own food to feed their families and survive the long Alaskan winters. In the Alaskan frontier there is no Walmart, no convenience store and your delivery driver flies an airplane! In partnership with the Eyak Preservation Council and the University of California, Berkeley, ReAllocate is helping to build a community cold storage facility in Cordova, Alaska. This facility is an innovative approach to providing high quality subsistence food processing for rural populations. It will also create new sustainable economic opportunities for commercial fishermen, by opening direct-to-market sales channels, increasing their earning potential and improving existing cottage industries. All of rural Alaska faces the challenge of maintaining a high-quality subsistence food supply. Food processing centers are built to serve large corporate clients and are not suited for the needs of smaller commercial and rural fishers and hunters. This means it's harder for rural families to process and store their food for survival and independant commercial fishermen are forced to sell their catch to large canneries at a fraction of the cost of selling direct-to-market.\"",
+        "opportunity": 2,
         "user_profile": 1,
-        "media_url": "" 
+        "media_url": ""
     }
 },
 {
@@ -214,6 +214,17 @@
         "opportunity": 1,
         "user_profile": 1,
         "media_url": "http://4.bp.blogspot.com/-NPrNZDLLWh8/TWdRcFgOVuI/AAAAAAAAAC0/0UNtjmJp2oo/s1600/steve-prefontaine-poster-olympic.jpg"
+    }
+},
+{
+    "pk": 5,
+    "model": "website.Update",
+    "fields": {
+        "project": 2,
+        "text": "Mike North at TedXSendai",
+        "opportunity": 1,
+        "user_profile": 1,
+        "media_url": "http://www.youtube.com/watch?v=5adBpmAx1Cc"
     }
 }
 
