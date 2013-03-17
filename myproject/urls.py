@@ -27,7 +27,7 @@ urlpatterns = patterns('',
 
                        # couldn't figure out how to make the o-auth pages not default send to /private
                        # so what should be /profile is staying /private for now.
-                       url(r'^private$', 'website.views.profile', name='profile'),
+                       url(r'^profile', 'website.views.profile', name='profile'),
 
                        # Admin site
                        url(r'^admin/', include(admin.site.urls)),
