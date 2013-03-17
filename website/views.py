@@ -54,9 +54,9 @@ def signup(request):
     user.save()
 
     # Append the newly-created user with a company.
-    user_profile = UserProfile()
-    user_profile.user = user
-    user_profile.save()
+    #user_profile = UserProfile()
+    #user_profile.user = user
+    #user_profile.save()
 
     return HttpResponseRedirect('/login/')
 
@@ -73,7 +73,7 @@ def login_user(request):
         if user is not None:
             if user.is_active:
                 login(request, user)
-                state = "You're successfully logged in!"
+                return HttpResponseRedirect('/find-opportunity')
             else:
                 state = "Your account is not active, please contact the site admin."
         else:
