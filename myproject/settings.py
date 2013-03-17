@@ -76,7 +76,7 @@ MEDIA_URL = ''
 #STATIC_ROOT = os.path.join(PROJECT_ROOT, STATIC_URL.strip("/"))
 # print STATIC_ROOT
 
-STATIC_ROOT = 'static'
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'website', 'static')
 STATIC_URL = '/static/'
 
 
