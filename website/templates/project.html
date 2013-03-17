@@ -14,6 +14,7 @@
             height: 100px;
             margin-bottom: 10px;
         }
+
         .oppThumb{
             width: 50px;
             height: 50px;
@@ -77,6 +78,7 @@
                 <div class="vision">
                     {{ project.description }}
                 </div>
+                <a href='#' class='login-required follow-project' project-id="{{ project.id }}">Follow this project</a>
                 <div class="backstory">
                     The story | The Team | The Community
                 </div>
@@ -87,12 +89,12 @@
                 {% for opp in opportunities%}
                 <div class="row-fluid oppRow">
                     <div class="span2">
-                        <img class="oppThumb" src="http://bp3.blogger.com/_PyBdAh0k7GA/Rwzb8ZlM_cI/AAAAAAAAAK4/5CnAGdL7meA/s400/armed-baby-hamster.jpg"/>
+                        <img class="oppThumb" src="{{ opp.media_url }}"/>
                     </div>
                     <div class="span10">
                         <div class="oppTitle"> {{opp.name}} </div>
                         <div class="oppDescription"> {{opp.description}}</div>
-                        <a href="http://www.google.com">Get Involved</a>
+                        <a href="/opportunity/{{opp.id}}">Get Involved</a>
                     </div>
                 </div>
                 {% endfor %}
@@ -114,7 +116,7 @@
                 {% endfor %}
             </div>
         </div>
-        
+
     </div>
     <!-- /container -->
 

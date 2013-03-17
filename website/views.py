@@ -100,9 +100,20 @@ def view_project(request, pid=1):
 
 def view_opportunity(request, *args):
     opp = get_object_or_404(Opportunity, pk=args[0])
+    project = get_object_or_404(Project, pk=opp.project.id)
+    updates = Update.objects.filter(opportunity=opp)
+
+    other_opps = Opportunity.objects.filter(project=opp.project)
+    other_opps_clean = []
+    for other_opp in other_opps:
+        if not opp.id == other_opp.id:
+            other_opps_clean.append(other_opp)
+
     return render_to_response('opportunity.html', {
         "opportunity": opp,
-        "project": opp.project
+        "project": project,
+        "other_opps": other_opps_clean,
+        "updates": updates,
     }, context_instance=RequestContext(request))
 
 
