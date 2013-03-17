@@ -28,24 +28,16 @@ def login_page(request):
     }, context_instance=RequestContext(request))
 
 def homepage(request):
-    opportunities = Opportunity.objects.all()[:6]
-    projects = Opportunity.objects.all()[:6]
-
-    return render_to_response('homepage.html',
-                              {'opportunities': opportunities,
-                               'projects': projects},
+    opportunities = Opportunity.objects.all()[:4]
+    return render_to_response('homepage.html', {'opportunities': opportunities},
                               context_instance=RequestContext(request))
-
 
 def opportunity_list(request):
     opportunities = Opportunity.objects.all()[:6]
     projects = Opportunity.objects.all()[:6]
 
-    return render_to_response('opportunity_list.html',
-                              {'opportunities': opportunities,
-                               'projects': projects},
+    return render_to_response('opportunity_list.html', {'opportunities': opportunities},
                               context_instance=RequestContext(request))
-
 
 def test_project(request):
     return render_to_response('project.html', {}, context_instance=RequestContext(request))
