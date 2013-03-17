@@ -76,6 +76,7 @@ STATIC_ROOT = os.path.join(PROJECT_ROOT, "static_root")
 #STATIC_ROOT = os.path.join(PROJECT_ROOT, STATIC_URL.strip("/"))
 # print STATIC_ROOT
 
+STATIC_ROOT = ''
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
@@ -155,7 +156,7 @@ INSTALLED_APPS = (
     # Admin apps
     'django.contrib.admin',
     'social_auth',
-    'storages',
+    #'storages',
 
     # 'south',  # must be at the end of app list
 )
@@ -235,9 +236,6 @@ SOCIAL_AUTH_UUID_LENGTH = 16
 
 # Django storages to store files on S3
 
-if DEPLOY_ENV != 'dev':
-    STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
-    DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 
 #############
 # DATABASES #

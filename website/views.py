@@ -16,7 +16,6 @@ from models import Update
 
 from website.models import ProjectForm, OpportunityForm, Project, Opportunity
 
-
 @login_required
 def private(request):
     return render_to_response('private.html', {

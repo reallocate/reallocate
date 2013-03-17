@@ -2,7 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="27c19399-b9f2-4f86-ba53-547a0258a489" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/website/ajaxviews.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/website/static/js/main.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myproject/settings.py" afterPath="$PROJECT_DIR$/myproject/settings.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myproject/settings_local.env.sh" afterPath="$PROJECT_DIR$/myproject/settings_local.env.sh" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myproject/urls.py" afterPath="$PROJECT_DIR$/myproject/urls.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/website/models.py" afterPath="$PROJECT_DIR$/website/models.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/website/templates/project.html" afterPath="$PROJECT_DIR$/website/templates/project.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/website/templates/theme/base.html" afterPath="$PROJECT_DIR$/website/templates/theme/base.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/website/views.py" afterPath="$PROJECT_DIR$/website/views.py" />
     </list>
     <ignored path="ReAllocate.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -22,19 +30,19 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="project.html" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="project.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/website/templates/project.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="68" column="27" selection-start="1676" selection-end="1683" vertical-scroll-proportion="0.6698795">
+            <state line="66" column="1" selection-start="1612" selection-end="1631" vertical-scroll-proportion="-3.9636364">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="models.py" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="models.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/website/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="80" column="19" selection-start="2618" selection-end="2618" vertical-scroll-proportion="-61.52">
+            <state line="4" column="0" selection-start="165" selection-end="165" vertical-scroll-proportion="-2.3333333">
               <folding>
                 <element signature="e#0#28#0" expanded="true" />
               </folding>
@@ -57,8 +65,8 @@
       <list>
         <option value="$PROJECT_DIR$/website/admin.py" />
         <option value="$PROJECT_DIR$/website/views.py" />
-        <option value="$PROJECT_DIR$/website/models.py" />
         <option value="$PROJECT_DIR$/website/templates/project.html" />
+        <option value="$PROJECT_DIR$/website/models.py" />
       </list>
     </option>
   </component>
@@ -459,19 +467,19 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/website/models.py">
+    <entry file="file://$PROJECT_DIR$/website/templates/project.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="80" column="19" selection-start="2618" selection-end="2618" vertical-scroll-proportion="-61.52">
-          <folding>
-            <element signature="e#0#28#0" expanded="true" />
-          </folding>
+        <state line="66" column="1" selection-start="1612" selection-end="1631" vertical-scroll-proportion="-3.9636364">
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/website/templates/project.html">
+    <entry file="file://$PROJECT_DIR$/website/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="68" column="27" selection-start="1676" selection-end="1683" vertical-scroll-proportion="0.6698795">
-          <folding />
+        <state line="4" column="0" selection-start="165" selection-end="165" vertical-scroll-proportion="-2.3333333">
+          <folding>
+            <element signature="e#0#28#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

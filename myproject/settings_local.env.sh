@@ -17,4 +17,4 @@ export FACEBOOK_API_SECRET=xxxxxxxxxx
 export GOOGLE_OAUTH2_CLIENT_ID=xxxxxxxxxx
 export GOOGLE_OAUTH2_CLIENT_SECRET=xxxxxxxxxx
 export DEPLOY_ENV=dev
-
+export DJANGO_SETTINGS_MODULE=myproject.settings
