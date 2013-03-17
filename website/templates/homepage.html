@@ -37,7 +37,7 @@
         padding: 10px;   
     }
     .opportunity_lower .name {
-            
+        font-weight: bold;
     }
 
     .opportunity_lower .short_desc {
@@ -48,11 +48,17 @@
     .opportunity_lower .location {
         margin-top: 5px;
     }
+    .opportunity_lower .location a{
+        margin-left: 5px;
+    }
     
     .opportunity_lower .organization {
         margin-top: 5px;
     }
-    
+
+    .opportunity_lower .organization a{
+        margin-left: 5px;
+    }    
     footer {
         margin-top: 30px;
     }
@@ -81,10 +87,10 @@
                                 {{ opportunity.description }}   
                             </div>
                             <div class="location">
-                                <a href="">San Francisco, CA</a>
+                                <div class="icon-map-marker"></div><a href="">San Francisco, CA</a>
                             </div>
                             <div class="organization">
-                                <a href="">ReAllocate</a>
+                                <div class="icon-globe"></div><a href="">ReAllocate</a>
                             </div>
                         </div>
                     </div>

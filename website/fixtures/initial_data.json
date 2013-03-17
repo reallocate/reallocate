@@ -29,7 +29,7 @@
       "datetime": "2013-01-01 05:00",
       "name": "Jameson required",
       "status": "published",
-      "description": "If one doesn't have jam-o, you cant kill seals"
+      "description": "10 Bottles of Jameson needed to be drunk and then used to club seals"
     }
   },
     {
@@ -38,9 +38,49 @@
     "fields": {
       "project": "1",
       "datetime": "2013-01-01 05:00",
-      "name": "John Doe",
+      "name": "Energy Mapping",
       "status": "published",
-      "description": "Hahaha"
+      "description": "Complete an energy audit and map usage for community cold storage"
+    }
+    {
+    "model": "website.Opportunity",
+    "pk": 3,
+    "fields": {
+      "project": "1",
+      "datetime": "2013-01-01 05:00",
+      "name": "Create Product Prototype",
+      "status": "published",
+      "description": "Build a prototype brace to treat children with club foot"
+    }
+        {
+    "model": "website.Opportunity",
+    "pk": 4,
+    "fields": {
+      "project": "1",
+      "datetime": "2013-01-01 05:00",
+      "name": "Build an online Marketplace",
+      "status": "published",
+      "description": "Create an online marketplace to help projects connect with skilled volunteers to do good"
+    }
+        {
+    "model": "website.Opportunity",
+    "pk": 5,
+    "fields": {
+      "project": "1",
+      "datetime": "2013-01-01 05:00",
+      "name": "Build non profit website",
+      "status": "published",
+      "description": "Create a website for to help Todays Future Sound publish their work teaching children to DJ"
+    }
+        {
+    "model": "website.Opportunity",
+    "pk": 6,
+    "fields": {
+      "project": "1",
+      "datetime": "2013-01-01 05:00",
+      "name": "Create Product Prototype",
+      "status": "published",
+      "description": "Build a prototype for a radiation sensing RC vehicle to help children detect radiation in Fukushima Japan"
     }
   }
 ]
