@@ -61,11 +61,50 @@
 
 
 {% block hero %}
-    <div class="home_feature_slider"></div>
 {% endblock %}
 {% block maincontent %}
 
+    <div class="container">
 
+        <ul class="breadcrumb">
+            <li id="breadcrumb-menu-home"><a href="/">Home</a><span class="divider">/</span></li>
+            <li id="breadcrumb-menu-mission"
+                class="active">Opportunities
+            </li>
+        </ul>
+
+    </div>
+
+    <div class="container-fluid">
+    <div class="row-fluid">
+
+    <div class="span3 left">
+        Projects:
+        <br>
+        <br>
+        <br>
+
+        <div class="row project_row">
+            {% for opportunity in opportunities %}
+                <div class="span3">
+                    <div class="project_container">
+                        <div class="project_lower">
+                            <div class="name">
+                                {{ opportunity.name }}
+                            </div>
+
+{#                            <div class="organization">#}
+{#                                (<a href="">ReAllocate</a>)#}
+{#                            </div>#}
+
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="span9">
         <div class="row opportunties_row">
             {% for opportunity in opportunities %}
                 <div class="span3">
@@ -92,34 +131,8 @@
             {% endfor %}
         </div>
 
-    <hr>
-    Projects:<br>
-
-    <div class="row project_row">
-        {% for opportunity in opportunities %}
-            <div class="span3">
-                <div class="project_container">
-{#                    <div class="project_thumb">#}
-{#                        <img src="/static/images/darkearth.png"/>#}
-{#                    </div>#}
-                    <div class="project_lower">
-                        <div class="name">
-                            {{ opportunity.name }}
-                        </div>
-{#                        <div class="short_desc">#}
-{#                            {{ opportunity.description }}#}
-{#                        </div>#}
-{#                        <div class="location">#}
-{#                            <a href="">San Francisco, CA</a>#}
-{#                        </div>#}
-                        <div class="organization">
-                            <a href="">ReAllocate</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        {% endfor %}
     </div>
+
 
 {% endblock %}
 
