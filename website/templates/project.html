@@ -107,7 +107,7 @@
                 {% for update in updates%}
                     <div class="row-fluid updateRow">
                         <div class="span2">
-                            <img class="updateThumb" src="http://bp3.blogger.com/_PyBdAh0k7GA/Rwzb8ZlM_cI/AAAAAAAAAK4/5CnAGdL7meA/s400/armed-baby-hamster.jpg"/>
+                            <img class="updateThumb" src="{{update.user_profile.media_url}}"/>
                         </div>
                         <div class="span10">
                             <div class="updateUserName"> {{update.user.username}} </div>

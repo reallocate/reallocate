@@ -105,6 +105,8 @@ def view_opportunity(request, *args):
     project = get_object_or_404(Project, pk=opp.project.id)
     updates = Update.objects.filter(opportunity=opp)
 
+    for update in updates:
+        print update.user_profile.media_url
     other_opps = Opportunity.objects.filter(project=opp.project)
     other_opps_clean = []
     for other_opp in other_opps:
