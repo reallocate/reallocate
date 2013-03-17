@@ -19,14 +19,6 @@ def private(request):
         'a': 'a',
     }, context_instance=RequestContext(request))
 
-
-def login_page(request):
-    return render_to_response('login.html', {
-        'a': 'a',
-    }, context_instance=RequestContext(request))
-
-# landing_instance.ip_address = request.META['REMOTE_ADDR']
-
 def homepage(request):
     opportunities = Opportunity.objects.all()[:6]
     return render_to_response('homepage.html', { 'opportunities': opportunities }, context_instance=RequestContext(request))
@@ -37,7 +29,7 @@ def test_project(request):
 @csrf_exempt
 def signup(request):
     if request.method == 'GET':
-        return render_to_response('signup.html')
+        return render_to_response('signup.html', {}, context_instance=RequestContext(request))
     
     email = request.POST.get('email')
     password = request.POST.get('password')
@@ -55,7 +47,7 @@ def signup(request):
 
 @csrf_exempt
 def login_user(request):
-    state = "Please log in below..."
+    state = ""
     username = password = ''
     if request.POST:
         username = request.POST.get('username')
@@ -70,7 +62,7 @@ def login_user(request):
                 state = "Your account is not active, please contact the site admin."
         else:
             state = "Your username and/or password were incorrect."
-    return render_to_response('auth.html',{'state':state, 'username': username})
+    return render_to_response('login.html',{'state':state, 'username': username}, context_instance=RequestContext(request))
 
 def view_project(request, *args):
     project = get_object_or_404(Project, pk=args[0])

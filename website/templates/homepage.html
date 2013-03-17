@@ -48,15 +48,27 @@
     footer {
         margin-top: 30px;
     }
+    #hero-content {
+        margin-top: 75px;
+        padding: 10px;
+        background-color:rgba(232, 232, 232, 0.9);
+        border-radius: 3px;
+    }
 </style>
 {% endblock %}
 
 
 {% block hero %}
-    <div class="home_feature_slider"></div>
+    <div class="home_feature_slider">
+        
+        <div class="row-fluid">
+            <div id="hero-content" class="span6 offset3">
+                <h1>Connecting Knowledge & Opportunity</h1>
+            </div> 
+        </div>
+    </div>
 {% endblock %}
 {% block maincontent %}
-
         
         <div class="row opportunties_row">
             {% for opportunity in opportunities %}

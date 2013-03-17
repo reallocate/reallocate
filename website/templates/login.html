@@ -8,25 +8,38 @@
 
 
 {% block maincontent %}
+    
+    <div class="row-fluid">
+        <div class="span4 well">
+            <h3>Login</h3>
+            {{ state }}
+            <form action="/login/" method="post">
+                Email:
+                <input type="text" name="username" value="{{ username}}" /><br />
+                Password:
+                <input type="password" name="password" value="" /><br />
+        
+                <div class="clearfix"></div>
+                <input type="submit" class="btn" value="Log In" />
+            </form>
+        </div>
+    
+        <div class="span4 offset1">
+            <h5>Login with other networks</h5>
+            <a href="{% url "socialauth_begin" 'google' %}">
+                <img src="{{ STATIC_URL }}images/google-icon.png" alt="Google">
+            </a>
+            <br/><br/>
+            <a href="{% url "socialauth_begin" 'facebook' %}">
+                <img src="{{ STATIC_URL }}images/facebook-icon.png" alt="Facebook">
+            </a>
+            <br/><br/>
+            <a href="{% url "socialauth_begin" 'yahoo' %}">
+                <img src="{{ STATIC_URL }}images/yahoo-icon.png" alt="Yahoo">
+            </a>
+        </div>
+    </div>
 
-
-    <h1>Login</h1>
-
-    Please Login:<br>
-
-    <a href="{% url "socialauth_begin" 'google' %}">
-        <img src="{{ STATIC_URL }}images/google-icon.png" alt="Google">
-    </a>
-    <a href="{% url "socialauth_begin" 'facebook' %}">
-        <img src="{{ STATIC_URL }}images/facebook-icon.png" alt="Facebook">
-    </a>
-    <a href="{% url "socialauth_begin" 'yahoo' %}">
-        <img src="{{ STATIC_URL }}images/yahoo-icon.png" alt="Yahoo">
-    </a>
-    <br>
-    <br>
-
-    <a href="/private">private</a>
 {% endblock %}
 
 
