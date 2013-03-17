@@ -1,0 +1,21 @@
+{% extends 'theme/base.html' %}
+{% load i18n %}
+
+{% trans "This is the title" as the_title %}
+
+{% block meta_description %}{{ the_title }}{% endblock %}
+{% block title %}{{ the_title }}{% endblock %}
+
+
+{% block maincontent %}
+    
+    <div class="row-fluid">
+        asdf
+    </div>
+
+{% endblock %}
+
+
+{% block bottomscript %}
+
+{% endblock %}
