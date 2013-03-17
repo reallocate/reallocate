@@ -77,27 +77,7 @@
 
         <div class="row opportunties_row">
             {% for opportunity in opportunities %}
-                <div class="span3">
-                    <div class="opportunity_container" opportunity_id="{{ opportunity.id }}">
-                        <div class="opportunity_thumb">
-                            <img src="/static/images/darkearth.png"/>
-                        </div>
-                        <div class="opportunity_lower">
-                            <div class="name">
-                                {{ opportunity.name }}
-                            </div>
-                            <div class="short_desc">
-                                {{ opportunity.description }}
-                            </div>
-                            <div class="location">
-                                <div class="icon-map-marker"></div><a href="">San Francisco, CA</a>
-                            </div>
-                            <div class="organization">
-                                <div class="icon-globe"></div><a href="">ReAllocate</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                {% include "includes/opportunity-pane.html" %}
             {% endfor %}
         </div>
 
