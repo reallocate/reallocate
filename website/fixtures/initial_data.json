@@ -42,7 +42,8 @@
       "status": "published",
       "description": "Complete an energy audit and map usage for community cold storage"
     }
-    {
+  },
+  {
     "model": "website.Opportunity",
     "pk": 3,
     "fields": {
@@ -52,7 +53,8 @@
       "status": "published",
       "description": "Build a prototype brace to treat children with club foot"
     }
-        {
+  },
+  {
     "model": "website.Opportunity",
     "pk": 4,
     "fields": {
@@ -62,7 +64,8 @@
       "status": "published",
       "description": "Create an online marketplace to help projects connect with skilled volunteers to do good"
     }
-        {
+  },
+  {
     "model": "website.Opportunity",
     "pk": 5,
     "fields": {
@@ -72,7 +75,8 @@
       "status": "published",
       "description": "Create a website for to help Todays Future Sound publish their work teaching children to DJ"
     }
-        {
+  },
+  {
     "model": "website.Opportunity",
     "pk": 6,
     "fields": {
