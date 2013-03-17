@@ -33,7 +33,7 @@ class Project(models.Model):
     description = models.CharField(max_length=1000, blank=True)
 
     def __unicode__(self):
-        return self.name
+        return "Name: %s" % self.name
 
 
 class ProjectForm(ModelForm):
@@ -60,7 +60,7 @@ class Opportunity(models.Model):
     # followup gift to volunteer - TODO: separate free-form text field
 
     def __unicode__(self):
-        return self.name
+        return "Name: %s" % self.name
 
 
 class OpportunityForm(ModelForm):
