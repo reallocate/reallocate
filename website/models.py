@@ -3,6 +3,7 @@ from django.forms import ModelForm, Textarea
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 
+
 class Project(models.Model):
     name = models.CharField(max_length=100, blank=True)
     status = models.CharField(max_length=100, blank=True, default='unpublished')
@@ -12,6 +13,7 @@ class Project(models.Model):
 
     def __unicode__(self):
         return "Name: %s" % self.name
+
 
 class ProjectForm(ModelForm):
     class Meta:
@@ -58,6 +60,7 @@ class OpportunityForm(ModelForm):
             'description': Textarea(attrs={'cols': 80, 'rows': 10}),
         }
 
+
 ###########  Extend user profile
 # Docs: http://stackoverflow.com/a/965883/705945
 
@@ -77,5 +80,6 @@ class UserProfile(models.Model):
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
         profile, created = UserProfile.objects.get_or_create(user=instance)
+
 
 post_save.connect(create_user_profile, sender=User)
