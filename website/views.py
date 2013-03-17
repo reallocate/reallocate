@@ -53,13 +53,9 @@ def signup(request):
     user = User.objects.create_user(username=email, email=email, password=password)
     user.save()
 
-    # Append the newly-created user with a company.
-    #user_profile = UserProfile()
-    #user_profile.user = user
-    #user_profile.save()
-
-    return HttpResponseRedirect('/login/')
-
+    user = authenticate(username=email, password=password)
+    login(request, user)
+    return HttpResponseRedirect('/find-opportunity')
 
 @csrf_exempt
 def login_user(request):
