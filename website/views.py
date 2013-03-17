@@ -39,10 +39,6 @@ def opportunity_list(request):
     return render_to_response('opportunity_list.html', {'opportunities': opportunities},
                               context_instance=RequestContext(request))
 
-def test_project(request):
-    return render_to_response('project.html', {}, context_instance=RequestContext(request))
-
-
 @csrf_exempt
 def signup(request):
     if request.method == 'GET':

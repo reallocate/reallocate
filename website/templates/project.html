@@ -49,60 +49,69 @@
 {% endblock %}
 {% block maincontent %}
 
-<div class="project_wrap">
-    <div class="row">
-        <div class="span3">
-            <img src="/static/images/cordova1.png"/>
-        </div>
-        <div class="span9">
-            <div class="project_title">
-                <h1>Community Cold Storage</h1>
-            </div>
-            <div class="vision">
-                Change the paradigm in the salmon fishing industry from catch more make less to catch less make more.
-            </div>
-            <div class="backstory">
-                The story | The Team | The Community
-            </div>
-        </div>
+    <div class="container">
+        <ul class="breadcrumb">
+            <li id="breadcrumb-menu-home"><a href="/">Home</a><span class="divider">/</span></li>
+            <li id="breadcrumb-menu-mission"
+                class="active">{{ project.name }}
+            </li>
+        </ul>
     </div>
-    <div class="row project_lower">
-        <div class="span4">
-            Opportunity List
-            {% for opp in opportunities%}
-            <div class="row-fluid oppRow">
-                <div class="span2">
-                    <img class="oppThumb" src="http://bp3.blogger.com/_PyBdAh0k7GA/Rwzb8ZlM_cI/AAAAAAAAAK4/5CnAGdL7meA/s400/armed-baby-hamster.jpg"/>
+    
+    <div class="project_wrap">
+        <div class="row">
+            <div class="span3">
+                <img src="/static/images/cordova1.png"/>
+            </div>
+            <div class="span9">
+                <div class="project_title">
+                    <h1>{{ project.name }}</h1>
                 </div>
-                <div class="span10">
-                    <div class="oppTitle"> {{opp.name}} </div>
-                    <div class="oppDescription"> {{opp.description}}</div>
-                    <a href="http://www.google.com">Get Involved</a>
+                <div class="vision">
+                    {{ project.description }}
+                </div>
+                <div class="backstory">
+                    The story | The Team | The Community
                 </div>
             </div>
-            {% endfor %}
         </div>
-
-        <div class="span8">
-            Activity Feed
-            {% for update in updates%}
-                <div class="row-fluid updateRow">
+        <div class="row project_lower">
+            <div class="span4">
+                Opportunity List
+                {% for opp in opportunities%}
+                <div class="row-fluid oppRow">
                     <div class="span2">
-                        <img class="updateThumb" src="http://bp3.blogger.com/_PyBdAh0k7GA/Rwzb8ZlM_cI/AAAAAAAAAK4/5CnAGdL7meA/s400/armed-baby-hamster.jpg"/>
+                        <img class="oppThumb" src="http://bp3.blogger.com/_PyBdAh0k7GA/Rwzb8ZlM_cI/AAAAAAAAAK4/5CnAGdL7meA/s400/armed-baby-hamster.jpg"/>
                     </div>
                     <div class="span10">
-                        <div class="updateUserName"> {{update.user.username}} </div>
-                        <div class="updateOppName"> {{update.opportunity.name}} </div>
-                        <div class="updateText">  {{update.text}}</div>
-                        <div class="updateMedia"> <img width="100%" height="100%" src="{{ update.media_url }}"> </div>
+                        <div class="oppTitle"> {{opp.name}} </div>
+                        <div class="oppDescription"> {{opp.description}}</div>
+                        <a href="http://www.google.com">Get Involved</a>
                     </div>
                 </div>
-            {% endfor %}
+                {% endfor %}
+            </div>
+    
+            <div class="span8">
+                Activity Feed
+                {% for update in updates%}
+                    <div class="row-fluid updateRow">
+                        <div class="span2">
+                            <img class="updateThumb" src="http://bp3.blogger.com/_PyBdAh0k7GA/Rwzb8ZlM_cI/AAAAAAAAAK4/5CnAGdL7meA/s400/armed-baby-hamster.jpg"/>
+                        </div>
+                        <div class="span10">
+                            <div class="updateUserName"> {{update.user.username}} </div>
+                            <div class="updateOppName"> {{update.opportunity.name}} </div>
+                            <div class="updateText">  {{update.text}}</div>
+                            <div class="updateMedia"> <img width="100%" height="100%" src="{{ update.media_url }}"> </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
         </div>
+        <a href='#' class='login-required follow-project' project-id="{{ project.id }}">Follow this project</a>
     </div>
-    <a href='#' class='login-required follow-project' project-id="{{ project.id }}">Follow this project</a>
-</div>
-<!-- /container -->
+    <!-- /container -->
 
 
 {% endblock %}
