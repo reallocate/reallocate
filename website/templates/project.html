@@ -68,7 +68,11 @@
             </div>
             <div class="span9">
                 <div class="project_title">
-                    <h1>{{ project.name }}</h1>
+                    <h1 style='float:left;'>{{ project.name }}</h1>
+                    <div class='follow-or-not'>
+                        <a href='#' class='login-required unfollow-project' {% if not is_following %}style='display:none;'{% endif %}project-id="{{ project.id }}">Stop Following</a>
+                        <a href='#' class='login-required follow-project' {% if is_following %}style='display:none;'{% endif %} project-id="{{ project.id }}">Follow</a>
+                    </div>
                 </div>
                 <div class="vision">
                     {{ project.description }}
@@ -110,7 +114,7 @@
                 {% endfor %}
             </div>
         </div>
-        <a href='#' class='login-required follow-project' project-id="{{ project.id }}">Follow this project</a>
+        
     </div>
     <!-- /container -->
 
@@ -118,5 +122,16 @@
 {% endblock %}
 
 {% block bottomscript %}
-
+<script>
+    $(document).ready(function(){
+        $(".unfollow-project").click(function(){
+            $(this).hide();
+            $(".follow-project").show();
+        });
+        $(".follow-project").click(function(){
+            $(this).hide();
+            $(".unfollow-project").show();
+        });
+    });
+</script>
 {% endblock %}
