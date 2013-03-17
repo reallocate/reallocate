@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="27c19399-b9f2-4f86-ba53-547a0258a489" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/website/admin.py" afterPath="$PROJECT_DIR$/website/admin.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/website/models.py" afterPath="$PROJECT_DIR$/website/models.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/website/templates/project.html" afterPath="$PROJECT_DIR$/website/templates/project.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/website/views.py" afterPath="$PROJECT_DIR$/website/views.py" />
     </list>
     <ignored path="ReAllocate.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -29,7 +25,7 @@
       <file leaf-file-name="project.html" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/website/templates/project.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="79" column="28" selection-start="2246" selection-end="2246" vertical-scroll-proportion="0.77097505">
+            <state line="68" column="27" selection-start="1676" selection-end="1683" vertical-scroll-proportion="0.6698795">
               <folding />
             </state>
           </provider>
@@ -38,7 +34,7 @@
       <file leaf-file-name="models.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/website/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="80" column="19" selection-start="2618" selection-end="2618" vertical-scroll-proportion="-11.12">
+            <state line="80" column="19" selection-start="2618" selection-end="2618" vertical-scroll-proportion="-61.52">
               <folding>
                 <element signature="e#0#28#0" expanded="true" />
               </folding>
@@ -456,9 +452,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/website/templates/homepage.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-2.3039649">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/website/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="80" column="19" selection-start="2618" selection-end="2618" vertical-scroll-proportion="-11.12">
+        <state line="80" column="19" selection-start="2618" selection-end="2618" vertical-scroll-proportion="-61.52">
           <folding>
             <element signature="e#0#28#0" expanded="true" />
           </folding>
@@ -467,7 +470,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/website/templates/project.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="79" column="28" selection-start="2246" selection-end="2246" vertical-scroll-proportion="0.77097505">
+        <state line="68" column="27" selection-start="1676" selection-end="1683" vertical-scroll-proportion="0.6698795">
           <folding />
         </state>
       </provider>
