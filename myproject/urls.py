@@ -19,9 +19,12 @@ urlpatterns = patterns('',
                            name='add_opportunity'),
                        url(r'^test_project', 'website.views.test_project', name='test_project'),
                        url(r'^project/(.*?)$', 'website.views.view_project', name='view_project'),
+
                        url(r'^opportunity/(.*?)$', 'website.views.view_opportunity', name='view_opportunity'),
+                       url(r'^find-opportunity', 'website.views.opportunity_list', name='opportunity_list'),
+
                        url(r'^ajax/follow_project', 'website.ajaxviews.follow_project', name='follow_project'),
-                       url(r'^login', 'website.views.login_page', name='login_page'),
+                       url(r'^login', 'website.views.login_user', name='login_user'),
 
                        url(r'^private$', 'website.views.private', name='private'),
                        # url(r'^test$', 'website.views.test', name='test'),

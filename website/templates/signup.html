@@ -1,19 +1,46 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
-<title>Log in</title>
-<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+{% extends 'theme/base.html' %}
+{% load i18n %}
 
-</head>
-<body>
-	Create an account
-	<form action="/signup/" method="post">
-		email:
-		<input type="text" name="email" /><br />
-		password:
-		<input type="password" name="password" value="" /><br />
+{% trans "This is the title" as the_title %}
 
-		<input type="submit" value="Log In" />
-	</form>
-</body>
-</html>
+{% block meta_description %}{{ the_title }}{% endblock %}
+{% block title %}{{ the_title }}{% endblock %}
+
+
+{% block maincontent %}
+    
+    <div class="row-fluid">
+        <div class="span4 well">
+			<h3>Create an account</h3>
+			<form action="/signup/" method="post">
+				email:
+				<input type="text" name="email" /><br />
+				password:
+				<input type="password" name="password" value="" /><br />
+		
+				<input type="submit" value="Log In" />
+			</form>
+        </div>
+    
+        <div class="span4 offset1">
+            <h5>Login with other networks</h5>
+            <a href="{% url "socialauth_begin" 'google' %}">
+                <img src="{{ STATIC_URL }}images/google-icon.png" alt="Google">
+            </a>
+            <br/><br/>
+            <a href="{% url "socialauth_begin" 'facebook' %}">
+                <img src="{{ STATIC_URL }}images/facebook-icon.png" alt="Facebook">
+            </a>
+            <br/><br/>
+            <a href="{% url "socialauth_begin" 'yahoo' %}">
+                <img src="{{ STATIC_URL }}images/yahoo-icon.png" alt="Yahoo">
+            </a>
+        </div>
+    </div>
+
+{% endblock %}
+
+
+{% block bottomscript %}
+{#    <script src="/static/js/main.js"></script>#}
+{% endblock %}
