@@ -22,9 +22,6 @@ def private(request):
         'a': 'a',
     }, context_instance=RequestContext(request))
 
-<<<<<<< HEAD
-=======
-
 def login_page(request):
     return render_to_response('login.html', {
         'a': 'a',
