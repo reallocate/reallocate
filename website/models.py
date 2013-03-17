@@ -41,15 +41,17 @@ class Opportunity(models.Model):
     def __unicode__(self):
         return "Name: %s" % self.name
 
+
 class Update(models.Model):
     project = models.ForeignKey(Project)
-    opportunity= models.ForeignKey(Opportunity)
+    opportunity = models.ForeignKey(Opportunity)
     user = models.ForeignKey(User)
     text = models.CharField(max_length=1000, blank=True)
     media_url = models.CharField(max_length=1000, blank=True)
 
     def __unicode__(self):
         return "Update: %s" % "Coming soon!"
+
 
 class OpportunityForm(ModelForm):
     class Meta:
