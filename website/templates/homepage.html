@@ -25,13 +25,6 @@
     .opportunties_row {
         margin-top: 30px;
     }
-    
-    .opportunity_container {
-        height: 360px;
-        box-shadow: 2px 2px 7px #5e5e5e;
-        -moz-box-shadow: 2px 2px 7px #5e5e5e;
-        -webkit-box-shadow: 2px 2px 7px #5e5e5e;
-    }
 
     .opportunity_lower {
         padding: 10px;   
@@ -87,7 +80,7 @@
         <div class="row opportunties_row">
             {% for opportunity in opportunities %}
                 <div class="span3">
-                    <div class="opportunity_container">
+                    <div class="opportunity_container" opportunity_id="{{ opportunity.id }}">
                         <div class="opportunity_thumb">
                             <img src="/static/images/darkearth.png"/>
                         </div>
@@ -110,38 +103,10 @@
             {% endfor %}
         </div>
 
-    <hr>
-    Projects:<br>
-
-    <div class="row project_row">
-        {% for opportunity in opportunities %}
-            <div class="span3">
-                <div class="project_container">
-{#                    <div class="project_thumb">#}
-{#                        <img src="/static/images/darkearth.png"/>#}
-{#                    </div>#}
-                    <div class="project_lower">
-                        <div class="name">
-                            {{ opportunity.name }}
-                        </div>
-{#                        <div class="short_desc">#}
-{#                            {{ opportunity.description }}#}
-{#                        </div>#}
-{#                        <div class="location">#}
-{#                            <a href="">San Francisco, CA</a>#}
-{#                        </div>#}
-                        <div class="organization">
-                            <a href="">ReAllocate</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        {% endfor %}
-    </div>
 
 {% endblock %}
 
 {% block bottomscript %}
-{#    <script src="/static/js/main.js"></script>#}
+
 {% endblock %}
 
