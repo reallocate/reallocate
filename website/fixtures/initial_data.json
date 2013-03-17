@@ -32,7 +32,7 @@
     "pk": 1,
     "fields": {
       "name" : "Mountain seal control",
-      "datetime": "2013-01-01 05:00",
+      "date_created": "2013-01-01 05:00",
       "status" : "published",
       "industry" : "seal clubbing",
       "description" : "There is an overabundance of mountain seals and the population must be controlled.  Empty Jameson bottles are required for clubbing",
@@ -44,7 +44,7 @@
     "pk": 2,
     "fields": {
       "name" : "Cordova Community Cold Storage",
-      "datetime": "2013-01-01 05:00",
+      "date_created": "2013-01-01 05:00",
       "status" : "published",
       "industry" : "Fishing",
       "description" : "Providing a facility and method for sustainable salmon fishing in the Cordova region of Alaska",
@@ -56,7 +56,7 @@
     "pk": 3,
     "fields": {
       "name" : "ReAllocate",
-      "datetime": "2013-01-01 05:00",
+      "date_created": "2013-01-01 05:00",
       "status" : "published",
       "industry" : "non profit",
       "description" : "Connecting knowledge with need to move the world from money to meaning",
@@ -68,7 +68,7 @@
     "pk": 4,
     "fields": {
       "name" : "Miracle Brace",
-      "datetime": "2013-01-01 05:00",
+      "date_created": "2013-01-01 05:00",
       "status" : "published",
       "industry" : "non profit",
       "description" : "Working with doctors around the world to create a brace for children with club foot",
@@ -80,7 +80,7 @@
     "pk": 1,
     "fields": {
       "project": "1",
-      "datetime": "2013-01-01 05:00",
+      "date_created": "2013-01-01 05:00",
       "name": "Jameson required",
       "status": "published",
       "description": "10 Bottles of Jameson needed to be drunk and then used to club seals",
@@ -92,7 +92,7 @@
     "pk": 2,
     "fields": {
       "project": "2",
-      "datetime": "2013-01-01 05:00",
+      "date_created": "2013-01-01 05:00",
       "name": "Energy Mapping",
       "status": "published",
       "description": "Complete an energy audit and map usage for community cold storage",
@@ -104,7 +104,7 @@
     "pk": 3,
     "fields": {
       "project": "2",
-      "datetime": "2013-01-01 05:00",
+      "date_created": "2013-01-01 05:00",
       "name": "Provide Materials",
       "status": "published",
       "description": "Help CCCS buy a freezer for their prototype cold storage facility",
@@ -116,7 +116,7 @@
     "pk": 4,
     "fields": {
       "project": "4",
-      "datetime": "2013-01-01 05:00",
+      "date_created": "2013-01-01 05:00",
       "name": "Create Product Prototype",
       "status": "published",
       "description": "Build a prototype brace to treat children with club foot",
@@ -128,7 +128,7 @@
     "pk": 5,
     "fields": {
       "project": "3",
-      "datetime": "2013-01-01 05:00",
+      "date_created": "2013-01-01 05:00",
       "name": "Build an online Marketplace",
       "status": "published",
       "description": "Create an online marketplace to help projects connect with skilled volunteers to do good",
@@ -141,7 +141,7 @@
     "pk": 6,
     "fields": {
       "project": "4",
-      "datetime": "2013-01-01 05:00",
+      "date_created": "2013-01-01 05:00",
       "name": "Build non profit website",
       "status": "published",
       "description": "Create a website for explain the Miracle Brace to potential donors",
@@ -153,7 +153,7 @@
     "pk": 7,
     "fields": {
       "project": "4",
-      "datetime": "2013-01-01 05:00",
+      "date_created": "2013-01-01 05:00",
       "name": "Provide Materials",
       "status": "published",
       "description": "Help provide the materials to Miracle Brace to build a prototype",
@@ -165,7 +165,7 @@
     "pk": 8,
     "fields": {
       "project": "4",
-      "datetime": "2013-01-01 05:00",
+      "date_created": "2013-01-01 05:00",
       "name": "Fund Travel",
       "status": "published",
       "description": "Help buy a plane ticket for our engineer to visit patients in Nicaragua",

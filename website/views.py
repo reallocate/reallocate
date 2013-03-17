@@ -85,19 +85,19 @@ def login_user(request):
 
 
 def view_project(request, pid=1):
-    user_profile = base.get_current_userprofile(request)
     project = get_object_or_404(Project, pk=pid)
-    opportunities = Opportunity.objects.filter(project=project)
-    updates = Update.objects.filter(project=project)
-    is_following = project in user_profile.followed_projects.all()
-    num_following = UserProfile.objects.filter(followed_projects=project).count()
-    return render_to_response('project.html', {
+    model = {
         "project": project,
-        "updates": updates,
-        "opportunities": opportunities,
-        "is_following": is_following,
-        "num_following": num_following
-    }, context_instance=RequestContext(request))
+        "opportunities": Opportunity.objects.filter(project=project),
+        "updates": Update.objects.filter(project=project)
+    }
+    
+    if request.user.is_authenticated():
+        model['user_profile'] = base.get_current_userprofile(request)
+        model['is_following'] = model['user_profile'].followed_projects.all().count() > 0
+        model['num_following'] = UserProfile.objects.filter(followed_projects=project).count()
+    
+    return render_to_response('project.html', model, context_instance=RequestContext(request))
 
 
 def view_opportunity(request, *args):
