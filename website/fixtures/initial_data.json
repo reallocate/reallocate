@@ -179,7 +179,7 @@
         "project": 1,
         "text": "\"If you're going through hell, keep going.\" -Churchill",
         "opportunity": 1,
-        "user": 1,
+        "user_profile": 1,
         "media_url": "http://25.media.tumblr.com/tumblr_ltmhzyAOjU1qzom4yo1_500.jpg"
     }
 },
@@ -190,7 +190,7 @@
         "project": 1,
         "text": "Mike North at TedXSendai",
         "opportunity": 1,
-        "user": 1,
+        "user_profile": 1,
         "media_url": "http://www.youtube.com/watch?v=5adBpmAx1Cc"
     }
 },
@@ -201,7 +201,7 @@
         "project": 1,
         "text": "Link to hamsters! http://3.bp.blogspot.com/_4cAVYhmiaXU/S7FZcZ2iDKI/AAAAAAAAAn4/yH0vbDxFflU/s1600/HPIM1595.JPG",
         "opportunity": 1,
-        "user": 1,
+        "user_profile": 1,
         "media_url": "" 
     }
 },
@@ -212,7 +212,7 @@
         "project": 1,
         "text": "\"An adventure is not a goal, but rather an experience that had better be shared with your friends\" - TR",
         "opportunity": 1,
-        "user": 1,
+        "user_profile": 1,
         "media_url": "http://4.bp.blogspot.com/-NPrNZDLLWh8/TWdRcFgOVuI/AAAAAAAAAC0/0UNtjmJp2oo/s1600/steve-prefontaine-poster-olympic.jpg"
     }
 }

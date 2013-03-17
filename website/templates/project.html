@@ -74,6 +74,9 @@
                         <a href='#' class='login-required unfollow-project' {% if not is_following %}style='display:none;'{% endif %}project-id="{{ project.id }}">Stop Following</a>
                         <a href='#' class='login-required follow-project' {% if is_following %}style='display:none;'{% endif %} project-id="{{ project.id }}">Follow</a>
                     </div>
+                    <div class='num-follower-container'>
+                        <span id='num-following'>{{ num_following }}</span> followers
+                    </div>
                 </div>
                 <div class="vision">
                     {{ project.description }}
@@ -104,7 +107,7 @@
                 {% for update in updates%}
                     <div class="row-fluid updateRow">
                         <div class="span2">
-                            <img class="updateThumb" src="http://bp3.blogger.com/_PyBdAh0k7GA/Rwzb8ZlM_cI/AAAAAAAAAK4/5CnAGdL7meA/s400/armed-baby-hamster.jpg"/>
+                            <img class="updateThumb" src="{{update.user_profile.media_url}}"/>
                         </div>
                         <div class="span10">
                             <div class="updateUserName"> {{update.user.username}} </div>
@@ -129,10 +132,14 @@
         $(".unfollow-project").click(function(){
             $(this).hide();
             $(".follow-project").show();
+            num_following = parseInt($("#num-following").html());
+            $("#num-following").html((num_following - 1).toString())
         });
         $(".follow-project").click(function(){
             $(this).hide();
             $(".unfollow-project").show();
+            num_following = parseInt($("#num-following").html());
+            $("#num-following").html((num_following + 1).toString())
         });
     });
 </script>

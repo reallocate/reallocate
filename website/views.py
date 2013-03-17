@@ -90,11 +90,13 @@ def view_project(request, pid=1):
     opportunities = Opportunity.objects.filter(project=project)
     updates = Update.objects.filter(project=project)
     is_following = project in user_profile.followed_projects.all()
+    num_following = UserProfile.objects.filter(followed_projects=project).count()
     return render_to_response('project.html', {
         "project": project,
         "updates": updates,
         "opportunities": opportunities,
         "is_following": is_following,
+        "num_following": num_following
     }, context_instance=RequestContext(request))
 
 
@@ -103,6 +105,8 @@ def view_opportunity(request, *args):
     project = get_object_or_404(Project, pk=opp.project.id)
     updates = Update.objects.filter(opportunity=opp)
 
+    for update in updates:
+        print update.user_profile.media_url
     other_opps = Opportunity.objects.filter(project=opp.project)
     other_opps_clean = []
     for other_opp in other_opps:
