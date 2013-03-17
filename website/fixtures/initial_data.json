@@ -14,11 +14,22 @@
     "model": "website.Project",
     "pk": 2,
     "fields": {
-      "name" : "Banana Cultivation",
+      "name" : "Cordova Community Cold Storage",
       "datetime": "2013-01-01 05:00",
       "status" : "published",
-      "industry" : "Banana Pealing",
-      "description" : "Bannanas need to be peeled for all the monkeys disabled monkeys"
+      "industry" : "Fishing",
+      "description" : "Providing a facility and method for sustainable salmon fishing in the Cordova region of Alaska"
+    }
+  },
+  {
+    "model": "website.Project",
+    "pk": 3,
+    "fields": {
+      "name" : "ReAllocate",
+      "datetime": "2013-01-01 05:00",
+      "status" : "published",
+      "industry" : "non profit",
+      "description" : "Connecting knowledge with need to move the world from money to meaning"
     }
   },
   {
@@ -87,4 +98,25 @@
       "description": "Build a prototype for a radiation sensing RC vehicle to help children detect radiation in Fukushima Japan"
     }
   }
+  {
+    "pk": 1,
+    "model": "website.update",
+    "fields": {
+        "project": 1,
+        "text": "\"If you're going through hell, keep going.\" -Churchill",
+        "opportunity": 1,
+        "user": 1,
+        "media_url": "http://25.media.tumblr.com/tumblr_ltmhzyAOjU1qzom4yo1_500.jpg"
+    }
+}, {
+    "pk": 2,
+    "model": "website.update",
+    "fields": {
+        "project": 1,
+        "text": "\"An adventure is not a goal, but rather an experience that had better be shared with your friends\" - TR",
+        "opportunity": 1,
+        "user": 1,
+        "media_url": "http://4.bp.blogspot.com/-NPrNZDLLWh8/TWdRcFgOVuI/AAAAAAAAAC0/0UNtjmJp2oo/s1600/steve-prefontaine-poster-olympic.jpg"
+    }
+}
 ]
