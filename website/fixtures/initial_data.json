@@ -147,9 +147,9 @@
     "fields": {
       "project": "3",
       "date_created": "2013-01-01 05:00",
-      "name": "Build an online Marketplace",
+      "name": "Code with the community",
       "status": "published",
-      "description": "Create an online marketplace to help projects connect with skilled volunteers to do good",
+      "description": "Come hack together to create an online marketplace to help projects connect with skilled volunteers to do good",
       "media_url": "http://www.gutenberg.org/files/35237/35237-h/images/petersborough_market_place.jpg"
 
     }
@@ -290,7 +290,38 @@
         "user_profile": 1,
         "media_url": ""
     }
+},
+{
+    "pk": 10,
+    "model": "website.Update",
+    "fields": {
+        "project": 3,
+        "text": "I'm there with you in spirit! Take care of the hamsters and watch out for the seals!...not sure where the elephants came from...",
+        "opportunity": 5,
+        "user_profile": 2,
+        "media_url": "http://3.bp.blogspot.com/-Tljj16gltgY/UIZS7K6OfrI/AAAAAAAAAvY/qxaVrxjc5f4/s1600/elephant+,+hamster+,+seal+.jpg"
+    }
+},
+{
+    "pk": 11,
+    "model": "website.Update",
+    "fields": {
+        "project": 4,
+        "text": "Check out the newest version of the site! http://miraclefeet.org",
+        "opportunity": 6,
+        "user_profile": 1,
+        "media_url": "http://miraclefeet.org/media/documents/MiracleFeet.jpg"
+    }
+},
+{
+    "pk": 12,
+    "model": "website.Update",
+    "fields": {
+        "project": 4,
+        "text": "An opportunity to build  website has been created!",
+        "opportunity": 6,
+        "user_profile": 1,
+        "media_url": ""
+    }
 }
-
-
 ]
