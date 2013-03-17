@@ -1,5 +1,23 @@
 [
   {
+    "pk": 1,
+    "model": "auth.user",
+    "fields": {
+        "username": "admin",
+        "first_name": "",
+        "last_name": "",
+        "is_active": true,
+        "is_superuser": true,
+        "is_staff": true,
+        "last_login": "2013-03-17T03:12:54.419Z",
+        "groups": [],
+        "user_permissions": [],
+        "password": "pbkdf2_sha256$10000$pGbDaYZb4G17$H4DiLm2dc9slLrOWT4/ilOsHszvSQeYiVshPT2WyU/A=",
+        "email": "admin@reallocate.org",
+        "date_joined": "2013-03-17T03:12:31.196Z"
+    }
+  },
+  {
     "model": "website.Project",
     "pk": 1,
     "fields": {
@@ -19,7 +37,8 @@
       "datetime": "2013-01-01 05:00",
       "status" : "published",
       "industry" : "Fishing",
-      "description" : "Providing a facility and method for sustainable salmon fishing in the Cordova region of Alaska"
+      "description" : "Providing a facility and method for sustainable salmon fishing in the Cordova region of Alaska",
+      "media_url" : "http://farm9.staticflickr.com/8492/8324935864_1854806f04_z.jpg"  
     }
   },
   {
@@ -30,7 +49,8 @@
       "datetime": "2013-01-01 05:00",
       "status" : "published",
       "industry" : "non profit",
-      "description" : "Connecting knowledge with need to move the world from money to meaning"
+      "description" : "Connecting knowledge with need to move the world from money to meaning",
+      "media_url" : "http://farm9.staticflickr.com/8492/8324935864_1854806f04_z.jpg"  
     }
   },
   {
@@ -101,7 +121,7 @@
   },
   {
     "pk": 1,
-    "model": "website.update",
+    "model": "website.Update",
     "fields": {
         "project": 1,
         "text": "\"If you're going through hell, keep going.\" -Churchill",
@@ -111,7 +131,7 @@
     }
 }, {
     "pk": 2,
-    "model": "website.update",
+    "model": "website.Update",
     "fields": {
         "project": 1,
         "text": "Mike North at TedXSendai",
@@ -122,7 +142,7 @@
 },
 {
     "pk": 3,
-    "model": "website.update",
+    "model": "website.Update",
     "fields": {
         "project": 1,
         "text": "Link to hamsters! http://3.bp.blogspot.com/_4cAVYhmiaXU/S7FZcZ2iDKI/AAAAAAAAAn4/yH0vbDxFflU/s1600/HPIM1595.JPG",
@@ -133,7 +153,7 @@
 },
 {
     "pk": 4,
-    "model": "website.update",
+    "model": "website.Update",
     "fields": {
         "project": 1,
         "text": "\"An adventure is not a goal, but rather an experience that had better be shared with your friends\" - TR",
