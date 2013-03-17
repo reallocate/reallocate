@@ -41,8 +41,8 @@
 {% endblock %}
 
 <div class="container main_container">
-     
-    {% if topmsg|default:'' != ''%}
+    *{{ urlparam_topmsg }}* 
+    {% if topmsg|default:urlparam_topmsg|default:'' != ''%}
         <div class='topmsg'>{{ topmsg }}</div>
     {% endif %}
     

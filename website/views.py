@@ -9,6 +9,7 @@ from django.views.decorators.csrf import csrf_exempt, csrf_protect
 
 from website.lib.ses_email import send_email
 from website.models import ProjectForm, OpportunityForm, Project, Opportunity, Update, UserProfile
+from website.models import OpportunityEngagements
 import website.base as base
 
 @login_required
@@ -101,13 +102,12 @@ def view_project(request, pid=1):
     return render_to_response('project.html', model, context_instance=RequestContext(request))
 
 
-def view_opportunity(request, *args):
-    opp = get_object_or_404(Opportunity, pk=args[0])
+def view_opportunity(request, pid=1):
+    opp = get_object_or_404(Opportunity, pk=pid)
     project = get_object_or_404(Project, pk=opp.project.id)
     updates = Update.objects.filter(opportunity=opp)
+    topmsg = request.GET.get('topmsg')
 
-    for update in updates:
-        print update.user_profile.media_url
     other_opps = Opportunity.objects.filter(project=opp.project)
     other_opps_clean = []
     for other_opp in other_opps:
@@ -119,8 +119,27 @@ def view_opportunity(request, *args):
         "project": project,
         "other_opps": other_opps_clean,
         "updates": updates,
+        "topmsg": topmsg
     }, context_instance=RequestContext(request))
 
+@csrf_exempt
+@login_required
+def engage(request, pid=1):
+    opp = get_object_or_404(Opportunity, pk=pid)
+    
+    # todo - deal with money type => donations rather than a freeform response
+    if request.method == "POST":
+        response = request.POST.get("response", "")
+        user_profile = base.get_current_userprofile(request)
+        OpportunityEngagements(user_profile=user_profile, opportunity=opp).save()
+        topmsg = 'Thanks for your engagement - a project leader will get back to you as soon as possible'
+        return HttpResponseRedirect("/opportunity/" + str(opp.id) + "?topmsg=" + topmsg)
+    
+    return render_to_response('engage.html', {
+        "opp": opp,
+        "show_form": show_form,
+        "topmsg": topmsg
+    }, context_instance=RequestContext(request))
 
 @login_required
 def add_project(request):
@@ -162,6 +181,7 @@ def add_opportunity(request, oid=1):
             return HttpResponse("error")
 
     myform = OpportunityForm()
+    
     return render_to_response('add_opportunity.html', {
         "myform": myform,
         "parent_project": parent_project,
