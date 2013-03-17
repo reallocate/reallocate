@@ -1,1 +1,1 @@
-web: python manage.py run_gunicorn -w 4 -t 300 --log-level INFO -b 0.0.0.0:\$PORT
+web: gunicorn myproject.wsgi -b 0.0.0.0:$PORT
