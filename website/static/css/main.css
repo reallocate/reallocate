@@ -26,6 +26,7 @@ body {
 
 .opportunity_container {
     background: #fff;
+    margin-bottom: 30px;
     height: 360px;
     box-shadow: 1px 2px 3px #808080;
     -moz-box-shadow: 1px 2px 3px #808080;
@@ -37,7 +38,23 @@ body {
     box-shadow: 0 5px 5px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(82, 168, 236, 0.6);
     cursor: pointer;
 }
- 
+
+.opportunity_thumb{
+    height: 180px;
+    overflow: hidden;
+}
+
+.opportunity_container .name {
+    font-weight: bold;
+}
+
+.opportunity_container .location a{
+    margin-left: 5px
+}
+
+.opportunity_container .project_name a{
+    margin-left: 5px
+}
 .project_wrap {
     background: #fff;
     border-radius: 4px;
