@@ -8,5 +8,3 @@ local_settings.py
 /docs/original-images
 /data.db
 /Venv/
-settings_local.env.sh.mine
-settings_local.heroku.sh.mine
