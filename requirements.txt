@@ -3,7 +3,7 @@ South
 #psycopg2
 #werkzeug
 
-mysql-python
+# mysql-python
 dj-database-url
 django-social-auth
 boto

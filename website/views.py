@@ -31,8 +31,8 @@ def login_page(request):
 # landing_instance.ip_address = request.META['REMOTE_ADDR']
 
 def homepage(request):
-    projects = Project.objects.all()[:6]
-    return render_to_response('homepage.html', { 'projects': projects }, context_instance=RequestContext(request))
+    opportunities = Opportunity.objects.all()[:6]
+    return render_to_response('homepage.html', { 'opportunities': opportunities }, context_instance=RequestContext(request))
 
 def test_project(request):
 
