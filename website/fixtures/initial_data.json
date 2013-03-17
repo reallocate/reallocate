@@ -97,7 +97,7 @@
       "status": "published",
       "description": "Build a prototype for a radiation sensing RC vehicle to help children detect radiation in Fukushima Japan"
     }
-  }
+  },
   {
     "pk": 1,
     "model": "website.update",
