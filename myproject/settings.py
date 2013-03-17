@@ -20,7 +20,7 @@ from myproject.settings_local import AWS_SECRET_ACCESS_KEY, AWS_ACCESS_KEY_ID
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 APP_NAME = 'reallocate'
-AWS_STORAGE_BUCKET_NAME = 'django-bootstrap'
+AWS_STORAGE_BUCKET_NAME = 'production-reallocate'
 
 
 DEBUG = True
@@ -75,6 +75,7 @@ MEDIA_URL = ''
 STATIC_ROOT = os.path.join(PROJECT_ROOT, "static_root")
 #STATIC_ROOT = os.path.join(PROJECT_ROOT, STATIC_URL.strip("/"))
 # print STATIC_ROOT
+
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
