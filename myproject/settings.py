@@ -209,7 +209,7 @@ AUTHENTICATION_BACKENDS = (
 
 # Redirects after login
 #LOGIN_URL = '/login-form/'
-LOGIN_REDIRECT_URL = '/private'
+LOGIN_REDIRECT_URL = '/find-opportunity'
 #LOGIN_ERROR_URL = '/login-error/'
 #LOGOUT_URL= '/accounts/logout/'
 
