@@ -103,6 +103,7 @@ def view_opportunity(request, *args):
     }, context_instance=RequestContext(request))
 
 
+@login_required
 def add_project(request):
     # Show the sign page and collect emails
     show_invite = True
@@ -125,7 +126,7 @@ def add_project(request):
         "show_invite": show_invite
     }, context_instance=RequestContext(request))
 
-
+@login_required
 def add_opportunity(request, oid=1):
     # Create new Opportunity
     parent_project = get_object_or_404(Project, pk=oid)
