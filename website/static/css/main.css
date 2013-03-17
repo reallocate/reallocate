@@ -20,6 +20,10 @@ body {
     color: #0096BB;
 }
 
+.navbar #auth {
+    margin-top: 10px;  
+}
+
 .opportunity_container {
     background: #fff;
     height: 360px;
