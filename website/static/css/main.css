@@ -12,8 +12,16 @@ body {
     color: #0096BB;
 }
 
+.navbar .nav a:hover strong {
+    color: #333;
+}
+
 .navbar .nav.pull-right a {
     color: #0096BB;
+}
+
+.navbar #auth {
+    margin-top: 10px;  
 }
 
 .opportunity_container {
@@ -32,6 +40,7 @@ body {
  
 .project_wrap {
     background: #fff;
+    border-radius: 4px;
 }
 
 .project_wrap .project_title{

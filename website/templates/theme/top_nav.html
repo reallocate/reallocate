@@ -17,14 +17,14 @@
             </div>
             
             <div class="nav-collapse collapse">
-            <ul class="nav pull-right">
-                {% if user.is_authenticated %}
-                    <li><a href="/logout">Logout</a></li>
-                {% else %}
-                    <li><a href="/login">Login</a></li>
-                    <li><a href="/signup">Sign Up</a></li>
-                {% endif %}
-            </ul>
+                <ul class="nav pull-right" id="auth">
+                    {% if user.is_authenticated %}
+                        <li><a href="/logout">Logout</a></li>
+                    {% else %}
+                        <li><a href="/login">Login</a></li>
+                        <li><a href="/signup">Sign Up</a></li>
+                    {% endif %}
+                </ul>
             </div>
             <!--/.nav-collapse -->
         </div>
