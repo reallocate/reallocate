@@ -6,6 +6,7 @@ import json
 from website.models import UserProfile, Project
 
 @login_required
+# this won't crash w/ login_required but redirect doesn't work on ajax call - TODO: fix rather than these hide links
 def follow_project(request, *args):
     project_id = request.GET.get('project_id', '')
     try:
