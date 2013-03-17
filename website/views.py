@@ -8,18 +8,25 @@ from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_exempt, csrf_protect
 
 from website.lib.ses_email import send_email
-from models import UserProfile
-from models import Project
-from models import Opportunity
-from models import Update
-
-from website.models import ProjectForm, OpportunityForm, Project, Opportunity
-
+from website.models import ProjectForm, OpportunityForm, Project, Opportunity, Update, UserProfile
+import website.base as base
 
 @login_required
-def private(request):
-    return render_to_response('private.html', {
-        'a': 'a',
+@csrf_exempt
+def profile(request):
+    user_profile = base.get_current_userprofile(request)
+    topmsg = None
+    
+    if request.method == "POST":
+        user_profile.user.email = request.POST.get("email")
+        user_profile.bio = request.POST.get("bio")
+        user_profile.media_url = request.POST.get("media_url")
+        user_profile.save()
+        topmsg = 'Your settings have been saved'
+    
+    return render_to_response('profile.html', {
+        'user_profile': user_profile,
+        'topmsg': topmsg,
     }, context_instance=RequestContext(request))
 
 def login_page(request):

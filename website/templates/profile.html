@@ -1,0 +1,66 @@
+{% extends 'theme/base.html' %}
+
+{% block extra_css %}
+    <style>
+        .project-name{
+            font-size:16px;
+            font-weight:800;
+        }
+        input, textarea{
+            width:350px;
+        }
+    </style>
+{% endblock %}
+
+{% block maincontent %}
+    <h1>Your Profile </h1>
+
+    <form id='profile_form' method=POST>
+        
+        <div class='control-group'>
+            {% if user_profile.media_url|default:'' != '' %}
+            <div class='control-group'>
+                <div style="width: 150px; height: 150px;">
+                    <img src="{{ user_profile.media_url }}" style='max-height:150px;max-width:150px;'/>
+                </div>
+            </div>
+            {% endif %}
+            <label for='media_url'>Profile Image (use web link): </label>
+            <input type='text' id='media_url' name='media_url' value='{{ user_profile.media_url }}'/>
+        </div>
+        
+        <div class='control-group'>
+            <label for='email'>Email: </label>
+            <input type='text' id='email' name='email' value='{{ user_profile.user.email }}'/>
+        </div>
+        <div class='control-group'>
+            <label for='bio'>Your Bio: </label>
+            <textarea id='bio' name='bio' rows="8" cols="80">{{ user_profile.bio }}</textarea>
+        </div>
+        <div class='control-group'>
+            <input type='submit' id='save' value='Save Your Settings'/>
+        </div>
+    </form>
+    
+    <h3>Projects you are following:</h3>
+    {% if user_profile.followed_projects.count == 0 %}
+        You aren't following any projects<br/><br/>
+    {% endif %}
+    
+    {% for project in user_profile.followed_projects.all %}
+        <div class='control-group'>
+            <a href='/project/{{ project.id }}' class='project-name'>{{ project.name }}</a>&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href='#' class='unfollow-project' project-id='{{ project.id }}'>(stop following)</a>
+        </div>
+    {% endfor %}
+
+{% endblock %}
+
+
+{% block bottomscript %}
+    <script>
+        $(".unfollow-project").click(function(){
+            $(this).parents(".control-group").hide();
+        });
+    </script>
+{% endblock %}

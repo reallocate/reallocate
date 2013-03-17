@@ -71,14 +71,13 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User)
     bio = models.CharField(max_length=2000, blank=True)
     followed_projects = models.ManyToManyField(Project, blank=True)
+    media_url = models.CharField(max_length=2000, blank=True)
     # engaged_opportunities = models.ManyToManyField(Opportunity, blank=True)
-    # engaged_projects = models.ManyToManyField(Project, blank=True)
     # skills
     # interests
 
     def __str__(self):
         return "%s's profile" % self.user
-
 
 def create_user_profile(sender, instance, created, **kwargs):
     if created:

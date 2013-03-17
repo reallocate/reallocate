@@ -22,10 +22,12 @@ urlpatterns = patterns('',
                        url(r'^opportunity/(.*?)$', 'website.views.view_opportunity', name='view_opportunity'),
                        url(r'^find-opportunity', 'website.views.opportunity_list', name='opportunity_list'),
 
-                       url(r'^ajax/follow_project', 'website.ajaxviews.follow_project', name='follow_project'),
+                       url(r'^ajax/modify_project_relation', 'website.ajaxviews.modify_project_relation', name='modify_project_relation'),
                        url(r'^login', 'website.views.login_user', name='login_user'),
 
-                       # url("^index", TemplateView.as_view(template_name='index.html'), name="mission"),
+                       # couldn't figure out how to make the o-auth pages not default send to /private
+                       # so what should be /profile is staying /private for now.
+                       url(r'^private$', 'website.views.profile', name='profile'),
 
                        # Admin site
                        url(r'^admin/', include(admin.site.urls)),
