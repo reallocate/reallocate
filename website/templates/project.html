@@ -25,14 +25,9 @@
         .oppTitle{
             font-size: 20px;
         }
-        .updateRow {
-            /*border:2px solid green;*/
-            background-color: lightblue;
-            margin-bottom: 10px;
-        }
 
-        .updateThumb{
-        }
+
+        .updateThumb{ }
         .updateUserName{
             color: black;
         }
@@ -45,6 +40,14 @@
         .updateMedia{
             margin:5px;
         }
+        #updates {
+            border-left: 1px solid #7d7d7d;
+        }
+        
+        #updates .updateRow {
+            border-bottom: 1px solid #7d7d7d;
+        }
+
     </style>
 {% endblock %}
 {% block maincontent %}
@@ -58,7 +61,7 @@
         </ul>
     </div>
     
-    <div class="project_wrap">
+    <div class="project_wrap container">
         <div class="row">
             <div class="span3">
                 <img src="/static/images/cordova1.png"/>
@@ -76,8 +79,7 @@
             </div>
         </div>
         <div class="row project_lower">
-            <div class="span4">
-                Opportunity List
+            <div class="span4" id="opportunity_list">
                 {% for opp in opportunities%}
                 <div class="row-fluid oppRow">
                     <div class="span2">
@@ -92,8 +94,7 @@
                 {% endfor %}
             </div>
     
-            <div class="span8">
-                Activity Feed
+            <div class="span7" id="updates">
                 {% for update in updates%}
                     <div class="row-fluid updateRow">
                         <div class="span2">
