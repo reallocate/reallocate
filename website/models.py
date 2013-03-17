@@ -8,7 +8,7 @@ class Project(models.Model):
     name = models.CharField(max_length=100, blank=True)
     status = models.CharField(max_length=100, blank=True, default='unpublished')
     industry = models.CharField(max_length=100, blank=True)
-    datetime = models.DateTimeField(auto_now_add=True)
+    date_created = models.date_createdField(auto_now_add=True)
     description = models.CharField(max_length=1000, blank=True)
     media_url = models.CharField(max_length=200, blank=True)
     def __unicode__(self):
@@ -30,7 +30,7 @@ class Opportunity(models.Model):
     name = models.CharField(max_length=100, blank=True)
     media_url = models.CharField(max_length=200, blank=True)
     status = models.CharField(max_length=100, blank=True, default='unpublished')
-    datetime = models.DateTimeField(auto_now_add=True)
+    date_created = models.date_createdField(auto_now_add=True)
     description = models.CharField(max_length=1000, blank=True)
     featured = models.BooleanField(default=False, blank=True)
     # engaged_users = models.ManyToManyField(Users)
