@@ -71,4 +71,3 @@ class OpportunityForm(ModelForm):
         widgets = {
             'description': Textarea(attrs={'cols': 80, 'rows': 10}),
         }
-
