@@ -9,8 +9,10 @@
 {% block extra_css %}
     <style>
         .oppRow {
-            border:2px solid red;
+            /*border:2px solid red; */
+            background-color: #d3d3d3;
             height: 100px;
+            margin-bottom: 10px;
         }
         .oppThumb{
             width: 50px;
@@ -19,9 +21,29 @@
         .oppDescription{
             color: #808080;
         }
-        .oppTitle{
 
+        .oppTitle{
             font-size: 20px;
+        }
+        .updateRow {
+            /*border:2px solid green;*/
+            background-color: lightblue;
+            margin-bottom: 10px;
+        }
+
+        .updateThumb{
+        }
+        .updateUserName{
+            color: black;
+        }
+        .updateOppName{
+            color: #808080;
+        }
+        .updateText{
+            color: #808080;
+        }
+        .updateMedia{
+            margin:5px;
         }
     </style>
 {% endblock %}
@@ -55,6 +77,7 @@
                 <div class="span10">
                     <div class="oppTitle"> {{opp.name}} </div>
                     <div class="oppDescription"> {{opp.description}}</div>
+                    <button ">Click me</button>
                 </div>
             </div>
             {% endfor %}
@@ -62,6 +85,19 @@
 
         <div class="span8">
             Activity Feed
+            {% for update in updates%}
+                <div class="row-fluid updateRow">
+                    <div class="span2">
+                        <img class="updateThumb" src="http://bp3.blogger.com/_PyBdAh0k7GA/Rwzb8ZlM_cI/AAAAAAAAAK4/5CnAGdL7meA/s400/armed-baby-hamster.jpg"/>
+                    </div>
+                    <div class="span10">
+                        <div class="updateUserName"> Cpt. SkinBoat ({{update.user.username}}) </div>
+                        <div class="updateOppName"> Opportunity Name ({{update.opportunity.name}}) </div>
+                        <div class="updateText">  {{update.text}}</div>
+                        <div class="updateMedia"> <img width="100%" height="100%" src="{{ update.media_url }}"> </div>
+                    </div>
+                </div>
+            {% endfor %}
         </div>
     </div>
 </div>

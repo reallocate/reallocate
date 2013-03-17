@@ -12,6 +12,7 @@ from website.lib.ses_email import send_email
 from models import UserProfile
 from models import Project
 from models import Opportunity
+from models import Update
 
 from website.models import ProjectForm, OpportunityForm, Project, Opportunity
 
@@ -80,9 +81,10 @@ def view_project(request, *args):
 
     project = get_object_or_404(Project, pk=args[0])
     opportunities= Opportunity.objects.filter(project=project)
-
+    updates = Update.objects.filter(project=project)
     return render_to_response('project.html', {
                             "project": project,
+                            "updates": updates,
                             "opportunities":opportunities,
         }, context_instance=RequestContext(request))
 
