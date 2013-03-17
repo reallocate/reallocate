@@ -6,6 +6,47 @@
 {% block meta_description %}{{ the_title }}{% endblock %}
 {% block title %}{{ the_title }}{% endblock %}
 
+{% block extra_css %}
+    <style>
+        .oppRow {
+            /*border:2px solid red; */
+            background-color: #d3d3d3;
+            height: 100px;
+            margin-bottom: 10px;
+        }
+        .oppThumb{
+            width: 50px;
+            height: 50px;
+        }
+        .oppDescription{
+            color: #808080;
+        }
+
+        .oppTitle{
+            font-size: 20px;
+        }
+        .updateRow {
+            /*border:2px solid green;*/
+            background-color: lightblue;
+            margin-bottom: 10px;
+        }
+
+        .updateThumb{
+        }
+        .updateUserName{
+            color: black;
+        }
+        .updateOppName{
+            color: #808080;
+        }
+        .updateText{
+            color: #808080;
+        }
+        .updateMedia{
+            margin:5px;
+        }
+    </style>
+{% endblock %}
 {% block maincontent %}
 
 <div class="project_wrap">
@@ -18,7 +59,7 @@
                 <h1>Community Cold Storage</h1>
             </div>
             <div class="vision">
-                Change the paradim in the salmon fishing industry from catch more make less to catch less make more.
+                Change the paradigm in the salmon fishing industry from catch more make less to catch less make more.
             </div>
             <div class="backstory">
                 The story | The Team | The Community
@@ -28,9 +69,35 @@
     <div class="row project_lower">
         <div class="span4">
             Opportunity List
+            {% for opp in opportunities%}
+            <div class="row-fluid oppRow">
+                <div class="span2">
+                    <img class="oppThumb" src="http://bp3.blogger.com/_PyBdAh0k7GA/Rwzb8ZlM_cI/AAAAAAAAAK4/5CnAGdL7meA/s400/armed-baby-hamster.jpg"/>
+                </div>
+                <div class="span10">
+                    <div class="oppTitle"> {{opp.name}} </div>
+                    <div class="oppDescription"> {{opp.description}}</div>
+                    <a href="http://www.google.com">Get Involved</a>
+                </div>
+            </div>
+            {% endfor %}
         </div>
+
         <div class="span8">
             Activity Feed
+            {% for update in updates%}
+                <div class="row-fluid updateRow">
+                    <div class="span2">
+                        <img class="updateThumb" src="http://bp3.blogger.com/_PyBdAh0k7GA/Rwzb8ZlM_cI/AAAAAAAAAK4/5CnAGdL7meA/s400/armed-baby-hamster.jpg"/>
+                    </div>
+                    <div class="span10">
+                        <div class="updateUserName"> {{update.user.username}} </div>
+                        <div class="updateOppName"> {{update.opportunity.name}} </div>
+                        <div class="updateText">  {{update.text}}</div>
+                        <div class="updateMedia"> <img width="100%" height="100%" src="{{ update.media_url }}"> </div>
+                    </div>
+                </div>
+            {% endfor %}
         </div>
     </div>
     <a href='#' class='login-required follow-project' project-id="{{ project.id }}">Follow this project</a>

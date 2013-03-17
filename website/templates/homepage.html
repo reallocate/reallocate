@@ -36,13 +36,21 @@
     .opportunity_lower {
         padding: 10px;   
     }
+    .opportunity_lower .name {
+            
+    }
+
+    .opportunity_lower .short_desc {
+        margin-top:5px;
+        min-height: 90px;
+    }
     
     .opportunity_lower .location {
-        margin-top: 10px;
+        margin-top: 5px;
     }
     
     .opportunity_lower .organization {
-        margin-top: 10px;
+        margin-top: 5px;
     }
     
     footer {
@@ -78,10 +86,10 @@
                             <img src="/static/images/darkearth.png"/>
                         </div>
                         <div class="opportunity_lower">
-                            <div class="">
+                            <div class="name">
                                 {{ opportunity.name }}   
                             </div>
-                            <div class="opportunity_short_desc">
+                            <div class="short_desc">
                                 {{ opportunity.description }}   
                             </div>
                             <div class="location">
