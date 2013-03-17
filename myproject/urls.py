@@ -10,17 +10,21 @@ urlpatterns = patterns('',
                        # Examples:
                        # url(r'^$', 'myproject.views.home', name='home'),
                        url(r'', include('social_auth.urls')),
-                       (r'^signup/$', 'website.views.signup'),
-                       (r'^login/$', 'website.views.login_user'),
-                       (r'^logout/$', 'django.contrib.auth.views.logout', {'next_page': '/'}),
-
-                       url(r'^$', 'website.views.homepage', name='homepage'),
+                       url(r'^signup/$', 'website.views.signup'),
+                       url(r'^login/$', 'website.views.login_user'),
+                       url(r'^logout/$', 'django.contrib.auth.views.logout', {'next_page': '/'}),
+                       
                        url(r'^add_project/$', 'website.views.add_project', name='add_project'),
                        url(r'^project/(.*?)/add_opportunity/$', 'website.views.add_opportunity', name='add_opportunity'),
+                       url(r'^project/$', 'website.views.project', name='project'),
                        
-                       url(r'^login', 'website.views.login_page', name='login_page'),
-
-                       url(r'^private$', 'website.views.private', name='private'),
+                       
+                       url(r'^$', 'website.views.homepage', name='homepage'),
+                    
+                    
+                       
+                       
+                       
                        # url(r'^test$', 'website.views.test', name='test'),
 
                        # url("^index", TemplateView.as_view(template_name='index.html'), name="mission"),

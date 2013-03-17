@@ -78,6 +78,9 @@ def login_page(request):
 def homepage(request):
     return render_to_response('homepage.html', {}, context_instance=RequestContext(request))
 
+def project(request):
+    return render_to_response('project.html', {}, context_instance=RequestContext(request))
+
 @csrf_exempt
 def signup(request):
     if request.method == 'GET':
