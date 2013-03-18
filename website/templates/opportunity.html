@@ -37,13 +37,16 @@
     .updateRow {
         padding: 10px;
         margin-bottom: 15px;
-        border-bottom: 1px solid rgba(81,114,131,.65);
+        border-top: 1px solid rgba(81,114,131,.65);
         
     }
     .create_post{
         border: 2px blue;
     }
 
+    #post_update textarea{
+        width: 100%;
+    }
     </style>
 {% endblock %}
 
@@ -72,22 +75,21 @@
                     <h1> {{ opportunity.name }}</h1>
                     <h3>{{ project.name }}</h2>
                     {{ opportunity.description }}
+                    
                     {% if not is_engaged and logged_in %}
-                        <a href='/opportunity/{{ opportunity.id }}/engage'>Engage with this opportunity </a>
+                        <br/><a href='/opportunity/{{ opportunity.id }}/engage'>Engage with this opportunity </a>
                     {% endif %}
                 </div>
             </div>
         </div>
 
 
-        <div class="container-fluid project_lower_header">
+        <div class="row-fluid project_lower_header">
             <div class="row-fluid">
                 <div class="span8">
                     Updates
                 </div>
-                <div class="span4">
-                    Related Opportunities
-                </div>
+                
             </div>
         </div>
         
@@ -95,16 +97,20 @@
         <div class="row-fluid">    
             <div class="span8" id="updates">
                 <div class="create_post">
-                    <form id="addUpdate" enctype="multipart/form-data" method="post">
+                    <form id="post_update" enctype="multipart/form-data" method="post">
     
                         <input type="hidden" name="opportunity_id" value="{{opportunity.id}}"/>
                         <input type="hidden" name="user_id" value="{{request.user.get_profile.id}}"/>
-                        <input type="text" name="caption" size="60" placeholder="What do you have to say for yourself?" />
-                        <p>Browse for a file to upload: </p>
-                        <input type="file" name="uploaded_media">
-                            <br /><br />
-                        <input type="submit" value="Post Update">
-                        <div onclick="ajaxFormFunction()">SUBMITME</div>
+                        <textarea placeholder="How is your project going?"></textarea>
+                        
+                        <button type="submit" class="btn">
+                            <span class="icon-camera icon"></span>
+                        </button>
+                        
+                        <input class="btn btn-primary" type="submit" value="Post Update" onclick="ajaxFormFunction(); return false;">
+                            
+                        <input id="upload_button" type="file" name="uploaded_media" style="display: none;"/>
+                        
                     </form>
                 </div>
                 {% for update in updates%}
@@ -113,12 +119,10 @@
                             <img class="updateThumb" src="{{update.created_by.get_profile.media_url}}"/>
                         </div>
                         <div class="span10">
-                            <div class="updateUserName">
-                                <a href="/profile/{{update.created_by.id}}">
-                                    {{update.created_by.first_name}} {{update.created_by.last_name}}
-                                </a>
-                            </div>
-                            <div class="updateOppName"> {{update.opportunity.name}} </div>
+                            <a class="username" href="/profile/{{update.created_by.id}}">
+                                {{update.created_by.first_name}} {{update.created_by.last_name}}
+                            </a>
+                            <!--<div class="updateOppName"> {{update.opportunity.name}} </div>-->
                             <div class="updateText">  {{update.text}}</div>
                             <div class="updateMedia"> <img width="100%" height="100%" src="{{ update.media_url }}"> </div>
                         </div>
@@ -153,10 +157,8 @@
             return false;
         });
 
-        function ajaxFormFunction()
-        {
+        function ajaxFormFunction() {
             alert("Thank you for your comment!");
-
         }
     </script>
 
