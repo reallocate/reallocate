@@ -100,6 +100,7 @@
       "project": "1",
       "date_created": "2013-01-01 05:00",
       "name": "Jameson required",
+      "opp_type": "money",
       "status": "published",
       "description": "10 Bottles of Jameson needed to be drunk and then used to club seals",
       "media_url": "http://2.bp.blogspot.com/_DC9qEk2rkkE/TA4W5j2TRMI/AAAAAAAAAR8/j6DlHSpoqeU/s1600/29227_1240501007671_1083661540_31122532_7442857_n.jpg"
@@ -112,6 +113,7 @@
       "project": "2",
       "date_created": "2013-01-01 05:00",
       "name": "Energy Mapping",
+      "opp_type": "materials",
       "status": "published",
       "description": "Complete an energy audit and map usage for community cold storage",
       "media_url": "http://lettersfromitia.files.wordpress.com/2010/03/american-solar-resources.jpg"
@@ -124,6 +126,7 @@
       "project": "2",
       "date_created": "2013-01-01 05:00",
       "name": "Provide Materials",
+      "opp_type": "money",
       "status": "published",
       "description": "Help CCCS buy a freezer for their prototype cold storage facility",
       "media_url": "http://cavingnews.com/wp-content/uploads/2013/01/fulton-31.jpg"
@@ -136,6 +139,7 @@
       "project": "4",
       "date_created": "2013-01-01 05:00",
       "name": "Create Product Prototype",
+      "opp_type": "labor",
       "status": "published",
       "description": "Build a prototype brace to treat children with club foot",
       "media_url": "http://b.vimeocdn.com/ts/236/018/236018887_640.jpg"
@@ -147,7 +151,8 @@
     "fields": {
       "project": "3",
       "date_created": "2013-01-01 05:00",
-      "name": "Code with the community",
+      "name": "Build an online Marketplace",
+      "opp_type": "labor",
       "status": "published",
       "description": "Come hack together to create an online marketplace to help projects connect with skilled volunteers to do good",
       "media_url": "http://www.gutenberg.org/files/35237/35237-h/images/petersborough_market_place.jpg"
@@ -161,6 +166,7 @@
       "project": "4",
       "date_created": "2013-01-01 05:00",
       "name": "Build non profit website",
+      "opp_type": "labor",
       "status": "published",
       "description": "Create a website for explain the Miracle Brace to potential donors",
       "media_url": "http://2.bp.blogspot.com/-8eBW9LPhzKI/TvzddVNU_eI/AAAAAAAABv4/cNSwphnQyKU/s1600/Happy+African+Girl-+Edit.jpg"
@@ -173,6 +179,7 @@
       "project": "4",
       "date_created": "2013-01-01 05:00",
       "name": "Provide Materials",
+      "opp_type": "materials",
       "status": "published",
       "description": "Help provide the materials to Miracle Brace to build a prototype",
       "media_url": "http://www.williampoole.com/inc/files/Image/materials_list.jpg"
@@ -185,6 +192,7 @@
       "project": "4",
       "date_created": "2013-01-01 05:00",
       "name": "Fund Travel",
+      "opp_type": "money",
       "status": "published",
       "description": "Help buy a plane ticket for our engineer to visit patients in Nicaragua",
       "media_url": "http://1.bp.blogspot.com/_lvbe0w9Xwy4/TCcxTeXqZgI/AAAAAAAAA5Q/9j1vJ2CrPDI/s1600/plane47.jpg"
@@ -197,7 +205,7 @@
         "project": 1,
         "text": "\"If you're going through hell, keep going.\" -Churchill",
         "opportunity": 1,
-        "user_profile": 1,
+        "created_by": 1,
         "media_url": "http://25.media.tumblr.com/tumblr_ltmhzyAOjU1qzom4yo1_500.jpg"
     }
 },
@@ -208,7 +216,7 @@
         "project": 1,
         "text": "Mike North at TedXSendai",
         "opportunity": 1,
-        "user_profile": 2,
+        "created_by": 1,
         "media_url": "http://www.youtube.com/watch?v=5adBpmAx1Cc"
     }
 },
@@ -216,11 +224,11 @@
     "pk": 3,
     "model": "website.Update",
     "fields": {
-        "project": 2,
-        "text": "\"Rural Alaskans rely on subsistence food for their way of life. This means they harvest, process and store their own food to feed their families and survive the long Alaskan winters. In the Alaskan frontier there is no Walmart, no convenience store and your delivery driver flies an airplane! In partnership with the Eyak Preservation Council and the University of California, Berkeley, ReAllocate is helping to build a community cold storage facility in Cordova, Alaska. This facility is an innovative approach to providing high quality subsistence food processing for rural populations. It will also create new sustainable economic opportunities for commercial fishermen, by opening direct-to-market sales channels, increasing their earning potential and improving existing cottage industries. All of rural Alaska faces the challenge of maintaining a high-quality subsistence food supply. Food processing centers are built to serve large corporate clients and are not suited for the needs of smaller commercial and rural fishers and hunters. This means it's harder for rural families to process and store their food for survival and independant commercial fishermen are forced to sell their catch to large canneries at a fraction of the cost of selling direct-to-market.\"",
-        "opportunity": 2,
-        "user_profile": 1,
-        "media_url": ""
+    "project": 2,
+    "text": "\"Rural Alaskans rely on subsistence food for their way of life. This means they harvest, process and store their own food to feed their families and survive the long Alaskan winters. In the Alaskan frontier there is no Walmart, no convenience store and your delivery driver flies an airplane! In partnership with the Eyak Preservation Council and the University of California, Berkeley, ReAllocate is helping to build a community cold storage facility in Cordova, Alaska. This facility is an innovative approach to providing high quality subsistence food processing for rural populations. It will also create new sustainable economic opportunities for commercial fishermen, by opening direct-to-market sales channels, increasing their earning potential and improving existing cottage industries. All of rural Alaska faces the challenge of maintaining a high-quality subsistence food supply. Food processing centers are built to serve large corporate clients and are not suited for the needs of smaller commercial and rural fishers and hunters. This means it's harder for rural families to process and store their food for survival and independant commercial fishermen are forced to sell their catch to large canneries at a fraction of the cost of selling direct-to-market.\"",
+    "opportunity": 2,
+    "created_by": 1,
+    "media_url": ""
     }
 },
 
@@ -231,7 +239,7 @@
         "project": 1,
         "text": "\"An adventure is not a goal, but rather an experience that had better be shared with your friends\" - TR",
         "opportunity": 1,
-        "user_profile": 1,
+        "created_by": 1,
         "media_url": "http://4.bp.blogspot.com/-NPrNZDLLWh8/TWdRcFgOVuI/AAAAAAAAAC0/0UNtjmJp2oo/s1600/steve-prefontaine-poster-olympic.jpg"
     }
 },
@@ -243,7 +251,7 @@
         "project": 2,
         "text": "Kevin has offered to help build an Energy Map for Community Cold Storage!",
         "opportunity": 2,
-        "user_profile": 1,
+        "created_by": 1,
         "media_url": ""
     }
 },
@@ -254,7 +262,7 @@
         "project": 3,
         "text": "Live Action from the Hack Day!",
         "opportunity": 1,
-        "user_profile": 1,
+        "created_by": 1,
         "media_url": "http://www.youtube.com/watch?v=1aT06bbh47A"
     }
 },
@@ -265,7 +273,7 @@
         "project": 2,
         "text": "Cordova Community Cold Storage created an opportunity to provide materials",
         "opportunity": 3,
-        "user_profile": 1,
+        "created_by": 1,
         "media_url": "http://www.freakygaming.com/gallery/game_art/starcraft_2/human_space_station.jpg"
     }
 },
@@ -276,7 +284,7 @@
         "project": 4,
         "text": "Miracle Brace created an opportunity to build a prototype",
         "opportunity": 4,
-        "user_profile": 1,
+        "created_by": 1,
         "media_url": ""
     }
 },
@@ -287,7 +295,7 @@
         "project": 4,
         "text": "I would love to help create the prototype for the brace!",
         "opportunity": 4,
-        "user_profile": 1,
+        "created_by": 1,
         "media_url": ""
     }
 },
@@ -298,7 +306,7 @@
         "project": 3,
         "text": "I'm there with you in spirit! Take care of the hamsters and watch out for the seals!...not sure where the elephants came from...",
         "opportunity": 5,
-        "user_profile": 2,
+        "created_by": 2,
         "media_url": "http://3.bp.blogspot.com/-Tljj16gltgY/UIZS7K6OfrI/AAAAAAAAAvY/qxaVrxjc5f4/s1600/elephant+,+hamster+,+seal+.jpg"
     }
 },
@@ -309,7 +317,7 @@
         "project": 4,
         "text": "Check out the newest version of the site! http://miraclefeet.org",
         "opportunity": 6,
-        "user_profile": 1,
+        "created_by": 1,
         "media_url": "http://miraclefeet.org/media/documents/MiracleFeet.jpg"
     }
 },
@@ -320,7 +328,7 @@
         "project": 4,
         "text": "An opportunity to build  website has been created!",
         "opportunity": 6,
-        "user_profile": 1,
+        "created_by": 1,
         "media_url": ""
     }
 }
