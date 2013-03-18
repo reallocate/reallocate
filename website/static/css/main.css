@@ -32,6 +32,10 @@ h3 {
     margin-top: 10px;  
 }
 
+.push-little {
+    margin-top: 25px;
+}
+
 .opportunity_container {
     background: #fff;
     margin-bottom: 30px;
@@ -80,6 +84,14 @@ h3 {
     height: 100px;    
 }
 
+.project_lower_header {
+    margin-top: 40px;
+    height: 50px;
+    font-size: 2em;
+    font-weight: 100;
+    /*background: #e7e7e7;*/
+}
+        
 .form-title {
     margin-left: 30px;
 }

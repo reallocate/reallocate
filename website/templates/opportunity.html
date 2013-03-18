@@ -8,10 +8,6 @@
 
 {% block extra_css %}
     <style>
-    .opp_wrap{
-        padding-bottom: 10px;
-
-    }
 
     #related_opp_list .opp_thumb {
         height: 54px;
@@ -37,10 +33,7 @@
     .opp_image img{
         min-height: 270px;
     }
-    
-    #updates {
-        border-left: 1px solid rgba(81,114,131,.65);
-    }
+
     .updateRow {
         padding: 10px;
         margin-bottom: 15px;
@@ -64,79 +57,93 @@
         </ul>
     </div>
 
-    <div class="opp_wrap container">
-    <div class="row">
-        <div class="span3">
-            <div class="opp_image">
-                <img src="{{opportunity.media_url}}"/>
-            </div>
-        </div>
-
-        <div class="span9">
-            <div class="opp_title">
-                <h1> {{ opportunity.name }}</h1>
-                <h3>{{ project.name }}</h2>
-                {{ opportunity.description }}
-                {% if not is_engaged and logged_in %}
-                    <a href='/opportunity/{{ opportunity.id }}/engage'>Engage with this opportunity </a>
-                {% endif %}
-            </div>
-        </div>
-    </div>
-    </div>
-
-
-    <div class="row">
-        <div class="span4" id="related_opp_list">
-        <h3> Related Opportunities</h3>
-            {% for opp in other_opps%}
-                <div class="row-fluid opp_row">
-                    <div class="span2 opp_thumb">
-                        <img src="{{ opp.media_url }}"/>
-                    </div>
-                    <div class="span10">
-                        <div class="opp_title"> {{opp.name}} </div>
-                        <div class="opp_description"> {{opp.description}}</div>
-                        <a href="/opportunity/{{opp.id}}">Get Involved</a>
-                    </div>
+    <div class="project_wrap container-fluid">
+        <div class="push-little"></div>
+        <div class="row-fluid">
+            
+            <div class="span4">
+                <div class="opp_image">
+                    <img src="{{opportunity.media_url}}"/>
                 </div>
-            {% endfor %}
-        </div>
-
-        <div class="span7" id="updates">
-            <h3> Activity Feed</h3>
-
-            <div class="create_post">
-                <form id="addUpdate" enctype="multipart/form-data" method="post">
-
-                    <input type="hidden" name="opportunity_id" value="{{opportunity.id}}"/>
-                    <input type="hidden" name="user_id" value="{{request.user.get_profile.id}}"/>
-                    <input type="text" name="caption" size="60" placeholder="What do you have to say for yourself?" />
-                    <p>Browse for a file to upload: </p>
-                    <input type="file" name="uploaded_media">
-                        <br /><br />
-                    <input type="submit" value="Post Update">
-                    <div onclick="ajaxFormFunction()">SUBMITME</div>
-                </form>
             </div>
-            {% for update in updates%}
-                <div class="row-fluid updateRow">
-                    <div class="span2">
-                        <img class="updateThumb" src="{{update.created_by}}"/>
-                    </div>
-                    <div class="span10">
-                        <div class="updateUserName"> {{update.user.first_name}} {{update.user.last_name}}</div>
-                        created by: {{update.created_by}}
-                        <div class="updateUserName"> {{update.created_by.username}} </div>
-                        <div class="updateOppName"> {{update.opportunity.name}} </div>
-                        <div class="updateText">  {{update.text}}</div>
-                        <div class="updateMedia"> <img width="100%" height="100%" src="{{ update.media_url }}"> </div>
-                    </div>
+    
+            <div class="span8">
+                <div class="opp_title">
+                    <h1> {{ opportunity.name }}</h1>
+                    <h3>{{ project.name }}</h2>
+                    {{ opportunity.description }}
+                    {% if not is_engaged and logged_in %}
+                        <a href='/opportunity/{{ opportunity.id }}/engage'>Engage with this opportunity </a>
+                    {% endif %}
                 </div>
-            {% endfor %}
+            </div>
         </div>
-    </div>
 
+
+        <div class="container-fluid project_lower_header">
+            <div class="row-fluid">
+                <div class="span8">
+                    Updates
+                </div>
+                <div class="span4">
+                    Related Opportunities
+                </div>
+            </div>
+        </div>
+        
+    
+        <div class="row-fluid">    
+            <div class="span8" id="updates">
+                <div class="create_post">
+                    <form id="addUpdate" enctype="multipart/form-data" method="post">
+    
+                        <input type="hidden" name="opportunity_id" value="{{opportunity.id}}"/>
+                        <input type="hidden" name="user_id" value="{{request.user.get_profile.id}}"/>
+                        <input type="text" name="caption" size="60" placeholder="What do you have to say for yourself?" />
+                        <p>Browse for a file to upload: </p>
+                        <input type="file" name="uploaded_media">
+                            <br /><br />
+                        <input type="submit" value="Post Update">
+                        <div onclick="ajaxFormFunction()">SUBMITME</div>
+                    </form>
+                </div>
+                {% for update in updates%}
+                    <div class="row-fluid updateRow">
+                        <div class="span2">
+                            <img class="updateThumb" src="{{update.created_by.get_profile.media_url}}"/>
+                        </div>
+                        <div class="span10">
+                            <div class="updateUserName">
+                                <a href="/profile/{{update.created_by.id}}">
+                                    {{update.created_by.first_name}} {{update.created_by.last_name}}
+                                </a>
+                            </div>
+                            <div class="updateOppName"> {{update.opportunity.name}} </div>
+                            <div class="updateText">  {{update.text}}</div>
+                            <div class="updateMedia"> <img width="100%" height="100%" src="{{ update.media_url }}"> </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            
+            <div class="span3" id="related_opp_list">
+                {% for opp in other_opps%}
+                    <div class="row-fluid opp_row">
+                        <div class="span2 opp_thumb">
+                            <img src="{{ opp.media_url }}"/>
+                        </div>
+                        <div class="span10">
+                            <div class="opp_title"> {{opp.name}} </div>
+                            <div class="opp_description"> {{opp.description}}</div>
+                            <a href="/opportunity/{{opp.id}}">Get Involved</a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+                        
+        </div> <!-- -->
+    </div>
+    
 {% endblock %}
 
 {% block bottomscript %}
