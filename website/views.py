@@ -12,6 +12,7 @@ from website.models import ProjectForm, OpportunityForm, Project, Opportunity, U
 from website.models import OpportunityEngagements
 import website.base as base
 
+
 @login_required
 @csrf_exempt
 def profile(request):
@@ -102,11 +103,11 @@ def view_project(request, pid=1):
     return render_to_response('project.html', model, context_instance=RequestContext(request))
 
 
+@csrf_exempt
 def view_opportunity(request, pid=1):
     opp = get_object_or_404(Opportunity, pk=pid)
     project = get_object_or_404(Project, pk=opp.project.id)
     updates = Update.objects.filter(opportunity=opp)
-    print request.user
     model = {'opportunity': opp,
              'project': project,
              'other_opps': [rec for rec in Opportunity.objects.filter(project=opp.project).all() if rec.id != opp.id],

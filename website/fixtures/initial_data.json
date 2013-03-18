@@ -205,7 +205,7 @@
         "project": 1,
         "text": "\"If you're going through hell, keep going.\" -Churchill",
         "opportunity": 1,
-        "user_profile": 1,
+        "created_by": 1,
         "media_url": "http://25.media.tumblr.com/tumblr_ltmhzyAOjU1qzom4yo1_500.jpg"
     }
 },
@@ -216,7 +216,7 @@
         "project": 1,
         "text": "Mike North at TedXSendai",
         "opportunity": 1,
-        "user_profile": 2,
+        "created_by": 1,
         "media_url": "http://www.youtube.com/watch?v=5adBpmAx1Cc"
     }
 },
@@ -224,11 +224,11 @@
     "pk": 3,
     "model": "website.Update",
     "fields": {
-        "project": 2,
-        "text": "\"Rural Alaskans rely on subsistence food for their way of life. This means they harvest, process and store their own food to feed their families and survive the long Alaskan winters. In the Alaskan frontier there is no Walmart, no convenience store and your delivery driver flies an airplane! In partnership with the Eyak Preservation Council and the University of California, Berkeley, ReAllocate is helping to build a community cold storage facility in Cordova, Alaska. This facility is an innovative approach to providing high quality subsistence food processing for rural populations. It will also create new sustainable economic opportunities for commercial fishermen, by opening direct-to-market sales channels, increasing their earning potential and improving existing cottage industries. All of rural Alaska faces the challenge of maintaining a high-quality subsistence food supply. Food processing centers are built to serve large corporate clients and are not suited for the needs of smaller commercial and rural fishers and hunters. This means it's harder for rural families to process and store their food for survival and independant commercial fishermen are forced to sell their catch to large canneries at a fraction of the cost of selling direct-to-market.\"",
-        "opportunity": 2,
-        "user_profile": 1,
-        "media_url": ""
+    "project": 2,
+    "text": "\"Rural Alaskans rely on subsistence food for their way of life. This means they harvest, process and store their own food to feed their families and survive the long Alaskan winters. In the Alaskan frontier there is no Walmart, no convenience store and your delivery driver flies an airplane! In partnership with the Eyak Preservation Council and the University of California, Berkeley, ReAllocate is helping to build a community cold storage facility in Cordova, Alaska. This facility is an innovative approach to providing high quality subsistence food processing for rural populations. It will also create new sustainable economic opportunities for commercial fishermen, by opening direct-to-market sales channels, increasing their earning potential and improving existing cottage industries. All of rural Alaska faces the challenge of maintaining a high-quality subsistence food supply. Food processing centers are built to serve large corporate clients and are not suited for the needs of smaller commercial and rural fishers and hunters. This means it's harder for rural families to process and store their food for survival and independant commercial fishermen are forced to sell their catch to large canneries at a fraction of the cost of selling direct-to-market.\"",
+    "opportunity": 2,
+    "created_by": 1,
+    "media_url": ""
     }
 },
 
@@ -239,7 +239,7 @@
         "project": 1,
         "text": "\"An adventure is not a goal, but rather an experience that had better be shared with your friends\" - TR",
         "opportunity": 1,
-        "user_profile": 1,
+        "created_by": 1,
         "media_url": "http://4.bp.blogspot.com/-NPrNZDLLWh8/TWdRcFgOVuI/AAAAAAAAAC0/0UNtjmJp2oo/s1600/steve-prefontaine-poster-olympic.jpg"
     }
 },
@@ -251,7 +251,7 @@
         "project": 2,
         "text": "Kevin has offered to help build an Energy Map for Community Cold Storage!",
         "opportunity": 2,
-        "user_profile": 1,
+        "created_by": 1,
         "media_url": ""
     }
 },
@@ -262,7 +262,7 @@
         "project": 3,
         "text": "Live Action from the Hack Day!",
         "opportunity": 1,
-        "user_profile": 1,
+        "created_by": 1,
         "media_url": "http://www.youtube.com/watch?v=1aT06bbh47A"
     }
 },
@@ -273,7 +273,7 @@
         "project": 2,
         "text": "Cordova Community Cold Storage created an opportunity to provide materials",
         "opportunity": 3,
-        "user_profile": 1,
+        "created_by": 1,
         "media_url": "http://www.freakygaming.com/gallery/game_art/starcraft_2/human_space_station.jpg"
     }
 },
@@ -284,7 +284,7 @@
         "project": 4,
         "text": "Miracle Brace created an opportunity to build a prototype",
         "opportunity": 4,
-        "user_profile": 1,
+        "created_by": 1,
         "media_url": ""
     }
 },
@@ -295,7 +295,7 @@
         "project": 4,
         "text": "I would love to help create the prototype for the brace!",
         "opportunity": 4,
-        "user_profile": 1,
+        "created_by": 1,
         "media_url": ""
     }
 },
@@ -306,7 +306,7 @@
         "project": 3,
         "text": "I'm there with you in spirit! Take care of the hamsters and watch out for the seals!...not sure where the elephants came from...",
         "opportunity": 5,
-        "user_profile": 2,
+        "created_by": 2,
         "media_url": "http://3.bp.blogspot.com/-Tljj16gltgY/UIZS7K6OfrI/AAAAAAAAAvY/qxaVrxjc5f4/s1600/elephant+,+hamster+,+seal+.jpg"
     }
 },
@@ -317,7 +317,7 @@
         "project": 4,
         "text": "Check out the newest version of the site! http://miraclefeet.org",
         "opportunity": 6,
-        "user_profile": 1,
+        "created_by": 1,
         "media_url": "http://miraclefeet.org/media/documents/MiracleFeet.jpg"
     }
 },
@@ -328,7 +328,7 @@
         "project": 4,
         "text": "An opportunity to build  website has been created!",
         "opportunity": 6,
-        "user_profile": 1,
+        "created_by": 1,
         "media_url": ""
     }
 }

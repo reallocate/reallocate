@@ -70,7 +70,7 @@ class UserProfile(models.Model):
 class Update(models.Model):
     project = models.ForeignKey(Project)
     opportunity = models.ForeignKey(Opportunity)
-    user_profile = models.ForeignKey(UserProfile)
+    created_by = models.ForeignKey(User)
     text = models.CharField(max_length=1000, blank=True)
     media_url = models.CharField(max_length=1000, blank=True)
 

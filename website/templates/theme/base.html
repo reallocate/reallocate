@@ -40,9 +40,9 @@
 {% block hero %}
 {% endblock %}
 
-<div class="container main_container">
-    *{{ urlparam_topmsg }}* 
-    {% if topmsg|default:urlparam_topmsg|default:'' != ''%}
+<div id="content" class="container main_container">
+     
+    {% if topmsg|default:'' != ''%}
         <div class='topmsg'>{{ topmsg }}</div>
     {% endif %}
     
