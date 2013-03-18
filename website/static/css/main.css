@@ -4,6 +4,14 @@ body {
     font-family: "Helvetica Neue", Helvetica, Verdana;
 }
 
+h1 {
+    font-family: 'Raleway', sans-serif;
+}
+
+h3 {
+    font-family: 'Raleway', sans-serif;
+}
+
 .navbar .brand img {
     width: 200px !important;
 }
@@ -48,6 +56,7 @@ body {
     min-height: 180px;
 }
 .opportunity_container .name {
+    font-family: 'Raleway', sans-serif;
     font-weight: bold;
 }
 
