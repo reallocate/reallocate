@@ -4,7 +4,7 @@
 {% trans "This is the title" as the_title %}
 
 {% block meta_description %}{{ the_title }}{% endblock %}
-{% block title %}{{ the_title }}{% endblock %}
+
 
 {% block extra_css %}
     <style>
@@ -39,14 +39,11 @@
             margin:5px;
         }
         
-        .project_top .project_media_url {
-            background: #fff;
-            padding: 10px;
-            border: solid 1px #cdcdcd;
-            box-shadow: 0 5px 5px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(82, 168, 236, 0.2);
-            border-radius: 5px;
-            margin-bottom: 15px;
+        .project_top .project_media_url img {
+
+            margin-bottom: 10px;
         }
+        
         .project_top .stat-label {
             font-weight: 100;
         }
@@ -84,9 +81,25 @@
             <div class="container-fluid">
                 <div class="span8 project_media_url">
                     <img src="{{ project.media_url }}"/>
+                    <br/>
+                    
+                    <div class="fb-like" data-href="http://www.jon.com" data-send="true" data-width="400" data-show-faces="false"></div>
+                    
+                    <div id="fb-root"></div>
+                    <script>(function(d, s, id) {
+                      var js, fjs = d.getElementsByTagName(s)[0];
+                      if (d.getElementById(id)) return;
+                      js = d.createElement(s); js.id = id;
+                      js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=151555328193390";
+                      fjs.parentNode.insertBefore(js, fjs);
+                    }(document, 'script', 'facebook-jssdk'));</script>
+                    
+                    <hr/>
                 </div>
                 
+                
                 <div class="span4">
+                    
                     <div class="row-fluid" id="statistics">
                         <div class="stat span4">
                             <div id="num-following" class="text-center number">{{ num_following }}</div>
@@ -101,6 +114,23 @@
                             <div class="stat-label text-center">opportunities</div>
                         </div>
                     </div>
+                    
+                    <hr/>
+                    
+                    <div class="row-fluid">
+                        <div class="span4">
+                            <img src="{{ project.created_by.get_profile.media_url }}"/>
+                        </div>
+                        <div class="span8">
+                            <i>Project By</i><br/>
+                            <a class="username" href="/profile/{{ project.created_by.id }}">
+                                {{ project.created_by.first_name }} {{ project.created_by.last_name }}
+                            </a>
+                            
+                        </div>
+                    </div>
+                    
+                    
                     
                     {% if logged_in %}
                         <div class='follow-or-not'>
@@ -159,7 +189,7 @@
                             </div>
                             <div class="span10">
                                 <div class="oppTitle"> {{opp.name}} </div>
-                                <div class="oppDescription"> {{opp.description}}</div>
+                                <div class="oppDescription"> {{opp.description|safe|truncatewords:15}}</div>
                                 <a href="/opportunity/{{opp.id}}">Get Involved</a>
                             </div>
                         </div>

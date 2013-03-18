@@ -11,7 +11,9 @@ class Project(models.Model):
     date_created = models.DateTimeField(auto_now_add=True)
     description = models.TextField(blank=True)
     media_url = models.CharField(max_length=200, blank=True)
-    followed_by = models.ManyToManyField(User, blank=True)
+    created_by = models.ForeignKey(User)
+    followed_by = models.ManyToManyField(User, blank=True, related_name='followed_by')
+    
     def __unicode__(self):
         return "Name: %s" % self.name
 
