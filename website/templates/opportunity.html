@@ -11,6 +11,10 @@
     .opp_wrap{
         padding-bottom: 10px;
     }
+    .create_post{
+        border: 2px blue;
+    }
+
     </style>
 {% endblock %}
 
@@ -62,14 +66,28 @@
 
         <div class="span7" id="updates">
             <h3> Activity Feed</h3>
+
+            <div class="create_post">
+                <form id="addUpdate" enctype="multipart/form-data" method="post">
+
+                    <input type="hidden" name="opportunity_id" value="{{opportunity.id}}"/>
+                    <input type="hidden" name="user_id" value="{{request.user.get_profile.id}}"/>
+                    <input type="text" name="caption" size="60" placeholder="What do you have to say for yourself?" />
+                    <p>Browse for a file to upload: </p>
+                    <input type="file" name="uploaded_media">
+                        <br /><br />
+                    <input type="submit" value="Post Update">
+                    <div onclick="ajaxFormFunction()">SUBMITME</div>
+                </form>
+            </div>
             {% for update in updates%}
                 <div class="row-fluid updateRow">
                     <div class="span2">
-                        USER INFO{{ user.user_profile.id }}
-                        <img class="updateThumb" src="{{update.user_profile.media_url}}"/>
+                        <img class="updateThumb" src="{{update.created_by}}"/>
                     </div>
                     <div class="span10">
-                        <div class="updateUserName"> {{update.user.username}} </div>
+                        created by: {{update.created_by}}
+                        <div class="updateUserName"> {{update.created_by.username}} </div>
                         <div class="updateOppName"> {{update.opportunity.name}} </div>
                         <div class="updateText">  {{update.text}}</div>
                         <div class="updateMedia"> <img width="100%" height="100%" src="{{ update.media_url }}"> </div>
@@ -82,5 +100,17 @@
 {% endblock %}
 
 {% block bottomscript %}
+    <script>
+        $('#target').submit(function() {
+            alert('Handler for .submit() called.');
+            return false;
+        });
+
+        function ajaxFormFunction()
+        {
+            alert("Thank you for your comment!");
+
+        }
+    </script>
 
 {% endblock %}

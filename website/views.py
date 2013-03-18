@@ -12,6 +12,7 @@ from website.models import ProjectForm, OpportunityForm, Project, Opportunity, U
 from website.models import OpportunityEngagements
 import website.base as base
 
+
 @login_required
 @csrf_exempt
 def profile(request):
@@ -102,15 +103,25 @@ def view_project(request, pid=1):
     return render_to_response('project.html', model, context_instance=RequestContext(request))
 
 
+@csrf_exempt
 def view_opportunity(request, pid=1):
     opp = get_object_or_404(Opportunity, pk=pid)
     project = get_object_or_404(Project, pk=opp.project.id)
     updates = Update.objects.filter(opportunity=opp)
     topmsg = request.GET.get('topmsg')
 
+    #Now, if there was a post request, create the object
+    if request.method == "POST":
+        #TODOCreate the new update object...
+        new_update = Update()
+
+
+    #Load all the opportunities related to the project and remove the one that is being displayed
+
     other_opps = Opportunity.objects.filter(project=opp.project)
     other_opps_clean = []
     for other_opp in other_opps:
+        print "YES WE SEE ANOTHER OPP"
         if not opp.id == other_opp.id:
             other_opps_clean.append(other_opp)
 
@@ -119,7 +130,8 @@ def view_opportunity(request, pid=1):
         "project": project,
         "other_opps": other_opps_clean,
         "updates": updates,
-        "topmsg": topmsg
+        "topmsg": topmsg,
+        #"user_profile":user_profile,    #User profile
     }, context_instance=RequestContext(request))
 
 @csrf_exempt
@@ -137,8 +149,8 @@ def engage(request, pid=1):
     
     return render_to_response('engage.html', {
         "opp": opp,
-        "show_form": show_form,
-        "topmsg": topmsg
+        #"show_form": show_form,
+        #"topmsg": topmsg
     }, context_instance=RequestContext(request))
 
 @login_required
@@ -167,6 +179,7 @@ def add_project(request):
 @login_required
 def add_opportunity(request, oid=1):
     # Create new Opportunity
+    print "YES WE ARRIVED!"
     parent_project = get_object_or_404(Project, pk=oid)
     show_form = True
 
@@ -187,3 +200,4 @@ def add_opportunity(request, oid=1):
         "parent_project": parent_project,
         "show_form": show_form
     }, context_instance=RequestContext(request))
+
