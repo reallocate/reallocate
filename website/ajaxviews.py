@@ -11,16 +11,16 @@ from website.models import UserProfile, Project
 def modify_project_relation(request, *args):
     # action = [follow, unfollow]
     project_id = request.GET.get('project_id', '')
-    action = request.GET.get('action', '') 
-    my_profile = base.get_current_userprofile(request)
+    action = request.GET.get('action', '')
     try:
         project = Project.objects.get(pk=project_id)
     except Exception, err:
         return HttpResponse(json.dumps({'failure': 'no project found'}), status=500)
     if action == 'follow':
-        my_profile.followed_projects.add(project)
+        project.followed_by.add(request.user)
     if action == 'unfollow':
-        my_profile.followed_projects.remove(project)
-    my_profile.save()
+        project.followed_by.remove(request.user)
+    print project.followed_by.all()
+    project.save()
     response_data = { "success": "true" }
     return HttpResponse(json.dumps(response_data), mimetype="application/json")
