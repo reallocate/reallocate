@@ -76,9 +76,6 @@
                 <h1> {{ opportunity.name }}</h1>
                 <h3>{{ project.name }}</h2>
                 {{ opportunity.description }}
-                <h1> {{ opportunity.name }}   </h1>
-                <h2>{{ project.name }}</h2>
-                {{ opportunity.description }}<br/>
                 {% if not is_engaged and logged_in %}
                     <a href='/opportunity/{{ opportunity.id }}/engage'>Engage with this opportunity </a>
                 {% endif %}
