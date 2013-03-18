@@ -11,5 +11,13 @@ def get_current_userprofile(request):
             return HttpResponse(json.dumps({'failure': 'no user'}), status=500)
         return HttpResponse("error getting user profile")
 
+def build_base_context(request):
+    model = {}
+    if request.user.is_authenticated():
+        model['logged_in'] = True
+        model['user_email'] = request.user.email
+    model['topmsg'] = request.GET.get('topmsg')
+    return model
+
 #def notify_users(project):
 
