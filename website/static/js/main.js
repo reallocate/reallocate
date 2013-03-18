@@ -35,8 +35,12 @@ var modify_project_relation = function(elem, action){
    });
 }
     
-   $('.opportunity_container').click(function() {
-      window.location.href = '/opportunity/' +  $(this).attr('opportunity_id');
-   });
+    $('.thumnail_container').click(function() {
+        if ($(this).attr('type') == 'opportunity') {
+            window.location.href = '/opportunity/' +  $(this).attr('opportunity_id');
+        } else if ($(this).attr('type') == 'project') {
+            window.location.href = '/project/' +  $(this).attr('project_id');
+        }
+    });
 });
 

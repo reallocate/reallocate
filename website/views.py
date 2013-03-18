@@ -37,8 +37,8 @@ def login_page(request):
     }, context_instance=RequestContext(request))
 
 def homepage(request):
-    opportunities = Opportunity.objects.all()[:4]
-    return render_to_response('homepage.html', {'opportunities': opportunities},
+    projects = Project.objects.all()[:4]
+    return render_to_response('homepage.html', {'projects': projects},
                               context_instance=RequestContext(request))
 
 def about(request):

@@ -36,7 +36,7 @@ h3 {
     margin-top: 25px;
 }
 
-.opportunity_container {
+.thumnail_container {
     background: #fff;
     margin-bottom: 30px;
     height: 360px;
@@ -45,7 +45,7 @@ h3 {
     -webkit-box-shadow: 1px 2px 3px #808080;
 }
 
-.opportunity_container:hover {
+.thumnail_container:hover {
     border-color: rgba(82, 168, 236, 0.8);
     box-shadow: 0 5px 5px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(82, 168, 236, 0.6);
     cursor: pointer;
@@ -59,19 +59,19 @@ h3 {
 .opportunity_thumb img{
     min-height: 180px;
 }
-.opportunity_container .name {
+.thumnail_container .name {
     font-family: 'Raleway', sans-serif;
     font-weight: bold;
 }
 
-.opportunity_container .location a{
+.thumnail_container .location a{
     margin-left: 5px
 }
 
 .username {
     font-weight: bold;
 }
-.opportunity_container .project_name a{
+.thumnail_container .project_name a{
     margin-left: 5px
 }
 .project_wrap {

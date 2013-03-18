@@ -73,12 +73,32 @@
 {% endblock %}
 {% block maincontent %}
 
-        <div class="row opportunties_row">
-            {% for opportunity in opportunities %}
-                {% include "includes/opportunity-pane.html" %}
-            {% endfor %}
-        </div>
-
+    <div class="row opportunties_row">
+        {% for project in projects %}
+            <div class="span3">
+                <div class="thumnail_container" type="project" project_id="{{ project.id }}">
+                    <div class="opportunity_thumb">
+                        <img src="{{ project.media_url }}"/>
+                    </div>
+                    <div class="opportunity_lower">
+                        <div class="name">
+                            {{ project.name }}
+                        </div>
+                        <div class="short_desc">
+                            {{ project.description|safe|truncatewords:10 }}
+                        </div>
+                        <div class="location">
+                            <div class="icon-map-marker"></div><a href="">San Francisco, CA</a>
+                        </div>
+                        <!--<div class="project_name">-->
+                        <!--    <div class="icon-wrench"></div><a href="/project/{{ project.id }}">{{ opportunity.project.name }}</a>-->
+                        <!--</div>-->
+                    </div>
+                </div>
+            </div>
+                        
+        {% endfor %}
+    </div>
 
 {% endblock %}
 
