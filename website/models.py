@@ -9,7 +9,7 @@ class Project(models.Model):
     status = models.CharField(max_length=100, blank=True, default='unpublished')
     industry = models.CharField(max_length=100, blank=True)
     date_created = models.DateTimeField(auto_now_add=True)
-    description = models.CharField(max_length=1000, blank=True)
+    description = models.TextField(blank=True)
     media_url = models.CharField(max_length=200, blank=True)
     followed_by = models.ManyToManyField(User, blank=True)
     def __unicode__(self):
@@ -32,7 +32,7 @@ class Opportunity(models.Model):
     media_url = models.CharField(max_length=200, blank=True)
     status = models.CharField(max_length=100, blank=True, default='unpublished')
     date_created = models.DateTimeField(auto_now_add=True)
-    description = models.CharField(max_length=1000, blank=True)
+    description = models.TextField(blank=True)
     featured = models.BooleanField(default=False, blank=True)
     opp_type = models.CharField(max_length=100, blank=True) # TODO: replace with taggit?
     engaged_by = models.ManyToManyField(User, blank=True, through='OpportunityEngagements')
