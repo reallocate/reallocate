@@ -44,6 +44,9 @@ body {
     overflow: hidden;
 }
 
+.opportunity_thumb img{
+    min-height: 180px;
+}
 .opportunity_container .name {
     font-weight: bold;
 }

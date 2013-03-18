@@ -10,6 +10,41 @@
     <style>
     .opp_wrap{
         padding-bottom: 10px;
+
+    }
+
+    #related_opp_list .opp_thumb {
+        height: 54px;
+        overflow: hidden;
+    }
+    
+    #related_opp_list .opp_thumb img{
+        min-height: 54px;
+    }    
+    
+    #related_opp_list .opp_title {
+        font-weight: bold;   
+    }
+    #related_opp_list .opp_row {
+        margin-bottom: 10px;
+    }
+    .opp_image{
+        height: 270px;
+        overflow: hidden;
+    }
+    
+    .opp_image img{
+        min-height: 270px;
+    }
+    
+    #updates {
+        border-left: 1px solid rgba(81,114,131,.65);
+    }
+    .updateRow {
+        padding: 10px;
+        margin-bottom: 15px;
+        border-bottom: 1px solid rgba(81,114,131,.65);
+        
     }
     .create_post{
         border: 2px blue;
@@ -31,35 +66,36 @@
     <div class="opp_wrap container">
     <div class="row">
         <div class="span3">
-            <img src="{{opportunity.media_url}}"/>
+            <div class="opp_image">
+                <img src="{{opportunity.media_url}}"/>
+            </div>
         </div>
 
         <div class="span9">
             <div class="opp_title">
-                <h1> {{ opportunity.name }}   </h1>
-                <h2>{{ project.name }}</h2>
-                {{ opportunity.description }}<br/>
+                <h1> {{ opportunity.name }}</h1>
+                <h3>{{ project.name }}</h2>
+                {{ opportunity.description }}
                 {% if not is_engaged and logged_in %}
                     <a href='/opportunity/{{ opportunity.id }}/engage'>Engage with this opportunity </a>
                 {% endif %}
             </div>
-
         </div>
     </div>
     </div>
 
 
-    <div class="row opportunity_lower">
-        <div class="span4" id="opportunity_list">
+    <div class="row">
+        <div class="span4" id="related_opp_list">
         <h3> Related Opportunities</h3>
             {% for opp in other_opps%}
-                <div class="row-fluid oppRow">
-                    <div class="span2">
-                        <img class="oppThumb" src="{{ opp.media_url }}"/>
+                <div class="row-fluid opp_row">
+                    <div class="span2 opp_thumb">
+                        <img src="{{ opp.media_url }}"/>
                     </div>
                     <div class="span10">
-                        <div class="oppTitle"> {{opp.name}} </div>
-                        <div class="oppDescription"> {{opp.description}}</div>
+                        <div class="opp_title"> {{opp.name}} </div>
+                        <div class="opp_description"> {{opp.description}}</div>
                         <a href="/opportunity/{{opp.id}}">Get Involved</a>
                     </div>
                 </div>
@@ -88,6 +124,7 @@
                         <img class="updateThumb" src="{{update.created_by}}"/>
                     </div>
                     <div class="span10">
+                        <div class="updateUserName"> {{update.user.first_name}} {{update.user.last_name}}</div>
                         created by: {{update.created_by}}
                         <div class="updateUserName"> {{update.created_by.username}} </div>
                         <div class="updateOppName"> {{update.opportunity.name}} </div>
