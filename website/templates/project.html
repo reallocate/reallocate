@@ -9,10 +9,8 @@
 {% block extra_css %}
     <style>
         .oppRow {
-            /*border:2px solid red; */
-            background-color: #d3d3d3;
+
             height: 100px;
-            margin-bottom: 10px;
         }
 
         .oppThumb{
@@ -119,7 +117,7 @@
             </div>
         </div>
         <div class="row-fluid project_lower">
-            <div class="span7" id="updates">
+            <div class="span8" id="updates">
                 {% for update in updates%}
                     <div class="row-fluid updateRow">
                         <div class="span2">
@@ -135,19 +133,22 @@
                 {% endfor %}
             </div>
             
-            <div class="span4" id="opportunity_list">
-                {% for opp in opportunities%}
-                <div class="row-fluid oppRow">
-                    <div class="span2">
-                        <img class="oppThumb" src="{{ opp.media_url }}"/>
+            <div class="span4 well" id="opportunity_list">
+                
+                <div class="container-fluid">
+                    {% for opp in opportunities%}
+                    <div class="row-fluid oppRow">
+                        <div class="span2">
+                            <img class="oppThumb" src="{{ opp.media_url }}"/>
+                        </div>
+                        <div class="span10">
+                            <div class="oppTitle"> {{opp.name}} </div>
+                            <div class="oppDescription"> {{opp.description}}</div>
+                            <a href="/opportunity/{{opp.id}}">Get Involved</a>
+                        </div>
                     </div>
-                    <div class="span10">
-                        <div class="oppTitle"> {{opp.name}} </div>
-                        <div class="oppDescription"> {{opp.description}}</div>
-                        <a href="/opportunity/{{opp.id}}">Get Involved</a>
-                    </div>
+                    {% endfor %}
                 </div>
-                {% endfor %}
             </div>
                         
         </div>
