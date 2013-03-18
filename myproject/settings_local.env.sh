@@ -10,8 +10,8 @@
 
 # Local settings
 
-export S3_KEY=AKIAIWKJHCG47XCS7P3A
-export S3_SECRET=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
+export S3_KEY=xxxxxxxxxx
+export S3_SECRET=xxxxxxxxxx
 export FACEBOOK_APP_ID=xxxxxxxxxx
 export FACEBOOK_API_SECRET=xxxxxxxxxx
 export GOOGLE_OAUTH2_CLIENT_ID=xxxxxxxxxx
