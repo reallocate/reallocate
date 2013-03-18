@@ -71,7 +71,7 @@ class Update(models.Model):
     project = models.ForeignKey(Project)
     opportunity = models.ForeignKey(Opportunity)
     created_by = models.ForeignKey(User)
-    text = models.CharField(max_length=1000, blank=True)
+    text = models.TextField(blank=True)
     media_url = models.CharField(max_length=1000, blank=True)
 
     def __unicode__(self):
