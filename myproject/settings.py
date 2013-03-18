@@ -225,6 +225,10 @@ LOGIN_REDIRECT_URL = '/find-opportunity'
 SOCIAL_AUTH_DEFAULT_USERNAME = 'new_social_auth_user'
 SOCIAL_AUTH_UUID_LENGTH = 16
 
+
+#This is to extend the user profile to add custom fields
+AUTH_PROFILE_MODULE = 'website.models.UserProfile'
+
 # END - Social Auth Settings
 
 
@@ -242,6 +246,3 @@ DATABASES = {'default': dj_database_url.config(default='sqlite:/data.db')}
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
-
-#This is to extend the user profile to add custom fields
-AUTH_PROFILE_MODULE = 'users.UserProfile'
