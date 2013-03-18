@@ -89,19 +89,18 @@ def login_user(request):
 def view_project(request, pid=1):
     project = get_object_or_404(Project, pk=pid)
     opps = Opportunity.objects.filter(project=project)
-    model = {
+    context = base.build_base_context(request)
+    context.update({
         "project": project,
         "opportunities": opps,
         "num_opportunities": opps.count(),
-        "updates": Update.objects.filter(project=project)
-    }
+        "updates": Update.objects.filter(project=project)})
     
     if request.user.is_authenticated():
-        model['is_following'] = request.user in project.followed_by.all()
-        model['logged_in'] = True
+        context['is_following'] = request.user in project.followed_by.all()
     
-    model['num_following'] = project.followed_by.count()
-    return render_to_response('project.html', model, context_instance=RequestContext(request))
+    context['num_following'] = project.followed_by.count()
+    return render_to_response('project.html', context, context_instance=RequestContext(request))
 
 
 @csrf_exempt
@@ -109,17 +108,17 @@ def view_opportunity(request, pid=1):
     opp = get_object_or_404(Opportunity, pk=pid)
     project = get_object_or_404(Project, pk=opp.project.id)
     updates = Update.objects.filter(opportunity=opp)
-    model = {'opportunity': opp,
-             'project': project,
-             'other_opps': [rec for rec in Opportunity.objects.filter(project=opp.project).all() if rec.id != opp.id],
-             'updates': updates,
-             'topmsg': request.GET.get('topmsg')}
+    context = base.build_base_context(request)
+    context.update({
+        'opportunity': opp,
+        'project': project,
+        'other_opps': [rec for rec in Opportunity.objects.filter(project=opp.project).all() if rec.id != opp.id],
+        'updates': updates})
     
     if request.user.is_authenticated():
-        model['is_engaged'] = request.user in opp.engaged_by.all()
-        model['logged_in'] = True
+        context['is_engaged'] = request.user in opp.engaged_by.all()
 
-    return render_to_response('opportunity.html', model, context_instance=RequestContext(request))
+    return render_to_response('opportunity.html', context, context_instance=RequestContext(request))
 
 @csrf_exempt
 @login_required

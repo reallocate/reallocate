@@ -9,7 +9,7 @@
 {% block extra_css %}
     <style>
         .oppRow {
-
+            margin-bottom: 20px;
             height: 100px;
         }
 
@@ -24,8 +24,7 @@
         .oppTitle{
             font-size: 20px;
         }
-
-
+        
         .updateThumb{ }
         .updateUserName{
             color: black;
@@ -40,6 +39,14 @@
             margin:5px;
         }
         
+        .project_top .project_media_url {
+            background: #fff;
+            padding: 10px;
+            border: solid 1px #cdcdcd;
+            box-shadow: 0 5px 5px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(82, 168, 236, 0.2);
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
         .project_top .stat-label {
             font-weight: 100;
         }
@@ -48,7 +55,15 @@
             margin-bottom: 5px;
         }
         .update-row {
-            border-right: solid 1px #b0b0b0;
+            /*border-right: solid 1px #b0b0b0;*/
+        }
+        
+        .project_lower_header {
+            margin-top: 40px;
+            height: 50px;
+            font-size: 2em;
+            font-weight: 100;
+            /*background: #e7e7e7;*/
         }
     </style>
 {% endblock %}
@@ -104,16 +119,24 @@
                 <div class="row-fluid">
                     <div class="span8">
                         <div class="vision">
-                            {{ project.description }}
+                            {{ project.description|safe }}
                         </div>
-                        <div class="backstory">
-                            The story | The Team | The Community
-                        </div>
+                        
                     </div>
                 </div>
             </div>
         </div>
         
+        <div class="container-fluid project_lower_header">
+            <div class="row-fluid">
+                <div class="span8">
+                    Updates
+                </div>
+                <div class="span4">
+                    Opportunities
+                </div>
+            </div>
+        </div>
         <div class="row-fluid project_lower">
             <div class="container-fluid">
                 <div class="span8" id="updates">
