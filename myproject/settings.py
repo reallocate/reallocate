@@ -227,7 +227,7 @@ SOCIAL_AUTH_UUID_LENGTH = 16
 
 
 #This is to extend the user profile to add custom fields
-AUTH_PROFILE_MODULE = 'website.models.UserProfile'
+AUTH_PROFILE_MODULE = 'website.UserProfile'
 
 # END - Social Auth Settings
 
