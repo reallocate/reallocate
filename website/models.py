@@ -11,6 +11,7 @@ class Project(models.Model):
     date_created = models.DateTimeField(auto_now_add=True)
     description = models.CharField(max_length=1000, blank=True)
     media_url = models.CharField(max_length=200, blank=True)
+    followed_by = models.ManyToManyField(User, blank=True)
     def __unicode__(self):
         return "Name: %s" % self.name
 
@@ -33,7 +34,8 @@ class Opportunity(models.Model):
     date_created = models.DateTimeField(auto_now_add=True)
     description = models.CharField(max_length=1000, blank=True)
     featured = models.BooleanField(default=False, blank=True)
-    # engaged_users = models.ManyToManyField(Users)
+    opp_type = models.CharField(max_length=100, blank=True) # TODO: replace with taggit?
+    engaged_by = models.ManyToManyField(User, blank=True, through='OpportunityEngagements')
     # prerequisites = models.ManyToManyField(Opportunity)  - assuming that pre-reqs = other opps
     # time estimate - TODO: do we do this in days?
     # deliverable - TODO: separate free-form text field
@@ -42,26 +44,23 @@ class Opportunity(models.Model):
     def __unicode__(self):
         return "Name: %s" % self.name
 
-
 class OpportunityForm(ModelForm):
     class Meta:
         model = Opportunity
-        fields = ('name', 'description',)
+        fields = ('name', 'description', 'opp_type')
 
         widgets = {
             'description': Textarea(attrs={'cols': 80, 'rows': 10}),
         }
-
-
+    
 ###########  Extend user profile
 # Docs: http://stackoverflow.com/a/965883/705945
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User)
     bio = models.CharField(max_length=2000, blank=True)
-    followed_projects = models.ManyToManyField(Project, blank=True)
     media_url = models.CharField(max_length=2000, blank=True)
-    # engaged_opportunities = models.ManyToManyField(Opportunity, blank=True)
+    
     # skills
     # interests
 
@@ -71,7 +70,7 @@ class UserProfile(models.Model):
 class Update(models.Model):
     project = models.ForeignKey(Project)
     opportunity = models.ForeignKey(Opportunity)
-    user_profile = models.ForeignKey(UserProfile)
+    created_by = models.ForeignKey(User)
     text = models.CharField(max_length=1000, blank=True)
     media_url = models.CharField(max_length=1000, blank=True)
 
@@ -84,3 +83,10 @@ def create_user_profile(sender, instance, created, **kwargs):
 
 
 post_save.connect(create_user_profile, sender=User)
+
+class OpportunityEngagements(models.Model):
+    user = models.ForeignKey(User)
+    opportunity = models.ForeignKey(Opportunity)
+    date_created = models.DateField(auto_now_add=True)
+    status = models.CharField(max_length=100) # this will be where the opp engagements can be approved
+    response = models.CharField(max_length=2000) # response to the engagement
