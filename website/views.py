@@ -16,7 +16,7 @@ import website.base as base
 @login_required
 @csrf_exempt
 def profile(request):
-    user_profile = base.get_current_userprofile(request)
+    user_profile = request.user.get_profile()
     topmsg = None
     
     if request.method == "POST":
@@ -88,18 +88,18 @@ def login_user(request):
 
 def view_project(request, pid=1):
     project = get_object_or_404(Project, pk=pid)
+    opps = Opportunity.objects.filter(project=project)
     model = {
         "project": project,
-        "opportunities": Opportunity.objects.filter(project=project),
-        "num_opportunities": Opportunity.objects.filter(project=project).count(),
+        "opportunities": opps,
+        "num_opportunities": opps.count(),
         "updates": Update.objects.filter(project=project)
     }
     
     if request.user.is_authenticated():
-        model['user_profile'] = base.get_current_userprofile(request)
-        model['is_following'] = model['user_profile'].followed_projects.all().count() > 0
-        model['num_following'] = UserProfile.objects.filter(followed_projects=project).count()
+        model['is_following'] = request.user in project.followed_by.all()
     
+    model['num_following'] = project.followed_by.count()
     return render_to_response('project.html', model, context_instance=RequestContext(request))
 
 
@@ -108,49 +108,31 @@ def view_opportunity(request, pid=1):
     opp = get_object_or_404(Opportunity, pk=pid)
     project = get_object_or_404(Project, pk=opp.project.id)
     updates = Update.objects.filter(opportunity=opp)
-    topmsg = request.GET.get('topmsg')
+    model = {'opportunity': opp,
+             'project': project,
+             'other_opps': [rec for rec in Opportunity.objects.filter(project=opp.project).all() if rec.id != opp.id],
+             'updates': updates,
+             'topmsg': request.GET.get('topmsg')}
+    
+    if request.user.is_authenticated():
+        model['is_engaged'] = request.user in opp.engaged_by.all()
+        model['logged_in'] = True
 
-    #Now, if there was a post request, create the object
-    if request.method == "POST":
-        #TODOCreate the new update object...
-        new_update = Update()
-
-
-    #Load all the opportunities related to the project and remove the one that is being displayed
-
-    other_opps = Opportunity.objects.filter(project=opp.project)
-    other_opps_clean = []
-    for other_opp in other_opps:
-        print "YES WE SEE ANOTHER OPP"
-        if not opp.id == other_opp.id:
-            other_opps_clean.append(other_opp)
-
-    return render_to_response('opportunity.html', {
-        "opportunity": opp,
-        "project": project,
-        "other_opps": other_opps_clean,
-        "updates": updates,
-        "topmsg": topmsg,
-        #"user_profile":user_profile,    #User profile
-    }, context_instance=RequestContext(request))
+    return render_to_response('opportunity.html', model, context_instance=RequestContext(request))
 
 @csrf_exempt
 @login_required
 def engage(request, pid=1):
     opp = get_object_or_404(Opportunity, pk=pid)
-    
     # todo - deal with money type => donations rather than a freeform response
     if request.method == "POST":
         response = request.POST.get("response", "")
-        user_profile = base.get_current_userprofile(request)
-        OpportunityEngagements(user_profile=user_profile, opportunity=opp).save()
+        OpportunityEngagements(user=request.user, opportunity=opp, response=response).save()
         topmsg = 'Thanks for your engagement - a project leader will get back to you as soon as possible'
         return HttpResponseRedirect("/opportunity/" + str(opp.id) + "?topmsg=" + topmsg)
     
     return render_to_response('engage.html', {
-        "opp": opp,
-        #"show_form": show_form,
-        #"topmsg": topmsg
+        "opp": opp
     }, context_instance=RequestContext(request))
 
 @login_required
@@ -179,7 +161,6 @@ def add_project(request):
 @login_required
 def add_opportunity(request, oid=1):
     # Create new Opportunity
-    print "YES WE ARRIVED!"
     parent_project = get_object_or_404(Project, pk=oid)
     show_form = True
 
@@ -200,4 +181,3 @@ def add_opportunity(request, oid=1):
         "parent_project": parent_project,
         "show_form": show_form
     }, context_instance=RequestContext(request))
-
