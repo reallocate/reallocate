@@ -98,6 +98,7 @@ def view_project(request, pid=1):
     
     if request.user.is_authenticated():
         model['is_following'] = request.user in project.followed_by.all()
+        model['logged_in'] = True
     
     model['num_following'] = project.followed_by.count()
     return render_to_response('project.html', model, context_instance=RequestContext(request))

@@ -94,10 +94,12 @@
                         </div>
                     </div>
                     
-                    <div class='follow-or-not'>
-                        <a href="#" class="btn btn-primary login-required unfollow-project" {% if not is_following %}style='display:none;'{% endif %}project-id="{{ project.id }}">Following</a>
-                        <a href="#" class="btn login-required follow-project" {% if is_following %}style='display:none;'{% endif %} project-id="{{ project.id }}">Follow</a>
-                    </div>  
+                    {% if logged_in %}
+                        <div class='follow-or-not'>
+                            <a href="#" class="btn btn-primary login-required unfollow-project" {% if not is_following %}style='display:none;'{% endif %}project-id="{{ project.id }}">Following</a>
+                            <a href="#" class="btn login-required follow-project" {% if is_following %}style='display:none;'{% endif %} project-id="{{ project.id }}">Follow</a>
+                        </div>
+                    {% endif %}
                 </div>
                 <div class="row-fluid">
                     <div class="span8">
