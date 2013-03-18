@@ -46,6 +46,15 @@
     }
   },
   {
+    "model": "website.UserProfile",
+    "pk": 2,
+    "fields": {
+      "user": 2,
+      "bio" : "I am not a real person",
+      "media_url" : "http://flyranchproject.org/wp-content/uploads/2011/12/tim-lipton-155x213.jpg"
+    }
+  },
+  {
     "model": "website.Project",
     "pk": 1,
     "fields": {
