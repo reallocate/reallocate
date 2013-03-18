@@ -59,6 +59,9 @@ body {
     margin-left: 5px
 }
 
+.username {
+    font-weight: bold;
+}
 .opportunity_container .project_name a{
     margin-left: 5px
 }
