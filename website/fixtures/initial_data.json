@@ -322,25 +322,14 @@
     "model": "website.Update",
     "fields": {
         "project": 4,
-        "text": "Miracle Brace created an opportunity to build a prototype",
+        "text": "<p>Seize the opportunity to use your CAD skills to design a product to treat children with Clubfoot</p><p>Get Involved</p>",
         "opportunity": 4,
         "created_by": 1,
-        "media_url": ""
+        "media_url": "http://b.vimeocdn.com/ts/236/018/236018887_640.jpg"
     }
 },
 {
     "pk": 9,
-    "model": "website.Update",
-    "fields": {
-        "project": 4,
-        "text": "I would love to help create the prototype for the brace!",
-        "opportunity": 4,
-        "created_by": 1,
-        "media_url": ""
-    }
-},
-{
-    "pk": 10,
     "model": "website.Update",
     "fields": {
         "project": 3,
@@ -351,14 +340,26 @@
     }
 },
 {
+    "pk": 10,
+    "model": "website.Update",
+    "fields": {
+        "project": 4,
+        "text": "Firstname Lastname offered their CAD skills to help design the Miracle Brace!",
+        "opportunity": 4,
+        "created_by": 2,
+        "media_url": ""
+    }
+},
+
+{
     "pk": 11,
     "model": "website.Update",
     "fields": {
         "project": 4,
-        "text": "Check out the newest version of the site! http://miraclefeet.org",
-        "opportunity": 6,
+        "text": "We are in full swing! Check out some of the preliminary drawings for the brace!",
+        "opportunity": 4,
         "created_by": 1,
-        "media_url": "http://miraclefeet.org/media/documents/MiracleFeet.jpg"
+        "media_url": "http://i.imgur.com/Z1nvFoS.jpg"
     }
 },
 {
@@ -366,10 +367,10 @@
     "model": "website.Update",
     "fields": {
         "project": 4,
-        "text": "An opportunity to build  website has been created!",
-        "opportunity": 6,
+        "text": "CAD designs are all ready to go. Off to the 3D Printer to create a prototype!",
+        "opportunity": 4,
         "created_by": 1,
-        "media_url": ""
+        "media_url": "http://i.imgur.com/28ZDKPJ.png"
     }
 }
 ]

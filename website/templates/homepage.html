@@ -33,6 +33,7 @@
         width: 100%;
         font-family: 'Raleway', sans-serif;
         background-color: rgba(0,0,0,.45);
+        text-align: center;
         color:#ffffff;
         font-size: 2.6em;
         line-height: 1em; 
@@ -42,7 +43,8 @@
 
     .opportunity_lower .short_desc {
         margin-top:5px;
-        min-height: 130px;
+        height: 90px;
+        overflow: hidden;
     }
     
     .opportunity_lower .location {
@@ -88,7 +90,7 @@
         {% for project in projects %}
             <div class="span4">
                 <div class="thumnail_container" type="project" project_id="{{ project.id }}">
-                    <div class="oppThumb" style="background-image: url('{{ project.media_url }}'); background-size: 370px 180px; background-repeat: no-repeat;">
+                    <div class="oppThumb" style="background-image: url('{{ project.media_url }}'); background-size: 370px 222px; background-repeat: no-repeat;">
                     <div class="oppName">{{project.name}}</div>
                     </div>
                     
