@@ -79,7 +79,7 @@
         
         <div class="row-fluid project_top">
             <div class="container-fluid">
-                <div class="span8 project_media_url">
+                <div class="span7 project_media_url">
                     <img src="{{ project.media_url }}"/>
                     <br/>
                     
@@ -98,7 +98,7 @@
                 </div>
                 
                 
-                <div class="span4">
+                <div class="span5">
                     
                     <div class="row-fluid" id="statistics">
                         <div class="stat span4">
@@ -140,7 +140,7 @@
                     {% endif %}
                 </div>
                 <div class="row-fluid">
-                    <div class="span8">
+                    <div class="span7">
                         <div class="vision">
                             {{ project.description|safe }}
                         </div>
@@ -152,10 +152,10 @@
         
         <div class="container-fluid project_lower_header">
             <div class="row-fluid">
-                <div class="span8">
+                <div class="span7">
                     Updates
                 </div>
-                <div class="span4">
+                <div class="span5">
                     Opportunities
                 </div>
             </div>
@@ -163,7 +163,7 @@
         
         <div class="row-fluid project_lower">
             <div class="container-fluid">
-                <div class="span8" id="updates">
+                <div class="span7" id="updates">
                     {% for update in updates%}
                         <div class="row-fluid update-row">
                             <div class="span2">
@@ -179,7 +179,7 @@
                     {% endfor %}
                 </div>
                 
-                <div class="span4 well" id="opportunity_list">
+                <div class="span5 well" id="opportunity_list">
                     
                     <div class="container-fluid">
                         {% for opp in opportunities%}
@@ -198,7 +198,6 @@
                 </div>
             </div> 
         </div>
-
     </div>
     <!-- /container -->
 
