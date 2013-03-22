@@ -75,7 +75,7 @@
 
     <div class="row opportunties_row">
         {% for project in projects %}
-            <div class="span3">
+            <div class="span4">
                 <div class="thumnail_container" type="project" project_id="{{ project.id }}">
                     <div class="opportunity_thumb">
                         <img src="{{ project.media_url }}"/>
@@ -85,7 +85,7 @@
                             {{ project.name }}
                         </div>
                         <div class="short_desc">
-                            {{ project.description|safe|truncatewords:10 }}
+                            {{ project.description|safe|truncatewords:30 }}
                         </div>
                         <div class="location">
                             <div class="icon-map-marker"></div><a href="">San Francisco, CA</a>
