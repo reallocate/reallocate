@@ -10,6 +10,7 @@ class Project(models.Model):
     industry = models.CharField(max_length=100, blank=True)
     date_created = models.DateTimeField(auto_now_add=True)
     description = models.TextField(blank=True)
+    #short_desc = <140 character description to use for short project introductions
     media_url = models.CharField(max_length=200, blank=True)
     created_by = models.ForeignKey(User)
     followed_by = models.ManyToManyField(User, blank=True, related_name='followed_by')
@@ -35,6 +36,7 @@ class Opportunity(models.Model):
     status = models.CharField(max_length=100, blank=True, default='unpublished')
     date_created = models.DateTimeField(auto_now_add=True)
     description = models.TextField(blank=True)
+    #short_desc = <140 Character description to use for short opportunity introductions
     featured = models.BooleanField(default=False, blank=True)
     opp_type = models.CharField(max_length=100, blank=True) # TODO: replace with taggit? Four main options: Service, Donation, Rental, Question
     engaged_by = models.ManyToManyField(User, blank=True, through='OpportunityEngagements')

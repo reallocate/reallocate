@@ -22,16 +22,27 @@
         margin-top: 30px;
     }
 
+    .oppThumb {
+        position: relative;
+    }
     .opportunity_lower {
         padding: 10px;   
     }
-    .opportunity_lower .name {
-        font-weight: bold;
+    .oppName {
+        float: left;
+        width: 100%;
+        font-family: 'Raleway', sans-serif;
+        background-color: rgba(0,0,0,.45);
+        color:#ffffff;
+        font-size: 2.6em;
+        line-height: 1em; 
+        position: absolute;
+        bottom: 0;
     }
 
     .opportunity_lower .short_desc {
         margin-top:5px;
-        min-height: 90px;
+        min-height: 130px;
     }
     
     .opportunity_lower .location {
@@ -77,13 +88,11 @@
         {% for project in projects %}
             <div class="span4">
                 <div class="thumnail_container" type="project" project_id="{{ project.id }}">
-                    <div class="opportunity_thumb">
-                        <img src="{{ project.media_url }}"/>
+                    <div class="oppThumb" style="background-image: url('{{ project.media_url }}'); background-size: 370px 180px; background-repeat: no-repeat;">
+                    <div class="oppName">{{project.name}}</div>
                     </div>
+                    
                     <div class="opportunity_lower">
-                        <div class="name">
-                            {{ project.name }}
-                        </div>
                         <div class="short_desc">
                             {{ project.description|safe|truncatewords:30 }}
                         </div>
