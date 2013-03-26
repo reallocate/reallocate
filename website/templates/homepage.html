@@ -18,49 +18,11 @@
         background: url('/static/images/hero.png');
         height: 300px;
     }
-    .opportunties_row {
+    .projects_row {
         margin-top: 30px;
     }
 
-    .oppThumb {
-        position: relative;
-    }
-    .opportunity_lower {
-        padding: 10px;   
-    }
-    .oppName {
-        float: left;
-        width: 100%;
-        font-family: 'Raleway', sans-serif;
-        background-color: rgba(0,0,0,.45);
-        text-align: center;
-        color:#ffffff;
-        font-size: 2.6em;
-        line-height: 1em; 
-        position: absolute;
-        bottom: 0;
-    }
 
-    .opportunity_lower .short_desc {
-        margin-top:5px;
-        height: 90px;
-        overflow: hidden;
-    }
-    
-    .opportunity_lower .location {
-        margin-top: 5px;
-    }
-    .opportunity_lower .location a{
-        margin-left: 5px;
-    }
-    
-    .opportunity_lower .organization {
-        margin-top: 5px;
-    }
-
-    .opportunity_lower .organization a{
-        margin-left: 5px;
-    }    
     footer {
         margin-top: 30px;
     }
@@ -86,28 +48,9 @@
 {% endblock %}
 {% block maincontent %}
 
-    <div class="row opportunties_row">
+    <div class="row projects_row">
         {% for project in projects %}
-            <div class="span4">
-                <div class="thumnail_container" type="project" project_id="{{ project.id }}">
-                    <div class="oppThumb" style="background-image: url('{{ project.media_url }}'); background-size: 370px 222px; background-repeat: no-repeat;">
-                    <div class="oppName">{{project.name}}</div>
-                    </div>
-                    
-                    <div class="opportunity_lower">
-                        <div class="short_desc">
-                            {{ project.description|safe|truncatewords:30 }}
-                        </div>
-                        <div class="location">
-                            <div class="icon-map-marker"></div><a href="">San Francisco, CA</a>
-                        </div>
-                        <!--<div class="project_name">-->
-                        <!--    <div class="icon-wrench"></div><a href="/project/{{ project.id }}">{{ opportunity.project.name }}</a>-->
-                        <!--</div>-->
-                    </div>
-                </div>
-            </div>
-                        
+            {% include "includes/project-pane.html" %}            
         {% endfor %}
     </div>
 

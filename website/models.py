@@ -9,8 +9,8 @@ class Project(models.Model):
     status = models.CharField(max_length=100, blank=True, default='unpublished')
     industry = models.CharField(max_length=100, blank=True)
     date_created = models.DateTimeField(auto_now_add=True)
+    short_desc = models.TextField(blank=True)
     description = models.TextField(blank=True)
-    #short_desc = <140 character description to use for short project introductions
     media_url = models.CharField(max_length=200, blank=True)
     created_by = models.ForeignKey(User)
     followed_by = models.ManyToManyField(User, blank=True, related_name='followed_by')
