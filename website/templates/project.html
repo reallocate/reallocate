@@ -13,6 +13,13 @@
             box-shadow: 1px 2px 3px #808080;
             -moz-box-shadow: 1px 2px 3px #808080;
             -webkit-box-shadow: 1px 2px 3px #808080;
+            position: relative;
+        }
+        
+        .oppContainer:hover {
+       border-color: rgba(82, 168, 236, 0.8);
+       box-shadow: 0 5px 5px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(82, 168, 236, 0.6);
+       cursor: pointer;
         }
         
         .oppImage{
@@ -20,18 +27,29 @@
         }
 
         .oppText {
-            background-color: rgba(0,0,0,.45);
+            background-color: rgba(0,0,0,.55);
             height: 161px;
             color: #ffffff;
             
         }
         .oppTitle{
-            font-size: 20px;
-            text-align: center;
+            padding-top: 10px;
+            font-size: 1.5em;
+            font-family: 'Raleway', sans-serif;
         }
         
         .oppDescription{
-            text-align: center;
+            padding: 5px 5px 0px;
+            height: 80px;
+            font-size: .9em
+        }
+        
+        .oppLink {
+
+        }
+        
+        .oppLink a {
+            font-size: 1.3em;
         }
         
         .updateThumb{ }
@@ -115,7 +133,7 @@
                             <div class="stat-label text-center">followers</div>
                         </div>
                         <div class="stat span4">
-                            <div class="text-center number">0</div>
+                            <div class="text-center number">13</div>
                             <div class="stat-label text-center">participants</div>
                         </div>
                         <div class="stat span4">
@@ -125,8 +143,21 @@
                     </div>
                     
                     <hr/>
+                                                           
+                    <div class="row-fluid" id="budget">
+                        <div class="budget span12 text-center">
+                            <div id="totalDonated" class="number">$3,000/12,000 Kdo</div>
+                            <div id="totalBudget">Contributed of <strong>$18,000</strong></div>
+                        </div>
+                        <div class="budgetHistogram span12 text-center">
+                            <div id="histogram"><img src="http://i.imgur.com/MZsu6ST.jpg"/></div>
+                        </div>
+
+                    </div>
                     
-                    <div class="row-fluid">
+                    <hr/>
+                    
+                    <div class="row-fluid" style="margin-top: 30px;">
                         <div class="span4">
                             <img src="{{ project.created_by.get_profile.media_url }}"/>
                         </div>
@@ -150,19 +181,42 @@
                 </div>
                 <div class="row-fluid">
                     <div class="span8">
-                        <div class="title">The Story</div>
+                        <div class="title"><h2>The Story</h2></div>
                         <div class="vision">
                             {{ project.description|safe }}
                         </div>
                     </div>
                     <div class="span4">
+                        <div class="row-fluid" id="opportunityTypes">
+                            <div class="stat span3">
+                                <div id="num-following" class="text-center number">{{ num_following }}</div>
+                                <div class="stat-label text-center">Donations</div>
+                            </div>
+                            <div class="stat span3">
+                                <div class="text-center number">13</div>
+                                <div class="stat-label text-center">Skills</div>
+                            </div>
+                            <div class="stat span3">
+                                <div class="text-center number">{{ num_opportunities }}</div>
+                                <div class="stat-label text-center">Equipment</div>
+                            </div>
+                            <div class="stat span3">
+                                <div class="text-center number">{{ num_opportunities }}</div>
+                                <div class="stat-label text-center">Knowledge</div>
+                            </div>
+                        </div>
+                        
+                        <hr/>
+                        
                         {% for opp in opportunities%}
                         <div class="oppContainer">
                             <div class="oppImage" style="background-image: url('{{ opp.media_url }}'); background-size: 287px 161px; background-repeat: no-repeat;">
-                            <div class="oppText">
+                            <div class="oppText text-center">
                                 <div class="oppTitle"> {{opp.name}} </div>
                                 <div class="oppDescription"> {{opp.short_desc|safe|truncatewords:15}}</div>
-                                <a href="/opportunity/{{opp.id}}">Get Involved</a>
+                                <div class="oppLink">
+                                    <a class="btn btn-primary" href="/opportunity/{{opp.id}}">Get Involved</a>
+                                </div>
                             </div>
                             </div>
                         </div>
@@ -203,20 +257,7 @@
                 
                 <div class="span5 well" id="opportunity_list">
                     
-                    <div class="container-fluid">
-                        {% for opp in opportunities%}
-                        <div class="row-fluid oppRow">
-                            <div class="span2">
-                                <img class="oppThumb" src="{{ opp.media_url }}"/>
-                            </div>
-                            <div class="span10">
-                                <div class="oppTitle"> {{opp.name}} </div>
-                                <div class="oppDescription"> {{opp.description|safe|truncatewords:15}}</div>
-                                <a href="/opportunity/{{opp.id}}">Get Involved</a>
-                            </div>
-                        </div>
-                        {% endfor %}
-                    </div>
+            
                 </div>
             </div> 
         </div>

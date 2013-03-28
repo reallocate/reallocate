@@ -131,7 +131,7 @@
     "fields": {
       "project": "2",
       "date_created": "2013-01-01 05:00",
-      "name": "Energy Mapping",
+      "name": "Create Energy Plan",
       "opp_type": "materials",
       "status": "published",
       "short_desc" : "Create a sustainable energy plan for the community cold storage facility in Cordova, Alaska. Use your skills to help subsistence communities",
@@ -145,7 +145,7 @@
     "fields": {
       "project": "2",
       "date_created": "2013-01-01 05:00",
-      "name": "Provide Materials",
+      "name": "Donate Materials",
       "opp_type": "money",
       "status": "published",
       "short_desc": "Help purchase a cold storage freezer for CCCS. This freezer will help support rural communities and small commercial fisherman in Cordova",
@@ -159,7 +159,7 @@
     "fields": {
       "project": "4",
       "date_created": "2013-01-01 05:00",
-      "name": "CAD Product Design",
+      "name": "Design Product with CAD",
       "opp_type": "service",
       "status": "published",
       "short_desc" : "Lend a hand to treating clubfoot by creating CAD designs of a new brace! ",
@@ -173,7 +173,7 @@
     "fields": {
       "project": "3",
       "date_created": "2013-01-01 05:00",
-      "name": "Build an online Marketplace",
+      "name": "Build a web Marketplace",
       "opp_type": "service",
       "status": "published",
       "short_desc": "Hackers unite! We are building an online marketplace to offer your knowledge and resources to create innovations for good! Join us!",
@@ -188,7 +188,7 @@
     "fields": {
       "project": "4",
       "date_created": "2013-01-01 05:00",
-      "name": "Build Prototype",
+      "name": "Build a Prototype",
       "opp_type": "service",
       "status": "published",
       "short_desc": "Can you help prototype a life saving device for children with clubfoot? Come work on this opportunity to change the lives of children!",
@@ -230,7 +230,7 @@
     "fields": {
       "project": "4",
       "date_created": "2013-01-01 05:00",
-      "name": "Access to a 3D Printer",
+      "name": "Donate a 3D Printer",
       "opp_type": "donate",
       "status": "published",
       "short_desc": "Can you help reduce our prototype costs by granting access to a 3D printer for some rapid prototyping of a brace to treat clubfoot?",
@@ -244,7 +244,7 @@
     "fields": {
       "project": "4",
       "date_created": "2013-01-01 05:00",
-      "name": "Problem Scope Definition",
+      "name": "Research the Needs",
       "opp_type": "donate",
       "status": "published",
       "short_desc": "Can you help us interview doctors around the world and gather knowledge about the best treatments available for addressing clubfoot?",
