@@ -1,7 +1,8 @@
 ##################
-# LOCAL SETTINGS #
+# LOCAL SETTINGS
+#
+# all should be overwritten in settings_local.py
 ##################
-
 import os
 
 # OAuth keys for Social Auth
@@ -283,7 +284,6 @@ DATABASES = {'default': dj_database_url.config(default='sqlite:/data.db')}
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # Allow any settings to be defined in local_settings.py which should be
-# ignored in your version control system allowing for settings to be
-# defined per machine.
+# ignored in your version control system allowing for settings to be defined per machine.
 if 'DEPLOY_ENV' not in os.environ or os.environ['DEPLOY_ENV'] == 'local':    
     from myproject.settings_local import *
