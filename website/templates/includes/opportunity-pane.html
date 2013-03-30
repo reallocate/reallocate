@@ -1,6 +1,6 @@
-                <div class="span3">
+                <div class="span4">
                     <div class="thumnail_container" type="opportunity" opportunity_id="{{ opportunity.id }}">
-                        <div class="opportunity_thumb">
+                        <div class="oppThumb">
                             <img src="{{ opportunity.media_url }}"/>
                         </div>
                         <div class="opportunity_lower">
@@ -8,7 +8,7 @@
                                 {{ opportunity.name }}
                             </div>
                             <div class="short_desc">
-                                {{ opportunity.description|safe|truncatewords:10 }}
+                                {{ opportunity.short_desc }}
                             </div>
                             <div class="location">
                                 <div class="icon-map-marker"></div><a href="">San Francisco, CA</a>

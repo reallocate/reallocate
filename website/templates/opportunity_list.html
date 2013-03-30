@@ -24,7 +24,7 @@
         }
 
         .opportunity_lower {
-            padding: 10px;
+            padding: 5px 10px;
         }
 
         .opportunity_lower .name {
@@ -33,7 +33,7 @@
 
         .opportunity_lower .short_desc {
             margin-top: 5px;
-            min-height: 90px;
+            min-height: 60px;
         }
 
         .opportunity_lower .location {
@@ -66,40 +66,7 @@
 
     <div class="container">
         <div class="row">
-            <div class="span3">
-                <div class="filter_list">
-                    <h2>Filters</h2>
-                    <div class="expertise_checklist">
-                        Select your expertise:
-                        <form>
-                            <input type="checkbox" name="expertise" value="CAD">Cad Design<br/>
-                            <input type="checkbox" name="expertise" value="Hamster">Hamsters<br/>
-                            <input type="checkbox" name="expertise" value="Engineering">Engineering<br/>
-                            <input type="checkbox" name="expertise" value="Web Dev">Web Development<br/>
-                            <input type="checkbox" name="expertise" value="Graphic Design">Graphic Design<br/>
-                            <input type="checkbox" name="expertise" value="Web Design">Web Design<br/>
-                        </form>
-                    </div>
-                    <div class="cause_dropdown">
-                        Select a Cause:
-                    <form>
-                        <select>
-                            <option>Medical</option>
-                            <option>Food</option>
-                            <option>Water</option>
-                            <option>Energy</option>
-                            <option>Love</option>
-                        </select>
-                    </form>
-                    </div>
-                    <div class="location_search">
-                    Search of a Location:
-                    <form>
-                        <input type="text" name="location"><br>
-                    </div>
-                </div>
-            </div>
-            <div class="span9">
+            <div class="span12">
                 <div class="row opportunties_row">
                     {% for opportunity in opportunities %}
                         {% include "includes/opportunity-pane.html" %}

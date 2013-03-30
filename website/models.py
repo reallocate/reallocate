@@ -9,6 +9,7 @@ class Project(models.Model):
     status = models.CharField(max_length=100, blank=True, default='unpublished')
     industry = models.CharField(max_length=100, blank=True)
     date_created = models.DateTimeField(auto_now_add=True)
+    short_desc = models.TextField(blank=True)
     description = models.TextField(blank=True)
     media_url = models.CharField(max_length=200, blank=True)
     created_by = models.ForeignKey(User)
@@ -34,12 +35,13 @@ class Opportunity(models.Model):
     media_url = models.CharField(max_length=200, blank=True)
     status = models.CharField(max_length=100, blank=True, default='unpublished')
     date_created = models.DateTimeField(auto_now_add=True)
+    short_desc = models.TextField(blank=True)
     description = models.TextField(blank=True)
     featured = models.BooleanField(default=False, blank=True)
-    opp_type = models.CharField(max_length=100, blank=True) # TODO: replace with taggit?
+    opp_type = models.CharField(max_length=100, blank=True) # TODO: replace with taggit? Four main options: Service, Donation, Rental, Question
     engaged_by = models.ManyToManyField(User, blank=True, through='OpportunityEngagements')
     # prerequisites = models.ManyToManyField(Opportunity)  - assuming that pre-reqs = other opps
-    # time estimate - TODO: do we do this in days?
+    # time estimate - TODO: See v2 Feature Doc https://docs.google.com/a/reallocate.org/document/d/1AY-2h9pa028USr3ofwUQjjoZ2kKGnRQZ0xoIQYk-urs/edit
     # deliverable - TODO: separate free-form text field
     # followup gift to volunteer - TODO: separate free-form text field
 
