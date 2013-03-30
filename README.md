@@ -1,76 +1,26 @@
-Django Bootstrap Starter Project
+ReAllocate Marketplace
 ============================
-This project makes it really easy to create a Django project and publish it to Heroku.
+This open source project is for the ReAllocate (reallocate.org) marketplace, where knowledge meets need.
 
-
-What is included?
+Prereq's
 -----------------
-* Heroku settings
-* Social Auth. (Facebook, Google, Yahoo) Oauth
+* Python 2.7
+* SQLite, MySQL, or something similar
+* (OS X) XCode or CLI
 
 
-What you need to get started?
------------------------------
-
-### Mininmum requirements
-
-* Sign up for AWS account
-* Get AWS keys AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY
-
-
-### Advance requirements
-
-* Facebook Oauth keys: FACEBOOK_APP_ID, FACEBOOK_API_SECRET
-* Google OAuth keys: GOOGLE_OAUTH2_CLIENT_ID, GOOGLE_OAUTH2_CLIENT_SECRET
-
-
-
-Setup Steps
+Initial Setup Steps
 ===========
 
-* git clone
-* heroku create
-* heroku rename <my_cool_project_name>
-* source myproject/settings_local.env.sh
-* sh myproject/settings_local.heroku.sh
-* git push heroku master
-* heroku run manage.py syncdb
+* git clone git@github.com:reallocate/reallocate.git
+* sudo pip(-2.7) install -r requirements.txt
+* ./manage.py syncb
+* ./manage.py runserver
 
-* Great Success! You are done.
+Optional Steps
+===========
+If you want to be able to connnect to AWS, Google, LinkedIn, etc you will
+need to add those keys. To do so:
 
-
-Helpful Commands
-================
-
-
-* Check settings
-
-> heroku config
-
-> printenv
-
-
-### View logs and status
-> heroku logs
-
-> heroku ps
-
-> heroku config
-
-
-### Heroku 
-Deployment of Django on Heroku https://devcenter.heroku.com/articles/django
-
-> heroku run python manage.py syncdb
-
-> heroku run python manage.py migrate website
-
-
-> heroku domains:add www.example.com
-
-
-> python manage.py collectstatic --noinput;
-
-> heroku config:add DISABLE_COLLECTSTATIC=1         # To disable static collection
-
-> heroku pg:reset DATABASE
+* create myproject/settings_local.py
+   * put all your overrides in there.  if you are a ReAllocate core team member, you can find this file in our dropbox
