@@ -8,6 +8,12 @@
 
 {% block extra_css %}
     <style>
+        
+        .sectionTitle {
+            height: 50px;
+            font-size: 2em;
+            font-weight: 100;
+        }
         .oppContainer{
             margin-bottom: 20px;
             box-shadow: 1px 2px 3px #808080;
@@ -146,7 +152,7 @@
                                                            
                     <div class="row-fluid" id="budget">
                         <div class="budget span12 text-center">
-                            <div id="totalDonated" class="number">$3,000/12,000 Kdo</div>
+                            <div id="totalDonated" class="number">$ 3,000 | Kdo 12,000 </div>
                             <div id="totalBudget">Contributed of <strong>$18,000</strong></div>
                         </div>
                         <div class="budgetHistogram span12 text-center">
@@ -181,9 +187,27 @@
                 </div>
                 <div class="row-fluid">
                     <div class="span8">
-                        <div class="title"><h2>The Story</h2></div>
-                        <div class="vision">
-                            {{ project.description|safe }}
+                        <div class="theStory">
+                            <div class="sectionTitle">The Story</div>
+                            <div class="vision">
+                                {{ project.description|safe }}
+                            </div>
+                        </div>
+                        <div id="updates">
+                            <div class="sectionTitle">Updates</div>
+                            {% for update in updates%}
+                                <div class="row-fluid update-row">
+                                    <div class="span2">
+                                        <img class="updateThumb" src="{{update.created_by.get_profile.media_url}}"/>
+                                    </div>
+                                    <div class="span10">
+                                        <div class="updateUserName"> {{update.user.username}} </div>
+                                        <div class="updateOppName"> {{update.opportunity.name}} </div>
+                                        <div class="updateText">  {{update.text}}</div>
+                                        <div class="updateMedia"> <img width="100%" height="100%" src="{{ update.media_url }}"> </div>
+                                    </div>
+                                </div>
+                            {% endfor %}        
                         </div>
                     </div>
                     <div class="span4">
@@ -207,59 +231,25 @@
                         </div>
                         
                         <hr/>
-                        
-                        {% for opp in opportunities%}
-                        <div class="oppContainer">
-                            <div class="oppImage" style="background-image: url('{{ opp.media_url }}'); background-size: 287px 161px; background-repeat: no-repeat;">
-                            <div class="oppText text-center">
-                                <div class="oppTitle"> {{opp.name}} </div>
-                                <div class="oppDescription"> {{opp.short_desc|safe|truncatewords:15}}</div>
-                                <div class="oppLink">
-                                    <a class="btn btn-primary" href="/opportunity/{{opp.id}}">Get Involved</a>
+                        <div class="oppWell" style="border-left: 2px solid black;">
+                            <div class="sectionTitle">Opportunities</div>
+                            {% for opp in opportunities%}
+                            <div class="oppContainer">
+                                <div class="oppImage" style="background-image: url('{{ opp.media_url }}'); background-size: 287px 161px; background-repeat: no-repeat;">
+                                <div class="oppText text-center">
+                                    <div class="oppTitle"> {{opp.name}} </div>
+                                    <div class="oppDescription"> {{opp.short_desc|safe|truncatewords:15}}</div>
+                                    <div class="oppLink">
+                                        <a class="btn btn-primary" href="/opportunity/{{opp.id}}">Get Involved</a>
+                                    </div>
+                                </div>
                                 </div>
                             </div>
-                            </div>
+                            {% endfor %}
                         </div>
-                        {% endfor %}
                     </div>
                 </div>
             </div>
-        </div>
-        
-        <div class="container-fluid project_lower_header">
-            <div class="row-fluid">
-                <div class="span7">
-                    Updates
-                </div>
-                <div class="span5">
-                    Opportunities
-                </div>
-            </div>
-        </div>
-        
-        <div class="row-fluid project_lower">
-            <div class="container-fluid">
-                <div class="span7" id="updates">
-                    {% for update in updates%}
-                        <div class="row-fluid update-row">
-                            <div class="span2">
-                                <img class="updateThumb" src="{{update.created_by.get_profile.media_url}}"/>
-                            </div>
-                            <div class="span10">
-                                <div class="updateUserName"> {{update.user.username}} </div>
-                                <div class="updateOppName"> {{update.opportunity.name}} </div>
-                                <div class="updateText">  {{update.text}}</div>
-                                <div class="updateMedia"> <img width="100%" height="100%" src="{{ update.media_url }}"> </div>
-                            </div>
-                        </div>
-                    {% endfor %}
-                </div>
-                
-                <div class="span5 well" id="opportunity_list">
-                    
-            
-                </div>
-            </div> 
         </div>
     </div>
     <!-- /container -->
