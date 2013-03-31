@@ -3,7 +3,7 @@
 *.db
 .DS_Store
 .coverage
-local_settings.py
+settings_local.py
 .idea/
 /docs/original-images
 /data.db
