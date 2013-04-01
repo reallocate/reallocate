@@ -8,30 +8,55 @@
 
 {% block extra_css %}
     <style>
+        
+    .sectionTitle {
+        height: 50px;
+        font-size: 2em;
+        font-weight: 100;
+    }
 
-    #related_opp_list .opp_thumb {
-        height: 54px;
-        overflow: hidden;
+    .oppContainer{
+        margin-bottom: 20px;
+        box-shadow: 1px 2px 3px #808080;
+        -moz-box-shadow: 1px 2px 3px #808080;
+        -webkit-box-shadow: 1px 2px 3px #808080;
+        position: relative;
     }
     
-    #related_opp_list .opp_thumb img{
-        min-height: 54px;
-    }    
+    .oppContainer:hover {
+        border-color: rgba(82, 168, 236, 0.8);
+        box-shadow: 0 5px 5px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(82, 168, 236, 0.6);
+        cursor: pointer;
+    }
     
-    #related_opp_list .opp_title {
-        font-weight: bold;
+    .oppImage{
+        height: 161px;
+    }
+
+    .oppText {
+        background-color: rgba(0,0,0,.55);
+        height: 161px;
+        color: #ffffff;
+        
+    }
+    .oppTitle{
+        padding-top: 10px;
+        font-size: 1.5em;
         font-family: 'Raleway', sans-serif;
     }
-    #related_opp_list .opp_row {
-        margin-bottom: 10px;
-    }
-    .opp_image{
-        height: 270px;
-        overflow: hidden;
+    
+    .oppDescription{
+        padding: 5px 5px 0px;
+        height: 80px;
+        font-size: .9em
     }
     
-    .opp_image img{
-        min-height: 270px;
+    .oppLink {
+
+    }
+    
+    .oppLink a {
+        font-size: 1.3em;
     }
 
     .updateRow {
@@ -61,96 +86,118 @@
     </div>
 
     <div class="project_wrap container-fluid">
-        <div class="push-little"></div>
         <div class="row-fluid">
-            
-            <div class="span4">
-                <div class="opp_image">
-                    <img src="{{opportunity.media_url}}"/>
-                </div>
-            </div>
-    
-            <div class="span8">
-                <div class="opp_title">
-                    <h1>Project: {{ project.name }}</h1>
-                    <h2>Opportunity: {{ opportunity.name }}</h2>
-                     {% if not is_engaged and logged_in %}
-                        <br/><a href='/opportunity/{{ opportunity.id }}/engage'>Engage with this opportunity </a>
-                        {%else%}
-                        In Progress<br/><br/>
-                    {% endif %}
-                    <div class="oppDescription">
-                        {{ opportunity.description }}
-                    </div>
-
-                    
+            <div class="span12">
+                <div class="project_title push-little">
+                    <h1 class="text-center">{{ project.name }}</h1>
                 </div>
             </div>
         </div>
-
-
-        <div class="row-fluid project_lower_header">
-            <div class="row-fluid">
-                <div class="span8">
-                    Updates
+        <div class="container-fluid">
+            <div class="row-fluid oppoprtunityTop">
+                <div class="span4">
+                    <div class="opp_image">
+                        <img src="{{opportunity.media_url}}"/>
+                    </div>
                 </div>
-                
+        
+                <div class="span8">
+                    <div class="opp_title">
+                        <h2>Opportunity:</h2>
+                        <h2>{{ opportunity.name }}</h2>
+                         {% if not is_engaged and logged_in %}
+                            <br/><a href='/opportunity/{{ opportunity.id }}/engage'>Engage with this opportunity </a>
+                            {%else%}
+                            In Progress<br/><br/>
+                        {% endif %}
+                    </div>
+                    <div class="oppDescription">
+                            {{ opportunity.description }}
+                    </div>    
+                </div>
             </div>
         </div>
         
-    
-        <div class="row-fluid">    
-            <div class="span8" id="updates">
-                <div class="create_post">
-                    <form id="post_update" enctype="multipart/form-data" method="post">
-    
-                        <input type="hidden" name="opportunity_id" value="{{opportunity.id}}"/>
-                        <input type="hidden" name="user_id" value="{{request.user.get_profile.id}}"/>
-                        <textarea placeholder="How is your project going?"></textarea>
-                        
-                        <button type="submit" class="btn">
-                            <span class="icon-camera icon"></span>
-                        </button>
-                        
-                        <input class="btn btn-primary" type="submit" value="Post Update" onclick="ajaxFormFunction(); return false;">
+        <hr/>
+        
+        <div class="container-fluid opportunityLower">
+            <div class="row-fluid">   
+                <div class="span8" id="updates">
+                    <div class="sectionTitle">Updates</div>
+                    <div class="create_post">
+                        <form id="post_update" enctype="multipart/form-data" method="post">
+        
+                            <input type="hidden" name="opportunity_id" value="{{opportunity.id}}"/>
+                            <input type="hidden" name="user_id" value="{{request.user.get_profile.id}}"/>
+                            <textarea placeholder="How is your project going?"></textarea>
                             
-                        <input id="upload_button" type="file" name="uploaded_media" style="display: none;"/>
-                        
-                    </form>
+                            <button type="submit" class="btn">
+                                <span class="icon-camera icon"></span>
+                            </button>
+                            
+                            <input class="btn btn-primary" type="submit" value="Post Update" onclick="ajaxFormFunction(); return false;">
+                                
+                            <input id="upload_button" type="file" name="uploaded_media" style="display: none;"/>
+                            
+                        </form>
+                    </div>
+                    {% for update in updates%}
+                        <div class="row-fluid updateRow">
+                            <div class="span2">
+                                <img class="updateThumb" src="{{update.created_by.get_profile.media_url}}"/>
+                            </div>
+                            <div class="span10">
+                                <a class="username" href="/profile/{{update.created_by.id}}">
+                                    {{update.created_by.first_name}} {{update.created_by.last_name}}
+                                </a>
+                                <!--<div class="updateOppName"> {{update.opportunity.name}} </div>-->
+                                <div class="updateText">  {{update.text}}</div>
+                                <div class="updateMedia"> <img width="100%" height="100%" src="{{ update.media_url }}"> </div>
+                            </div>
+                        </div>
+                    {% endfor %}
                 </div>
-                {% for update in updates%}
-                    <div class="row-fluid updateRow">
-                        <div class="span2">
-                            <img class="updateThumb" src="{{update.created_by.get_profile.media_url}}"/>
+                
+                <div class="span4" id="related_opp_list">
+                    <div class="sectionTitle">Related Opportunities</div>
+                    <div class="row-fluid" id="opportunityTypes">
+                        <div class="stat span3">
+                            <div id="num-following" class="text-center number">{{ num_following }}</div>
+                            <div class="stat-label text-center">Donations</div>
                         </div>
-                        <div class="span10">
-                            <a class="username" href="/profile/{{update.created_by.id}}">
-                                {{update.created_by.first_name}} {{update.created_by.last_name}}
-                            </a>
-                            <!--<div class="updateOppName"> {{update.opportunity.name}} </div>-->
-                            <div class="updateText">  {{update.text}}</div>
-                            <div class="updateMedia"> <img width="100%" height="100%" src="{{ update.media_url }}"> </div>
+                        <div class="stat span3">
+                            <div class="text-center number">13</div>
+                            <div class="stat-label text-center">Skills</div>
                         </div>
-                    </div>
-                {% endfor %}
-            </div>
-            
-            <div class="span4" id="related_opp_list">
-                {% for opp in other_opps%}
-                    <div class="row-fluid opp_row">
-                        <div class="span2 opp_thumb">
-                            <img src="{{ opp.media_url }}"/>
+                        <div class="stat span3">
+                            <div class="text-center number">{{ num_opportunities }}</div>
+                            <div class="stat-label text-center">Equipment</div>
                         </div>
-                        <div class="span10">
-                            <div class="opp_title"> {{opp.name}} </div>
-                            <div class="opp_description"> {{opp.description}}</div>
-                            <a href="/opportunity/{{opp.id}}">Get Involved</a>
+                        <div class="stat span3">
+                            <div class="text-center number">{{ num_opportunities }}</div>
+                            <div class="stat-label text-center">Knowledge</div>
                         </div>
                     </div>
-                {% endfor %}
+                            
+                            <hr/>
+                    <div class="oppWell" style="border-left: 2px solid black;">
+                        {% for opp in other_opps%}
+                        <div class="oppContainer">
+                            <div class="oppImage" style="background-image: url('{{ opp.media_url }}'); background-size: 100% 161px; background-repeat: no-repeat;">
+                            <div class="oppText text-center">
+                                <div class="oppTitle"> {{opp.name}} </div>
+                                <div class="oppDescription"> {{opp.short_desc|safe|truncatewords:15}}</div>
+                                <div class="oppLink">
+                                    <a class="btn btn-primary" href="/opportunity/{{opp.id}}">Get Involved</a>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>  
             </div>
-                        
-        </div> <!-- -->
+        </div><!-- -->
     </div>
     
 {% endblock %}

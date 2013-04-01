@@ -22,7 +22,7 @@ class Project(models.Model):
 class ProjectForm(ModelForm):
     class Meta:
         model = Project
-        fields = ('name', 'industry', 'description', )
+        fields = ('name', 'industry', 'short_desc', 'description', )
 
         widgets = {
             'description': Textarea(attrs={'cols': 80, 'rows': 10}),
@@ -51,7 +51,7 @@ class Opportunity(models.Model):
 class OpportunityForm(ModelForm):
     class Meta:
         model = Opportunity
-        fields = ('name', 'description', 'opp_type')
+        fields = ('name', 'description', 'short_desc', 'opp_type')
 
         widgets = {
             'description': Textarea(attrs={'cols': 80, 'rows': 10}),
