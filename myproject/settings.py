@@ -29,10 +29,23 @@ SKYROCK_CONSUMER_SECRET = ''
 YAHOO_CONSUMER_KEY = ''
 YAHOO_CONSUMER_SECRET = ''
 
+
 GOOGLE_OAUTH2_AUTH_EXTRA_ARGUMENTS = {'access_type': 'offline'}
 GOOGLE_EXTRA_DATA = [('oauth_token', 'oauth_token')]
 GOOGLE_SREG_EXTRA_DATA = [('oauth_token', 'oauth_token')]
 GOOGLE_AX_EXTRA_DATA = [('oauth_token', 'oauth_token')]
+
+# Add email to requested authorizations.
+LINKEDIN_SCOPE = ['r_basicprofile', 'r_emailaddress']
+# Add the fields so they will be requested from linkedin.
+LINKEDIN_EXTRA_FIELD_SELECTORS = ['email-address', 'headline', 'industry']
+# Arrange to add the fields to UserSocialAuth.extra_data
+LINKEDIN_EXTRA_DATA = [('id', 'id'),
+                       ('first-name', 'first_name'),
+                       ('last-name', 'last_name'),
+                       ('email-address', 'email_address'),
+                       ('headline', 'headline'),
+                       ('industry', 'industry')]
 
 AWS_ACCESS_KEY_ID = ''
 AWS_SECRET_ACCESS_KEY = ''
@@ -43,16 +56,14 @@ DEPLOY_ENV = ''
 FROM_EMAIL = "xxxxxxx@gmail.com"
 TO_EMAIL = ["xxxxxxx@gmail.com"]
 
-
+# Allow any settings to be defined in local_settings.py which should be
+# ignored in your version control system allowing for settings to be defined per machine.
+if 'DEPLOY_ENV' not in os.environ or os.environ['DEPLOY_ENV'] == 'local':    
+    from myproject.settings_local import *
 
 #########
 # PATHS #
 #########
-
-import os
-
-# Full filesystem path to the project.
-from myproject.settings_local import AWS_SECRET_ACCESS_KEY, AWS_ACCESS_KEY_ID
 
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -230,8 +241,8 @@ AUTHENTICATION_BACKENDS = (
     'social_auth.backends.google.GoogleOAuth2Backend',
     'social_auth.backends.google.GoogleBackend',
     'social_auth.backends.yahoo.YahooBackend',
+    'social_auth.backends.contrib.linkedin.LinkedinBackend',
     #    'social_auth.backends.browserid.BrowserIDBackend',
-    #    'social_auth.backends.contrib.linkedin.LinkedinBackend',
     #    'social_auth.backends.contrib.livejournal.LiveJournalBackend',
     #    'social_auth.backends.contrib.orkut.OrkutBackend',
     #    'social_auth.backends.contrib.foursquare.FoursquareBackend',
@@ -282,8 +293,3 @@ DATABASES = {'default': dj_database_url.config(default='sqlite:/data.db')}
 
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-
-# Allow any settings to be defined in local_settings.py which should be
-# ignored in your version control system allowing for settings to be defined per machine.
-if 'DEPLOY_ENV' not in os.environ or os.environ['DEPLOY_ENV'] == 'local':    
-    from myproject.settings_local import *

@@ -1,0 +1,107 @@
+            <style>
+.projectContainer {
+    background: #fff;
+    margin-bottom: 30px;
+    height: 277px;
+    box-shadow: 1px 2px 3px #808080;
+    -moz-box-shadow: 1px 2px 3px #808080;
+    -webkit-box-shadow: 1px 2px 3px #808080;
+}
+
+.projectContainer:hover {
+    border-color: rgba(82, 168, 236, 0.8);
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(82, 168, 236, 0.6);
+    cursor: pointer;
+}
+    .projectImage {
+        height: 277px;
+        overflow: hidden;        
+        position: relative;
+    }
+    .projectText {
+        width: 100%;
+        height: 277px;
+        background-color: rgba(0,0,0,.55);
+        color: #ffffff;
+    }
+    .projectName {
+        height:75px;
+        font-family: 'Raleway', sans-serif;
+        text-align: center;
+        color:#ffffff;
+        padding-top: 10px;
+        font-size: 2.2em;
+        line-height: 1em;
+        
+    }
+
+    .projectText .short_desc {
+        margin-top:20px;
+        height: 60px;
+        overflow: hidden;
+        font-size: 1.4em;
+        line-height: 1.3em;
+        text-align: center;
+    }
+    
+    .projectText .orgBar {
+        margin: 5px auto 0px;
+        width: 250px;
+    }
+    .projectText .orgBar a{
+        margin-left: 5px;
+        color: #6dcff6;
+    }
+    
+    .projectText .row-fluid [class*="span"]:first-child {
+        margin-left: 0;
+    }
+    .metricContainer {
+        width: 100%;
+        margin: 0 auto;
+        border-top: 2px solid #ffffff;
+    }
+        
+     .metricContainer div:nth-of-type(n+2) {
+
+        border-left: 2px solid #ffffff; 
+    } 
+                  
+          
+            </style>
+            
+            <div class="span4">
+                <div class="projectContainer" type="project" project_id="{{ project.id }}">
+                    <div class="projectImage" style="background-image: url('{{ project.media_url }}'); background-size: 370px 277px; background-repeat: no-repeat;">
+                        <div class="projectText">
+                            <div class="projectName">{{project.name}}</div>
+                            <div class="short_desc">
+                                {{ project.short_desc }}
+                            </div>
+                            <div class="orgBar">
+                                <div class="icon-globe organization"></div><a href="">Organization</a>
+                                <div class="icon-map-marker location"></div><a href="">San Francisco, CA</a>
+                            </div>
+                    <div class="row-fluid" id="opportunityTypes">
+                        <div class="stat span3">
+                            <div id="num-following" class="text-center number">5</div>
+                            <div class="stat-label text-center">Donations</div>
+                        </div>
+                        <div class="stat span3">
+                            <div class="text-center number">13</div>
+                            <div class="stat-label text-center">Skills</div>
+                        </div>
+                        <div class="stat span3">
+                            <div class="text-center number">2</div>
+                            <div class="stat-label text-center">Equipment</div>
+                        </div>
+                        <div class="stat span3">
+                            <div class="text-center number">3</div>
+                            <div class="stat-label text-center">Knowledge</div>
+                        </div>
+                    </div>
+                        </div>    
+
+                    </div>
+                </div>
+            </div>
