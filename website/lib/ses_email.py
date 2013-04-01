@@ -1,5 +1,5 @@
 from boto.ses.connection import SESConnection
-from myproject.settings_local import AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, TO_EMAIL, FROM_EMAIL
+from myproject.settings import AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, TO_EMAIL, FROM_EMAIL
 
 
 def send_email(subject, body):
