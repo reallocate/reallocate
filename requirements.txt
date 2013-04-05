@@ -9,6 +9,7 @@ django-social-auth
 boto
 django-storages
 django-widget-tweaks
+django-ses
 #python-dateutils
 
 gunicorn # Needed for heroku

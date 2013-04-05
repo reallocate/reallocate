@@ -1,6 +1,7 @@
 from website.models import UserProfile
 from django.http import HttpResponse, HttpResponseRedirect
-from django.core.mail import send_mail
+from django.core.mail import EmailMessage
+from myproject.settings import FROM_EMAIL
 
 def get_current_userprofile(request):
     try:
@@ -19,5 +20,10 @@ def build_base_context(request):
     model['topmsg'] = request.GET.get('topmsg')
     return model
 
-#def notify_users(project):
+def send_email(recipients, body, subject, from_email=FROM_EMAIL, headers=None):
+    # https://docs.djangoproject.com/en/dev/topics/email/
+    if not isinstance(recipients, list):
+        recipients = recipients.split(",")
+    msg = EmailMessage(subject, body, from_email, recipients, headers=headers)
+    msg.send()
 
