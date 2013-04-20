@@ -2,7 +2,7 @@ from website.models import UserProfile
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
-from myproject.settings import FROM_EMAIL
+from myproject.settings import FROM_EMAIL, ADMIN_EMAIL
 import re
 
 def get_current_userprofile(request):
@@ -44,3 +44,5 @@ def send_email(recipients, subject, text_content, html_content=None, from_email=
         msg.content_subtype = "html" # defaults to show as html, txt if html not viewable
     msg.send()
 
+def send_admin_email(subject, text_content):
+    send_email([ADMIN_EMAIL], "admin: " + subject, text_content)
