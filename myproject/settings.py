@@ -53,8 +53,9 @@ AWS_SECRET_ACCESS_KEY = ''
 DEPLOY_ENV = ''
 
 # email settings
-FROM_EMAIL = "xxxxxxx@gmail.com"
+FROM_EMAIL = "noreply@reallocate.org"
 TO_EMAIL = ["xxxxxxx@gmail.com"]
+EMAIL_BACKEND = 'django_ses.SESBackend'
 
 # Allow any settings to be defined in local_settings.py which should be
 # ignored in your version control system allowing for settings to be defined per machine.
