@@ -36,7 +36,7 @@ def send_email(recipients, subject, text_content, html_content=None, from_email=
     # https://docs.djangoproject.com/en/dev/topics/email/
     if not isinstance(recipients, list):
         recipients = recipients.split(",")
-    print "sending email to: " + ", ".join(recipients)
+    print "sending email to: %s with subj:%s and body:%s" % (", ".join(recipients), subject, text_content[:500])
     # TODO: make sure we don't send real email to recipients if not production
     msg = EmailMultiAlternatives(subject, text_content, from_email, recipients, headers=headers)
     if html_content:
@@ -44,5 +44,5 @@ def send_email(recipients, subject, text_content, html_content=None, from_email=
         msg.content_subtype = "html" # defaults to show as html, txt if html not viewable
     msg.send()
 
-def send_admin_email(subject, text_content):
-    send_email([ADMIN_EMAIL], "admin: " + subject, text_content)
+def send_admin_email(subject, text_content, html_content=None):
+    send_email([ADMIN_EMAIL], "admin: " + subject, text_content, html_content=html_content)
