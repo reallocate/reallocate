@@ -209,13 +209,17 @@ def search(request):
     # Search for Opportunities
     opportunities = None
         
-    #comment form submission
+    #search form submission
     if request.method == 'POST':        
         #search text
         search = request.POST.get("search")
         print u'search: %s' % (search)
 
-        opportunities = Opportunity.objects.filter(Q(name__contains=search) | Q(status__contains=search) | Q(short_desc__contains=search) | Q(description__contains=search) | Q(opp_type__contains=search))[:12]
+        opp_type = request.POST.get("opp_type")
+        print u'opp_type: %s' % (opp_type)
+
+
+        opportunities = Opportunity.objects.filter(Q(name__contains=search) | Q(status__contains=search) | Q(short_desc__contains=search) | Q(description__contains=search) | Q(opp_type__contains=search)).filter(opp_type=opp_type)[:12]
     
     if not opportunities:
         opportunities = Opportunity.objects.all()[:12]

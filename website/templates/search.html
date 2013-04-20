@@ -73,6 +73,7 @@
 					<form action="" method="post">{% csrf_token %}
 						<label for="search">Search</label>
 						<input type="text" name="search" id="search" value="Search..."onclick="if(this.value=='Search...'){this.value=''}" onblur="if(this.value==''){this.value='Search...'}"><br>
+						<input type="text" name="opp_type" id="opp_type" value="Type..."onclick="if(this.value=='Type...'){this.value=''}" onblur="if(this.value==''){this.value='Type...'}"><br>
 						<input type="submit" value="Search">
 					</form>
 
