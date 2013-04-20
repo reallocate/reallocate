@@ -17,7 +17,6 @@ urlpatterns = patterns('',
 
                        url(r'^add_organization', 'website.views.add_organization', name='add_organization'),
                        url(r'^organization/(?P<oid>\d+)/add_project', 'website.views.add_project', name='add_project'),
-                       url(r'^organization/(?P<pid>\d+)', 'website.views.view_organization', name='view_organization'),
                     
                        url(r'^add_project', 'website.views.add_project', name='add_project'),
                        url(r'^project/(?P<oid>\d+)/add_opportunity', 'website.views.add_opportunity', name='add_opportunity'),

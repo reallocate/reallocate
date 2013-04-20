@@ -60,6 +60,7 @@ if 'DEPLOY_ENV' not in os.environ or os.environ['DEPLOY_ENV'] == 'local':
 # email settings
 EMAIL_BACKEND = 'django_ses.SESBackend'
 FROM_EMAIL = "Reallocate <noreply@reallocate.org>"
+ADMIN_EMAIL = "admin@reallocate.org"
 
 #########
 # PATHS #
@@ -176,6 +177,7 @@ TEMPLATE_DIRS = (
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
     'templates',
+    'templates/emails',
 )
 
 INSTALLED_APPS = (

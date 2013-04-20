@@ -36,28 +36,56 @@
         "date_joined": "2013-03-17T03:12:31.196Z"
     }
   },
-  {
-    "model": "website.UserProfile",
+
+    {
+    "model": "website.Organization",
     "pk": 1,
     "fields": {
-      "user": 1,
-      "bio" : "I am a real person.",
-      "media_url" : "http://a1.s6img.com/cdn/0009/p/2250559_9176873_lz.jpg"
+      "name" : "ReAllocate",
+      "business_type" : "nonprofit",
+      "year_established" : "2009",
+      "date_created" : "2013-04-20 12:28",
+      "org_mission" : "Enabling cooperative innovation and connecting world class talent with real world problems.",
+      "address_one" : "926 Howard St",
+      "address_two" : "",
+      "city" : "San Francisco",
+      "state" : "CA",
+      "country" : "United States",
+      "zip_code" : "94104",
+      "phone" : "303-579-8047",
+      "URL" : "http://reallocate.org",
+      "media_url" : "http://reallocate.org/wp-content/uploads/2012/10/reallocate_logo.png",
+      "created_by" : 1
     }
   },
+  
   {
-    "model": "website.UserProfile",
+    "model": "website.Organization",
     "pk": 2,
     "fields": {
-      "user": 2,
-      "bio" : "I am not a real person",
-      "media_url" : "http://flyranchproject.org/wp-content/uploads/2011/12/tim-lipton-155x213.jpg"
+      "name" : "miraclefeet",
+      "business_type" : "nonprofit",
+      "year_established" : "2008",
+      "date_created" : "2013-04-20 12:28",
+      "org_mission" : "miraclefeet is dedicated to providing proper treatment for children born with clubfoot in developing countries. miraclefeet partners with local orthopedic surgeons working in public hospitals to establish and support clubfoot clinics within the existing public health system. miraclefeet believes this is the most effective, efficient and sustainable approach to prevent the significant disability caused by untreated clubfoot around the world.",
+      "address_one" : "605 W. Main Street",
+      "address_two" : "Suite 107",
+      "city" : "Carrboro",
+      "state" : "NC",
+      "country" : "United States",
+      "zip_code" : "27510",
+      "phone" : "919.240.5572",
+      "URL" : "http://miraclefeet.org",
+      "media_url" : "http://miraclefeet.org/images2/logo4.png",
+      "created_by" : 1
     }
   },
+  
   {
     "model": "website.Project",
     "pk": 1,
     "fields": {
+      "organization" : 1,
       "name" : "Mountain seal control",
       "date_created": "2013-01-01 05:00",
       "status" : "published",
@@ -73,6 +101,7 @@
     "model": "website.Project",
     "pk": 2,
     "fields": {
+      "organization" : 1,
       "name" : "Cordova Community Cold Storage",
       "date_created": "2013-01-01 05:00",
       "status" : "published",
@@ -87,6 +116,7 @@
     "model": "website.Project",
     "pk": 3,
     "fields": {
+      "organization" : 1,
       "name" : "ReAllocate",
       "date_created": "2013-01-01 05:00",
       "status" : "published",
@@ -101,6 +131,7 @@
     "model": "website.Project",
     "pk": 4,
     "fields": {
+      "organization" : 2,
       "name" : "Miracle Brace",
       "date_created": "2013-01-01 05:00",
       "status" : "published",
@@ -115,6 +146,7 @@
     "model": "website.Opportunity",
     "pk": 1,
     "fields": {
+      "organization" : 1,
       "project": "1",
       "date_created": "2013-01-01 05:00",
       "name": "Jameson required",
@@ -129,6 +161,7 @@
     "model": "website.Opportunity",
     "pk": 2,
     "fields": {
+      "organization" : 1,
       "project": "2",
       "date_created": "2013-01-01 05:00",
       "name": "Create Energy Plan",
@@ -143,6 +176,7 @@
     "model": "website.Opportunity",
     "pk": 3,
     "fields": {
+      "organization" : 1,
       "project": "2",
       "date_created": "2013-01-01 05:00",
       "name": "Donate Materials",
@@ -157,6 +191,7 @@
     "model": "website.Opportunity",
     "pk": 4,
     "fields": {
+      "organization" : 2,
       "project": "4",
       "date_created": "2013-01-01 05:00",
       "name": "Design Product with CAD",
@@ -171,6 +206,7 @@
     "model": "website.Opportunity",
     "pk": 5,
     "fields": {
+      "organization" : 1,
       "project": "3",
       "date_created": "2013-01-01 05:00",
       "name": "Build a web Marketplace",
@@ -186,6 +222,7 @@
     "model": "website.Opportunity",
     "pk": 6,
     "fields": {
+      "organization" : 2,
       "project": "4",
       "date_created": "2013-01-01 05:00",
       "name": "Build a Prototype",
@@ -200,6 +237,7 @@
     "model": "website.Opportunity",
     "pk": 7,
     "fields": {
+      "organization" : 2,
       "project": "4",
       "date_created": "2013-01-01 05:00",
       "name": "Donate Material List",
@@ -214,6 +252,7 @@
     "model": "website.Opportunity",
     "pk": 8,
     "fields": {
+      "organization" : 2,
       "project": "4",
       "date_created": "2013-01-01 05:00",
       "name": "Donate Travel",
@@ -228,6 +267,7 @@
     "model": "website.Opportunity",
     "pk": 9,
     "fields": {
+      "organization" : 2,
       "project": "4",
       "date_created": "2013-01-01 05:00",
       "name": "Donate a 3D Printer",
@@ -242,6 +282,7 @@
     "model": "website.Opportunity",
     "pk": 10,
     "fields": {
+      "organization" : 2,
       "project": "4",
       "date_created": "2013-01-01 05:00",
       "name": "Research the Needs",
@@ -256,6 +297,7 @@
     "pk": 1,
     "model": "website.Update",
     "fields": {
+        "organization" : 1,
         "project": 1,
         "text": "\"If you're going through hell, keep going.\" -Churchill",
         "opportunity": 1,
@@ -267,6 +309,7 @@
     "pk": 2,
     "model": "website.Update",
     "fields": {
+        "organization" : 1,
         "project": 1,
         "text": "Mike North at TedXSendai",
         "opportunity": 1,
@@ -278,11 +321,12 @@
     "pk": 3,
     "model": "website.Update",
     "fields": {
-    "project": 2,
-    "text": "\"Rural Alaskans rely on subsistence food for their way of life. This means they harvest, process and store their own food to feed their families and survive the long Alaskan winters. In the Alaskan frontier there is no Walmart, no convenience store and your delivery driver flies an airplane! In partnership with the Eyak Preservation Council and the University of California, Berkeley, ReAllocate is helping to build a community cold storage facility in Cordova, Alaska. This facility is an innovative approach to providing high quality subsistence food processing for rural populations. It will also create new sustainable economic opportunities for commercial fishermen, by opening direct-to-market sales channels, increasing their earning potential and improving existing cottage industries. All of rural Alaska faces the challenge of maintaining a high-quality subsistence food supply. Food processing centers are built to serve large corporate clients and are not suited for the needs of smaller commercial and rural fishers and hunters. This means it's harder for rural families to process and store their food for survival and independant commercial fishermen are forced to sell their catch to large canneries at a fraction of the cost of selling direct-to-market.\"",
-    "opportunity": 2,
-    "created_by": 1,
-    "media_url": ""
+      "organization" : 1,
+      "project": 2,
+      "text": "\"Rural Alaskans rely on subsistence food for their way of life. This means they harvest, process and store their own food to feed their families and survive the long Alaskan winters. In the Alaskan frontier there is no Walmart, no convenience store and your delivery driver flies an airplane! In partnership with the Eyak Preservation Council and the University of California, Berkeley, ReAllocate is helping to build a community cold storage facility in Cordova, Alaska. This facility is an innovative approach to providing high quality subsistence food processing for rural populations. It will also create new sustainable economic opportunities for commercial fishermen, by opening direct-to-market sales channels, increasing their earning potential and improving existing cottage industries. All of rural Alaska faces the challenge of maintaining a high-quality subsistence food supply. Food processing centers are built to serve large corporate clients and are not suited for the needs of smaller commercial and rural fishers and hunters. This means it's harder for rural families to process and store their food for survival and independant commercial fishermen are forced to sell their catch to large canneries at a fraction of the cost of selling direct-to-market.\"",
+      "opportunity": 2,
+      "created_by": 1,
+      "media_url": ""
     }
 },
 
@@ -290,6 +334,7 @@
     "pk": 4,
     "model": "website.Update",
     "fields": {
+        "organization" : 1,
         "project": 1,
         "text": "\"An adventure is not a goal, but rather an experience that had better be shared with your friends\" - TR",
         "opportunity": 1,
@@ -302,6 +347,7 @@
     "pk": 5,
     "model": "website.Update",
     "fields": {
+        "organization" : 1,
         "project": 2,
         "text": "Kevin has offered to help build an Energy Map for Community Cold Storage!",
         "opportunity": 2,
@@ -313,6 +359,7 @@
     "pk": 6,
     "model": "website.Update",
     "fields": {
+        "organization" : 1,
         "project": 3,
         "text": "Live Action from the Hack Day!",
         "opportunity": 1,
@@ -324,6 +371,7 @@
     "pk": 7,
     "model": "website.Update",
     "fields": {
+        "organization" : 1,
         "project": 2,
         "text": "Cordova Community Cold Storage created an opportunity to provide materials",
         "opportunity": 3,
@@ -335,6 +383,7 @@
     "pk": 8,
     "model": "website.Update",
     "fields": {
+        "organization" : 2,
         "project": 4,
         "text": "<p>Seize the opportunity to use your CAD skills to design a product to treat children with Clubfoot</p><p>Get Involved</p>",
         "opportunity": 4,
@@ -346,6 +395,7 @@
     "pk": 9,
     "model": "website.Update",
     "fields": {
+        "organization" : 1,
         "project": 3,
         "text": "I'm there with you in spirit! Take care of the hamsters and watch out for the seals!...not sure where the elephants came from...",
         "opportunity": 5,
@@ -357,6 +407,7 @@
     "pk": 10,
     "model": "website.Update",
     "fields": {
+        "organization" : 2,
         "project": 4,
         "text": "Firstname Lastname offered their CAD skills to help design the Miracle Brace!",
         "opportunity": 4,
@@ -369,6 +420,7 @@
     "pk": 11,
     "model": "website.Update",
     "fields": {
+        "organization" : 2,
         "project": 4,
         "text": "We are in full swing! Check out some of the preliminary drawings for the brace!",
         "opportunity": 4,
@@ -380,6 +432,7 @@
     "pk": 12,
     "model": "website.Update",
     "fields": {
+        "organization" : 2,
         "project": 4,
         "text": "CAD designs are all ready to go. Off to the 3D Printer to create a prototype!",
         "opportunity": 4,
