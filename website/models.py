@@ -33,6 +33,7 @@ class OrganizationForm(ModelForm):
         }
 
 class Project(models.Model):
+    organization = models.ForeignKey(Organization)
     name = models.CharField(max_length=100, blank=True)
     status = models.CharField(max_length=100, blank=True, default='unpublished')
     industry = models.CharField(max_length=100, blank=True)
@@ -58,6 +59,7 @@ class ProjectForm(ModelForm):
 
 
 class Opportunity(models.Model):
+    organization = models.ForeignKey(Organization)
     project = models.ForeignKey(Project)
     name = models.CharField(max_length=100, blank=True)
     media_url = models.CharField(max_length=200, blank=True)
@@ -100,6 +102,7 @@ class UserProfile(models.Model):
         return "%s's profile" % self.user
 
 class Update(models.Model):
+    organization = models.ForeignKey(Organization)
     project = models.ForeignKey(Project)
     opportunity = models.ForeignKey(Opportunity)
     created_by = models.ForeignKey(User)
