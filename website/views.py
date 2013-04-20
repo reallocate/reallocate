@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_exempt, csrf_protect
 
 from website.models import ProjectForm, OpportunityForm, Project, Opportunity, Update, UserProfile
-from website.models import OpportunityEngagements
+from website.models import OpportunityEngagement
 import website.base as base
 from django.db.models import Q
 
@@ -127,7 +127,7 @@ def engage(request, pid=1):
     # todo - deal with money type => donations rather than a freeform response
     if request.method == "POST":
         response = request.POST.get("response", "")
-        OpportunityEngagements(user=request.user, opportunity=opp, response=response).save()
+        OpportunityEngagement(user=request.user, opportunity=opp, response=response).save()
         topmsg = 'Thanks for your engagement - a project leader will get back to you as soon as possible'
         return HttpResponseRedirect("/opportunity/" + str(opp.id) + "?topmsg=" + topmsg)
     
