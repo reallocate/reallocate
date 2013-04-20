@@ -1,0 +1,106 @@
+{% extends 'theme/base.html' %}
+{% load i18n %}
+
+{% trans "This is the title" as the_title %}
+
+{% block meta_description %}{{ the_title }}{% endblock %}
+
+
+{% block extra_css %}
+    <style>
+
+        .feature_container {
+            height: 400px;
+            margin-top: 60px;
+        }
+
+        .home_feature_slider {
+            background: url('/static/images/hero.png');
+            height: 300px;
+        }
+
+        .opportunties_row {
+            margin-bottom: 30px;
+        }
+
+        .opportunity_lower {
+            padding: 5px 10px;
+        }
+
+        .opportunity_lower .name {
+
+        }
+
+        .opportunity_lower .short_desc {
+            margin-top: 5px;
+            min-height: 60px;
+        }
+
+        .opportunity_lower .location {
+            margin-top: 5px;
+        }
+
+        .opportunity_lower .organization {
+            margin-top: 5px;
+        }
+
+        footer {
+            margin-top: 30px;
+        }
+    </style>
+{% endblock %}
+
+
+{% block hero %}
+{% endblock %}
+{% block maincontent %}
+
+    <div class="container">
+        <ul class="breadcrumb">
+            <li id="breadcrumb-menu-home"><a href="/">Home</a><span class="divider">/</span></li>
+            <li id="breadcrumb-menu-mission"
+                class="active">Search
+            </li>
+        </ul>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="span12">
+                <div class="row opportunties_row">
+
+
+					<form action="" method="post">{% csrf_token %}
+						<label for="search">Search</label>
+						<input type="text" name="search" id="search" value="Search"><br>
+						<input type="submit" value="Search">
+					</form>
+
+
+
+                </div>
+        
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="span12">
+                <div class="row opportunties_row">
+                    {% for opportunity in opportunities %}
+                        {% include "includes/opportunity-pane.html" %}
+                    {% endfor %}
+                </div>
+        
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
+
+{% block bottomscript %}
+    
+{% endblock %}
+

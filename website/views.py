@@ -7,10 +7,12 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_exempt, csrf_protect
 
+
 from website.lib.ses_email import send_email
 from website.models import OrganizationForm, ProjectForm, OpportunityForm, Project, Opportunity, Update, UserProfile
 from website.models import OpportunityEngagements
 import website.base as base
+from django.db.models import Q
 
 
 @login_required
@@ -169,7 +171,7 @@ def add_project(request):
             landing_instance.save()
             show_invite = False
 
-            # send_email("MY SITE: Contact Us signup", "email=" + request.POST["email"])
+            # TODO: send email
 
         else:
             return HttpResponse("error")
@@ -203,3 +205,25 @@ def add_opportunity(request, oid=1):
         "parent_project": parent_project,
         "show_form": show_form
     }, context_instance=RequestContext(request))
+    
+    
+    
+def search(request):
+    # Search for Opportunities
+    opportunities = None
+        
+    #comment form submission
+    if request.method == 'POST':        
+        #search text
+        search = request.POST.get("search")
+        print u'search: %s' % (search)
+
+        opportunities = Opportunity.objects.filter(Q(name__contains=search) | Q(status__contains=search) | Q(short_desc__contains=search) | Q(description__contains=search) | Q(opp_type__contains=search))[:12]
+    
+    if not opportunities:
+        opportunities = Opportunity.objects.all()[:12]
+        
+
+
+    return render_to_response('search.html', {'opportunities': opportunities},
+                              context_instance=RequestContext(request))
