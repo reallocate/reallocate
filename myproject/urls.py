@@ -15,10 +15,16 @@ urlpatterns = patterns('',
                        url(r'^signup', 'website.views.signup'),
                        url(r'^logout', 'django.contrib.auth.views.logout', {'next_page': '/'}),
 
+                       url(r'^add_organization', 'website.views.add_organization', name='add_organization'),
+                       url(r'^organization/(?P<oid>\d+)/add_project', 'website.views.add_project', name='add_project'),
+                    
                        url(r'^add_project', 'website.views.add_project', name='add_project'),
                        url(r'^project/(?P<oid>\d+)/add_opportunity', 'website.views.add_opportunity', name='add_opportunity'),
                        url(r'^project/(?P<pid>\d+)', 'website.views.view_project', name='view_project'),
 
+                       url(r'^add_opportunity', 'website.views.add_opportunity', name='add_opportunity'),
+                       url(r'^opportunity/(?P<pid>\d+)', 'website.views.view_opportunity', name='view_opportunity'),
+ 
                        url(r'^opportunity/(?P<pid>\d+)$', 'website.views.view_opportunity', name='view_opportunity'),
                        url(r'^find-opportunity', 'website.views.opportunity_list', name='opportunity_list'),
                        url(r'^opportunity/(?P<pid>\d+)/engage', 'website.views.engage', name='engage'),
@@ -36,4 +42,6 @@ urlpatterns = patterns('',
                        # Server Static Files from Django
                        url(r'^static/(?P<path>.*)$', 'django.views.static.serve',
                            {'document_root': settings.STATIC_ROOT, 'show_indexes': True}),
+                       
+                       url(r'^search', 'website.views.search', name='search'),
 )
