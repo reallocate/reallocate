@@ -323,13 +323,19 @@ def search(request):
         print u'opp_type: %s' % (opp_type)
 
 
-        if opp_type == 'Type...':
+        if opp_type == '':
+            print u'CASE A'
             opportunities = Opportunity.objects.filter(Q(name__contains=search) | Q(status__contains=search) | Q(short_desc__contains=search) | Q(description__contains=search) | Q(opp_type__contains=search) | Q(tags__name__in=[search])).distinct()[:12]
+        elif search == 'Search...':    
+            print u'CASE B'
+            opportunities = Opportunity.objects.filter(opp_type=opp_type).distinct()[:12]
         else:    
-            opportunities = Opportunity.objects.filter(Q(name__contains=search) | Q(status__contains=search) | Q(short_desc__contains=search) | Q(description__contains=search) | Q(opp_type__contains=search) | Q(tags__name__in=[search])).filter(opp_type=opp_type)[:12]
+            print u'CASE C'
+            opportunities = Opportunity.objects.filter(Q(name__contains=search) | Q(status__contains=search) | Q(short_desc__contains=search) | Q(description__contains=search) | Q(opp_type__contains=search) | Q(tags__name__in=[search])).filter(opp_type=opp_type).distinct()[:12]
 
     
     if not opportunities:
+        print u'NO OPPORTUNITIES FOUND'
         opportunities = Opportunity.objects.all()[:12]
 
     return render_to_response('search.html', {'opportunities': opportunities},
