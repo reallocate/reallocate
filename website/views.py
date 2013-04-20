@@ -169,6 +169,30 @@ def view_opportunity(request, pid=1):
 
     return render_to_response('opportunity.html', context, context_instance=RequestContext(request))
 
+@login_required
+def add_opportunity(request, oid=1):
+    # Create new Opportunity
+    parent_project = get_object_or_404(Project, pk=oid)
+    show_form = True
+
+    if request.method == "POST":
+        myform = OpportunityForm(request.POST)
+        new_instance = myform.save(commit=False)
+        if myform.is_valid():
+            new_instance.project = parent_project
+            new_instance.save()
+            show_form = False
+        else:
+            return HttpResponse("error")
+
+    myform = OpportunityForm()
+    
+    return render_to_response('add_opportunity.html', {
+        "myform": myform,
+        "parent_project": parent_project,
+        "show_form": show_form
+    }, context_instance=RequestContext(request))
+
 @csrf_exempt
 @login_required
 def engage(request, pid=1):
@@ -206,30 +230,6 @@ def add_organization(request):
         "show_invite": show_invite
     }, context_instance=RequestContext(request))
         
-@login_required
-def add_opportunity(request, oid=1):
-    # Create new Opportunity
-    parent_project = get_object_or_404(Project, pk=oid)
-    show_form = True
-
-    if request.method == "POST":
-        myform = OpportunityForm(request.POST)
-        new_instance = myform.save(commit=False)
-        if myform.is_valid():
-            new_instance.project = parent_project
-            new_instance.save()
-            show_form = False
-        else:
-            return HttpResponse("error")
-
-    myform = OpportunityForm()
-    
-    return render_to_response('add_opportunity.html', {
-        "myform": myform,
-        "parent_project": parent_project,
-        "show_form": show_form
-    }, context_instance=RequestContext(request))
-    
 def search(request):
     # Search for Opportunities
     opportunities = None
