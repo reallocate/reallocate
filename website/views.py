@@ -7,7 +7,6 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_exempt, csrf_protect
 
-from website.lib.ses_email import send_email
 from website.models import OrganizationForm, ProjectForm, OpportunityForm, Project, Opportunity, Update, UserProfile
 from website.models import OpportunityEngagement
 import website.base as base
