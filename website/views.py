@@ -43,6 +43,10 @@ def homepage(request):
 def about(request):
     return render_to_response('about.html', {}, context_instance=RequestContext(request))
 
+def learn(request):
+    return render_to_response('learn.html', {}, context_instance=RequestContext(request))
+
+
 def opportunity_list(request):
     opportunities = Opportunity.objects.all()[:12]
     projects = Opportunity.objects.all()[:12]
