@@ -24,7 +24,7 @@
 
             <div class="span12 left">
 
-                {% if show_invite %}
+                {% if show_add_project %}
                     <form id="signup-form" class="form-horizontal" method="post">{% csrf_token %}
 
                         {% for field in myform %}
@@ -47,7 +47,8 @@
 
                     </form>
                 {% else %}
-                    <h3>Thank you. We will contact you soon.</h3>
+                    <h3>Thank you for posting this project to Reallocate.
+                    A site admin will contact you when your project has been reviewed and approved.</h3>
                 {% endif %}
             </div>
 

@@ -11,8 +11,8 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_exempt, csrf_protect
 
-from website.models import OrganizationForm, ProjectForm, OpportunityForm, Project, Opportunity, Update, UserProfile
-from website.models import OpportunityEngagement
+from website.models import OrganizationForm, Organization, ProjectForm, Project, Update, UserProfile
+from website.models import OpportunityEngagement, Opportunity, OpportunityForm 
 import website.base as base
 from django.db.models import Q
 
@@ -126,6 +126,31 @@ def view_project(request, pid=1):
     context['num_following'] = project.followed_by.count()
     return render_to_response('project.html', context, context_instance=RequestContext(request))
 
+@login_required
+def add_project(request):
+    # Show the sign page and collect emails
+    context = base.build_base_context(request)
+    context['show_add_project'] = True
+    if request.method == "POST":
+        myform = ProjectForm(request.POST)
+        new_project = myform.save(commit=False)
+        if myform.is_valid():
+            new_project.organization = get_object_or_404(Organization, pk=1) # TODO: add this to form
+            new_project.created_by = request.user
+            new_project.save()
+            context['show_add_project'] = False
+            # send admin email with link adminpanel to change project status
+            subj = "new project %s added by %s" % (new_project.name, context['user_email'])
+            body = """Go here to and change status to active:<br/>
+                      <a href='%s/admin/website/project/%s'>approve</a>
+                      For now: remember to email the above email after their project is live""" % (
+                      request.get_host(), new_project.id)
+            base.send_admin_email(subj, body, html_content=body)
+        else:
+            return HttpResponse("error")
+
+    context['myform'] = ProjectForm()
+    return render_to_response('add_project.html', context, context_instance=RequestContext(request))
 
 @csrf_exempt
 def view_opportunity(request, pid=1):
@@ -180,30 +205,7 @@ def add_organization(request):
         "myform": myform,
         "show_invite": show_invite
     }, context_instance=RequestContext(request))
-
-@login_required
-def add_project(request):
-    # Show the sign page and collect emails
-    show_invite = True
-    if request.method == "POST":
-        myform = ProjectForm(request.POST)
-        landing_instance = myform.save(commit=False)
-        if myform.is_valid():
-            landing_instance.ip_address = request.META['REMOTE_ADDR']
-            landing_instance.save()
-            show_invite = False
-
-            # TODO: send email
-
-        else:
-            return HttpResponse("error")
-
-    myform = ProjectForm()
-    return render_to_response('add_project.html', {
-        "myform": myform,
-        "show_invite": show_invite
-    }, context_instance=RequestContext(request))
-
+        
 @login_required
 def add_opportunity(request, oid=None):
     # Create new Opportunity
