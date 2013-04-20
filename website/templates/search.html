@@ -70,11 +70,20 @@
                 <div class="row opportunties_row">
 
 
+
 					<form action="" method="post">{% csrf_token %}
-						<label for="search">Search</label>
-						<input type="text" name="search" id="search" value="Search..."onclick="if(this.value=='Search...'){this.value=''}" onblur="if(this.value==''){this.value='Search...'}"><br>
-						<input type="text" name="opp_type" id="opp_type" value="Type..."onclick="if(this.value=='Type...'){this.value=''}" onblur="if(this.value==''){this.value='Type...'}"><br>
-						<input type="submit" value="Search">
+					    <label for="search">Search</label>
+					    <input type="text" name="search" id="search"
+						value="Search..."onclick="if(this.value=='Search...'){this.value=''}"
+						onblur="if(this.value==''){this.value='Search...'}"><br>
+					    <select name="opp_type" id="opp_type">
+						<option value="">Search By:</option>
+						<option value="Skills">Skill set</option>
+						<option value="Knowledge">Knowledge</option>
+						<option value="Equipment">Equipment</option>
+						<option value="Money">Money</option>
+					    </select>
+					    <input type="submit" value="Search">
 					</form>
 
 

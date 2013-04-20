@@ -4,6 +4,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.views.decorators.csrf import csrf_exempt
 import json
 import website.base as base
+from myproject.settings import ADMIN_EMAIL
 
 from website.models import UserProfile, Project, Update
 
@@ -19,6 +20,9 @@ def modify_project_relation(request, *args):
         return HttpResponse(json.dumps({'failure': 'no project found'}), status=500)
     if action == 'follow':
         project.followed_by.add(request.user)
+        # TODO: remove admin email from this as # of follows increases
+        base.send_email([ADMIN_EMAIL, project.created_by.email],
+            'new follower: %s for project: %s' % (request.user.email, project.name), '')
     if action == 'unfollow':
         project.followed_by.remove(request.user)
     print project.followed_by.all()
