@@ -1,3 +1,7 @@
+import boto
+from boto.s3.key import Key
+from myproject import settings
+
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
@@ -15,13 +19,30 @@ from django.db.models import Q
 @login_required
 @csrf_exempt
 def profile(request):
+    """ for displaying and editing a users profile """
+    
+    def remote_storage(uploaded_file, user):
+        """ for uploading avatars to s3 """
+        c = boto.connect_s3(settings.AWS_ACCESS_KEY_ID, settings.AWS_SECRET_ACCESS_KEY)
+        bucket = c.get_bucket(settings.S3_BUCKET)
+        
+        filename = 'users/%s/%s' % (user.email, uploaded_file.name)
+        k = Key(bucket)
+        k.set_metadata('Content-Type', 'image/png')
+        k.key = filename
+        k.set_contents_from_string(uploaded_file.read())
+        k.set_acl('public-read')
+        return 'http://s3.amazonaws.com/%s/%s' % (settings.S3_BUCKET, filename)
+        
     user_profile = request.user.get_profile()
     topmsg = None
-    
     if request.method == "POST":
+        avatar = request.FILES.get('file')
+        filename = remote_storage(avatar, request.user)
+        
         user_profile.user.email = request.POST.get("email")
         user_profile.bio = request.POST.get("bio")
-        user_profile.media_url = request.POST.get("media_url")
+        user_profile.media_url = filename
         user_profile.save()
         topmsg = 'Your settings have been saved'
     
@@ -42,6 +63,10 @@ def homepage(request):
 
 def about(request):
     return render_to_response('about.html', {}, context_instance=RequestContext(request))
+
+def learn(request):
+    return render_to_response('learn.html', {}, context_instance=RequestContext(request))
+
 
 def opportunity_list(request):
     opportunities = Opportunity.objects.all()[:12]
@@ -204,8 +229,6 @@ def add_opportunity(request, oid=1):
         "parent_project": parent_project,
         "show_form": show_form
     }, context_instance=RequestContext(request))
-    
-    
     
 def search(request):
     # Search for Opportunities
