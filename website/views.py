@@ -152,12 +152,14 @@ def add_project(request):
     return render_to_response('add_project.html', context, context_instance=RequestContext(request))
 
 @csrf_exempt
-def view_opportunity(request, pid=1):
+def view_opportunity(request, pid):
     opp = get_object_or_404(Opportunity, pk=pid)
     project = get_object_or_404(Project, pk=opp.project.id)
+    organization = project.organization
     updates = Update.objects.filter(opportunity=opp)
     context = base.build_base_context(request)
     context.update({
+        'organization': organization,
         'opportunity': opp,
         'project': project,
         'other_opps': [rec for rec in Opportunity.objects.filter(project=opp.project).all() if rec.id != opp.id],
