@@ -157,13 +157,16 @@ def view_opportunity(request, pid=1):
     project = get_object_or_404(Project, pk=opp.project.id)
     updates = Update.objects.filter(opportunity=opp)
     context = base.build_base_context(request)
-    #context.update({
-    #    'opportunity': opp,
-    #    'project': project,
-    #    'other_opps': [rec for rec in Opportunity.objects.filter(project=opp.project).all() if rec.id != opp.id],
-    #    'updates': updates})
-    #               "show_invite": show_invite
-    #}, context_instance=RequestContext(request))
+    context.update({
+        'opportunity': opp,
+        'project': project,
+        'other_opps': [rec for rec in Opportunity.objects.filter(project=opp.project).all() if rec.id != opp.id],
+        'updates': updates})
+    
+    if request.user.is_authenticated():
+        context['is_engaged'] = request.user in opp.engaged_by.all()
+
+    return render_to_response('opportunity.html', context, context_instance=RequestContext(request))
 
 @login_required
 def add_opportunity(request, oid=1):

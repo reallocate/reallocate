@@ -126,17 +126,15 @@
                     <div class="sectionTitle">Updates</div>
                     <div class="create_post">
                         <form id="post_update" enctype="multipart/form-data" method="post">
-        
+                            <input type="hidden" name="project_id" value="{{project.id}}"/>
                             <input type="hidden" name="opportunity_id" value="{{opportunity.id}}"/>
-                            <input type="hidden" name="user_id" value="{{request.user.get_profile.id}}"/>
                             <textarea placeholder="How is your project going?"></textarea>
                             
                             <button type="submit" class="btn">
                                 <span class="icon-camera icon"></span>
                             </button>
                             
-                            <input class="btn btn-primary" type="submit" value="Post Update" onclick="ajaxFormFunction(); return false;">
-                                
+                            <input class="btn btn-primary" type="submit" value="Post Update">
                             <input id="upload_button" type="file" name="uploaded_media" style="display: none;"/>
                             
                         </form>
@@ -208,10 +206,24 @@
             alert('Handler for .submit() called.');
             return false;
         });
+        
+        $('#post_update').submit(function() {
+            var form = $(this);
+            $.ajax({
+                url : '/ajax/add-update',
+                type: 'POST',
+                data : form.serialize(),
+                success :function(response){
+                    console.log(response);
+                },
+                error : function(response){
+                   console.log("failure to follow/unfollow");
+                }
+            });
+   
+            return false;   
+        });
 
-        function ajaxFormFunction() {
-            alert("Thank you for your comment!");
-        }
     </script>
 
 {% endblock %}

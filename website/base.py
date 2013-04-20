@@ -2,7 +2,7 @@ from website.models import UserProfile
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
-from myproject.settings import FROM_EMAIL, ADMIN_EMAIL
+from myproject.settings import FROM_EMAIL, ADMIN_EMAIL, DEPLOY_ENV
 import re
 
 def get_current_userprofile(request):
@@ -15,11 +15,11 @@ def get_current_userprofile(request):
         return HttpResponse("error getting user profile")
 
 def build_base_context(request):
-    model = {}
+    context = {}
     if request.user.is_authenticated():
-        model['logged_in'] = True
-        model['user_email'] = request.user.email
-    model['topmsg'] = request.GET.get('topmsg')
+        context['logged_in'] = True
+        context['user_email'] = request.user.email
+    context['topmsg'] = request.GET.get('topmsg')
     return model
 
 def send_email_template(email_type, context, subject, recipients, *kwargs):
@@ -42,7 +42,8 @@ def send_email(recipients, subject, text_content, html_content=None, from_email=
     if html_content:
         msg.attach_alternative(html_content, "text/html")
         msg.content_subtype = "html" # defaults to show as html, txt if html not viewable
-    msg.send()
+    if DEPLOY_ENV != 'local':
+        msg.send()
 
 def send_admin_email(subject, text_content, html_content=None):
     send_email([ADMIN_EMAIL], "admin: " + subject, text_content, html_content=html_content)
