@@ -7,7 +7,6 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_exempt, csrf_protect
 
-from website.lib.ses_email import send_email
 from website.models import ProjectForm, OpportunityForm, Project, Opportunity, Update, UserProfile
 from website.models import OpportunityEngagements
 import website.base as base
@@ -147,7 +146,7 @@ def add_project(request):
             landing_instance.save()
             show_invite = False
 
-            # send_email("MY SITE: Contact Us signup", "email=" + request.POST["email"])
+            # TODO: send email
 
         else:
             return HttpResponse("error")
