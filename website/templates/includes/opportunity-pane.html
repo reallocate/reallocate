@@ -10,6 +10,11 @@
                             <div class="opp_type">
                                 {{ opportunity.opp_type }}
                             </div>
+                            <div class="tags">
+			                    {% for tag in opportunity.tags.all %}
+			                        {{ tag }}{% if forloop.last %}{% else %}, {% endif %}
+			                    {% endfor %}
+                            </div>
                             <div class="short_desc">
                                 {{ opportunity.short_desc }}
                             </div>

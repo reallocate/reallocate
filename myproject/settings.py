@@ -196,6 +196,7 @@ INSTALLED_APPS = (
     'widget_tweaks',
 
     'website',
+    'taggit',
 
     # Admin apps
     'django.contrib.admin',

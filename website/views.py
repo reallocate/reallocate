@@ -7,8 +7,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_exempt, csrf_protect
 
-from website.models import OrganizationForm, ProjectForm, OpportunityForm, Project, Opportunity, Update, UserProfile
-from website.models import OpportunityEngagement
+from website.models import OrganizationForm, ProjectForm, OpportunityForm, Project, Opportunity, Update, UserProfile, OpportunityEngagement
 import website.base as base
 from django.db.models import Q
 
@@ -108,12 +107,66 @@ def view_opportunity(request, pid=1):
     project = get_object_or_404(Project, pk=opp.project.id)
     updates = Update.objects.filter(opportunity=opp)
     context = base.build_base_context(request)
-    context.update({
-        'opportunity': opp,
-        'project': project,
-        'other_opps': [rec for rec in Opportunity.objects.filter(project=opp.project).all() if rec.id != opp.id],
-        'updates': updates})
+    #context.update({
+    #    'opportunity': opp,
+    #    'project': project,
+    #    'other_opps': [rec for rec in Opportunity.objects.filter(project=opp.project).all() if rec.id != opp.id],
+    #    'updates': updates})
+    #               "show_invite": show_invite
+    #}, context_instance=RequestContext(request))
+
+@login_required
+def add_opportunity(request, oid=1):
+    # Create new Opportunity
+    parent_project = get_object_or_404(Project, pk=oid)
+    show_form = True
+
+    if request.method == "POST":
+        myform = OpportunityForm(request.POST)
+        new_instance = myform.save(commit=False)
+        if myform.is_valid():
+            new_instance.project = parent_project
+            new_instance.save()
+            show_form = False
+        else:
+            return HttpResponse("error")
+
+    myform = OpportunityForm()
     
+    return render_to_response('add_opportunity.html', {
+        "myform": myform,
+        "parent_project": parent_project,
+        "show_form": show_form
+    }, context_instance=RequestContext(request))
+    
+    
+    
+def search(request):
+    # Search for Opportunities
+    opportunities = None
+        
+    #search form submission
+    if request.method == 'POST':        
+        #search text
+        search = request.POST.get("search")
+        print u'search: %s' % (search)
+
+        opp_type = request.POST.get("opp_type")
+        print u'opp_type: %s' % (opp_type)
+
+
+        if opp_type == 'Type...':
+            opportunities = Opportunity.objects.filter(Q(name__contains=search) | Q(status__contains=search) | Q(short_desc__contains=search) | Q(description__contains=search) | Q(opp_type__contains=search) | Q(tags__name__in=[search])).distinct()[:12]
+        else:    
+            opportunities = Opportunity.objects.filter(Q(name__contains=search) | Q(status__contains=search) | Q(short_desc__contains=search) | Q(description__contains=search) | Q(opp_type__contains=search) | Q(tags__name__in=[search])).filter(opp_type=opp_type).distinct()[:12]
+
+    
+    if not opportunities:
+        opportunities = Opportunity.objects.all()[:12]
+
+    return render_to_response('search.html', {'opportunities': opportunities},
+                              context_instance=RequestContext(request))
+
     if request.user.is_authenticated():
         context['is_engaged'] = request.user in opp.engaged_by.all()
 
@@ -174,57 +227,4 @@ def add_project(request):
             return HttpResponse("error")
 
     myform = ProjectForm()
-    return render_to_response('add_project.html', {
-        "myform": myform,
-        "show_invite": show_invite
-    }, context_instance=RequestContext(request))
-
-@login_required
-def add_opportunity(request, oid=1):
-    # Create new Opportunity
-    parent_project = get_object_or_404(Project, pk=oid)
-    show_form = True
-
-    if request.method == "POST":
-        myform = OpportunityForm(request.POST)
-        new_instance = myform.save(commit=False)
-        if myform.is_valid():
-            new_instance.project = parent_project
-            new_instance.save()
-            show_form = False
-        else:
-            return HttpResponse("error")
-
-    myform = OpportunityForm()
-    
-    return render_to_response('add_opportunity.html', {
-        "myform": myform,
-        "parent_project": parent_project,
-        "show_form": show_form
-    }, context_instance=RequestContext(request))
-    
-    
-    
-def search(request):
-    # Search for Opportunities
-    opportunities = None
-        
-    #search form submission
-    if request.method == 'POST':        
-        #search text
-        search = request.POST.get("search")
-        print u'search: %s' % (search)
-
-        opp_type = request.POST.get("opp_type")
-        print u'opp_type: %s' % (opp_type)
-
-
-        opportunities = Opportunity.objects.filter(Q(name__contains=search) | Q(status__contains=search) | Q(short_desc__contains=search) | Q(description__contains=search) | Q(opp_type__contains=search)).filter(opp_type=opp_type)[:12]
-    
-    if not opportunities:
-        opportunities = Opportunity.objects.all()[:12]
-        
-
-
-    return render_to_response('search.html', {'opportunities': opportunities},
-                              context_instance=RequestContext(request))
+    return render_to_response('add_project.html', {"myform": myform,})

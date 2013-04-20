@@ -2,6 +2,7 @@ from django.db import models
 from django.forms import ModelForm, Textarea
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
+from taggit.managers import TaggableManager
 
 class Organization(models.Model):
     name = models.CharField(max_length=100, blank=True)
@@ -59,6 +60,7 @@ class ProjectForm(ModelForm):
 
 
 class Opportunity(models.Model):
+    tags = TaggableManager()
     organization = models.ForeignKey(Organization)
     OPP_TYPE_CHOICES = ((u'Equipment', u'Equipment'),(u'Knowledge', u'Knowledge'),(u'Money', u'Money'),(u'Skills', u'Skills'),)
     project = models.ForeignKey(Project)
