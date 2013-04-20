@@ -260,33 +260,6 @@ def add_organization(request):
         else:
             return HttpResponse("error")
 
-<<<<<<< HEAD
-    myform = OrganizationForm()
-    return render_to_response('add_organization.html', {
-        "myform": myform,
-        "show_invite": show_invite
-    }, context_instance=RequestContext(request))
-
-@login_required
-def add_project(request):
-    # Show the sign page and collect emails
-    show_invite = True
-    if request.method == "POST":
-        myform = ProjectForm(request.POST)
-        landing_instance = myform.save(commit=False)
-        if myform.is_valid():
-            landing_instance.ip_address = request.META['REMOTE_ADDR']
-            landing_instance.save()
-            show_invite = False
-
-            # TODO: send email
-
-        else:
-            return HttpResponse("error")
-
-    myform = ProjectForm()
-    return render_to_response('add_project.html', {"myform": myform,})
-=======
     context['myform'] = OrganizationForm()
     context['show_invite'] = show_invite
     return render_to_response('add_organization.html', context, context_instance=RequestContext(request))
@@ -350,13 +323,19 @@ def search(request):
         print u'opp_type: %s' % (opp_type)
 
 
-        opportunities = Opportunity.objects.filter(Q(name__contains=search) | Q(status__contains=search) | Q(short_desc__contains=search) | Q(description__contains=search) | Q(opp_type__contains=search)).filter(opp_type=opp_type)[:12]
+        if opp_type == 'Type...':
+            opportunities = Opportunity.objects.filter(Q(name__contains=search) | Q(status__contains=search) | Q(short_desc__contains=search) | Q(description__contains=search) | Q(opp_type__contains=search) | Q(tags__name__in=[search])).distinct()[:12]
+        else:    
+            opportunities = Opportunity.objects.filter(Q(name__contains=search) | Q(status__contains=search) | Q(short_desc__contains=search) | Q(description__contains=search) | Q(opp_type__contains=search) | Q(tags__name__in=[search])).filter(opp_type=opp_type)[:12]
+
     
     if not opportunities:
         opportunities = Opportunity.objects.all()[:12]
-        
-
 
     return render_to_response('search.html', {'opportunities': opportunities},
                               context_instance=RequestContext(request))
->>>>>>> bb426e3b6ee4f71d3721650a9f1a67d2ada24c56
+
+    if request.user.is_authenticated():
+        context['is_engaged'] = request.user in opp.engaged_by.all()
+
+    return render_to_response('opportunity.html', context, context_instance=RequestContext(request))

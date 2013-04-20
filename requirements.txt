@@ -14,4 +14,4 @@ django-ses
 
 gunicorn # Needed for heroku
 
-
+django-taggit # Tagging infrastructure
