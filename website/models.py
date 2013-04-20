@@ -60,6 +60,7 @@ class ProjectForm(ModelForm):
 
 class Opportunity(models.Model):
     organization = models.ForeignKey(Organization)
+    OPP_TYPE_CHOICES = ((u'Equipment', u'Equipment'),(u'Knowledge', u'Knowledge'),(u'Money', u'Money'),(u'Skills', u'Skills'),)
     project = models.ForeignKey(Project)
     name = models.CharField(max_length=100, blank=True)
     media_url = models.CharField(max_length=200, blank=True)
@@ -68,8 +69,8 @@ class Opportunity(models.Model):
     short_desc = models.TextField(blank=True)
     description = models.TextField(blank=True)
     featured = models.BooleanField(default=False, blank=True)
-    opp_type = models.CharField(max_length=100, blank=True) # TODO: replace with taggit? Four main options: Service, Donation, Rental, Question
-    engaged_by = models.ManyToManyField(User, blank=True, through='OpportunityEngagements')
+    opp_type = models.CharField(max_length=100, choices=OPP_TYPE_CHOICES, blank=True) # TODO: replace with taggit? Four main options: Service, Donation, Rental, Question
+    engaged_by = models.ManyToManyField(User, blank=True, through='OpportunityEngagement')
     # prerequisites = models.ManyToManyField(Opportunity)  - assuming that pre-reqs = other opps
     # time estimate - TODO: See v2 Feature Doc https://docs.google.com/a/reallocate.org/document/d/1AY-2h9pa028USr3ofwUQjjoZ2kKGnRQZ0xoIQYk-urs/edit
     # deliverable - TODO: separate free-form text field
@@ -77,6 +78,9 @@ class Opportunity(models.Model):
 
     def __unicode__(self):
         return "Name: %s" % self.name
+
+    class Meta:
+        verbose_name_plural = "opportunities"
 
 class OpportunityForm(ModelForm):
     class Meta:
@@ -119,7 +123,7 @@ def create_user_profile(sender, instance, created, **kwargs):
 
 post_save.connect(create_user_profile, sender=User)
 
-class OpportunityEngagements(models.Model):
+class OpportunityEngagement(models.Model):
     user = models.ForeignKey(User)
     opportunity = models.ForeignKey(Opportunity)
     date_created = models.DateField(auto_now_add=True)
