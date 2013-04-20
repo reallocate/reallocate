@@ -169,30 +169,6 @@ def view_opportunity(request, pid=1):
 
     return render_to_response('opportunity.html', context, context_instance=RequestContext(request))
 
-@login_required
-def add_opportunity(request, oid=1):
-    # Create new Opportunity
-    parent_project = get_object_or_404(Project, pk=oid)
-    show_form = True
-
-    if request.method == "POST":
-        myform = OpportunityForm(request.POST)
-        new_instance = myform.save(commit=False)
-        if myform.is_valid():
-            new_instance.project = parent_project
-            new_instance.save()
-            show_form = False
-        else:
-            return HttpResponse("error")
-
-    myform = OpportunityForm()
-    
-    return render_to_response('add_opportunity.html', {
-        "myform": myform,
-        "parent_project": parent_project,
-        "show_form": show_form
-    }, context_instance=RequestContext(request))
-
 @csrf_exempt
 @login_required
 def engage(request, pid=1):
@@ -230,6 +206,51 @@ def add_organization(request):
         "show_invite": show_invite
     }, context_instance=RequestContext(request))
         
+@login_required
+def add_opportunity(request, oid=None):
+    # Create new Opportunity
+    #parent_project = get_object_or_404(Project, pk=oid)
+    show_form = True
+
+    if request.method == "GET":
+        pass
+    
+        # check to see if the user is part of an org
+        # look at the models and find the relationship between a user and an org
+        
+        # you're going to have add organization_id field to the UserProfile
+        
+        # org_id = request.user.get_profile().organization_id
+        # if not org_id:
+        #    return HttpResponseRedirect('/add_organization')
+        
+        # check the DB to see if there are any projects created by this org
+        # project = Project.objects.filter(organization_id=org_id)
+        # if not project:
+        #   return HttpResponseRedirect('/add_project')
+        
+        # now were safe
+    
+    
+    
+    elif request.method == "POST":
+        myform = OpportunityForm(request.POST)
+        new_instance = myform.save(commit=False)
+        if myform.is_valid():
+            new_instance.project = parent_project
+            new_instance.save()
+            show_form = False
+        else:
+            return HttpResponse("error")
+
+    myform = OpportunityForm()
+    
+    return render_to_response('add_opportunity.html', {
+        "myform": myform,
+        "parent_project": parent_project,
+        "show_form": show_form
+    }, context_instance=RequestContext(request))
+    
 def search(request):
     # Search for Opportunities
     opportunities = None
