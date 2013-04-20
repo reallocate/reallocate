@@ -205,12 +205,33 @@ def add_project(request):
     }, context_instance=RequestContext(request))
 
 @login_required
-def add_opportunity(request, oid=1):
+def add_opportunity(request, oid=None):
     # Create new Opportunity
-    parent_project = get_object_or_404(Project, pk=oid)
+    #parent_project = get_object_or_404(Project, pk=oid)
     show_form = True
 
-    if request.method == "POST":
+    if request.method == "GET":
+        pass
+    
+        # check to see if the user is part of an org
+        # look at the models and find the relationship between a user and an org
+        
+        # you're going to have add organization_id field to the UserProfile
+        
+        # org_id = request.user.get_profile().organization_id
+        # if not org_id:
+        #    return HttpResponseRedirect('/add_organization')
+        
+        # check the DB to see if there are any projects created by this org
+        # project = Project.objects.filter(organization_id=org_id)
+        # if not project:
+        #   return HttpResponseRedirect('/add_project')
+        
+        # now were safe
+    
+    
+    
+    elif request.method == "POST":
         myform = OpportunityForm(request.POST)
         new_instance = myform.save(commit=False)
         if myform.is_valid():
