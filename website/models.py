@@ -3,6 +3,34 @@ from django.forms import ModelForm, Textarea
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 
+class Organization(models.Model):
+    name = models.CharField(max_length=100, blank=True)
+    business_type = models.CharField(max_length=100, blank=True, default='nonprofit')
+    year_established = models.CharField(max_length=4, blank=True)
+    date_created = models.DateTimeField(auto_now_add=True)
+    org_mission = models.TextField(blank=True)
+    address_one = models.CharField(max_length=100, blank=True)
+    address_two = models.CharField(max_length=100, blank=True)
+    city = models.CharField(max_length=100, blank=True)
+    state = models.CharField(max_length=2, blank=True)
+    country = models.CharField(max_length=100, blank=True)
+    zip_code = models.CharField(max_length=10, blank=True)
+    phone = models.TextField(blank=True)
+    URL = models.TextField(blank=True)
+    media_url = models.CharField(max_length=200, blank=True)
+    created_by = models.ForeignKey(User)
+    
+    def __unicode__(self):
+        return "Name: %s" % self.name
+    
+class OrganizationForm(ModelForm):
+    class Meta:
+        model = Organization
+        fields = ('name', 'business_type', 'year_established', 'org_mission', 'address_one', 'address_two', 'city', 'state', 'country', 'zip_code', 'phone', 'URL',)
+    
+        widgets = {
+            'description': Textarea(attrs={'cols': 80, 'rows': 10}),
+        }
 
 class Project(models.Model):
     name = models.CharField(max_length=100, blank=True)

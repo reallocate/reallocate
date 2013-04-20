@@ -7,11 +7,11 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_exempt, csrf_protect
 
-from website.models import ProjectForm, OpportunityForm, Project, Opportunity, Update, UserProfile
+from website.lib.ses_email import send_email
+from website.models import OrganizationForm, ProjectForm, OpportunityForm, Project, Opportunity, Update, UserProfile
 from website.models import OpportunityEngagement
 import website.base as base
 from django.db.models import Q
-
 
 @login_required
 @csrf_exempt
@@ -133,6 +133,28 @@ def engage(request, pid=1):
     
     return render_to_response('engage.html', {
         "opp": opp
+    }, context_instance=RequestContext(request))
+
+@login_required
+def add_organization(request):
+    show_invite = True
+    if request.method == "POST":
+        myform = OrganizationForm(request.POST)
+        landing_instance = myform.save(commit=False)
+        if myform.is_valid():
+            landing_instance.ip_address = request.META['REMOTE_ADDR']
+            landing_instance.save()
+            show_invite = False
+
+            # send_email("MY SITE: Contact Us signup", "email=" + request.POST["email"])
+
+        else:
+            return HttpResponse("error")
+
+    myform = OrganizationForm()
+    return render_to_response('add_organization.html', {
+        "myform": myform,
+        "show_invite": show_invite
     }, context_instance=RequestContext(request))
 
 @login_required
