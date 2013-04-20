@@ -4,10 +4,11 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from taggit.managers import TaggableManager
 
+STATUS_CHOICES = (('Unpublished', 'Unpublished'), ('Active', 'Active'), ('Closed', 'Closed'))
 class Organization(models.Model):
     name = models.CharField(max_length=100, blank=True)
     business_type = models.CharField(max_length=100, blank=True, default='nonprofit')
-    status = models.CharField(max_length=100, blank=True, default='unpublished')
+    status = models.CharField(max_length=100, choices=STATUS_CHOICES, default='unpublished')
     year_established = models.CharField(max_length=4, blank=True)
     date_created = models.DateTimeField(auto_now_add=True)
     org_mission = models.TextField(blank=True)
@@ -37,7 +38,7 @@ class OrganizationForm(ModelForm):
 class Project(models.Model):
     organization = models.ForeignKey(Organization)
     name = models.CharField(max_length=100, blank=True)
-    status = models.CharField(max_length=100, blank=True, default='unpublished')
+    status = models.CharField(max_length=100, choices=STATUS_CHOICES, default='unpublished')
     industry = models.CharField(max_length=100, blank=True)
     date_created = models.DateTimeField(auto_now_add=True)
     short_desc = models.TextField(blank=True)
@@ -59,15 +60,14 @@ class ProjectForm(ModelForm):
             'description': Textarea(attrs={'cols': 80, 'rows': 10}),
         }
 
-
+OPP_TYPE_CHOICES = ((u'Equipment', u'Equipment'),(u'Knowledge', u'Knowledge'),(u'Money', u'Money'),(u'Skills', u'Skills'),)
 class Opportunity(models.Model):
     tags = TaggableManager()
     organization = models.ForeignKey(Organization)
-    OPP_TYPE_CHOICES = ((u'Equipment', u'Equipment'),(u'Knowledge', u'Knowledge'),(u'Money', u'Money'),(u'Skills', u'Skills'),)
     project = models.ForeignKey(Project)
     name = models.CharField(max_length=100, blank=True)
     media_url = models.CharField(max_length=200, blank=True)
-    status = models.CharField(max_length=100, blank=True, default='unpublished')
+    status = models.CharField(max_length=100, choices=STATUS_CHOICES, default='Active')
     date_created = models.DateTimeField(auto_now_add=True)
     short_desc = models.TextField(blank=True)
     description = models.TextField(blank=True)
@@ -127,8 +127,10 @@ def create_user_profile(sender, instance, created, **kwargs):
 post_save.connect(create_user_profile, sender=User)
 
 class OpportunityEngagement(models.Model):
+    # to keep the project + reallocate in the loop, reallocate will approve the engagements
+    # and stay in each conversation
     user = models.ForeignKey(User)
     opportunity = models.ForeignKey(Opportunity)
     date_created = models.DateField(auto_now_add=True)
-    status = models.CharField(max_length=100) # this will be where the opp engagements can be approved
-    response = models.CharField(max_length=2000) # response to the engagement
+    status = models.CharField(max_length=100, choices=STATUS_CHOICES) # this will be where the opp engagements can be approved
+    # response = models.CharField(max_length=2000) # response to the engagement

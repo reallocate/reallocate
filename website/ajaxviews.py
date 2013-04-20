@@ -1,6 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.exceptions import ObjectDoesNotExist
+from django.views.decorators.csrf import csrf_exempt
 import json
 import website.base as base
 
@@ -25,9 +26,12 @@ def modify_project_relation(request, *args):
     response_data = { "success": "true" }
     return HttpResponse(json.dumps(response_data), mimetype="application/json")
 
-def add_update_to_opportunity(request, *args):
-    # action = [follow, unfollow]
-    project_id = request.GET.get('project_id', '')
+
+@csrf_exempt
+def add_update(request, *args):
+    
+
+    project_id = request.GET.get('project_id', None)
     action = request.GET.get('action', '')
     my_profile = base.get_current_userprofile(request)
     try:
