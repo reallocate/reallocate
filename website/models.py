@@ -6,6 +6,7 @@ from django.db.models.signals import post_save
 class Organization(models.Model):
     name = models.CharField(max_length=100, blank=True)
     business_type = models.CharField(max_length=100, blank=True, default='nonprofit')
+    status = models.CharField(max_length=100, blank=True, default='unpublished')
     year_established = models.CharField(max_length=4, blank=True)
     date_created = models.DateTimeField(auto_now_add=True)
     org_mission = models.TextField(blank=True)
