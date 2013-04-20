@@ -1,3 +1,7 @@
+import boto
+from boto.s3.key import Key
+from myproject import settings
+
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
@@ -6,21 +10,38 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_exempt, csrf_protect
-
-from website.models import OrganizationForm, ProjectForm, OpportunityForm, Project, Opportunity, Update, UserProfile, OpportunityEngagement
+from website.models import OrganizationForm, Organization, ProjectForm, Project, Update, UserProfile
+from website.models import OpportunityEngagement, Opportunity, OpportunityForm 
 import website.base as base
 from django.db.models import Q
 
 @login_required
 @csrf_exempt
 def profile(request):
+    """ for displaying and editing a users profile """
+    
+    def remote_storage(uploaded_file, user):
+        """ for uploading avatars to s3 """
+        c = boto.connect_s3(settings.AWS_ACCESS_KEY_ID, settings.AWS_SECRET_ACCESS_KEY)
+        bucket = c.get_bucket(settings.S3_BUCKET)
+        
+        filename = 'users/%s/%s' % (user.email, uploaded_file.name)
+        k = Key(bucket)
+        k.set_metadata('Content-Type', 'image/png')
+        k.key = filename
+        k.set_contents_from_string(uploaded_file.read())
+        k.set_acl('public-read')
+        return 'http://s3.amazonaws.com/%s/%s' % (settings.S3_BUCKET, filename)
+        
     user_profile = request.user.get_profile()
     topmsg = None
-    
     if request.method == "POST":
+        avatar = request.FILES.get('file')
+        filename = remote_storage(avatar, request.user)
+        
         user_profile.user.email = request.POST.get("email")
         user_profile.bio = request.POST.get("bio")
-        user_profile.media_url = request.POST.get("media_url")
+        user_profile.media_url = filename
         user_profile.save()
         topmsg = 'Your settings have been saved'
     
@@ -41,6 +62,10 @@ def homepage(request):
 
 def about(request):
     return render_to_response('about.html', {}, context_instance=RequestContext(request))
+
+def learn(request):
+    return render_to_response('learn.html', {}, context_instance=RequestContext(request))
+
 
 def opportunity_list(request):
     opportunities = Opportunity.objects.all()[:12]
@@ -100,6 +125,31 @@ def view_project(request, pid=1):
     context['num_following'] = project.followed_by.count()
     return render_to_response('project.html', context, context_instance=RequestContext(request))
 
+@login_required
+def add_project(request):
+    # Show the sign page and collect emails
+    context = base.build_base_context(request)
+    context['show_add_project'] = True
+    if request.method == "POST":
+        myform = ProjectForm(request.POST)
+        new_project = myform.save(commit=False)
+        if myform.is_valid():
+            new_project.organization = get_object_or_404(Organization, pk=1) # TODO: add this to form
+            new_project.created_by = request.user
+            new_project.save()
+            context['show_add_project'] = False
+            # send admin email with link adminpanel to change project status
+            subj = "new project %s added by %s" % (new_project.name, context['user_email'])
+            body = """Go here to and change status to active:<br/>
+                      <a href='%s/admin/website/project/%s'>approve</a>
+                      For now: remember to email the above email after their project is live""" % (
+                      request.get_host(), new_project.id)
+            base.send_admin_email(subj, body, html_content=body)
+        else:
+            return HttpResponse("error")
+
+    context['myform'] = ProjectForm()
+    return render_to_response('add_project.html', context, context_instance=RequestContext(request))
 
 @csrf_exempt
 def view_opportunity(request, pid=1):
@@ -189,20 +239,28 @@ def engage(request, pid=1):
 
 @login_required
 def add_organization(request):
+    context = base.build_base_context(request)
     show_invite = True
     if request.method == "POST":
         myform = OrganizationForm(request.POST)
         landing_instance = myform.save(commit=False)
         if myform.is_valid():
             landing_instance.ip_address = request.META['REMOTE_ADDR']
+            landing_instance.created_by = request.user
             landing_instance.save()
             show_invite = False
-
-            # send_email("MY SITE: Contact Us signup", "email=" + request.POST["email"])
-
+            # send admin email with link adminpanel to change project status
+            subj = "new organization %s added by %s" % (landing_instance.name, context['user_email'])
+            body = """Go here to and change status to active:<br/>
+                      <a href='%s/admin/website/organization/%s'>approve</a>
+                      For now: remember to email the above email after their organization is approved""" % (
+                      request.get_host(), landing_instance.id)
+            base.send_admin_email(subj, body, html_content=body)
+                      
         else:
             return HttpResponse("error")
 
+<<<<<<< HEAD
     myform = OrganizationForm()
     return render_to_response('add_organization.html', {
         "myform": myform,
@@ -228,3 +286,77 @@ def add_project(request):
 
     myform = ProjectForm()
     return render_to_response('add_project.html', {"myform": myform,})
+=======
+    context['myform'] = OrganizationForm()
+    context['show_invite'] = show_invite
+    return render_to_response('add_organization.html', context, context_instance=RequestContext(request))
+        
+@login_required
+def add_opportunity(request, oid=None):
+    # Create new Opportunity
+    #parent_project = get_object_or_404(Project, pk=oid)
+    show_form = True
+
+    if request.method == "GET":
+        pass
+    
+        # check to see if the user is part of an org
+        # look at the models and find the relationship between a user and an org
+        
+        # you're going to have add organization_id field to the UserProfile
+        
+        # org_id = request.user.get_profile().organization_id
+        # if not org_id:
+        #    return HttpResponseRedirect('/add_organization')
+        
+        # check the DB to see if there are any projects created by this org
+        # project = Project.objects.filter(organization_id=org_id)
+        # if not project:
+        #   return HttpResponseRedirect('/add_project')
+        
+        # now were safe
+    
+    
+    
+    elif request.method == "POST":
+        myform = OpportunityForm(request.POST)
+        new_instance = myform.save(commit=False)
+        if myform.is_valid():
+            new_instance.project = parent_project
+            new_instance.save()
+            show_form = False
+        else:
+            return HttpResponse("error")
+
+    myform = OpportunityForm()
+    
+    return render_to_response('add_opportunity.html', {
+        "myform": myform,
+        "parent_project": parent_project,
+        "show_form": show_form
+    }, context_instance=RequestContext(request))
+    
+def search(request):
+    # Search for Opportunities
+    opportunities = None
+        
+    #search form submission
+    if request.method == 'POST':        
+        #search text
+        search = request.POST.get("search")
+        print u'search: %s' % (search)
+
+        opp_type = request.POST.get("opp_type")
+        print u'opp_type: %s' % (opp_type)
+
+
+        opportunities = Opportunity.objects.filter(Q(name__contains=search) | Q(status__contains=search) | Q(short_desc__contains=search) | Q(description__contains=search) | Q(opp_type__contains=search)).filter(opp_type=opp_type)[:12]
+    
+    if not opportunities:
+        opportunities = Opportunity.objects.all()[:12]
+        
+
+
+    return render_to_response('search.html', {'opportunities': opportunities},
+                              context_instance=RequestContext(request))
+>>>>>>> bb426e3b6ee4f71d3721650a9f1a67d2ada24c56

@@ -15,30 +15,32 @@
 {% block maincontent %}
     <h1>Your Profile </h1>
 
-    <form id='profile_form' method=POST>
+    <form id="profile_form" method="POST" enctype="multipart/form-data">
         
-        <div class='control-group'>
+        
+        <div class="control-group">
             {% if user_profile.media_url|default:'' != '' %}
-            <div class='control-group'>
-                <div style="width: 150px; height: 150px;">
+            <div class="control-group">
+                <div style="max-width: 50px; max-height: 50px;">
                     <img src="{{ user_profile.media_url }}" style='max-height:150px;max-width:150px;'/>
                 </div>
             </div>
             {% endif %}
-            <label for='media_url'>Profile Image (use web link): </label>
-            <input type='text' id='media_url' name='media_url' value='{{ user_profile.media_url }}'/>
+            <label for='email'>Profile: </label>
+            <input type="file" name="file" id="file"><br>
         </div>
         
-        <div class='control-group'>
+        
+        <div class="control-group">
             <label for='email'>Email: </label>
             <input type='text' id='email' name='email' value='{{ user_profile.user.email }}'/>
         </div>
-        <div class='control-group'>
+        <div class="control-group">
             <label for='bio'>Your Bio: </label>
             <textarea id='bio' name='bio' rows="8" cols="80">{{ user_profile.bio }}</textarea>
         </div>
-        <div class='control-group'>
-            <input type='submit' id='save' value='Save Your Settings'/>
+        <div class="control-group">
+            <input type='submit' id="save" value="Save" class="btn"/>
         </div>
     </form>
     
@@ -48,7 +50,7 @@
     {% endif %}
     
     {% for project in user_profile.followed_projects.all %}
-        <div class='control-group'>
+        <div class="control-group">
             <a href='/project/{{ project.id }}' class='project-name'>{{ project.name }}</a>&nbsp;&nbsp;&nbsp;&nbsp;
             <a href='#' class='unfollow-project' project-id='{{ project.id }}'>(stop following)</a>
         </div>
