@@ -20,7 +20,7 @@ def build_base_context(request):
         context['logged_in'] = True
         context['user_email'] = request.user.email
     context['topmsg'] = request.GET.get('topmsg')
-    return model
+    return context
 
 def send_email_template(email_type, context, subject, recipients, *kwargs):
     html_content = render_to_string("emails/" + email_type + ".html", context)

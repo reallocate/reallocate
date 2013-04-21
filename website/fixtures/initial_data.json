@@ -15,9 +15,9 @@
         "password": "pbkdf2_sha256$10000$tUp4m519rBEb$vUsACJf4wBVy1UZkj58tUJdHn/tM4jeSEVwFaE57JPc=",
         "email": "admin@reallocate.org",
         "date_joined": "2013-03-17T03:12:31.196Z"
-
     }
   },
+  
   {
     "pk": 2,
     "model": "auth.user",
@@ -34,6 +34,29 @@
         "password": "pbkdf2_sha256$10000$tUp4m519rBEb$vUsACJf4wBVy1UZkj58tUJdHn/tM4jeSEVwFaE57JPc=",
         "email": "tim@reallocate.org",
         "date_joined": "2013-03-17T03:12:31.196Z"
+    }
+  },
+  
+  {
+    "pk": 1,
+    "model": "website.UserProfile",
+    "fields": {
+      "user" : 1,
+      "bio" : "This is a bio",
+      "media_url" : " ",
+      "organization" : 1
+
+    }
+  },
+  
+    {
+    "pk": 2,
+    "model": "website.UserProfile",
+    "fields": {
+      "user" : 2,
+      "bio" : "This is a second bio",
+      "media_url" : " "
+
     }
   },
 
@@ -302,7 +325,8 @@
         "text": "\"If you're going through hell, keep going.\" -Churchill",
         "opportunity": 1,
         "created_by": 1,
-        "media_url": "http://25.media.tumblr.com/tumblr_ltmhzyAOjU1qzom4yo1_500.jpg"
+        "media_url": "http://25.media.tumblr.com/tumblr_ltmhzyAOjU1qzom4yo1_500.jpg",
+        "date_created": "2013-01-01 05:00"
     }
 },
 {
@@ -314,7 +338,8 @@
         "text": "Mike North at TedXSendai",
         "opportunity": 1,
         "created_by": 1,
-        "media_url": "http://www.youtube.com/watch?v=5adBpmAx1Cc"
+        "media_url": "http://www.youtube.com/watch?v=5adBpmAx1Cc",
+        "date_created": "2013-01-01 05:00"
     }
 },
 {
@@ -326,7 +351,8 @@
       "text": "\"Rural Alaskans rely on subsistence food for their way of life. This means they harvest, process and store their own food to feed their families and survive the long Alaskan winters. In the Alaskan frontier there is no Walmart, no convenience store and your delivery driver flies an airplane! In partnership with the Eyak Preservation Council and the University of California, Berkeley, ReAllocate is helping to build a community cold storage facility in Cordova, Alaska. This facility is an innovative approach to providing high quality subsistence food processing for rural populations. It will also create new sustainable economic opportunities for commercial fishermen, by opening direct-to-market sales channels, increasing their earning potential and improving existing cottage industries. All of rural Alaska faces the challenge of maintaining a high-quality subsistence food supply. Food processing centers are built to serve large corporate clients and are not suited for the needs of smaller commercial and rural fishers and hunters. This means it's harder for rural families to process and store their food for survival and independant commercial fishermen are forced to sell their catch to large canneries at a fraction of the cost of selling direct-to-market.\"",
       "opportunity": 2,
       "created_by": 1,
-      "media_url": ""
+      "media_url": "",
+        "date_created": "2013-01-01 05:00"
     }
 },
 
@@ -339,7 +365,8 @@
         "text": "\"An adventure is not a goal, but rather an experience that had better be shared with your friends\" - TR",
         "opportunity": 1,
         "created_by": 1,
-        "media_url": "http://4.bp.blogspot.com/-NPrNZDLLWh8/TWdRcFgOVuI/AAAAAAAAAC0/0UNtjmJp2oo/s1600/steve-prefontaine-poster-olympic.jpg"
+        "media_url": "http://4.bp.blogspot.com/-NPrNZDLLWh8/TWdRcFgOVuI/AAAAAAAAAC0/0UNtjmJp2oo/s1600/steve-prefontaine-poster-olympic.jpg",
+        "date_created": "2013-01-01 05:00"
     }
 },
 
@@ -352,7 +379,8 @@
         "text": "Kevin has offered to help build an Energy Map for Community Cold Storage!",
         "opportunity": 2,
         "created_by": 1,
-        "media_url": ""
+        "media_url": "",
+        "date_created": "2013-01-01 05:00"
     }
 },
 {
@@ -364,7 +392,8 @@
         "text": "Live Action from the Hack Day!",
         "opportunity": 1,
         "created_by": 1,
-        "media_url": "http://www.youtube.com/watch?v=1aT06bbh47A"
+        "media_url": "http://www.youtube.com/watch?v=1aT06bbh47A",
+        "date_created": "2013-01-01 05:00"
     }
 },
 {
@@ -376,7 +405,8 @@
         "text": "Cordova Community Cold Storage created an opportunity to provide materials",
         "opportunity": 3,
         "created_by": 1,
-        "media_url": "http://www.freakygaming.com/gallery/game_art/starcraft_2/human_space_station.jpg"
+        "media_url": "http://www.freakygaming.com/gallery/game_art/starcraft_2/human_space_station.jpg",
+        "date_created": "2013-01-01 05:00"
     }
 },
 {
@@ -388,7 +418,8 @@
         "text": "<p>Seize the opportunity to use your CAD skills to design a product to treat children with Clubfoot</p><p>Get Involved</p>",
         "opportunity": 4,
         "created_by": 1,
-        "media_url": "http://i.imgur.com/sEGrSgY.jpg"
+        "media_url": "http://i.imgur.com/sEGrSgY.jpg",
+        "date_created": "2013-01-01 05:00"
     }
 },
 {
@@ -400,7 +431,8 @@
         "text": "I'm there with you in spirit! Take care of the hamsters and watch out for the seals!...not sure where the elephants came from...",
         "opportunity": 5,
         "created_by": 2,
-        "media_url": "http://3.bp.blogspot.com/-Tljj16gltgY/UIZS7K6OfrI/AAAAAAAAAvY/qxaVrxjc5f4/s1600/elephant+,+hamster+,+seal+.jpg"
+        "media_url": "http://3.bp.blogspot.com/-Tljj16gltgY/UIZS7K6OfrI/AAAAAAAAAvY/qxaVrxjc5f4/s1600/elephant+,+hamster+,+seal+.jpg",
+        "date_created": "2013-01-01 05:00"
     }
 },
 {
@@ -412,7 +444,8 @@
         "text": "Firstname Lastname offered their CAD skills to help design the Miracle Brace!",
         "opportunity": 4,
         "created_by": 2,
-        "media_url": ""
+        "media_url": "",
+        "date_created": "2013-01-01 05:00"
     }
 },
 
@@ -425,7 +458,8 @@
         "text": "We are in full swing! Check out some of the preliminary drawings for the brace!",
         "opportunity": 4,
         "created_by": 1,
-        "media_url": "http://i.imgur.com/Z1nvFoS.jpg"
+        "media_url": "http://i.imgur.com/Z1nvFoS.jpg",
+        "date_created": "2013-01-01 05:00"
     }
 },
 {
@@ -437,7 +471,8 @@
         "text": "CAD designs are all ready to go. Off to the 3D Printer to create a prototype!",
         "opportunity": 4,
         "created_by": 1,
-        "media_url": "http://i.imgur.com/28ZDKPJ.png"
+        "media_url": "http://i.imgur.com/28ZDKPJ.png",
+        "date_created": "2013-01-01 05:00"
     }
 }
 ]

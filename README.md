@@ -16,7 +16,7 @@ Initial Setup Steps
 * sudo pip(-2.7) install -r requirements.txt
 * create a settings_local.py file next to settings.py (you can find our private keys in our DropBox folder)
 * ./manage.py syncdb
-** It will offer to create a superuser; answer "no" -- you get admin / admin for free.
+   * It will offer to create a superuser; answer "no" -- you get admin / admin for free.
 * ./manage.py runserver
 
 Optional Steps

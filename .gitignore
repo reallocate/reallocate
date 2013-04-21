@@ -8,3 +8,5 @@ settings_local.py
 /docs/original-images
 /data.db
 /Venv/
+*#
+*~

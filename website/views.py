@@ -42,6 +42,7 @@ def profile(request):
         user_profile.user.email = request.POST.get("email")
         user_profile.bio = request.POST.get("bio")
         user_profile.media_url = filename
+        user_profile.organization = request.POST.get("organization")
         user_profile.save()
         topmsg = 'Your settings have been saved'
     
@@ -49,6 +50,26 @@ def profile(request):
         'user_profile': user_profile,
         'topmsg': topmsg,
     }, context_instance=RequestContext(request))
+
+def user(request, username=None):
+    user = User.objects.filter(Q(email=username) | Q(username=username))
+    user_profile = UserProfile.objects.filter(Q(user=user))
+    if len(user_profile) > 0:
+        return render_to_response('user.html', {'profile': user_profile[0] },
+                                  context_instance=RequestContext(request))
+    else:
+        return render_to_response('nosuchuser.html', {'username': "name " + username  },
+                                  context_instance=RequestContext(request))
+
+def user_by_id(request, uid=None):
+    user = User.objects.filter(Q(id=uid))
+    user_profile = UserProfile.objects.filter(Q(user=user))
+    if len(user_profile) > 0:
+        return render_to_response('user.html', {'profile': user_profile[0] },
+                                  context_instance=RequestContext(request))
+    else:
+        return render_to_response('nosuchuser.html', {'username': "ID " + uid },
+                                  context_instance=RequestContext(request))
 
 def login_page(request):
     return render_to_response('login.html', {
@@ -152,12 +173,14 @@ def add_project(request):
     return render_to_response('add_project.html', context, context_instance=RequestContext(request))
 
 @csrf_exempt
-def view_opportunity(request, pid=1):
+def view_opportunity(request, pid):
     opp = get_object_or_404(Opportunity, pk=pid)
     project = get_object_or_404(Project, pk=opp.project.id)
-    updates = Update.objects.filter(opportunity=opp)
+    organization = project.organization
+    updates = Update.objects.filter(opportunity=opp).order_by('-date_created')[0:10]
     context = base.build_base_context(request)
     context.update({
+        'organization': organization,
         'opportunity': opp,
         'project': project,
         'other_opps': [rec for rec in Opportunity.objects.filter(project=opp.project).all() if rec.id != opp.id],
@@ -246,18 +269,23 @@ def add_organization(request):
     show_invite = True
     if request.method == "POST":
         myform = OrganizationForm(request.POST)
-        landing_instance = myform.save(commit=False)
+        organization = myform.save(commit=False)
         if myform.is_valid():
-            landing_instance.ip_address = request.META['REMOTE_ADDR']
-            landing_instance.created_by = request.user
-            landing_instance.save()
+            organization.ip_address = request.META['REMOTE_ADDR']
+            organization.created_by = request.user
+            organization.save()
+            
+            profile = request.user.get_profile()
+            profile.organization_id = organization.id
+            profile.save()
+            
             show_invite = False
             # send admin email with link adminpanel to change project status
-            subj = "new organization %s added by %s" % (landing_instance.name, context['user_email'])
+            subj = "new organization %s added by %s" % (organization.name, context['user_email'])
             body = """Go here to and change status to active:<br/>
                       <a href='%s/admin/website/organization/%s'>approve</a>
                       For now: remember to email the above email after their organization is approved""" % (
-                      request.get_host(), landing_instance.id)
+                      request.get_host(), organization.id)
             base.send_admin_email(subj, body, html_content=body)
                       
         else:
@@ -281,9 +309,10 @@ def add_opportunity(request, oid=None):
         
         # you're going to have add organization_id field to the UserProfile
         
-        # org_id = request.user.get_profile().organization_id
-        # if not org_id:
-        #    return HttpResponseRedirect('/add_organization')
+        user_profile = base.get_current_userprofile(request)
+        org = user_profile.organization
+        if not org:
+            return HttpResponseRedirect('/add_organization')
         
         # check the DB to see if there are any projects created by this org
         # project = Project.objects.filter(organization_id=org_id)
@@ -326,13 +355,19 @@ def search(request):
         print u'opp_type: %s' % (opp_type)
 
 
-        if opp_type == 'Type...':
+        if opp_type == '':
+            print u'CASE A'
             opportunities = Opportunity.objects.filter(Q(name__contains=search) | Q(status__contains=search) | Q(short_desc__contains=search) | Q(description__contains=search) | Q(opp_type__contains=search) | Q(tags__name__in=[search])).distinct()[:12]
+        elif search == 'Search...':    
+            print u'CASE B'
+            opportunities = Opportunity.objects.filter(opp_type=opp_type).distinct()[:12]
         else:    
-            opportunities = Opportunity.objects.filter(Q(name__contains=search) | Q(status__contains=search) | Q(short_desc__contains=search) | Q(description__contains=search) | Q(opp_type__contains=search) | Q(tags__name__in=[search])).filter(opp_type=opp_type)[:12]
+            print u'CASE C'
+            opportunities = Opportunity.objects.filter(Q(name__contains=search) | Q(status__contains=search) | Q(short_desc__contains=search) | Q(description__contains=search) | Q(opp_type__contains=search) | Q(tags__name__in=[search])).filter(opp_type=opp_type).distinct()[:12]
 
     
     if not opportunities:
+        print u'NO OPPORTUNITIES FOUND'
         opportunities = Opportunity.objects.all()[:12]
 
     return render_to_response('search.html', {'opportunities': opportunities},

@@ -101,6 +101,7 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User)
     bio = models.CharField(max_length=2000, blank=True)
     media_url = models.CharField(max_length=2000, blank=True)
+    organization = models.ForeignKey(Organization, null=True, blank=True)
     
     # skills
     # interests
@@ -108,23 +109,23 @@ class UserProfile(models.Model):
     def __str__(self):
         return "%s's profile" % self.user
 
-class Update(models.Model):
-    organization = models.ForeignKey(Organization)
-    project = models.ForeignKey(Project)
-    opportunity = models.ForeignKey(Opportunity)
-    created_by = models.ForeignKey(User)
-    text = models.TextField(blank=True)
-    media_url = models.CharField(max_length=1000, blank=True)
-
-    def __unicode__(self):
-        return "Update: %s" % "Coming soon!"
-
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
         profile, created = UserProfile.objects.get_or_create(user=instance)
 
-
 post_save.connect(create_user_profile, sender=User)
+
+class Update(models.Model):
+    organization = models.ForeignKey(Organization)
+    project = models.ForeignKey(Project)
+    opportunity = models.ForeignKey(Opportunity)
+    text = models.TextField(blank=True)
+    media_url = models.CharField(max_length=1000, blank=True)
+    date_created = models.DateTimeField(auto_now_add=True)
+    created_by = models.ForeignKey(User)
+    
+    def __unicode__(self):
+        return "Update: %s" % "Coming soon!"
 
 class OpportunityEngagement(models.Model):
     # to keep the project + reallocate in the loop, reallocate will approve the engagements
