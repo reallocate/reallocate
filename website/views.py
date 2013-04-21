@@ -156,7 +156,7 @@ def view_opportunity(request, pid):
     opp = get_object_or_404(Opportunity, pk=pid)
     project = get_object_or_404(Project, pk=opp.project.id)
     organization = project.organization
-    updates = Update.objects.filter(opportunity=opp)
+    updates = Update.objects.filter(opportunity=opp)[0:10]
     context = base.build_base_context(request)
     context.update({
         'organization': organization,

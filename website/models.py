@@ -112,10 +112,11 @@ class Update(models.Model):
     organization = models.ForeignKey(Organization)
     project = models.ForeignKey(Project)
     opportunity = models.ForeignKey(Opportunity)
-    created_by = models.ForeignKey(User)
     text = models.TextField(blank=True)
     media_url = models.CharField(max_length=1000, blank=True)
-
+    date_created = models.DateTimeField(auto_now_add=True)
+    created_by = models.ForeignKey(User)
+    
     def __unicode__(self):
         return "Update: %s" % "Coming soon!"
 
