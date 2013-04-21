@@ -52,7 +52,7 @@ def profile(request):
     }, context_instance=RequestContext(request))
 
 def user(request, username=None):
-    user = User.objects.filter(Q(email=username))
+    user = User.objects.filter(Q(email=username) | Q(username=username))
     user_profile = UserProfile.objects.filter(Q(user=user))
     if len(user_profile) > 0:
         return render_to_response('user.html', {'profile': user_profile[0] },
