@@ -144,6 +144,7 @@ def view_project(request, pid=1):
         context['is_following'] = request.user in project.followed_by.all()
     
     context['num_following'] = project.followed_by.count()
+    context['donation_purpose'] = project.name
     return render_to_response('project.html', context, context_instance=RequestContext(request))
 
 @login_required

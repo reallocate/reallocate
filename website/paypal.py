@@ -8,6 +8,7 @@ from django.http import HttpResponse
 # could give people double credit for a single donation
 
 # code taken + modified from http://kbeezie.com/paypal-ipn-python/
+# sandbox acct is testsandbox@reallocate.org/pw=sandboxtest
 
 def verify_ipn(data):
 	# prepares provided data set to inform PayPal we wish to validate the response
