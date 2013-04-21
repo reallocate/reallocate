@@ -54,7 +54,7 @@ DEPLOY_ENV = ''
 
 # Allow any settings to be defined in local_settings.py which should be
 # ignored in your version control system allowing for settings to be defined per machine.
-if 'DEPLOY_ENV' not in os.environ or os.environ['DEPLOY_ENV'] == 'local':    
+if 'DEPLOY_ENV' not in os.environ or os.environ['DEPLOY_ENV'] == 'local':
     from myproject.settings_local import *
 
 # email settings
