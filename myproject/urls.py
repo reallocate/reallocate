@@ -39,6 +39,9 @@ urlpatterns = patterns('',
                        # so what should be /profile is staying /private for now.
                        url(r'^profile', 'website.views.profile', name='profile'),
 
+                       # pay-pal receiver
+                       url(r'^paypal', 'website.paypal.receive_paypal', name='paypal'),
+                       
                        # Admin site
                        url(r'^admin/', include(admin.site.urls)),
 

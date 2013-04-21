@@ -47,7 +47,7 @@
     </div>
 {% endblock %}
 {% block maincontent %}
-
+{% include 'paypal-donate.inc' %}
     <div class="row projects_row">
         {% for project in projects %}
             {% include "includes/project-pane.html" %}
