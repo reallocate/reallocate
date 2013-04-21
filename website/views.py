@@ -249,18 +249,23 @@ def add_organization(request):
     show_invite = True
     if request.method == "POST":
         myform = OrganizationForm(request.POST)
-        landing_instance = myform.save(commit=False)
+        organization = myform.save(commit=False)
         if myform.is_valid():
-            landing_instance.ip_address = request.META['REMOTE_ADDR']
-            landing_instance.created_by = request.user
-            landing_instance.save()
+            organization.ip_address = request.META['REMOTE_ADDR']
+            organization.created_by = request.user
+            organization.save()
+            
+            profile = request.user.get_profile()
+            profile.organization_id = organization.id
+            profile.save()
+            
             show_invite = False
             # send admin email with link adminpanel to change project status
-            subj = "new organization %s added by %s" % (landing_instance.name, context['user_email'])
+            subj = "new organization %s added by %s" % (organization.name, context['user_email'])
             body = """Go here to and change status to active:<br/>
                       <a href='%s/admin/website/organization/%s'>approve</a>
                       For now: remember to email the above email after their organization is approved""" % (
-                      request.get_host(), landing_instance.id)
+                      request.get_host(), organization.id)
             base.send_admin_email(subj, body, html_content=body)
                       
         else:
