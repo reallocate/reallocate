@@ -15,9 +15,9 @@
         "password": "pbkdf2_sha256$10000$tUp4m519rBEb$vUsACJf4wBVy1UZkj58tUJdHn/tM4jeSEVwFaE57JPc=",
         "email": "admin@reallocate.org",
         "date_joined": "2013-03-17T03:12:31.196Z"
-
     }
   },
+  
   {
     "pk": 2,
     "model": "auth.user",
@@ -34,6 +34,29 @@
         "password": "pbkdf2_sha256$10000$tUp4m519rBEb$vUsACJf4wBVy1UZkj58tUJdHn/tM4jeSEVwFaE57JPc=",
         "email": "tim@reallocate.org",
         "date_joined": "2013-03-17T03:12:31.196Z"
+    }
+  },
+  
+  {
+    "pk": 1,
+    "model": "website.UserProfile",
+    "fields": {
+    "user" : 1,
+    "bio" : "This is a bio",
+    "media_url" : " ",
+    "organization" : 1
+
+    }
+  },
+  
+    {
+    "pk": 2,
+    "model": "website.UserProfile",
+    "fields": {
+    "user" : 2,
+    "bio" : "This is a second bio",
+    "media_url" : " "
+
     }
   },
 
