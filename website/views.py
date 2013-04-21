@@ -42,6 +42,7 @@ def profile(request):
         user_profile.user.email = request.POST.get("email")
         user_profile.bio = request.POST.get("bio")
         user_profile.media_url = filename
+        user_profile.organization = request.POST.get("organization")
         user_profile.save()
         topmsg = 'Your settings have been saved'
     
@@ -172,12 +173,14 @@ def add_project(request):
     return render_to_response('add_project.html', context, context_instance=RequestContext(request))
 
 @csrf_exempt
-def view_opportunity(request, pid=1):
+def view_opportunity(request, pid):
     opp = get_object_or_404(Opportunity, pk=pid)
     project = get_object_or_404(Project, pk=opp.project.id)
-    updates = Update.objects.filter(opportunity=opp)
+    organization = project.organization
+    updates = Update.objects.filter(opportunity=opp)[0:10]
     context = base.build_base_context(request)
     context.update({
+        'organization': organization,
         'opportunity': opp,
         'project': project,
         'other_opps': [rec for rec in Opportunity.objects.filter(project=opp.project).all() if rec.id != opp.id],
@@ -301,9 +304,10 @@ def add_opportunity(request, oid=None):
         
         # you're going to have add organization_id field to the UserProfile
         
-        # org_id = request.user.get_profile().organization_id
-        # if not org_id:
-        #    return HttpResponseRedirect('/add_organization')
+        user_profile = base.get_current_userprofile(request)
+        org = user_profile.organization
+        if not org:
+            return HttpResponseRedirect('/add_organization')
         
         # check the DB to see if there are any projects created by this org
         # project = Project.objects.filter(organization_id=org_id)
@@ -346,13 +350,19 @@ def search(request):
         print u'opp_type: %s' % (opp_type)
 
 
-        if opp_type == 'Type...':
+        if opp_type == '':
+            print u'CASE A'
             opportunities = Opportunity.objects.filter(Q(name__contains=search) | Q(status__contains=search) | Q(short_desc__contains=search) | Q(description__contains=search) | Q(opp_type__contains=search) | Q(tags__name__in=[search])).distinct()[:12]
+        elif search == 'Search...':    
+            print u'CASE B'
+            opportunities = Opportunity.objects.filter(opp_type=opp_type).distinct()[:12]
         else:    
-            opportunities = Opportunity.objects.filter(Q(name__contains=search) | Q(status__contains=search) | Q(short_desc__contains=search) | Q(description__contains=search) | Q(opp_type__contains=search) | Q(tags__name__in=[search])).filter(opp_type=opp_type)[:12]
+            print u'CASE C'
+            opportunities = Opportunity.objects.filter(Q(name__contains=search) | Q(status__contains=search) | Q(short_desc__contains=search) | Q(description__contains=search) | Q(opp_type__contains=search) | Q(tags__name__in=[search])).filter(opp_type=opp_type).distinct()[:12]
 
     
     if not opportunities:
+        print u'NO OPPORTUNITIES FOUND'
         opportunities = Opportunity.objects.all()[:12]
 
     return render_to_response('search.html', {'opportunities': opportunities},

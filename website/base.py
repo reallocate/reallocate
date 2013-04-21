@@ -15,12 +15,12 @@ def get_current_userprofile(request):
         return HttpResponse("error getting user profile")
 
 def build_base_context(request):
-    model = {}
+    context = {}
     if request.user.is_authenticated():
-        model['logged_in'] = True
-        model['user_email'] = request.user.email
-    model['topmsg'] = request.GET.get('topmsg')
-    return model
+        context['logged_in'] = True
+        context['user_email'] = request.user.email
+    context['topmsg'] = request.GET.get('topmsg')
+    return context
 
 def send_email_template(email_type, context, subject, recipients, *kwargs):
     html_content = render_to_string("emails/" + email_type + ".html", context)
