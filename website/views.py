@@ -42,6 +42,7 @@ def profile(request):
         user_profile.user.email = request.POST.get("email")
         user_profile.bio = request.POST.get("bio")
         user_profile.media_url = filename
+        user_profile.organization = request.POST.get("organization")
         user_profile.save()
         topmsg = 'Your settings have been saved'
     
@@ -283,9 +284,10 @@ def add_opportunity(request, oid=None):
         
         # you're going to have add organization_id field to the UserProfile
         
-        # org_id = request.user.get_profile().organization_id
-        # if not org_id:
-        #    return HttpResponseRedirect('/add_organization')
+        user_profile = base.get_current_userprofile(request)
+        org = user_profile.organization
+        if not org:
+            return HttpResponseRedirect('/add_organization')
         
         # check the DB to see if there are any projects created by this org
         # project = Project.objects.filter(organization_id=org_id)
