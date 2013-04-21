@@ -1,0 +1,29 @@
+{% extends 'theme/base.html' %}
+
+{% block extra_css %}
+    <style>
+        .project-name{
+            font-size:16px;
+            font-weight:800;
+        }
+        input, textarea{
+            width:350px;
+        }
+    </style>
+{% endblock %}
+
+{% block maincontent %}
+    <h1>There is no user with {{ username|escape }}</h1>
+
+    <p>Please try another...</p>
+
+{% endblock %}
+
+
+{% block bottomscript %}
+    <script>
+        $(".unfollow-project").click(function(){
+            $(this).parents(".control-group").hide();
+        });
+    </script>
+{% endblock %}

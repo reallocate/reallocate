@@ -1,0 +1,46 @@
+{% extends 'theme/base.html' %}
+
+{% block extra_css %}
+    <style>
+        .project-name{
+            font-size:16px;
+            font-weight:800;
+        }
+        input, textarea{
+            width:350px;
+        }
+    </style>
+{% endblock %}
+
+{% block maincontent %}
+    <h1>Profile for {{ profile.user.username|escape }} ({{ profile.user.email|escape }})</h1>
+
+    <img src="{{profile.media_url|escape}}" alt="Avatar for {{ profile.user|escape }}"/>
+    
+    <h3>Biography</h3>
+    <div class="bio">
+        {{profile.bio | escape}}
+    </div>
+    
+    <h3>Projects {{ profile.user.username|escape }} is following:</h3>
+    {% if profile.followed_projects == None %}
+        {{ profile.user.username|escape }} isn't following any projects<br/><br/>
+    {% endif %}
+    
+    {% for project in profile.followed_projects.all %}
+        <div class="control-group">
+            <a href='/project/{{ project.id }}' class='project-name'>{{ project.name }}</a>&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href='#' class='unfollow-project' project-id='{{ project.id }}'>(stop following)</a>
+        </div>
+    {% endfor %}
+
+{% endblock %}
+
+
+{% block bottomscript %}
+    <script>
+        $(".unfollow-project").click(function(){
+            $(this).parents(".control-group").hide();
+        });
+    </script>
+{% endblock %}
