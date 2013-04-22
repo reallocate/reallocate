@@ -144,6 +144,7 @@ def view_project(request, pid=1):
         context['is_following'] = request.user in project.followed_by.all()
     
     context['num_following'] = project.followed_by.count()
+    context['donation_purpose'] = project.name
     return render_to_response('project.html', context, context_instance=RequestContext(request))
 
 @login_required
@@ -153,18 +154,20 @@ def add_project(request):
     context['show_add_project'] = True
     if request.method == "POST":
         myform = ProjectForm(request.POST)
-        new_project = myform.save(commit=False)
+        project = myform.save(commit=False)
         if myform.is_valid():
-            new_project.organization = get_object_or_404(Organization, pk=1) # TODO: add this to form
-            new_project.created_by = request.user
-            new_project.save()
+            
+            project.organization = request.user.get_profile().organization
+            project.created_by = request.user
+            project.save()
             context['show_add_project'] = False
+            
             # send admin email with link adminpanel to change project status
-            subj = "new project %s added by %s" % (new_project.name, context['user_email'])
+            subj = "new project %s added by %s" % (project.name, context['user_email'])
             body = """Go here to and change status to active:<br/>
                       <a href='%s/admin/website/project/%s'>approve</a>
                       For now: remember to email the above email after their project is live""" % (
-                      request.get_host(), new_project.id)
+                      request.get_host(), project.id)
             base.send_admin_email(subj, body, html_content=body)
         else:
             return HttpResponse("error")
@@ -199,10 +202,10 @@ def add_opportunity(request, oid=1):
 
     if request.method == "POST":
         myform = OpportunityForm(request.POST)
-        new_instance = myform.save(commit=False)
+        opportunity = myform.save(commit=False)
         if myform.is_valid():
-            new_instance.project = parent_project
-            new_instance.save()
+            opportunity.project = parent_project
+            opportunity.save()
             show_form = False
         else:
             return HttpResponse("error")
@@ -298,37 +301,28 @@ def add_organization(request):
 @login_required
 def add_opportunity(request, oid=None):
     # Create new Opportunity
-    #parent_project = get_object_or_404(Project, pk=oid)
+    project = None
     show_form = True
 
-    if request.method == "GET":
-        pass
+    user_profile = base.get_current_userprofile(request)
+    org = user_profile.organization
+    if not org:
+        return HttpResponseRedirect('/add_organization')
     
-        # check to see if the user is part of an org
-        # look at the models and find the relationship between a user and an org
+    # check the DB to see if there are any projects created by this org
+    project = Project.objects.get(organization_id=org)
+    if not project:
+       return HttpResponseRedirect('/add_project')
         
-        # you're going to have add organization_id field to the UserProfile
-        
-        user_profile = base.get_current_userprofile(request)
-        org = user_profile.organization
-        if not org:
-            return HttpResponseRedirect('/add_organization')
-        
-        # check the DB to see if there are any projects created by this org
-        # project = Project.objects.filter(organization_id=org_id)
-        # if not project:
-        #   return HttpResponseRedirect('/add_project')
-        
-        # now were safe
     
-    
-    
-    elif request.method == "POST":
+    if request.method == "POST":
+        
         myform = OpportunityForm(request.POST)
-        new_instance = myform.save(commit=False)
+        opportunity = myform.save(commit=False)
         if myform.is_valid():
-            new_instance.project = parent_project
-            new_instance.save()
+            opportunity.project = project
+            opportunity.organization = org
+            opportunity.save()
             show_form = False
         else:
             return HttpResponse("error")
@@ -337,9 +331,11 @@ def add_opportunity(request, oid=None):
     
     return render_to_response('add_opportunity.html', {
         "myform": myform,
-        "parent_project": parent_project,
+        "parent_project": project,
         "show_form": show_form
     }, context_instance=RequestContext(request))
+
+
     
 def search(request):
     # Search for Opportunities

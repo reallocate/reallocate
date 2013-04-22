@@ -40,6 +40,9 @@ urlpatterns = patterns('',
                        url(r'^profile/(?P<uid>\d+)', 'website.views.user_by_id', name='show_user_by_id'),
                        url(r'^profile', 'website.views.profile', name='profile'),
 
+                       # pay-pal receiver
+                       url(r'^paypal', 'website.paypal.receive_paypal', name='paypal'),
+                       
                        # Admin site
                        url(r'^admin/', include(admin.site.urls)),
 
