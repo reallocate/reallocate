@@ -8,7 +8,7 @@
 				<strong><a href="/opportunity/{{ opp.id }}"><h4>{{ opp.name }}</h4></a></strong>
 			</div>
 			<div class="text-center">
-				<h5>{{ opp.opp_type }}</h5>
+				<h5>{{ opp.opp_type|title }}</h5>
 			</div>
 			<div class="text-center">
 				{% for tag in opp.tags.all %}
