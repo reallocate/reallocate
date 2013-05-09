@@ -71,11 +71,11 @@
             <div class="span5 user-update">
                 <!--For Each loop here with user posted updates to opportunities and projects-->
                 <div class="row-fluid">
-                    <h3>Updates</h4>
+                    <h3>Updates</h3>
                     <div class="span3">
                         <img style="width: 90px; height: 90px; border-radius: 50%" src="{{profile.media_url|escape}}">
                     </div>
-                    <div class="span9">
+                    <div class="span8">
                         <div class="user-update-action">
                            <strong>{{ profile.user.username|escape }}</strong> posted to <strong>Opportunity Title</strong>
                         </div>
@@ -88,17 +88,32 @@
             <div class="span3 user-projects">
                 <!--For Each loop here with projects a user has participated in-->
                 <div class="row-fluid">
-                    <h3>Projects</h4>
+                    <h3>Projects</h3>
                     <div class="span12 user-project-image">
-                        <img style="width: 215px;" src="{{profile.media_url|escape}}">
+                        <img style="width: 215px; max-height:168px; min-height: 168px;" src="{{profile.media_url|escape}}">
                     </div>
-                    <div class="user-project-status">
-                        http://127.0.0.1:8000/static/images/chart.png
+                    <div class="user-project-status" style="height: 90px; border-radius: 50%;">
+                        <img style="border-radius: 50%; position: relative; background-color:#ffffff; top: -88px; left: 128px; height: 90px;" src="/static/images/piechart.png">
                     </div>
                 </div>
             </div>
             <div class="span4 user-opportunities">
                 <!--For Each loop here with opportunities a user has participated in-->
+                <div class="row-fluid">
+                    <h3>Opportunties</h3>
+                    <div class="span8">
+                        <div class="user-opportunity-skills">
+                            Opportunity Skill
+                        </div>
+                        <div class="user-opportunity-title" style="margin-top:10px;">
+                            <h4>Opportunity Title</h4>
+                        </div>
+                    </div>
+                    <div class="span3">
+                        Skills
+                        <img style="min-height: 70px; border-radius: 50%" src="{{profile.media_url|escape}}">
+                    </div>
+                </div>
                 
             </div>
         </div>
