@@ -1,19 +1,11 @@
 body {
-    padding-top: 75px; 
+    padding-top: 95px; 
     background: url('/static/images/gray_jean.png');
     font-family: "Helvetica Neue", Helvetica, Verdana;
 }
 
-h1 {
-    font-family: 'Raleway', sans-serif;
-}
-
-h3 {
-    font-family: 'Raleway', sans-serif;
-}
-
-.sectionTitle  {
-    font-family: 'Raleway', sans-serif;
+h1, h2 {
+    color: #003A40;
 }
 
 .navbar .brand img {
@@ -34,6 +26,15 @@ h3 {
 
 .navbar #auth {
     margin-top: 10px;  
+}
+
+
+.navbar-inner {
+    padding: 10px 0;
+}
+
+.navbar-inner {
+    background: url('/static/images/navbar-bg.png');
 }
 
 .push-little {
@@ -110,4 +111,3 @@ h3 {
     font-weight:bold;
     color: red;
 }
-
