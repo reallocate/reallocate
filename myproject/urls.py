@@ -27,7 +27,6 @@ urlpatterns = patterns('',
                        url(r'^opportunity/(?P<pid>\d+)', 'website.views.view_opportunity', name='view_opportunity'),
  
                        url(r'^opportunity/(?P<pid>\d+)$', 'website.views.view_opportunity', name='view_opportunity'),
-                       url(r'^find-opportunity', 'website.views.opportunity_list', name='opportunity_list'),
                        url(r'^opportunity/(?P<pid>\d+)/engage', 'website.views.engage', name='engage'),
 
                        url(r'^ajax/modify_project_relation', 'website.ajaxviews.modify_project_relation', name='modify_project_relation'),

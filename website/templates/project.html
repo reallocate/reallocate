@@ -98,178 +98,185 @@
         }
         
     </style>
+    
+    <style>
+        .update_row {
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+        .follower_thumbnail{
+            width:25px;
+            height:25px;
+            margin-right:10px;
+            margin-bottom:10px;
+        }
+        .opportunity_browse{
+            background-color: #fff;
+            padding: 30px;
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            border-radius: 5px;
+            margin:10px;
+        }
+    </style>
+    
+    
 {% endblock %}
-{% block maincontent %}
+{% block widecontent %}
 
+<!-- Header: Breadcrumb -->
+<div class="container">
+    <ul class="breadcrumb" style="background-color:white !important;">
+        <li id="breadcrumb-menu-home"><a href="/">Home</a><span class="divider">/</span></li>
+        <li id="breadcrumb-menu-mission" class="active">{{ project.name }}</li>
+    </ul>
+</div>
+    
+
+<!-- Header: Project -->
+<div class="container">
+    <div class="row-fluid">
+        <div class="span6 project_title">
+            Project<br/>
+            <h1 >{{ project.name }}</h1>
+        </div>
+        <div class="span2 offset3">
+            <div class='follow-or-not'>
+                <a href="#" class="btn btn-block btn-primary login-required unfollow-project" {% if not is_following %}style='display:none;'{% endif %}project-id="{{ project.id }}">Following</a>
+                <a href="#" class="btn btn-block btn-primary login-required follow-project" {% if is_following %}style='display:none;'{% endif %} project-id="{{ project.id }}">Follow</a>
+            </div>
+        </div>
+    </div>
+    <div class="row-fluid">
+        <div class="span6 offset6">
+            <span style='float:right;'>
+                <strong>Jump to</strong>:
+                <a href='#' class='jump' loc='opps'>Opportunities({{ num_opportunities }})</a>
+                <a href='#' class='jump' loc='updates'>Updates({{ num_updates|default:0 }})</a>
+            </span>
+        </div>
+    </div>
+</div>    
+    
+<!-- Header: Project Image -->
+<div style="background-image:url({{ project.media_url }}); background-size:cover; height: 350px;">
+</div>
+
+<!-- Body: About Project -->
+<div class="container project_top">
+    <div class="row-fluid">
+        <div class="span7">
+            <h3> About the Project:</h3>
+            {{ project.description|safe }}
+            <div style="float:left;"><img src="/static/images/profile-female-avatar.png" style="width:50px;height:50px;"></div>
+            <div style="margin-top:35px;margin-left:60px;margin-bottom:20px;">
+                Created By <a class="username" href="/profile/{{ project.created_by.id }}">
+                                 {{ project.created_by.first_name }} {{ project.created_by.last_name }}</a>
+                for {{ project.organization.name }}
+            </div>
+        </div>
+        <div class="span5">
+            <div class="span6">
+                <div class='fluid-row' style='margin-top:20px;'>
+                    <h4>Needs</h4><br/>
+                    {% for need in project.get_needs %}
+                        Need   
+                    {% endfor %}
+                    Industrial Design<br/>
+                    Prototyping<br/>
+                    3D Printing<br/>
+                </div>
+                <div class='fluid-row'>
+                    <h4>Reallocators({{ num_following }})</h4>
+                    {% for follower in project.followers %}
+                       <div style="float:left;"><img src="/static/images/profilepic-female1.png" class="follower_thumbnail"></div>
+                    {% endfor %}
+                    <div style="float:left;"><img src="/static/images/profilepic-female1.png" class="follower_thumbnail"></div>
+                    <div style="float:left;"><img src="/static/images/profilepic-female1.png" class="follower_thumbnail"></div>
+                    <div style="float:left;"><img src="/static/images/profilepic-female1.png" class="follower_thumbnail"></div>
+                    <div style="float:left;"><img src="/static/images/profilepic-female1.png" class="follower_thumbnail"></div>
+                </div>
+                <div class='fluid-row'>
+                    <h4>Share</h5>
+                    <a href=""><i class="icon-twitter icon-large" style="color: #4e7ac7;margin-right:5px;"></i></a>
+                    <a href=""><i class="icon-facebook icon-large" style="color: #4e7ac7;margin-right:10px;"></i></a>
+                    <a href=""><i class="icon-linkedin-sign icon-large" style="color: #4e7ac7;margin-right:10px;"></i></a>
+                </div>
+            </div>    
+            <div class="span6">
+                <div class="row-fluid">
+                    {% include 'paypal-donate.inc' %}
+                    <img src="/static/images/chart.png"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Body: Opportunities -->
+<div style="width: 100%;margin-top:20px;background-color: #1c6845;background-image:url(/static/images/bgtexture2.png);">
     <div class="container">
-        <ul class="breadcrumb">
-            <li id="breadcrumb-menu-home"><a href="/">Home</a><span class="divider">/</span></li>
-            <li id="breadcrumb-menu-mission"
-                class="active">{{ project.name }}
-            </li>
-        </ul>
-    </div>
-    
-    <div class="project_wrap container">
         <div class="row-fluid">
-            <div class="span12">
-                <div class="project_title push-little">
-                    <h1 class="text-center">{{ project.name }}</h1>
-                </div>
-            </div>
+            <h3>Opportunities:</h3>
+            <h6>Here are some ways you can interact and help with this project.</h6>
         </div>
-        
-        <div class="container-fluid project_top">
-            <div class="row-fluid">
-                <div class="span7 projectImage">
-                    <img src="{{ project.media_url }}"/>
-                    <br/>
-                    <div class="socialLinks">
-                        <div class="fb-like" data-href="http://www.jon.com" data-send="true" data-width="400" data-show-faces="false"></div>
-                        
-                        <div id="fb-root"></div>
-                        <script>(function(d, s, id) {
-                          var js, fjs = d.getElementsByTagName(s)[0];
-                          if (d.getElementById(id)) return;
-                          js = d.createElement(s); js.id = id;
-                          js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=151555328193390";
-                          fjs.parentNode.insertBefore(js, fjs);
-                        }(document, 'script', 'facebook-jssdk'));</script>
-                        
-                        <hr/>
+        <div class="row-fluid">
+            {% for opp in opportunities %}
+                <div class="span4 opportunity_browse">
+                    <div style="float:right;font-weight:bold; color:#f2736a;text-align:center;">
+                        {{ opp.skill }}<br><i class="icon-fighter-jet icon-2x" style="color: #f2736a;">{{ opp.skill }}</i>
                     </div>
+                    <strong><span style="color: #333; font-weight:bold;">{{ opp.skill }} skill</span></strong><br/>
+                    <span style="color: #999;">?20 Kudos?</span>
+                    <p></p>
+                    <h3><a href="/opportunity/{{ opp.id }}">{{ opp.name }}</a></h3>
+                    <p>{{ opp.desc|safe }} </p>
+                    <p><span style="color: #333; font-weight:bold;">?20 hrs/week?</span> for 2 weeks</p>
+                    <a href="/opportunity/{{ opp.id }}/">Learn more</a>
+                    <div style="float:right;"><a href="#" class="btn">Apply</a></div>
                 </div>
-                
-                
-                <div class="span5"> 
-                    <div class="row-fluid" id="statistics">
-                        <div class="stat span4">
-                            <div id="num-following" class="text-center number">{{ num_following }}</div>
-                            <div class="stat-label text-center">followers</div>
-                        </div>
-                        <div class="stat span4">
-                            <div class="text-center number">13</div>
-                            <div class="stat-label text-center">participants</div>
-                        </div>
-                        <div class="stat span4">
-                            <div class="text-center number">{{ num_opportunities }}</div>
-                            <div class="stat-label text-center">opportunities</div>
-                        </div>
-                    </div>
-                    
-                    <hr/>
-                                                           
-                    <div class="row-fluid" id="budget">
-                        <div class="budget span12 text-center">
-                            <div id="totalDonated" class="number">$ 3,000 | Kdo 12,000 </div>
-                            <div id="totalBudget">Contributed of <strong>$18,000</strong></div>
-                        </div>
-                        <div class="budgetHistogram span12 text-center">
-                            <div id="histogram"><img src="http://i.imgur.com/MZsu6ST.jpg"/></div>
-                        </div>
-                        <div style='clear:both;'></div>
-                        {% include 'paypal-donate.inc' %}
-
-                    </div>
-                    
-                    <hr/>
-                    
-                    <div class="row-fluid" style="margin-top: 30px;">
-                        <div class="span4">
-                            <img src="{{ project.created_by.get_profile.media_url }}"/>
-                        </div>
-                        <div class="span8">
-                            <i>Project By</i><br/>
-                            <a class="username" href="/profile/{{ project.created_by.id }}">
-                                {{ project.created_by.first_name }} {{ project.created_by.last_name }}
-                            </a>
-                            
-                        </div>
-                    </div>
-                    
-                    
-                    
-                    {% if logged_in %}
-                        <div class='follow-or-not'>
-                            <a href="#" class="btn btn-primary login-required unfollow-project" {% if not is_following %}style='display:none;'{% endif %}project-id="{{ project.id }}">Following</a>
-                            <a href="#" class="btn login-required follow-project" {% if is_following %}style='display:none;'{% endif %} project-id="{{ project.id }}">Follow</a>
-                        </div>
-                    {% endif %}
-                </div>
-            </div>
-        </div>
-    
-    
-        <div class="container-fluid project_bottom">
-            <div class="row-fluid">
-                <div class="span8">
-                    <div class="theStory">
-                        <div class="sectionTitle">The Story</div>
-                        <div class="vision">
-                            {{ project.description|safe }}
-                        </div>
-                    </div>
-                    <div id="updates">
-                        <div class="sectionTitle">Updates</div>
-                        {% for update in updates%}
-                            <div class="row-fluid update-row">
-                                <div class="span2">
-                                    <img class="updateThumb" src="{{update.created_by.get_profile.media_url}}"/>
-                                </div>
-                                <div class="span10">
-                                    <div class="updateUserName"> {{update.user.username}} </div>
-                                    <div class="updateOppName"> {{update.opportunity.name}} </div>
-                                    <div class="updateText">  {{update.text}}</div>
-                                    <div class="updateMedia"> <img width="100%" height="100%" src="{{ update.media_url }}"> </div>
-                                </div>
-                            </div>
-                        {% endfor %}        
-                    </div>
-                </div>
-                <div class="span4">
-                    <div class="sectionTitle">Opportunities</div>
-                    <div class="row-fluid" id="opportunityTypes">
-                        <div class="stat span3">
-                            <div id="num-following" class="text-center number">{{ num_following }}</div>
-                            <div class="stat-label text-center">Donations</div>
-                        </div>
-                        <div class="stat span3">
-                            <div class="text-center number">13</div>
-                            <div class="stat-label text-center">Skills</div>
-                        </div>
-                        <div class="stat span3">
-                            <div class="text-center number">{{ num_opportunities }}</div>
-                            <div class="stat-label text-center">Equipment</div>
-                        </div>
-                        <div class="stat span3">
-                            <div class="text-center number">{{ num_opportunities }}</div>
-                            <div class="stat-label text-center">Knowledge</div>
-                        </div>
-                    </div>
-                    
-                    <hr/>
-                    <div class="oppWell" style="border-left: 2px solid black;">
-                        {% for opp in opportunities%}
-                        <div class="oppContainer">
-                            <div class="oppImage" style="background-image: url('{{ opp.media_url }}'); background-size: 100% 161px; background-repeat: no-repeat;">
-                            <div class="oppText text-center">
-                                <div class="oppTitle"> {{opp.name}} </div>
-                                <div class="oppDescription"> {{opp.short_desc|safe|truncatewords:15}}</div>
-                                <div class="oppLink">
-                                    <a class="btn btn-primary" href="/opportunity/{{opp.id}}">Get Involved</a>
-                                </div>
-                            </div>
-                            </div>
-                        </div>
-                        {% endfor %}
-                    </div>
-                </div>
-            </div>
+            {% endfor %} 
         </div>
     </div>
-    <!-- /container -->
+</div>
 
-
+<!-- Body: Additional -->
+<div class="container">
+    <div class="row-fluid">
+        <div class="span7">
+            <h3>Featured Update</h3>
+            <div style="background-color: #eee;padding:30px;margin-bottom: 50px;-webkit-border-radius: 5px;-moz-border-radius: 5px;border-radius: 5px;margin-top:20px;">
+                <div style="float:left;margin-right:15px;height:100px;"><img src="/static/images/profile-female-avatar.png" style="width:50px;height:50px;"></div>
+                <div style="float:inherit;"><div style="float:right;font-color: #888;"><span style="font-color:#888;">On {{ feat_update.creation_ts }}DATE</span></div>
+                By <a href="">{{ feat_update.user.username }} </a><br>
+                {{ feat_update.text }}
+                <img src="/static/images/featuredpostimage.jpg" style="width:320px;height:213px;margin-left: 70px;margin-top:20px;-webkit-border-radius: 5px;-moz-border-radius: 5px;border-radius: 5px;"></div>
+            </div>
+            <h3> Recent Updates</h3>
+            {% for update in updates %}
+                <div class="row-fluid update_row">
+                    <div class="span2">
+                        <img class="update_thumb" src="{{update.created_by.get_profile.media_url}}"/>
+                    </div>
+                    <div class="span10">
+                        <a class="username" href="/profile/{{update.created_by.id}}">
+                            {{update.created_by.first_name}} {{update.created_by.last_name}}
+                        </a>
+                        <div class="update_text">  {{update.text}}</div>
+                        <div class="update_media"> <img width="100%" height="100%" src="{{ update.media_url }}"> </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>        
+        <div class="span5">
+            <span style='float:right;'><h3>Similar Projects</h3></span>
+            {% for project in similar_projects %}
+                    
+            {% endfor %}
+        </div>
+    </div>
+</div>
+                    
 {% endblock %}
 
 {% block bottomscript %}

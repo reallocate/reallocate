@@ -42,26 +42,29 @@
 {% block hero %}
 {% endblock %}
 
-<div id="content" class="container main_container">
-     
     {% if topmsg|default:'' != ''%}
         <div class='topmsg'>{{ topmsg }}</div>
     {% endif %}
     
-    {% block maincontent %}
-    {% endblock %}
+    
+    <div id="content" class="container main_container">
+        {% block maincontent %} 
+        {% endblock %}
+    </div>
 
-    <br>
+    <div id="content_wide" class="main_container">
+        {% block widecontent %} 
+        {% endblock %}
+    </div>
+    <br/>
 
     <!-- FOOTER -->
-    <footer>
-        <p>&copy; 2013 ReAllocate, 501c3. &middot; <a href="/">Privacy</a> &middot; <a href="/">Terms</a></p>
+    <footer class="container">
+        <p>&copy; 2013 ReAllocate, 501c3. <a href="/">Privacy</a> &middot; <a href="/">Terms</a></p>
     </footer>
 
 </div>
 <!-- /container -->
-
-
 
 <!-- Le javascript
 ================================================== -->
