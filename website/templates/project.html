@@ -110,14 +110,6 @@
             margin-right:10px;
             margin-bottom:10px;
         }
-        .opportunity_browse{
-            background-color: #fff;
-            padding: 30px;
-            -webkit-border-radius: 5px;
-            -moz-border-radius: 5px;
-            border-radius: 5px;
-            margin:10px;
-        }
     </style>
     
     
@@ -222,6 +214,9 @@
         </div>
         <div class="row-fluid">
             {% for opp in opportunities %}
+                {% include "includes/opportunity-pane.html" %}
+            {% endfor %}
+            {% comment %}
                 <div class="span4 opportunity_browse">
                     <div style="float:right;font-weight:bold; color:#f2736a;text-align:center;">
                         {{ opp.skill }}<br><i class="icon-fighter-jet icon-2x" style="color: #f2736a;">{{ opp.skill }}</i>
@@ -235,7 +230,7 @@
                     <a href="/opportunity/{{ opp.id }}/">Learn more</a>
                     <div style="float:right;"><a href="#" class="btn">Apply</a></div>
                 </div>
-            {% endfor %} 
+            {% endcomment %}
         </div>
     </div>
 </div>

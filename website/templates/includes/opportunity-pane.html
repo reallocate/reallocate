@@ -1,29 +1,32 @@
-                <div class="span4">
-                    <div class="thumnail_container" type="opportunity" opportunity_id="{{ opportunity.id }}">
-                        <div class="oppThumb">
-                            <img src="{{ opportunity.media_url }}"/>
-                        </div>
-                        <div class="opportunity_lower">
-                            <div class="name">
-                                {{ opportunity.name }}
-                            </div>
-                            <div class="opp_type">
-                                {{ opportunity.opp_type }}
-                            </div>
-                            <div class="tags">
-			                    {% for tag in opportunity.tags.all %}
-			                        {{ tag }}{% if forloop.last %}{% else %}, {% endif %}
-			                    {% endfor %}
-                            </div>
-                            <div class="short_desc">
-                                {{ opportunity.short_desc }}
-                            </div>
-                            <div class="location">
-                                <div class="icon-map-marker"></div><a href="">San Francisco, CA</a>
-                            </div>
-                            <div class="project_name">
-                                <div class="icon-wrench"></div><a href="/project/{{ opportunity.project.id }}">{{ opportunity.project.name }}</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+<div class="span4 opp_browse">
+	<div opp_id="{{ opp.id }}">
+		<div class="opp_thumb">
+			<a href="/opportunity/{{ opp.id }}"><img src="{{ opp.media_url }}"/></a>
+		</div>
+		<div class="opp_lower">
+			<div class="text-center">
+				<strong><a href="/opportunity/{{ opp.id }}"><h4>{{ opp.name }}</h4></a></strong>
+			</div>
+			<div class="text-center">
+				<h5>{{ opp.opp_type }}</h5>
+			</div>
+			<div class="text-center">
+				{% for tag in opp.tags.all %}
+					{{ tag }}{% if forloop.last %}{% else %}, {% endif %}
+				{% endfor %}
+			</div>
+			<div class="short_desc" style="color:#555;">
+				{{ opp.short_desc }}
+			</div>
+			<br/>
+			{% comment %}
+			<div class="location">
+				<div class="icon-map-marker" style="margin:5px;"></div><a href="">San Francisco, CA</a>
+			</div>
+			{% endcomment %}
+			<div class="project_name">
+				<div class="icon-wrench" style="margin:5px;"></div><a href="/project/{{ opp.project.id }}">{{ opp.project.name }}</a>
+			</div>
+		</div>
+	</div>
+</div>

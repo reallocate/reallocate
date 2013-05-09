@@ -1,111 +1,51 @@
 {% extends 'theme/base.html' %}
 {% load i18n %}
 
-{% trans "This is the title" as the_title %}
-
-{% block meta_description %}{{ the_title }}{% endblock %}
-
+{% block meta_description %}Find opportunities{% endblock %}
 
 {% block extra_css %}
-    <style>
-
-        .feature_container {
-            height: 400px;
-            margin-top: 60px;
-        }
-
-        .home_feature_slider {
-            background: url('/static/images/hero.png');
-            height: 300px;
-        }
-
-        .opportunties_row {
-            margin-bottom: 30px;
-        }
-
-        .opportunity_lower {
-            padding: 5px 10px;
-        }
-
-        .opportunity_lower .name {
-
-        }
-
-        .opportunity_lower .short_desc {
-            margin-top: 5px;
-            min-height: 60px;
-        }
-
-        .opportunity_lower .location {
-            margin-top: 5px;
-        }
-
-        .opportunity_lower .organization {
-            margin-top: 5px;
-        }
-
-        footer {
-            margin-top: 30px;
-        }
-    </style>
+<style>
+	.opp_browse{
+		background:#f5f5f5
+	}
+</style>
 {% endblock %}
 
-
-{% block hero %}
-{% endblock %}
 {% block maincontent %}
 
-    <div class="container">
-        <ul class="breadcrumb">
-            <li id="breadcrumb-menu-home"><a href="/">Home</a><span class="divider">/</span></li>
-            <li id="breadcrumb-menu-mission"
-                class="active">Search
-            </li>
-        </ul>
-    </div>
-
-    <div class="container">
-        <div class="row">
-            <div class="span12">
-                <div class="row opportunties_row">
-					
-					<form action="" method="post">{% csrf_token %}
-					    <input type="text" name="search" id="search" value="Search..."onclick="if(this.value=='Search...'){this.value=''}"
-						onblur="if(this.value==''){this.value='Search...'}">
-					    
-						<select name="opp_type" id="opp_type">
-						<option value="">Search By:</option>
-						<option value="Skills">Skill set</option>
-						<option value="Knowledge">Knowledge</option>
-						<option value="Equipment">Equipment</option>
-						<option value="Money">Money</option>
-					    </select>
-					    <input type="submit" class="btn" value="Search">
-					</form>
-					
-                </div>
+	<ul class="breadcrumb">
+		<li id="breadcrumb-menu-home"><a href="/">Home</a><span class="divider">/</span></li>
+		<li id="breadcrumb-menu-mission"
+			class="active">Search
+		</li>
+	</ul>
+    
+	<div class="row-fluid">
+		<form action="" method="post">{% csrf_token %}
+			<input type="text"  name="search" id="search" value="Search..."onclick="if(this.value=='Search...'){this.value=''}"
+			onblur="if(this.value==''){this.value='Search...'}">
+			<select name="opp_type" id="opp_type">
+			<option value="">Search By:</option>
+			<option value="Skills">Skill set</option>
+			<option value="Knowledge">Knowledge</option>
+			<option value="Equipment">Equipment</option>
+			<option value="Money">Money</option>
+			</select>
+			<input type="submit" class="btn btn-primary" value="Search" style="margin-top:-10px;margin-left:10px;">
+		</form>
+	</div>
         
-            </div>
-        </div>
-    </div>
-
-    <div class="container">
-        <div class="row">
-            <div class="span12">
-                <div class="row opportunties_row">
-                    {% for opportunity in opportunities %}
-                        {% include "includes/opportunity-pane.html" %}
-                    {% endfor %}
-                </div>
-        
-            </div>
-        </div>
-    </div>
-
+	<div class="row-fluid">
+		{% for opp in opportunities %}
+			{% if forloop.counter0|divisibleby:3 %}
+				</div>
+				<div class="row-fluid">
+			{% endif %}
+				{% include "includes/opportunity-pane.html" %}
+		{% endfor %}
+	</div>
 
 {% endblock %}
 
 {% block bottomscript %}
-    
 {% endblock %}
-
