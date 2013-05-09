@@ -12,7 +12,7 @@
 {% endblock %}
 
 {% block maincontent %}
-
+	
 	<ul class="breadcrumb">
 		<li id="breadcrumb-menu-home"><a href="/">Home</a><span class="divider">/</span></li>
 		<li id="breadcrumb-menu-mission"
@@ -34,7 +34,7 @@
 			<input type="submit" class="btn btn-primary" value="Search" style="margin-top:-10px;margin-left:10px;">
 		</form>
 	</div>
-        
+	
 	<div class="row-fluid">
 		{% for opp in opportunities %}
 			{% if forloop.counter0|divisibleby:3 %}

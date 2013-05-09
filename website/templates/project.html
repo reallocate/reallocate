@@ -81,8 +81,10 @@
             margin:5px;
         }
         
+        .project_top {
+            padding-top: 30px;
+        }
         .project_top .project_media_url img {
-
             margin-bottom: 10px;
         }
         
@@ -97,9 +99,6 @@
             /*border-right: solid 1px #b0b0b0;*/
         }
         
-    </style>
-    
-    <style>
         .update_row {
             padding: 10px;
             margin-bottom: 20px;
@@ -128,11 +127,11 @@
 <!-- Header: Project -->
 <div class="container">
     <div class="row-fluid">
-        <div class="span6 project_title">
-            Project<br/>
+        <div class="span10 project_title">
+            <h5>Project</h5>
             <h1 >{{ project.name }}</h1>
         </div>
-        <div class="span2 offset3">
+        <div class="span2">
             <div class='follow-or-not'>
                 <a href="#" class="btn btn-block btn-primary login-required unfollow-project" {% if not is_following %}style='display:none;'{% endif %}project-id="{{ project.id }}">Following</a>
                 <a href="#" class="btn btn-block btn-primary login-required follow-project" {% if is_following %}style='display:none;'{% endif %} project-id="{{ project.id }}">Follow</a>
@@ -151,14 +150,13 @@
 </div>    
     
 <!-- Header: Project Image -->
-<div style="background-image:url({{ project.media_url }}); background-size:cover; height: 350px;">
-</div>
+<div style="background-image:url({{ project.media_url }}); background-size:cover; height: 350px;"></div>
 
 <!-- Body: About Project -->
 <div class="container project_top">
     <div class="row-fluid">
         <div class="span7">
-            <h3> About the Project:</h3>
+            <h3> About the Project</h3>
             {{ project.description|safe }}
             <div style="float:left;"><img src="/static/images/profile-female-avatar.png" style="width:50px;height:50px;"></div>
             <div style="margin-top:35px;margin-left:60px;margin-bottom:20px;">
@@ -206,10 +204,10 @@
 </div>
 
 <!-- Body: Opportunities -->
-<div style="width: 100%;margin-top:20px;background-color: #1c6845;background-image:url(/static/images/bgtexture2.png);">
+<div class="opportunity_row">
     <div class="container">
         <div class="row-fluid">
-            <h3>Opportunities:</h3>
+            <h3>Opportunities</h3>
             <h6>Here are some ways you can interact and help with this project.</h6>
         </div>
         <div class="row-fluid">
