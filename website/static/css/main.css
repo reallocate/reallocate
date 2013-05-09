@@ -8,11 +8,6 @@ h1, h2 {
     color: #003A40;
 }
 
-
-.sectionTitle  {
-    font-family: 'Raleway', sans-serif;
-}
-
 .navbar .brand img {
     width: 200px !important;
 }
@@ -116,4 +111,3 @@ h1, h2 {
     font-weight:bold;
     color: red;
 }
-
