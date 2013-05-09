@@ -13,27 +13,59 @@
 {% endblock %}
 
 {% block maincontent %}
-    <h1>Profile for {{ profile.user.username|escape }} ({{ profile.user.email|escape }})</h1>
-
-    <img src="{{profile.media_url|escape}}" alt="Avatar for {{ profile.user|escape }}"/>
-    
-    <h3>Biography</h3>
-    <div class="bio">
-        {{profile.bio | escape}}
-    </div>
-    
-    <h3>Projects {{ profile.user.username|escape }} is following:</h3>
-    {% if profile.followed_projects == None %}
-        {{ profile.user.username|escape }} isn't following any projects<br/><br/>
-    {% endif %}
-    
-    {% for project in profile.followed_projects.all %}
-        <div class="control-group">
-            <a href='/project/{{ project.id }}' class='project-name'>{{ project.name }}</a>&nbsp;&nbsp;&nbsp;&nbsp;
-            <a href='#' class='unfollow-project' project-id='{{ project.id }}'>(stop following)</a>
+    <div class="container">
+        <div class="row-fluid" style="border-bottom: 2px dashed #adadad;">
+            <div class="span3 user-image">
+                <img style="width: 215px; height: 215px; border-radius: 50%;" src="{{profile.media_url|escape}}" alt="Avatar for {{ profile.user|escape }}"/>
+            </div>       
+            <div class="span6">
+                <div class="user-username">
+                    <h3>{{ profile.user.username|escape }}</h3>
+                </div>
+                <div class="row-fluid">
+                    <div class="span3" style="text-align: right;"><strong>Location:</strong></div><div class="span8 offset1">San Francisco, CA</div>
+                    <br/>
+                </div>
+                <div class="row-fluid">
+                    <div class="span3" style="text-align: right;"><strong>Occupation:</strong></div><div class="span8 offset1"></div>
+                    <br/>
+                </div>
+                <div class="row-fluid">
+                    <div class="span3" style="text-align: right;"><strong>Bio:</strong></div><div class="span8 offset1" style="height: 160px; overflow: scroll;">{{profile.bio | escape}}</div>
+                    <br/>
+                </div>
+                <br/>
+            </div>
+            <div class="span3" style="margin-top: 20px;">
+                <a class="btn btn-large btn-primary" href="#">Follow User</a>
+                <br/>
+                <br/>
+                <a class="" href="#"><h4>View Linkedin Profile</h4></a>
+            </div>
         </div>
-    {% endfor %}
-
+        <div class="row-fluid">
+            <div class="span8 offset2" style="border: 2px solid black;">
+                <div class="span3" style="text-align: center;"><span style="font-size: 2em;">4</span><br/>Projects</div>
+                <div class="span3" style="text-align: center;">13<br/>Opportunties</div>
+                <div class="span3" style="text-align: center;">4<br/>Followers</div>
+                <div class="span3" style="text-align: center;">4<br/>Following</div>
+            </div>
+        </div>
+        
+        <div class="row-fluid">
+            <h3>Projects {{ profile.user.username|escape }} is following:</h3>
+            {% if profile.followed_projects == None %}
+                {{ profile.user.username|escape }} isn't following any projects<br/><br/>
+            {% endif %}
+            
+            {% for project in profile.followed_projects.all %}
+                <div class="control-group">
+                    <a href='/project/{{ project.id }}' class='project-name'>{{ project.name }}</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a href='#' class='unfollow-project' project-id='{{ project.id }}'>(stop following)</a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
 {% endblock %}
 
 
