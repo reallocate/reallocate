@@ -4,20 +4,8 @@ body {
     font-family: "Helvetica Neue", Helvetica, Verdana;
 }
 
-h1 {
-    font-family: 'Raleway', sans-serif;
-}
-
-h2 {
-    font-family: 'Raleway', sans-serif;
-}
-
-h3 {
-    font-family: 'Raleway', sans-serif;
-}
-
-.sectionTitle  {
-    font-family: 'Raleway', sans-serif;
+h1, h2 {
+    color: #003A40;
 }
 
 .navbar .brand img {
@@ -38,6 +26,10 @@ h3 {
 
 .navbar #auth {
     margin-top: 10px;  
+}
+
+.navbar-inner {
+    background: url('/static/images/navbar-bg.png');
 }
 
 .push-little {
