@@ -1,6 +1,6 @@
 {# Donation purpose and donation_purpose_token must be set if not for reallocate slushfund #}
 <div class='paypal-done' style='margin:15px;text-align:center;{% if donation_purpose %}width:200px;{% endif %}'{% if donation_purpose %}title="This donation will be routed through reallocate."{% endif %}>
-    {% if donation_purpose %}<strong> Donate to <br/>{{ donation_purpose }}</strong>{% endif %}
+    {% comment %} if donation_purpose %}<strong> Donate to <br/>{{ donation_purpose }}</strong>{% endif %} {% endcomment %}
     <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top" alt="heeey">
     <input type="hidden" name="cmd" value="_donations">
     <input type="hidden" name="business" value="tim@reallocate.org">
