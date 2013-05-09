@@ -87,14 +87,6 @@ def about(request):
 def learn(request):
     return render_to_response('learn.html', {}, context_instance=RequestContext(request))
 
-
-def opportunity_list(request):
-    opportunities = Opportunity.objects.all()[:12]
-    projects = Opportunity.objects.all()[:12]
-
-    return render_to_response('opportunity_list.html', {'opportunities': opportunities},
-                              context_instance=RequestContext(request))
-
 @csrf_exempt
 def signup(request):
     if request.method == 'GET':
