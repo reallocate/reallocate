@@ -18,16 +18,22 @@
         <div class="span6 offset1">
             <h3>Sign in with Linked in or Facebook</h3>
 	    <div style="margin-top: 50px;">
-		<a href="{% url "socialauth_begin" 'linkedin' %}">
-		    <img style="width: 260px;" src="{{STATIC_URL}}images/linkedin-icon.jpg" alt="Linked In">
-		</a>
-		<a style="margin-left: 50px" href="{% url "socialauth_begin" 'facebook' %}">
+		<div style="float: left; margin-top: 15px;">
+		    <a href="{% url "socialauth_begin" 'linkedin' %}">
+			<img style="width: 260px;" src="{{STATIC_URL}}images/linkedin-icon.jpg" alt="Linked In">
+		    </a>
+		</div>
+		<div style="float: left; margin-left: 50px">
+		<a href="{% url "socialauth_begin" 'facebook' %}">
 		    <img src="{{ STATIC_URL }}images/facebook-icon.png" alt="Facebook">
+		</a><br/>
+		<br/>
+		<a href="{% url "socialauth_begin" 'google' %}">
+		    <img style="width: 137px;" src="{{ STATIC_URL }}images/google-icon.png" alt="Google">
 		</a>
-		<!--<a href="{% url "socialauth_begin" 'google' %}">
-		    <img src="{{ STATIC_URL }}images/google-icon.png" alt="Google">
-		</a>
-		<br/><br/>
+		</div>
+		<div class="clearfix"></div>
+		<!--<br/><br/>
 		<a href="{% url "socialauth_begin" 'yahoo' %}">
 		    <img src="{{ STATIC_URL }}images/yahoo-icon.png" alt="Yahoo">
 		</a>-->
