@@ -44,11 +44,62 @@
             </div>
         </div>
         <div class="row-fluid">
-            <div class="span8 offset2" style="border: 2px solid black;">
-                <div class="span3" style="text-align: center;"><span style="font-size: 2em;">4</span><br/>Projects</div>
-                <div class="span3" style="text-align: center;">13<br/>Opportunties</div>
-                <div class="span3" style="text-align: center;">4<br/>Followers</div>
-                <div class="span3" style="text-align: center;">4<br/>Following</div>
+            <div class="span8 offset2" style="border: 2px solid black; padding: 15px 15px 5px 15px; border-radius: 6px;">
+                <div class="span3" style="text-align: center;">
+                        <span style="font-size: 4em;">4</span>
+                        <br/>
+                        <span style="font-size: 1.3em;">Projects</span>
+                </div>
+                <div class="span3" style="text-align: center;">
+                        <span style="font-size: 4em;">4</span>
+                        <br/>
+                        <span style="font-size: 1.3em;">Opportunities</span>
+                </div>
+                <div class="span3" style="text-align: center;">
+                        <span style="font-size: 4em;">13</span>
+                        <br/>
+                        <span style="font-size: 1.3em;">Following</span>
+                </div>
+                <div class="span3" style="text-align: center;">
+                        <span style="font-size: 4em;">4</span>
+                        <br/>
+                        <span style="font-size: 1.3em;">Follower</span>
+                </div>                
+            </div>
+        </div>
+        <div class="row-fluid user-lower-half" style="margin-top: 25px;">
+            <div class="span5 user-update">
+                <!--For Each loop here with user posted updates to opportunities and projects-->
+                <div class="row-fluid">
+                    <h3>Updates</h4>
+                    <div class="span3">
+                        <img style="width: 90px; height: 90px; border-radius: 50%" src="{{profile.media_url|escape}}">
+                    </div>
+                    <div class="span9">
+                        <div class="user-update-action">
+                           <strong>{{ profile.user.username|escape }}</strong> posted to <strong>Opportunity Title</strong>
+                        </div>
+                        <div class="user-update-content" style="margin-top:10px;">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras consectetur orci mollis arcu dapibus blandit iaculis urna sodales. Praesent convallis nunc lectus, in interdum ligula. Fusce ac
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="span3 user-projects">
+                <!--For Each loop here with projects a user has participated in-->
+                <div class="row-fluid">
+                    <h3>Projects</h4>
+                    <div class="span12 user-project-image">
+                        <img style="width: 215px;" src="{{profile.media_url|escape}}">
+                    </div>
+                    <div class="user-project-status">
+                        http://127.0.0.1:8000/static/images/chart.png
+                    </div>
+                </div>
+            </div>
+            <div class="span4 user-opportunities">
+                <!--For Each loop here with opportunities a user has participated in-->
+                
             </div>
         </div>
         
