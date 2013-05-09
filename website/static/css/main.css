@@ -61,8 +61,7 @@ h5 {
     cursor: pointer;
 }
 
-.oppThumb{
-    height: 222px;
+.opp_thumb{
     overflow: hidden;
 }
 
@@ -116,3 +115,19 @@ h5 {
     font-weight:bold;
     color: red;
 }
+
+.text-center{
+    text-align:center;
+}
+
+.opp_browse{
+        background-color: #fff;
+        padding: 30px;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        border-radius: 5px;
+        margin-top:10px;
+        margin-bottom:10px;
+        font-family: 'Raleway', sans-serif;
+        float:left;
+    }
