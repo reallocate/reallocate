@@ -42,16 +42,21 @@
 {% block hero %}
 {% endblock %}
 
-<div id="content" class="container main_container">
-     
     {% if topmsg|default:'' != ''%}
         <div class='topmsg'>{{ topmsg }}</div>
     {% endif %}
     
-    {% block maincontent %}
-    {% endblock %}
+    
+    <div id="content" class="container main_container">
+        {% block maincontent %} 
+        {% endblock %}
+    </div>
 
-    <br>
+    <div id="content_wide" class="main_container">
+        {% block widecontent %} 
+        {% endblock %}
+    </div>
+    <br/>
 
     <!-- FOOTER -->
     <footer>
@@ -60,8 +65,6 @@
 
 </div>
 <!-- /container -->
-
-
 
 <!-- Le javascript
 ================================================== -->
