@@ -183,7 +183,7 @@ def view_opportunity(request, pid):
     
     if request.user.is_authenticated():
         context['is_engaged'] = request.user in opp.engaged_by.all()
-
+        context['is_following'] = request.user in project.followed_by.all()
     return render_to_response('opportunity.html', context, context_instance=RequestContext(request))
 
 @login_required
