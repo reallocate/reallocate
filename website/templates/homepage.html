@@ -24,6 +24,10 @@
     .home-search {
         margin: 0 0 20px;
     }
+    .home-slogan {
+        margin: 0 0 20px;
+        text-align: center;
+    }
     
     footer {
         margin-top: 30px;
@@ -67,7 +71,7 @@
 {% endblock %}
 
 {% block maincontent %}
-    <div class="row-fluid home-search">
+   <!-- <div class="row-fluid home-search">
         <form action="" method="post">{% csrf_token %}
                 <input type="text"  name="search" id="search" value="Search..."onclick="if(this.value=='Search...'){this.value=''}"
                 onblur="if(this.value==''){this.value='Search...'}">
@@ -80,7 +84,10 @@
                 </select>
                 <input type="submit" class="btn btn-primary" value="Search" style="margin-top:-10px;margin-left:10px;">
         </form>
-    </div>
+    </div> -->
+    
+    <div class="home-slogan"><h1>Choose a project and share your passion</h1></div>
+    
     <div class="row projects_row">
         {% for project in projects %}
             {% include "includes/project-pane.html" %}
