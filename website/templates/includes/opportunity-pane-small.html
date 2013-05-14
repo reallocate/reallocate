@@ -1,0 +1,23 @@
+<div class="row opp_small" opp_id="{{ opp.id }}">
+	<div class="span8">
+		<span style="font-size:10px;">{{ opp.opp_type }}</span><br/>
+		<a href="/opportunity/{{ opp.id }}">
+			<span style="font-size:14px;"><strong>{{ opp.name }}</strong></span>
+		</a>
+	</div>
+	<div class="span4">
+		{% if opp.opp_type == 'skills' %}
+			<i class="icon-fighter-jet icon-4x"></i>
+		{% endif %}
+		{% if opp.opp_type == 'skills' %}
+			<i class="icon-book icon-4x"></i>
+		{% endif %}
+		{% if opp.opp_type == 'equipment' %}
+			<i class="icon-cogs icon-4x"></i>
+		{% endif %}
+		{% if opp.opp_type == 'money' %}
+			<i class="icon-money icon-4x"></i>
+		{% endif %}	
+	</div>
+</a>
+</div>

@@ -79,12 +79,12 @@
                     <span style="font-size: 1.3em;">Opportunities</span>
             </div>
             <div class="span3" style="text-align: center;">
-                    <span style="font-size: 3.5em;">{{ profile.following|length|default:"0" }}</span>
+                    <span style="font-size: 3.5em;">{{ profile.following|length|default:"2" }}</span>
                     <br/>
                     <span style="font-size: 1.3em;">Following</span>
             </div>
             <div class="span3" style="text-align: center;">
-                    <span style="font-size: 4em;"> {{ profile.followed_by|length|default:"0" }}</span>
+                    <span style="font-size: 4em;"> {{ profile.followed_by|length|default:"5" }}</span>
                     <br/>
                     <span style="font-size: 1.3em;">Followers</span>
             </div>                
@@ -106,13 +106,17 @@
             <div class="row-fluid user_opportunities">
                 <h3>Opportunties</h3>
                 {% for opp in opps %}
-                    {% include "includes/opportunity-pane.html" %}
+                    <div class="row-fluid">
+                        {% include "includes/opportunity-pane-small.html" %}
+                    </div>
                 {% endfor %}
             </div>
             <div class='row-fluid user_projects_followed'>
                 <h3>Projects</h3>
                  {% for project in projects %}
-                    {% include "includes/project-pane.html" %}
+                     <div class="row-fluid">
+                        {# {% include "includes/project-pane-small.html" %} #}
+                     </div>
                 {% endfor %}
             </div>
         </div>
