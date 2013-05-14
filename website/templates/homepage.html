@@ -17,13 +17,14 @@
     .home_feature_slider {
         background: url('/static/images/home-banner.png');
         background-size: 1500px 500px;
+        margin: 0 0 20px;
         height: 375px;
     }
-    
-    .projects_row {
-        margin-top: 30px;
-    }
 
+    .home-search {
+        margin: 0 0 20px;
+    }
+    
     footer {
         margin-top: 30px;
     }
@@ -66,7 +67,20 @@
 {% endblock %}
 
 {% block maincontent %}
-    
+    <div class="row-fluid home-search">
+        <form action="" method="post">{% csrf_token %}
+                <input type="text"  name="search" id="search" value="Search..."onclick="if(this.value=='Search...'){this.value=''}"
+                onblur="if(this.value==''){this.value='Search...'}">
+                <select name="opp_type" id="opp_type">
+                <option value="">Search By:</option>
+                <option value="Skills">Skill set</option>
+                <option value="Knowledge">Knowledge</option>
+                <option value="Equipment">Equipment</option>
+                <option value="Money">Money</option>
+                </select>
+                <input type="submit" class="btn btn-primary" value="Search" style="margin-top:-10px;margin-left:10px;">
+        </form>
+    </div>
     <div class="row projects_row">
         {% for project in projects %}
             {% include "includes/project-pane.html" %}
