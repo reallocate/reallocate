@@ -1,0 +1,13 @@
+<div class="row project_small" project_id="{{ project.id }}">
+     <div class="fluid-row">
+        <a href="/project/{{ project.id }}">
+             <span style="font-size:12px;"><strong>{{ project.name }}</strong></span>
+        </a>
+        <span style="font-size:10px;font-weight:800;">&nbsp;&nbsp;&nbsp;60% complete</span>
+     </div>
+     <div class="fluid-row">
+        <a href="/project/{{ project.id }}">
+            <div class="project_img_small" style="background-image:url({{ project.media_url }});"></div>
+        </a>
+     </div>
+</div>
