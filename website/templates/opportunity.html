@@ -123,7 +123,7 @@
                                 <div class="give-icons"><i class="icon-fighter-jet icon-4x"></i><br/>Skills</div>
                             {% endif %}
                             
-                            {% if opportunity.opp_type == 'skills' %}
+                            {% if opportunity.opp_type == 'knowledge' %}
                                 <div class="give-icons"><i class="icon-book icon-4x"></i><br/>Knowledge</div>
                             {% endif %}
                         
@@ -243,41 +243,42 @@
                 <div class="span4" id="related_opp_list">
                     <h3>Related Opportunities</h3>
                     
-                    <div class="oppWell">
+                    
                         {% for opp in other_opps%}
-                        <div class="oppContainer">
-                            <div class="oppText">
-                                <h4>{{opp.name}}
-                                
-                                <div class="opp-skill-icons">
-                                    {% if opportunity.opp_type == 'skills' %}
-                                        <i class="icon-fighter-jet icon-2x"></i>
-                                    {% endif %}
+                            <div class="oppWell">
+                            <div class="oppContainer">
+                                <div class="oppText">
+                                    <h4>{{opp.name}}
                                     
-                                    {% if opportunity.opp_type == 'skills' %}
-                                        <div class="give-icons"><i class="icon-book icon-2x"></i><br/>Knowledge</div>
-                                    {% endif %}
-                                
-                                    {% if opportunity.opp_type == 'equipment' %}
-                                        <div class="icon-cogs icon-1x"></div>
-                                    {% endif %}
-                                
-                                    {% if opportunity.opp_type == 'money' %}
-                                        <div class="give-icons"><i class="icon-money icon-2x"></i><br/>Money</div>
-                                    {% endif %}
+                                    <div class="opp-skill-icons">
+                                        {% if opp.opp_type == 'skills' %}
+                                            <i class="icon-fighter-jet icon-2x"></i>
+                                        {% endif %}
+                                        
+                                        {% if opp.opp_type == 'knowledge' %}
+                                            <i class="icon-book icon-2x"></i>
+                                        {% endif %}
+                                    
+                                        {% if opp.opp_type == 'equipment' %}
+                                            <i class="icon-cogs icon-2x"></i>
+                                        {% endif %}
+                                    
+                                        {% if opp.opp_type == 'money' %}
+                                            <i class="icon-money icon-2x"></i>
+                                        {% endif %}
+                                    </div>
+                                    
+                                    </h4>
+                                    <div class="oppDescription"> {{opp.short_desc|safe|truncatewords:15}}</div>
+                                    <div class="oppLink">
+                                        <a class="btn btn-primary" href="/opportunity/{{opp.id}}">Get Involved</a>
+                                    </div>
+                                    <br/>
                                 </div>
-                                
-                                </h4>
-                                <div class="oppDescription"> {{opp.short_desc|safe|truncatewords:15}}</div>
-                                <div class="oppLink">
-                                    <a class="btn btn-primary" href="/opportunity/{{opp.id}}">Get Involved</a>
-                                </div>
-                                <br/>
                             </div>
                             </div>
-                        </div>
                         {% endfor %}
-                    </div>
+                    
                 </div>  
             </div>
         </div><!-- -->
