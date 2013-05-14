@@ -38,7 +38,6 @@ class OrganizationForm(ModelForm):
 class Project(models.Model):
     organization = models.ForeignKey(Organization)
     name = models.CharField(max_length=100, blank=True)
-    cause = models.CharField(max_length=100, blank=True)
     status = models.CharField(max_length=100, choices=STATUS_CHOICES, default='unpublished')
     industry = models.CharField(max_length=100, blank=True)
     date_created = models.DateTimeField(auto_now_add=True)
