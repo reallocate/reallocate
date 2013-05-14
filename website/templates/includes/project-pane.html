@@ -14,7 +14,7 @@
         cursor: pointer;
     }
     .projectImage {
-        height: 277px;
+        height: 168px;
         overflow: hidden;        
         position: relative;
     }
@@ -71,7 +71,9 @@
         
 <div class="span4">
     <div class="projectContainer" type="project" project_id="{{ project.id }}">
-        <div class="projectImage" style="background-image: url('{{ project.media_url }}'); background-size: 370px 277px; background-repeat: no-repeat;">
+        <div class="projectImage" style="background-image: url('{{ project.media_url }}'); background-size: 300px 168px; background-repeat: no-repeat;">          
+            
+        </div>
             <div class="projectText">
                 <div class="projectName">{{project.name}}</div>
                 <div class="short_desc">
@@ -81,26 +83,25 @@
                     <div class="icon-globe organization"></div><a href="">Organization</a>
                     <div class="icon-map-marker location"></div><a href="">San Francisco, CA</a>
                 </div>
-        <div class="row-fluid" id="opportunityTypes">
-            <div class="stat span3">
-                <div id="num-following" class="text-center number">5</div>
-                <div class="stat-label text-center">Donations</div>
-            </div>
-            <div class="stat span3">
-                <div class="text-center number">13</div>
-                <div class="stat-label text-center">Skills</div>
-            </div>
-            <div class="stat span3">
-                <div class="text-center number">2</div>
-                <div class="stat-label text-center">Equipment</div>
-            </div>
-            <div class="stat span3">
-                <div class="text-center number">3</div>
-                <div class="stat-label text-center">Knowledge</div>
-            </div>
-        </div>
+                <div class="row-fluid" id="opportunityTypes">
+                    <div class="stat span3">
+                        <div id="num-following" class="text-center number">5</div>
+                        <div class="stat-label text-center">Donations</div>
+                    </div>
+                    <div class="stat span3">
+                        <div class="text-center number">13</div>
+                        <div class="stat-label text-center">Skills</div>
+                    </div>
+                    <div class="stat span3">
+                        <div class="text-center number">2</div>
+                        <div class="stat-label text-center">Equipment</div>
+                    </div>
+                    <div class="stat span3">
+                        <div class="text-center number">3</div>
+                        <div class="stat-label text-center">Knowledge</div>
+                    </div>
+                </div>
             </div>    
 
-        </div>
     </div>
 </div>
