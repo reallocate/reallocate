@@ -43,7 +43,7 @@
     "fields": {
       "user" : 1,
       "bio" : "This is a bio",
-      "media_url" : " ",
+      "media_url" : "",
       "organization" : 1
 
     }
@@ -55,7 +55,7 @@
     "fields": {
       "user" : 2,
       "bio" : "This is a second bio",
-      "media_url" : " "
+      "media_url" : ""
 
     }
   },
