@@ -110,6 +110,10 @@
     "fields": {
       "organization" : 1,
       "name" : "Cordova Community Cold Storage",
+      "cause": "Sustainable Food",
+      "city" : "Cordova",
+      "state" : "AK",
+      "country" : "United States",
       "date_created": "2013-01-01 05:00",
       "status" : "published",
       "industry" : "Fishing",
@@ -126,6 +130,10 @@
     "fields": {
       "organization" : 1,
       "name" : "ReAllocate",
+      "cause": "Greater Good",
+      "city" : "San Francisco",
+      "state" : "CA",
+      "country" : "United States",
       "date_created": "2013-01-01 05:00",
       "status" : "published",
       "industry" : "non profit",
@@ -142,6 +150,10 @@
     "fields": {
       "organization" : 2,
       "name" : "Miracle Brace",
+      "cause": "Health and Medicine",
+      "city" : "Carrboro",
+      "state" : "NC",
+      "country" : "United States",
       "date_created": "2013-01-01 05:00",
       "status" : "published",
       "industry" : "non profit",
