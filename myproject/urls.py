@@ -34,7 +34,7 @@ urlpatterns = patterns('',
                        
                        url(r'^login', 'website.views.login_user', name='login_user'),
 
-                       url(r'^user/(?P<username>[^/]+)', 'website.views.user', name='show_user'), # public view
+                       url(r'^public_profile/(?P<username>[^/]+)', 'website.views.public_profile', name='public_profile'), # public view
                        url(r'^profile', 'website.views.profile', name='profile'), # private settings page
 
                        # pay-pal receiver

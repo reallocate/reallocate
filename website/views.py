@@ -51,15 +51,16 @@ def profile(request):
         'topmsg': topmsg,
     }, context_instance=RequestContext(request))
 
-def user(request, username=None):
+def public_profile(request, username=None):
     user = User.objects.filter(Q(email=username) | Q(username=username))
     user_profile = UserProfile.objects.filter(Q(user=user))
-    if len(user_profile) > 0:
-        return render_to_response('user.html', {'profile': user_profile[0] },
-                                  context_instance=RequestContext(request))
-    else:
-        return render_to_response('nosuchuser.html', {'username': "name " + username  },
-                                  context_instance=RequestContext(request))
+    context = base.build_base_context(request)
+    if len(user_profile) < 1:
+        context['username'] = 'name ' + username
+        return render_to_response('nosuchuser.html', context, context_instance=RequestContext(request))
+    context['profile'] = user_profile[0]
+    return render_to_response('public_profile.html', context, context_instance=RequestContext(request))
+    
 
 def login_page(request):
     return render_to_response('login.html', {
