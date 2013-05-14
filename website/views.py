@@ -61,16 +61,6 @@ def user(request, username=None):
         return render_to_response('nosuchuser.html', {'username': "name " + username  },
                                   context_instance=RequestContext(request))
 
-def user_by_id(request, uid=None):
-    user = User.objects.filter(Q(id=uid))
-    user_profile = UserProfile.objects.filter(Q(user=user))
-    if len(user_profile) > 0:
-        return render_to_response('user.html', {'profile': user_profile[0] },
-                                  context_instance=RequestContext(request))
-    else:
-        return render_to_response('nosuchuser.html', {'username': "ID " + uid },
-                                  context_instance=RequestContext(request))
-
 def login_page(request):
     return render_to_response('login.html', {
         'a': 'a',
