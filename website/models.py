@@ -38,6 +38,10 @@ class OrganizationForm(ModelForm):
 class Project(models.Model):
     organization = models.ForeignKey(Organization)
     name = models.CharField(max_length=100, blank=True)
+    cause = models.CharField(max_length=100, blank=True)
+    city = models.CharField(max_length=100, blank=True)
+    state = models.CharField(max_length=100, blank=True)
+    country = models.CharField(max_length=100,blank=True)
     status = models.CharField(max_length=100, choices=STATUS_CHOICES, default='unpublished')
     industry = models.CharField(max_length=100, blank=True)
     date_created = models.DateTimeField(auto_now_add=True)
@@ -133,5 +137,6 @@ class OpportunityEngagement(models.Model):
     user = models.ForeignKey(User)
     opportunity = models.ForeignKey(Opportunity)
     date_created = models.DateField(auto_now_add=True)
-    status = models.CharField(max_length=100, choices=STATUS_CHOICES) # this will be where the opp engagements can be approved
-    # response = models.CharField(max_length=2000) # response to the engagement
+     # this will be where the opp engagements can be approved
+    status = models.CharField(max_length=100, choices=STATUS_CHOICES, default=STATUS_CHOICES[0][0])
+    # response = models.CharField(max_length=2000, blank=True) # response to the engagement

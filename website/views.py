@@ -243,7 +243,8 @@ def engage(request, pid=1):
     # todo - deal with money type => donations rather than a freeform response
     if request.method == "POST":
         response = request.POST.get("response", "")
-        OpportunityEngagement(user=request.user, opportunity=opp, response=response).save()
+        print response # TODO: add response to this object - was breaking the db save
+        OpportunityEngagement(user=request.user, opportunity=opp).save()
         topmsg = 'Thanks for your engagement - a project leader will get back to you as soon as possible'
         return HttpResponseRedirect("/opportunity/" + str(opp.id) + "?topmsg=" + topmsg)
     

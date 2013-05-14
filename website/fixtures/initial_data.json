@@ -110,6 +110,10 @@
     "fields": {
       "organization" : 1,
       "name" : "Cordova Community Cold Storage",
+      "cause": "Sustainable Food",
+      "city" : "Cordova",
+      "state" : "AK",
+      "country" : "United States",
       "date_created": "2013-01-01 05:00",
       "status" : "published",
       "industry" : "Fishing",
@@ -126,6 +130,10 @@
     "fields": {
       "organization" : 1,
       "name" : "ReAllocate",
+      "cause": "Greater Good",
+      "city" : "San Francisco",
+      "state" : "CA",
+      "country" : "United States",
       "date_created": "2013-01-01 05:00",
       "status" : "published",
       "industry" : "non profit",
@@ -142,6 +150,10 @@
     "fields": {
       "organization" : 2,
       "name" : "Miracle Brace",
+      "cause": "Health and Medicine",
+      "city" : "Carrboro",
+      "state" : "NC",
+      "country" : "United States",
       "date_created": "2013-01-01 05:00",
       "status" : "published",
       "industry" : "non profit",
@@ -286,6 +298,15 @@
       "short_desc": "Can you help us interview doctors around the world and gather knowledge about the best treatments available for addressing clubfoot?",
       "description": "We need help from an engineering expert to interview doctors who are working on treating clubfoot. We need to determine from their experience what needs to be included in a new bracing system",
       "media_url": "http://www.presenttensejournal.org/wp-content/uploads/2012/10/Doctors_Meeting2.jpg"
+    }
+  },
+  { "pk": 1,
+    "model": "website.OpportunityEngagement",
+    "fields": {
+      "status": "Unpublished",
+      "date_created": "2013-05-13",
+      "opportunity": 1,
+      "user": 1
     }
   },
   {
