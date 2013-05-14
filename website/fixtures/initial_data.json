@@ -288,6 +288,15 @@
       "media_url": "http://www.presenttensejournal.org/wp-content/uploads/2012/10/Doctors_Meeting2.jpg"
     }
   },
+  { "pk": 1,
+    "model": "website.OpportunityEngagement",
+    "fields": {
+      "status": "Unpublished",
+      "date_created": "2013-05-13",
+      "opportunity": 1,
+      "user": 1
+    }
+  },
   {
     "pk": 1,
     "model": "website.Update",
