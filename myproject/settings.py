@@ -260,7 +260,7 @@ AUTHENTICATION_BACKENDS = (
 
 # Redirects after login
 LOGIN_URL = '/login/'
-LOGIN_REDIRECT_URL = '/find-opportunity'
+LOGIN_REDIRECT_URL = '/'
 #LOGIN_ERROR_URL = '/login-error/'
 #LOGOUT_URL= '/accounts/logout/'
 
