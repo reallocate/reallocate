@@ -24,20 +24,17 @@ urlpatterns = patterns('',
                        url(r'^project/(?P<pid>\d+)', 'website.views.view_project', name='view_project'),
 
                        url(r'^add_opportunity', 'website.views.add_opportunity', name='add_opportunity'),
-                       url(r'^opportunity/(?P<pid>\d+)', 'website.views.view_opportunity', name='view_opportunity'),
  
-                       url(r'^opportunity/(?P<pid>\d+)$', 'website.views.view_opportunity', name='view_opportunity'),
                        url(r'^opportunity/(?P<pid>\d+)/engage', 'website.views.engage', name='engage'),
+                       url(r'^opportunity/(?P<pid>\d+)$', 'website.views.view_opportunity', name='view_opportunity'),
 
                        url(r'^ajax/modify_project_relation', 'website.ajaxviews.modify_project_relation', name='modify_project_relation'),
                        url(r'^ajax/add-update', 'website.ajaxviews.add_update', name='add_update'),
                        
                        url(r'^login', 'website.views.login_user', name='login_user'),
 
-                       url(r'^user/(?P<username>[^/]+)', 'website.views.user', name='show_user'),
-
-                       url(r'^profile/(?P<uid>\d+)', 'website.views.user_by_id', name='show_user_by_id'),
-                       url(r'^profile', 'website.views.profile', name='profile'),
+                       url(r'^public_profile/(?P<username>[^/]+)', 'website.views.public_profile', name='public_profile'), # public view
+                       url(r'^profile', 'website.views.profile', name='profile'), # private settings page
 
                        # pay-pal receiver
                        url(r'^paypal', 'website.paypal.receive_paypal', name='paypal'),

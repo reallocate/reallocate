@@ -1,0 +1,121 @@
+{% extends 'theme/base.html' %}
+
+{% block extra_css %}
+    <style>
+        .project-name{
+            font-size:16px;
+            font-weight:800;
+        }
+        input, textarea{
+            width:350px;
+        }
+        .profile_info_header{
+            text-align:right;
+            font-size:16px;
+        }
+        .profile_numbers {
+            width: 100%;
+            margin-top:20px;
+            background-color: #1c6845;
+            background-image:url(/static/images/bgtexture2.png);
+            color: #FFF;
+        }
+    </style>
+{% endblock %}
+
+{% block widecontent %}
+    
+<!-- Header: Profile Info -->
+<div class="container">
+    <div class="row-fluid" style="min-height:300px;">
+        <div class="span3 user-image">
+            <img style="width: 215px; height: 215px; border-radius: 50%;" src="/static/images/no-profile-image.png" alt="Avatar for {{ profile.user|escape }}"/>
+        </div>       
+        <div class="span6">
+            <div class="user-username">
+                <h3>{{ profile.user.first_name }} {{ profile.user.last_name }}</h3>
+            </div>
+            <div class="row-fluid">
+                <div class="span3 profile_info_header"><strong>Location:</strong></div>
+                <div class="span8 offset1">San Francisco, CA</div>
+            </div>
+            <div class="row-fluid">
+                <div class="span3 profile_info_header"><strong>Occupation:</strong></div>
+                <div class="span8 offset1">Renaissance Man</div>
+            </div>
+            <div class="row-fluid">
+                <div class="span3 profile_info_header"><strong>Skills:</strong></div>
+                <div class="span8 offset1">Industrial Design, Prototyping, 3D Printing</div>
+            </div>
+            <div class="row-fluid">
+                <div class="span3 profile_info_header"><strong>Bio:</strong></div>
+                <div class="span8 offset1" style="overflow: auto;">{{profile.bio | escape}}</div>
+            </div>
+        </div>
+        <div class="span3" style="margin-top: 20px;">
+            <div class="row-fluid">
+                <a class="btn btn-primary followed_user" href="#">Follow User</a>
+            </div>
+            <div class="row-fluid" style="padding-left:3px;">
+                <a class="" href="#"><h6>Linkedin profile</h6></a>
+                <a class="" href="#"><h6>Facebook profile</h6></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Top Line Numbers on Profile -->
+<div class="profile_numbers">
+    <div class="row-fluid">
+        <div class="span8 offset2" style="padding: 20px;">
+            <div class="span3" style="text-align: center;">
+                    <span style="font-size: 3.5em;">{{ projects|length }}</span>
+                    <br/>
+                    <span style="font-size: 1.3em;">Projects</span>
+            </div>
+            <div class="span3" style="text-align: center;">
+                    <span style="font-size: 3.5em;">{{ opps|length }}</span>
+                    <br/>
+                    <span style="font-size: 1.3em;">Opportunities</span>
+            </div>
+            <div class="span3" style="text-align: center;">
+                    <span style="font-size: 3.5em;">{{ profile.following|length|default:"0" }}</span>
+                    <br/>
+                    <span style="font-size: 1.3em;">Following</span>
+            </div>
+            <div class="span3" style="text-align: center;">
+                    <span style="font-size: 4em;"> {{ profile.followed_by|length|default:"0" }}</span>
+                    <br/>
+                    <span style="font-size: 1.3em;">Followers</span>
+            </div>                
+        </div>
+    </div>
+</div>
+
+<!-- Updates, Opps, and Projects -->
+<div class="container">
+    <div class="row-fluid" style="margin-top: 25px;">
+        <div class="span9 user_activity">
+            <h2>Recent Activity</h2>
+            {% for activity in recent_activity %}
+                {# {% include "includes/activity-pane.html" %} #}
+                posts, and engagements
+            {% endfor %}
+        </div>
+        <div class="span3">
+            <div class="row-fluid user_opportunities">
+                <h3>Opportunties</h3>
+                {% for opp in opps %}
+                    {% include "includes/opportunity-pane.html" %}
+                {% endfor %}
+            </div>
+            <div class='row-fluid user_projects_followed'>
+                <h3>Projects</h3>
+                 {% for project in projects %}
+                    {% include "includes/project-pane.html" %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
