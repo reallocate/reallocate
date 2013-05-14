@@ -43,7 +43,7 @@
     "fields": {
       "user" : 1,
       "bio" : "This is a bio",
-      "media_url" : " ",
+      "media_url" : "",
       "organization" : 1
 
     }
@@ -55,7 +55,7 @@
     "fields": {
       "user" : 2,
       "bio" : "This is a second bio",
-      "media_url" : " "
+      "media_url" : ""
 
     }
   },
@@ -116,7 +116,8 @@
       "short_desc": "Food independence for rural Alaskans",
       "description" : "<p>All of rural Alaska faces the challenge of maintaining a high-quality subsistence food supply. Lacking variety and regular availability, it becomes difficult to train young taste buds and impossible to avoid highly-processed and expensive commercial alternatives. At the same time, cottage industries in Alaska have a problem producing high-quality food products for sale because the processing and packaging equipment are built (and priced!) for larger operations. In Cordova, these barriers mean that fewer than 25 of the 550 Copper River Delta commercial fishermen are direct-marketing their salmon; instead, they sell their entire catch for low prices to canneries or outside cash buyers.</p><p>To address these problems, EPC is helping individuals and businesspeople to create a Cordova Community Cold Storage and Cookery (CCCS). We will offer processing tables, a vacuum sealer, a blast freezer, cooler space, and a place to package finished products safely and efficiently. CCCS users will be able to safely dress, process, smoke and preserve subsistence foods including seafoods, shellfish, red meats, and plants and berries. Because the CCCS will be a Department of Environmental Conservation approved facility, small commercial producers will also be able to share its use.</p><p>In October 2007, Alaska Federation of Natives chose the CCCS as one of the top four business concepts in the Alaska Marketplace competition. We are developing a business plan and investigating energy saving systems such as solar, wind and tidal power sources to help reduce energy costs, as these represent one of the most significant financial hurdles to such a facility. If CCCS pencils out as expected, additional funding will be needed for final design of the facility, start-up capital, and purchase of equipment. Help us with support for this state-of-the-art subsistence model. Communities all over should have them!</p>",
       "media_url" : "http://i.imgur.com/TuyR3Ey.jpg",
-      "created_by": 1
+      "created_by": 1,
+      "followed_by": [1, 2]
     }
   },
   {
@@ -131,7 +132,8 @@
       "short_desc": "World class talent, real world problems",
       "description" : "<p>Creating meaning through innovation. Connecting meaningful projects with innovators who want to make a difference.</p>",
       "media_url" : "http://i.imgur.com/HPERK6q.jpg",
-      "created_by": 1
+      "created_by": 1,
+      "followed_by": [1, 2]
     }
   },
     {
@@ -146,7 +148,8 @@
       "short_desc": "Treating clubfoot one step at a time",
       "description" : "<p>Creating an innovative brace to cure children with clubfoot around the world.</p><p>Clubfoot is a congenital deformity that results in inwardly rotated feet at the ankles. It is a common disorder which affects one in every 750 babies born, and results in over 200,000 children born with clubfoot every year. Because 80% of cases occur in developing countries, families often do not have access to, or are unable to afford the treatment to correct clubfoot. For affected children, the Miracle Brace is a life-changing piece of technology that allows them to run, play, and live their lives free of handicap.</p><p>miraclefeet, a nonprofit dedicated to finding a non-surgical approach to healing clubfoot, approached ReAllocate with a project. miraclefeet's mission was to design an easy-to-produce, low-cost brace; what is now the Miracle Brace, so that children born with clubfoot have the chance to walk. ReAllocate collaborated with Autodesk, Objet, and TechShop SF to provide the resources that met the needs of miraclefeet.</p><p>With the help of miraclefeet, ReAllocate worked with orthopedic surgeons and clinicians in Nicaragua to better understand the project's cost and resource parameters and to communicate those parameters with ReAllocate's production partners, Autodesk and Objet.</p><p>ReAllocate recruited the help of Billy Wheeler at Autodesk. Using Inventor, Autodesk's 3D CAD software, Billy Wheeler and Dr. Mike North drafted several digital prototypes for the new brace. Bruce Bradshaw with Objet provided 3D printers and printing materials to produce each prototype of the Miracle Brace</p><p>As a part of the development process, Dr. North traveled to Nicaragua with miraclefeet to test the prototypes with children and doctors affected by clubfoot.</p><p>ReAllocate and miraclefeet's co-patented invention, the Miracle Brace, has created an avalanche of support for miraclefeet; this includes significant financial contributions to miraclefeet, as well as partnerships with Stanford, Clarks Shoes, and a major injection molding company.</p><p>Thanks to the collaboration of an amazing team of engineers and partners, miraclefeet using the Miracle Brace is now on its way to making major impact around the world.</p>",
       "media_url" : "http://b.vimeocdn.com/ts/284/689/284689084_640.jpg",
-      "created_by": 1
+      "created_by": 1,
+      "followed_by": [1, 2]
     }
   },
     {
@@ -154,7 +157,7 @@
     "pk": 1,
     "fields": {
       "organization" : 1,
-      "project": "2",
+      "project": 2,
       "date_created": "2013-01-01 05:00",
       "name": "Create Energy Plan",
       "opp_type": "equipment",
@@ -169,7 +172,7 @@
     "pk": 2,
     "fields": {
       "organization" : 1,
-      "project": "2",
+      "project": 2,
       "date_created": "2013-01-01 05:00",
       "name": "Donate Materials",
       "opp_type": "money",
@@ -184,7 +187,7 @@
     "pk": 3,
     "fields": {
       "organization" : 2,
-      "project": "4",
+      "project": 4,
       "date_created": "2013-01-01 05:00",
       "name": "Design Product with CAD",
       "opp_type": "skills",
@@ -199,7 +202,7 @@
     "pk": 4,
     "fields": {
       "organization" : 1,
-      "project": "3",
+      "project": 3,
       "date_created": "2013-01-01 05:00",
       "name": "Build a web Marketplace",
       "opp_type": "skills",
@@ -215,7 +218,7 @@
     "pk": 5,
     "fields": {
       "organization" : 2,
-      "project": "4",
+      "project": 4,
       "date_created": "2013-01-01 05:00",
       "name": "Build a Prototype",
       "opp_type": "skills",
@@ -230,7 +233,7 @@
     "pk": 6,
     "fields": {
       "organization" : 2,
-      "project": "4",
+      "project": 4,
       "date_created": "2013-01-01 05:00",
       "name": "Donate Material List",
       "opp_type": "money",
@@ -245,7 +248,7 @@
     "pk": 7,
     "fields": {
       "organization" : 2,
-      "project": "4",
+      "project": 4,
       "date_created": "2013-01-01 05:00",
       "name": "Donate Travel",
       "opp_type": "money",
@@ -260,7 +263,7 @@
     "pk": 8,
     "fields": {
       "organization" : 2,
-      "project": "4",
+      "project": 4,
       "date_created": "2013-01-01 05:00",
       "name": "Donate a 3D Printer",
       "opp_type": "equipment",
@@ -275,7 +278,7 @@
     "pk": 9,
     "fields": {
       "organization" : 2,
-      "project": "4",
+      "project": 4,
       "date_created": "2013-01-01 05:00",
       "name": "Research the Needs",
       "opp_type": "knowledge",

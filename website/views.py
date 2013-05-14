@@ -59,6 +59,8 @@ def public_profile(request, username=None):
         context['username'] = 'name ' + username
         return render_to_response('nosuchuser.html', context, context_instance=RequestContext(request))
     context['profile'] = user_profile[0]
+    context['opps'] = Opportunity.objects.filter(engaged_by=user)
+    context['projects'] = Project.objects.filter(followed_by=user)
     return render_to_response('public_profile.html', context, context_instance=RequestContext(request))
     
 
@@ -174,7 +176,7 @@ def view_opportunity(request, pid):
     
     if request.user.is_authenticated():
         context['is_engaged'] = request.user in opp.engaged_by.all()
-
+        context['is_following'] = request.user in project.followed_by.all()
     return render_to_response('opportunity.html', context, context_instance=RequestContext(request))
 
 @login_required
