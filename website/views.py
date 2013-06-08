@@ -185,7 +185,7 @@ def view_opportunity(request, pid):
     if context['logged_in']:
         context['is_following'] = request.user in project.followed_by.all()
         try:
-            user_engagement = OpportunityEngagement.objects.filter(opportunity=opp, user=request.user).get()
+            user_engagement = OpportunityEngagement.objects.get(opportunity=opp, user=request.user)
         except ObjectDoesNotExist:
             user_engagement = None
         if user_engagement:
