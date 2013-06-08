@@ -5,6 +5,10 @@ from django.db.models.signals import post_save
 from taggit.managers import TaggableManager
 
 STATUS_CHOICES = (('Unpublished', 'Unpublished'), ('Active', 'Active'), ('Closed', 'Closed'))
+STATUS_INACTIVE = STATUS_CHOICES[0][0]
+STATUS_ACTIVE = STATUS_CHOICES[1][0]
+STATUS_CLOSED = STATUS_CHOICES[2][0]
+
 class Organization(models.Model):
     name = models.CharField(max_length=100, blank=True)
     business_type = models.CharField(max_length=100, blank=True, default='nonprofit')

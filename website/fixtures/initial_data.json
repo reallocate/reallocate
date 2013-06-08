@@ -303,7 +303,7 @@
   { "pk": 1,
     "model": "website.OpportunityEngagement",
     "fields": {
-      "status": "Unpublished",
+      "status": "Active",
       "date_created": "2013-05-13",
       "opportunity": 1,
       "user": 1
