@@ -5,6 +5,16 @@
 ##################
 import os
 
+DEBUG = False
+
+#############
+# DATABASES #
+#############
+# Parse database configuration from $DATABASE_URL
+import dj_database_url
+DATABASES = {'default': dj_database_url.config(default='sqlite:/data.db')}
+
+
 # OAuth keys for Social Auth
 TWITTER_CONSUMER_KEY = ''
 TWITTER_CONSUMER_SECRET = ''
@@ -28,7 +38,8 @@ SKYROCK_CONSUMER_KEY = ''
 SKYROCK_CONSUMER_SECRET = ''
 YAHOO_CONSUMER_KEY = ''
 YAHOO_CONSUMER_SECRET = ''
-
+AWS_ACCESS_KEY_ID = ''
+AWS_SECRET_ACCESS_KEY = ''
 
 GOOGLE_OAUTH2_AUTH_EXTRA_ARGUMENTS = {'access_type': 'offline'}
 GOOGLE_EXTRA_DATA = [('oauth_token', 'oauth_token')]
@@ -47,10 +58,8 @@ LINKEDIN_EXTRA_DATA = [('id', 'id'),
                        ('headline', 'headline'),
                        ('industry', 'industry')]
 
-AWS_ACCESS_KEY_ID = ''
-AWS_SECRET_ACCESS_KEY = ''
 
-    
+
 # email settings
 EMAIL_BACKEND = 'django_ses.SESBackend'
 FROM_EMAIL = "Reallocate <noreply@reallocate.org>"
@@ -61,13 +70,8 @@ ADMIN_EMAIL = "admin@reallocate.org"
 #########
 
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
 APP_NAME = 'reallocate'
 S3_BUCKET = AWS_STORAGE_BUCKET_NAME ='production-reallocate'
-
-
-DEBUG = False
-TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
@@ -286,6 +290,17 @@ if 'DEPLOY_ENV' in os.environ and os.environ['DEPLOY_ENV'] != 'local':
     AWS_STORAGE_BUCKET_NAME = S3_BUCKET
     AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
     AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
+    
+    FACEBOOK_APP_ID = os.environ['FACEBOOK_APP_ID']
+    FACEBOOK_API_SECRET = os.environ['FACEBOOK_API_SECRET']
+    GOOGLE_OAUTH2_CLIENT_ID = os.environ['GOOGLE_OAUTH2_CLIENT_ID']
+    GOOGLE_OAUTH2_CLIENT_SECRET = os.environ['GOOGLE_OAUTH2_CLIENT_SECRET']
+    
+    GOOGLE_OAUTH2_AUTH_EXTRA_ARGUMENTS = os.environ['GOOGLE_OAUTH2_AUTH_EXTRA_ARGUMENTS']
+    GOOGLE_EXTRA_DATA = os.environ['GOOGLE_EXTRA_DATA']
+    GOOGLE_SREG_EXTRA_DATA = os.environ['GOOGLE_SREG_EXTRA_DATA']
+    GOOGLE_AX_EXTRA_DATA = os.environ['GOOGLE_AX_EXTRA_DATA']
+
 else:
     try:
         from settings_local import *
@@ -294,13 +309,9 @@ else:
       print 'You must create a settings_local.py file!'
       print ''
       pass
-    
-#############
-# DATABASES #
-#############
-# Parse database configuration from $DATABASE_URL
-import dj_database_url
-DATABASES = {'default': dj_database_url.config(default='sqlite:/data.db')}
 
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+TEMPLATE_DEBUG = DEBUG
+DEBUG_PROPAGATE_EXCEPTIONS = DEBUG
