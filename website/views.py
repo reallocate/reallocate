@@ -93,6 +93,11 @@ def signup(request):
 
     user = authenticate(username=email, password=password)
     login(request, user)
+    
+    email_context = {'email': email, 'user': user}
+    resp = base.send_email_template("welcome", email_context, "subject", [settings.ADMIN_EMAIL, email])
+    if resp: # resp = (html_content, text_content) - for local development
+        return HttpResponse(content=resp[0])
     return HttpResponseRedirect(settings.POST_LOGIN_URL)
 
 @csrf_exempt

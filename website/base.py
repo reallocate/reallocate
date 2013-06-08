@@ -30,6 +30,8 @@ def send_email_template(email_type, context, subject, recipients, *kwargs):
         text_content = re.sub("<[^a].*?>", "", html_content)
     # TODO: check to see if recipient user acct wants this email type based on settings
     # or should this be done by the caller?
+    if DEPLOY_ENV != 'local':
+        return html_content, text_content
     send_email(recipients, subject, text_content, html_content=html_content, *kwargs)
 
 def send_email(recipients, subject, text_content, html_content=None, from_email=FROM_EMAIL, headers=None):
