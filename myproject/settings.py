@@ -300,11 +300,7 @@ if 'DEPLOY_ENV' in os.environ and os.environ['DEPLOY_ENV'] != 'local':
     AWS_STORAGE_BUCKET_NAME = S3_BUCKET
     AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
     AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
-    
-    DATABASES['default']['NAME'] = os.environ['DB_NAME']
-    DATABASES['default']['USER'] = os.environ['DB_USER']
-    DATABASES['default']['PASSWORD'] = os.environ['DB_PASSWORD']
-    DATABASES['default']['HOST'] = os.environ['DB_HOST']
+
 else:
     try:
         from settings_local import *
