@@ -35,7 +35,7 @@ var modify_project_relation = function(elem, action){
    });
 }
     
-    $('.thumnail_container').click(function() {
+    $('.thumbnail_container').click(function() {
         if ($(this).attr('type') == 'opportunity') {
             window.location.href = '/opportunity/' +  $(this).attr('opportunity_id');
         } else if ($(this).attr('type') == 'project') {
