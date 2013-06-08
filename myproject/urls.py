@@ -28,6 +28,7 @@ urlpatterns = patterns('',
 
                        url(r'^ajax/modify_project_relation', 'website.ajaxviews.modify_project_relation', name='modify_project_relation'),
                        url(r'^ajax/add-update', 'website.ajaxviews.add_update', name='add_update'),
+                       url(r'^ajax/check-available', 'website.ajaxviews.check_available', name=''),
                        
                        url(r'^login', 'website.views.login_user', name='login_user'),
 

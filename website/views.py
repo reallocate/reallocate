@@ -85,6 +85,7 @@ def learn(request):
 def signup(request):
     if request.method == 'GET':
         return render_to_response('signup.html', {}, context_instance=RequestContext(request))
+
     email = request.POST.get('email')
     password = request.POST.get('password')
 
@@ -94,11 +95,9 @@ def signup(request):
 
     user = authenticate(username=email, password=password)
     login(request, user)
+
     
-    email_context = {'email': email, 'user': user}
-    resp = base.send_email_template("welcome", email_context, "subject", [settings.ADMIN_EMAIL, email])
-    if resp: # resp = (html_content, text_content) - for local development
-        return HttpResponse(content=resp[0])
+
     return HttpResponseRedirect(settings.POST_LOGIN_URL)
 
 @csrf_exempt
