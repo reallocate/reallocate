@@ -69,7 +69,7 @@ ADMIN_EMAIL = "admin@reallocate.org"
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 APP_NAME = 'reallocate'
-AWS_STORAGE_BUCKET_NAME = 'production-reallocate'
+S3_BUCKET = AWS_STORAGE_BUCKET_NAME ='production-reallocate'
 
 
 DEBUG = True
