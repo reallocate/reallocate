@@ -288,18 +288,18 @@ if 'DEPLOY_ENV' in os.environ and os.environ['DEPLOY_ENV'] != 'local':
     DEBUG = True if 'DEBUG' in os.environ and os.environ['DEBUG'] == 'True' else False
     S3_BUCKET = os.environ['S3_BUCKET']
     AWS_STORAGE_BUCKET_NAME = S3_BUCKET
-    AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
-    AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
+    AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID'] if 'AWS_ACCESS_KEY_ID' in os.environ else None
+    AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY'] if 'AWS_SECRET_ACCESS_KEY' in os.environ else None
     
-    FACEBOOK_APP_ID = os.environ['FACEBOOK_APP_ID']
-    FACEBOOK_API_SECRET = os.environ['FACEBOOK_API_SECRET']
-    GOOGLE_OAUTH2_CLIENT_ID = os.environ['GOOGLE_OAUTH2_CLIENT_ID']
-    GOOGLE_OAUTH2_CLIENT_SECRET = os.environ['GOOGLE_OAUTH2_CLIENT_SECRET']
+    FACEBOOK_APP_ID = os.environ['FACEBOOK_APP_ID'] if 'FACEBOOK_APP_ID' in os.environ else None
+    FACEBOOK_API_SECRET = os.environ['FACEBOOK_API_SECRET'] if 'FACEBOOK_API_SECRET' in os.environ else None
+    GOOGLE_OAUTH2_CLIENT_ID = os.environ['GOOGLE_OAUTH2_CLIENT_ID'] if 'GOOGLE_OAUTH2_CLIENT_ID' in os.environ else None
+    GOOGLE_OAUTH2_CLIENT_SECRET = os.environ['GOOGLE_OAUTH2_CLIENT_SECRET'] if 'GOOGLE_OAUTH2_CLIENT_SECRET' in os.environ else None
     
-    GOOGLE_OAUTH2_AUTH_EXTRA_ARGUMENTS = os.environ['GOOGLE_OAUTH2_AUTH_EXTRA_ARGUMENTS']
-    GOOGLE_EXTRA_DATA = os.environ['GOOGLE_EXTRA_DATA']
-    GOOGLE_SREG_EXTRA_DATA = os.environ['GOOGLE_SREG_EXTRA_DATA']
-    GOOGLE_AX_EXTRA_DATA = os.environ['GOOGLE_AX_EXTRA_DATA']
+    GOOGLE_OAUTH2_AUTH_EXTRA_ARGUMENTS = os.environ['GOOGLE_OAUTH2_AUTH_EXTRA_ARGUMENTS'] if 'GOOGLE_OAUTH2_AUTH_EXTRA_ARGUMENTS' in os.environ else None
+    GOOGLE_EXTRA_DATA = os.environ['GOOGLE_EXTRA_DATA'] if 'GOOGLE_EXTRA_DATA' in os.environ else None
+    GOOGLE_SREG_EXTRA_DATA = os.environ['GOOGLE_SREG_EXTRA_DATA'] if 'GOOGLE_SREG_EXTRA_DATA' in os.environ else None
+    GOOGLE_AX_EXTRA_DATA = os.environ['GOOGLE_AX_EXTRA_DATA'] if 'GOOGLE_AX_EXTRA_DATA' in os.environ else None
 
 else:
     try:
