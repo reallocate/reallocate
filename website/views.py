@@ -285,7 +285,7 @@ def add_organization(request):
     return render_to_response('add_organization.html', context, context_instance=RequestContext(request))
         
 @login_required
-def add_opportunity(request, oid=None):
+def add_opportunity(request, oid=None, project=None):
     # Create new Opportunity
     project = None
     show_form = True
@@ -296,13 +296,13 @@ def add_opportunity(request, oid=None):
         return HttpResponseRedirect('/add_organization')
     
     # check the DB to see if there are any projects created by this org
-    project = Project.objects.get(organization_id=org)
+    project = Project.objects.filter(organization_id=org.id)
     if not project:
        return HttpResponseRedirect('/add_project')
-        
     
+    project = project[0]
+
     if request.method == "POST":
-        
         myform = OpportunityForm(request.POST)
         opportunity = myform.save(commit=False)
         if myform.is_valid():
@@ -318,7 +318,7 @@ def add_opportunity(request, oid=None):
     return render_to_response('add_opportunity.html', {
         "myform": myform,
         "parent_project": project,
-        "show_form": show_form
+        "show_form": show_form,
     }, context_instance=RequestContext(request))
 
 
@@ -359,3 +359,4 @@ def search(request):
         context['is_engaged'] = request.user in opp.engaged_by.all()
 
     return render_to_response('opportunity.html', context, context_instance=RequestContext(request))
+
