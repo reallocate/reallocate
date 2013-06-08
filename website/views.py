@@ -93,7 +93,12 @@ def signup(request):
 
     user = authenticate(username=email, password=password)
     login(request, user)
-    return HttpResponseRedirect('/find-opportunity')
+    
+    email_context = {'email': email, 'user': user}
+    resp = base.send_email_template("welcome", email_context, "subject", [settings.ADMIN_EMAIL, email])
+    if resp: # resp = (html_content, text_content) - for local development
+        return HttpResponse(content=resp[0])
+    return HttpResponseRedirect(settings.POST_LOGIN_URL)
 
 @csrf_exempt
 def login_user(request):
@@ -107,7 +112,7 @@ def login_user(request):
         if user is not None:
             if user.is_active:
                 login(request, user)
-                return HttpResponseRedirect('/find-opportunity')
+                return HttpResponseRedirect(settings.POST_LOGIN_URL)
             else:
                 state = "Your account is not active, please contact the site admin."
         else:
