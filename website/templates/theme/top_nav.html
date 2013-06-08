@@ -1,3 +1,46 @@
+<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">Login</h3>
+  </div>
+  <div class="modal-body">
+<div class="row-fluid">
+       
+        <div class="span6">
+            <h4>Reallocate.org</h4>
+            {{ state }}
+            <form action="/login/" method="post">
+                Email:
+                <input type="text" name="username" value="{{ username}}" /><br />
+                Password:
+                <input type="password" name="password" value="" /><br />
+        
+                <div class="clearfix"></div><br />
+                <input type="submit" class="btn-primary btn" value="Log In" />
+            </form>
+        </div>    
+        <div class="span6">
+            <h4>Other networks</h4>
+            <a href="{% url "socialauth_begin" 'google' %}" class="btn"><i class="icon-google-plus"></i> Google</a>
+            <br/><br/>
+            <a href="{% url "socialauth_begin" 'facebook' %}" class="btn"><i class="icon-facebook"></i> Facebook</a>    
+            <br/><br/>
+            <a href="{% url "socialauth_begin" 'yahoo' %}" class="btn"><i class="icon-exlamation"></i> Yahoo</a>
+			<br/><br/>
+            <a href="{% url "socialauth_begin" 'linkedin' %}" class="btn"><i class="icon-linkedin"></i> LinkedIn</a>
+            <br /><br />
+            
+</div>
+        </div>
+    </div>
+  </div>
+  <!-- <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+    <button class="btn btn-primary">Save changes</button>
+  </div> -->
+</div>
+
+
 <div class="navbar navbar-fixed-top">
     <div class="navbar-inner">
         <div class="container">
@@ -32,7 +75,7 @@
                             </ul>
                         </li> 
                     {% else %}
-                        <li><a href="/login">Login</a></li>
+                        <li><!--<a href="/login">--><a href="#myModal" role="button" data-toggle="modal">Login</a></li>
                         <li><a href="/signup">Sign Up</a></li>
                     {% endif %}
                 </ul>
@@ -41,3 +84,5 @@
         </div>
     </div>
 </div>
+
+

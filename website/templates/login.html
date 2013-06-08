@@ -9,6 +9,9 @@
 
 {% block maincontent %}
     
+    
+
+    
     <div class="row-fluid">
         <div class="span4 well">
             <h3>Login</h3>
@@ -26,20 +29,14 @@
     
         <div class="span4 offset1">
             <h5>Login with other networks</h5>
-            <a href="{% url "socialauth_begin" 'google' %}">
-                <img src="{{ STATIC_URL }}images/google-icon.png" alt="Google">
-            </a>
+            <a href="{% url "socialauth_begin" 'google' %}" class="button"><i class="icon-google-plus"></i> Google</a>
             <br/><br/>
-            <a href="{% url "socialauth_begin" 'facebook' %}">
-                <img src="{{ STATIC_URL }}images/facebook-icon.png" alt="Facebook">
-            </a>
+            <a href="{% url "socialauth_begin" 'facebook' %}" class="button"><i class="icon-facebook"></i> Facebook</a>    
             <br/><br/>
-            <a href="{% url "socialauth_begin" 'yahoo' %}">
-                <img src="{{ STATIC_URL }}images/yahoo-icon.png" alt="Yahoo">
-            </a>
-            <a href="{% url "socialauth_begin" 'linkedin' %}">
-                <img src="{{ STATIC_URL }}images/linkedin-icon.png" alt="Linkedin">
-            </a>
+            <a href="{% url "socialauth_begin" 'yahoo' %}" class="button"><i class="icon-sign-blank"></i> Yahoo</a>
+			<br/><br/>
+            <a href="{% url "socialauth_begin" 'linkedin' %}" class="button"><i class="icon-linkedin"></i> LinkedIn</a>
+            <br /><br />
         </div>
     </div>
 
