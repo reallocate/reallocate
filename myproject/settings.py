@@ -66,7 +66,7 @@ APP_NAME = 'reallocate'
 S3_BUCKET = AWS_STORAGE_BUCKET_NAME ='production-reallocate'
 
 
-DEBUG = True
+DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
