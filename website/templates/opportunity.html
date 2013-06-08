@@ -143,9 +143,10 @@
                         <i class="icon-twitter icon-2x" style="color: #4e7ac7;"></i>
                         <i class="icon-facebook icon-2x" style="color: #4e7ac7;"></i>
                         
+                        {% if not is_engaged %}
                         <br/><br/>
                         <a class="btn btn-primary btn-large" href='/opportunity/{{ opportunity.id }}/engage'>Engage</a>
-                                
+                        {% endif %}
                             
                     </div>
                 </div>
@@ -193,11 +194,10 @@
                         </div>
                     </div>
                     
-                    
-                    
                     <hr/>
-                    
+
                     <h3>Updates</h3>
+                    {% if is_engaged %}
                     <div class="create_post">
                         <form id="post_update" enctype="multipart/form-data" method="post">
                             <input type="hidden" name="organization_id" value="{{organization.id}}"/>
@@ -214,6 +214,8 @@
                             
                         </form>
                     </div>
+                    {% endif %}
+
                     {% for update in updates%}
                         <div class="row-fluid updateRow">
                             <div class="span2">

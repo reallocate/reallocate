@@ -5,6 +5,16 @@
 ##################
 import os
 
+DEBUG = False
+
+#############
+# DATABASES #
+#############
+# Parse database configuration from $DATABASE_URL
+import dj_database_url
+DATABASES = {'default': dj_database_url.config(default='sqlite:/data.db')}
+
+
 # OAuth keys for Social Auth
 TWITTER_CONSUMER_KEY = ''
 TWITTER_CONSUMER_SECRET = ''
@@ -28,7 +38,8 @@ SKYROCK_CONSUMER_KEY = ''
 SKYROCK_CONSUMER_SECRET = ''
 YAHOO_CONSUMER_KEY = ''
 YAHOO_CONSUMER_SECRET = ''
-
+AWS_ACCESS_KEY_ID = ''
+AWS_SECRET_ACCESS_KEY = ''
 
 GOOGLE_OAUTH2_AUTH_EXTRA_ARGUMENTS = {'access_type': 'offline'}
 GOOGLE_EXTRA_DATA = [('oauth_token', 'oauth_token')]
@@ -47,15 +58,7 @@ LINKEDIN_EXTRA_DATA = [('id', 'id'),
                        ('headline', 'headline'),
                        ('industry', 'industry')]
 
-AWS_ACCESS_KEY_ID = ''
-AWS_SECRET_ACCESS_KEY = ''
 
-DEPLOY_ENV = ''
-
-# Allow any settings to be defined in local_settings.py which should be
-# ignored in your version control system allowing for settings to be defined per machine.
-if 'DEPLOY_ENV' not in os.environ or os.environ['DEPLOY_ENV'] == 'local':
-    from myproject.settings_local import *
 
 # email settings
 EMAIL_BACKEND = 'django_ses.SESBackend'
@@ -67,13 +70,8 @@ ADMIN_EMAIL = "admin@reallocate.org"
 #########
 
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
 APP_NAME = 'reallocate'
-AWS_STORAGE_BUCKET_NAME = 'production-reallocate'
-
-
-DEBUG = True
-TEMPLATE_DEBUG = DEBUG
+S3_BUCKET = AWS_STORAGE_BUCKET_NAME ='production-reallocate'
 
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
@@ -261,6 +259,7 @@ AUTHENTICATION_BACKENDS = (
 # Redirects after login
 LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/'
+POST_LOGIN_URL = '/search'
 #LOGIN_ERROR_URL = '/login-error/'
 #LOGOUT_URL= '/accounts/logout/'
 
@@ -282,17 +281,37 @@ AUTH_PROFILE_MODULE = 'website.UserProfile'
 
 # END - Social Auth Settings
 
+# Allow any settings to be defined in local_settings.py which should be
+# ignored in your version control system allowing for settings to be defined per machine.
+if 'DEPLOY_ENV' in os.environ and os.environ['DEPLOY_ENV'] != 'local':
+    DEPLOY_ENV = os.environ['DEPLOY_ENV']
+    DEBUG = True if 'DEBUG' in os.environ and os.environ['DEBUG'] == 'True' else False
+    S3_BUCKET = os.environ['S3_BUCKET']
+    AWS_STORAGE_BUCKET_NAME = S3_BUCKET
+    AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID'] if 'AWS_ACCESS_KEY_ID' in os.environ else None
+    AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY'] if 'AWS_SECRET_ACCESS_KEY' in os.environ else None
+    
+    FACEBOOK_APP_ID = os.environ['FACEBOOK_APP_ID'] if 'FACEBOOK_APP_ID' in os.environ else None
+    FACEBOOK_API_SECRET = os.environ['FACEBOOK_API_SECRET'] if 'FACEBOOK_API_SECRET' in os.environ else None
+    GOOGLE_OAUTH2_CLIENT_ID = os.environ['GOOGLE_OAUTH2_CLIENT_ID'] if 'GOOGLE_OAUTH2_CLIENT_ID' in os.environ else None
+    GOOGLE_OAUTH2_CLIENT_SECRET = os.environ['GOOGLE_OAUTH2_CLIENT_SECRET'] if 'GOOGLE_OAUTH2_CLIENT_SECRET' in os.environ else None
+    
+    GOOGLE_OAUTH2_AUTH_EXTRA_ARGUMENTS = os.environ['GOOGLE_OAUTH2_AUTH_EXTRA_ARGUMENTS'] if 'GOOGLE_OAUTH2_AUTH_EXTRA_ARGUMENTS' in os.environ else None
+    GOOGLE_EXTRA_DATA = os.environ['GOOGLE_EXTRA_DATA'] if 'GOOGLE_EXTRA_DATA' in os.environ else None
+    GOOGLE_SREG_EXTRA_DATA = os.environ['GOOGLE_SREG_EXTRA_DATA'] if 'GOOGLE_SREG_EXTRA_DATA' in os.environ else None
+    GOOGLE_AX_EXTRA_DATA = os.environ['GOOGLE_AX_EXTRA_DATA'] if 'GOOGLE_AX_EXTRA_DATA' in os.environ else None
 
-# Django storages to store files on S3
-
-
-#############
-# DATABASES #
-#############
-# Parse database configuration from $DATABASE_URL
-import dj_database_url
-DATABASES = {'default': dj_database_url.config(default='sqlite:/data.db')}
-
+else:
+    try:
+        from settings_local import *
+    except ImportError:
+      print ''
+      print 'You must create a settings_local.py file!'
+      print ''
+      pass
 
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+TEMPLATE_DEBUG = DEBUG
+DEBUG_PROPAGATE_EXCEPTIONS = DEBUG

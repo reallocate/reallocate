@@ -5,6 +5,10 @@ from django.db.models.signals import post_save
 from taggit.managers import TaggableManager
 
 STATUS_CHOICES = (('Unpublished', 'Unpublished'), ('Active', 'Active'), ('Closed', 'Closed'))
+STATUS_INACTIVE = STATUS_CHOICES[0][0]
+STATUS_ACTIVE = STATUS_CHOICES[1][0]
+STATUS_CLOSED = STATUS_CHOICES[2][0]
+
 class Organization(models.Model):
     name = models.CharField(max_length=100, blank=True)
     business_type = models.CharField(max_length=100, blank=True, default='nonprofit')
@@ -73,6 +77,7 @@ class Opportunity(models.Model):
     media_url = models.CharField(max_length=200, blank=True)
     status = models.CharField(max_length=100, choices=STATUS_CHOICES, default='Active')
     date_created = models.DateTimeField(auto_now_add=True)
+    created_by = models.ForeignKey(User, related_name="created_by_related")
     short_desc = models.TextField(blank=True)
     description = models.TextField(blank=True)
     featured = models.BooleanField(default=False, blank=True)
@@ -140,3 +145,4 @@ class OpportunityEngagement(models.Model):
      # this will be where the opp engagements can be approved
     status = models.CharField(max_length=100, choices=STATUS_CHOICES, default=STATUS_CHOICES[0][0])
     # response = models.CharField(max_length=2000, blank=True) # response to the engagement
+    
