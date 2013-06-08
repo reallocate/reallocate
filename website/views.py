@@ -11,7 +11,8 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_exempt, csrf_protect
 from website.models import OrganizationForm, Organization, ProjectForm, Project, Update, UserProfile
-from website.models import OpportunityEngagement, Opportunity, OpportunityForm 
+from website.models import OpportunityEngagement, Opportunity, OpportunityForm
+from website.models import STATUS_ACTIVE, STATUS_CHOICES, STATUS_INACTIVE, STATUS_CLOSED
 import website.base as base
 from django.db.models import Q
 
@@ -172,16 +173,24 @@ def view_opportunity(request, pid):
     organization = project.organization
     updates = Update.objects.filter(opportunity=opp).order_by('-date_created')[0:10]
     context = base.build_base_context(request)
+    
     context.update({
         'organization': organization,
         'opportunity': opp,
         'project': project,
         'other_opps': [rec for rec in Opportunity.objects.filter(project=opp.project).all() if rec.id != opp.id],
-        'updates': updates})
+        'updates': updates,
+        'is_engaged': False})
     
-    if request.user.is_authenticated():
-        context['is_engaged'] = request.user in opp.engaged_by.all()
+    if context['logged_in']:
         context['is_following'] = request.user in project.followed_by.all()
+        try:
+            user_engagement = OpportunityEngagement.objects.filter(opportunity=opp, user=request.user).get()
+        except ObjectDoesNotExist:
+            user_engagement = None
+        if user_engagement:
+            context['is_engaged'] = (user_engagement.status == STATUS_ACTIVE)
+            
     return render_to_response('opportunity.html', context, context_instance=RequestContext(request))
 
 @login_required
