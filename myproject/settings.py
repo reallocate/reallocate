@@ -294,16 +294,7 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # Allow any settings to be defined in local_settings.py which should be
 # ignored in your version control system allowing for settings to be defined per machine.
-DEPLOY_ENV = 'local'
-if DEPLOY_ENV == 'local' or 'DEPLOY_ENV' in os.environ and os.environ['DEPLOY_ENV'] == 'local':
-    try:
-        from settings_local import *
-    except ImportError:
-      print ''
-      print 'You must create a settings_local.py file!'
-      print ''
-      pass
-else:
+if 'DEPLOY_ENV' in os.environ and os.environ['DEPLOY_ENV'] != 'local':
     DEBUG = True if 'DEBUG' in os.environ and os.environ['DEBUG'] == 'True' else False
     S3_BUCKET = os.environ['S3_BUCKET']
     AWS_STORAGE_BUCKET_NAME = S3_BUCKET
@@ -314,3 +305,11 @@ else:
     DATABASES['default']['USER'] = os.environ['DB_USER']
     DATABASES['default']['PASSWORD'] = os.environ['DB_PASSWORD']
     DATABASES['default']['HOST'] = os.environ['DB_HOST']
+else:
+    try:
+        from settings_local import *
+    except ImportError:
+      print ''
+      print 'You must create a settings_local.py file!'
+      print ''
+      pass
