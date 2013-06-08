@@ -93,7 +93,7 @@ def signup(request):
 
     user = authenticate(username=email, password=password)
     login(request, user)
-    return HttpResponseRedirect('/find-opportunity')
+    return HttpResponseRedirect(settings.POST_LOGIN_URL)
 
 @csrf_exempt
 def login_user(request):
@@ -107,7 +107,7 @@ def login_user(request):
         if user is not None:
             if user.is_active:
                 login(request, user)
-                return HttpResponseRedirect('/find-opportunity')
+                return HttpResponseRedirect(settings.POST_LOGIN_URL)
             else:
                 state = "Your account is not active, please contact the site admin."
         else:
