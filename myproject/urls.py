@@ -28,12 +28,8 @@ urlpatterns = patterns('',
  
                        url(r'^opportunity/(?P<pid>\d+)/engage', 'website.views.engage', name='engage'),
                        url(r'^opportunity/(?P<pid>\d+)$', 'website.views.view_opportunity', name='view_opportunity'),
-                       url(r'^manage/(?P<pid>\d+)$', 'website.views.manage', name='manage'),
-=======
                        url(r'^opportunity/(?P<oid>\d+)/engage', 'website.views.engage', name='engage'),
                        url(r'^opportunity/(?P<oid>\d+)$', 'website.views.view_opportunity', name='view_opportunity'),
->>>>>>> f219d7b2134e721566f0ed3932efe205a26324f5
-
                        url(r'^ajax/modify_project_relation', 'website.ajaxviews.modify_project_relation', name='modify_project_relation'),
                        url(r'^ajax/add-update', 'website.ajaxviews.add_update', name='add_update'),
                        url(r'^ajax/check-available', 'website.ajaxviews.check_available', name=''),
