@@ -278,9 +278,23 @@ AUTH_PROFILE_MODULE = 'website.UserProfile'
 # END - Social Auth Settings
 
 
-# Django storages to store files on S3
-
-
+# Allow any settings to be defined in local_settings.py which should be
+# ignored in your version control system allowing for settings to be defined per machine.
+if 'DEPLOY_ENV' in os.environ and os.environ['DEPLOY_ENV'] != 'local':
+    DEBUG = True if 'DEBUG' in os.environ and os.environ['DEBUG'] == 'True' else False
+    S3_BUCKET = os.environ['S3_BUCKET']
+    AWS_STORAGE_BUCKET_NAME = S3_BUCKET
+    AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
+    AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
+else:
+    try:
+        from settings_local import *
+    except ImportError:
+      print ''
+      print 'You must create a settings_local.py file!'
+      print ''
+      pass
+    
 #############
 # DATABASES #
 #############
@@ -290,22 +304,3 @@ DATABASES = {'default': dj_database_url.config(default='sqlite:/data.db')}
 
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-
-
-# Allow any settings to be defined in local_settings.py which should be
-# ignored in your version control system allowing for settings to be defined per machine.
-if 'DEPLOY_ENV' in os.environ and os.environ['DEPLOY_ENV'] != 'local':
-    DEBUG = True if 'DEBUG' in os.environ and os.environ['DEBUG'] == 'True' else False
-    S3_BUCKET = os.environ['S3_BUCKET']
-    AWS_STORAGE_BUCKET_NAME = S3_BUCKET
-    AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
-    AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
-
-else:
-    try:
-        from settings_local import *
-    except ImportError:
-      print ''
-      print 'You must create a settings_local.py file!'
-      print ''
-      pass
