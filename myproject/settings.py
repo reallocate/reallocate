@@ -50,13 +50,7 @@ LINKEDIN_EXTRA_DATA = [('id', 'id'),
 AWS_ACCESS_KEY_ID = ''
 AWS_SECRET_ACCESS_KEY = ''
 
-DEPLOY_ENV = ''
-
-# Allow any settings to be defined in local_settings.py which should be
-# ignored in your version control system allowing for settings to be defined per machine.
-if 'DEPLOY_ENV' not in os.environ or os.environ['DEPLOY_ENV'] == 'local':
-    from myproject.settings_local import *
-
+    
 # email settings
 EMAIL_BACKEND = 'django_ses.SESBackend'
 FROM_EMAIL = "Reallocate <noreply@reallocate.org>"
@@ -294,6 +288,29 @@ AUTH_PROFILE_MODULE = 'website.UserProfile'
 import dj_database_url
 DATABASES = {'default': dj_database_url.config(default='sqlite:/data.db')}
 
-
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+
+# Allow any settings to be defined in local_settings.py which should be
+# ignored in your version control system allowing for settings to be defined per machine.
+DEPLOY_ENV = 'local'
+if DEPLOY_ENV == 'local' or 'DEPLOY_ENV' in os.environ and os.environ['DEPLOY_ENV'] == 'local':
+    try:
+        from settings_local import *
+    except ImportError:
+      print ''
+      print 'You must create a settings_local.py file!'
+      print ''
+      pass
+else:
+    DEBUG = True if 'DEBUG' in os.environ and os.environ['DEBUG'] == 'True' else False
+    S3_BUCKET = os.environ['S3_BUCKET']
+    AWS_STORAGE_BUCKET_NAME = S3_BUCKET
+    AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
+    AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
+    
+    DATABASES['default']['NAME'] = os.environ['DB_NAME']
+    DATABASES['default']['USER'] = os.environ['DB_USER']
+    DATABASES['default']['PASSWORD'] = os.environ['DB_PASSWORD']
+    DATABASES['default']['HOST'] = os.environ['DB_HOST']
