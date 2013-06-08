@@ -181,7 +181,7 @@ def view_opportunity(request, oid):
         'updates': updates,
         'is_engaged': False})
     
-    if context['logged_in']:
+    if request.user.is_authenticated():
         context['is_following'] = request.user in project.followed_by.all()
         try:
             user_engagement = OpportunityEngagement.objects.get(opportunity=opp, user=request.user)
