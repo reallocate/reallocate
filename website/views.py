@@ -167,8 +167,8 @@ def add_project(request):
     return render_to_response('add_project.html', context, context_instance=RequestContext(request))
 
 @csrf_exempt
-def view_opportunity(request, pid):
-    opp = get_object_or_404(Opportunity, pk=pid)
+def view_opportunity(request, oid):
+    opp = get_object_or_404(Opportunity, pk=oid)
     project = get_object_or_404(Project, pk=opp.project.id)
     organization = project.organization
     updates = Update.objects.filter(opportunity=opp).order_by('-date_created')[0:10]
@@ -191,33 +191,7 @@ def view_opportunity(request, pid):
         if user_engagement:
             context['is_engaged'] = (user_engagement.status == STATUS_ACTIVE)
             
-    return render_to_response('opportunity.html', context, context_instance=RequestContext(request))
-
-@login_required
-def add_opportunity(request, oid=1):
-    # Create new Opportunity
-    parent_project = get_object_or_404(Project, pk=oid)
-    show_form = True
-
-    if request.method == "POST":
-        myform = OpportunityForm(request.POST)
-        opportunity = myform.save(commit=False)
-        if myform.is_valid():
-            opportunity.project = parent_project
-            opportunity.save()
-            show_form = False
-        else:
-            return HttpResponse("error")
-
-    myform = OpportunityForm()
-    
-    return render_to_response('add_opportunity.html', {
-        "myform": myform,
-        "parent_project": parent_project,
-        "show_form": show_form
-    }, context_instance=RequestContext(request))
-    
-    
+    return render_to_response('opportunity.html', context, context_instance=RequestContext(request))    
     
 def search(request):
     # Search for Opportunities
@@ -252,8 +226,8 @@ def search(request):
 
 @csrf_exempt
 @login_required
-def engage(request, pid=1):
-    opp = get_object_or_404(Opportunity, pk=pid)
+def engage(request, oid=1):
+    opp = get_object_or_404(Opportunity, pk=oid)
     # todo - deal with money type => donations rather than a freeform response
     if request.method == "POST":
         response = request.POST.get("response", "")
@@ -299,33 +273,29 @@ def add_organization(request):
     return render_to_response('add_organization.html', context, context_instance=RequestContext(request))
         
 @login_required
-def add_opportunity(request, oid=None):
+def add_opportunity(request, pid=None):
     # Create new Opportunity
-    project = None
+    project = get_object_or_404(Project, pk=pid)
+    if not project:
+        return HttpResponse("error - not referencing a real project with id:" + reper(pid))
+    
     show_form = True
-
     user_profile = base.get_current_userprofile(request)
     org = user_profile.organization
     if not org:
         return HttpResponseRedirect('/add_organization')
     
-    # check the DB to see if there are any projects created by this org
-    project = Project.objects.get(organization_id=org)
-    if not project:
-       return HttpResponseRedirect('/add_project')
-        
-    
     if request.method == "POST":
-        
         myform = OpportunityForm(request.POST)
         opportunity = myform.save(commit=False)
         if myform.is_valid():
             opportunity.project = project
             opportunity.organization = org
+            opportunity.created_by = request.user
             opportunity.save()
             show_form = False
         else:
-            return HttpResponse("error")
+            return HttpResponse("error saving opportunity - invalid form")
 
     myform = OpportunityForm()
     
@@ -334,7 +304,6 @@ def add_opportunity(request, oid=None):
         "parent_project": project,
         "show_form": show_form
     }, context_instance=RequestContext(request))
-
 
     
 def search(request):

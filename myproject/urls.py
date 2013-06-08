@@ -20,13 +20,11 @@ urlpatterns = patterns('',
                        url(r'^organization/(?P<oid>\d+)/add_project', 'website.views.add_project', name='add_project'),
                     
                        url(r'^add_project', 'website.views.add_project', name='add_project'),
-                       url(r'^project/(?P<oid>\d+)/add_opportunity', 'website.views.add_opportunity', name='add_opportunity'),
+                       url(r'^project/(?P<pid>\d+)/add_opportunity', 'website.views.add_opportunity', name='add_opportunity'),
                        url(r'^project/(?P<pid>\d+)', 'website.views.view_project', name='view_project'),
 
-                       url(r'^add_opportunity', 'website.views.add_opportunity', name='add_opportunity'),
- 
-                       url(r'^opportunity/(?P<pid>\d+)/engage', 'website.views.engage', name='engage'),
-                       url(r'^opportunity/(?P<pid>\d+)$', 'website.views.view_opportunity', name='view_opportunity'),
+                       url(r'^opportunity/(?P<oid>\d+)/engage', 'website.views.engage', name='engage'),
+                       url(r'^opportunity/(?P<oid>\d+)$', 'website.views.view_opportunity', name='view_opportunity'),
 
                        url(r'^ajax/modify_project_relation', 'website.ajaxviews.modify_project_relation', name='modify_project_relation'),
                        url(r'^ajax/add-update', 'website.ajaxviews.add_update', name='add_update'),
