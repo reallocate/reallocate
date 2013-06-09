@@ -39,6 +39,9 @@ urlpatterns = patterns('',
                        # pay-pal receiver
                        url(r'^paypal', 'website.paypal.receive_paypal', name='paypal'),
                        
+                       # test urls
+                       url(r'^test_email', 'website.views.test_email', name='test_emails'),
+                       
                        # Admin site
                        url(r'^admin/', include(admin.site.urls)),
 

@@ -84,6 +84,11 @@ def about(request):
 def learn(request):
     return render_to_response('learn.html', {}, context_instance=RequestContext(request))
 
+def test_email(request):
+    email_type = request.GET.get('email_type')
+    html_content = base.send_email_template(request, email_type, {}, "*", [], render=True)[0]
+    return HttpResponse(content=html_content)
+
 @csrf_exempt
 def signup(request):
     if request.method == 'GET':
@@ -99,9 +104,7 @@ def signup(request):
     login(request, user)
     
     email_context = {'email': email, 'user': user}
-    resp = base.send_email_template("welcome", email_context, "subject", [settings.ADMIN_EMAIL, email])
-    if resp: # resp = (html_content, text_content) - for local development
-        return HttpResponse(content=resp[0])
+    base.send_email_template(request, "welcome", email_context, "subject", [settings.ADMIN_EMAIL, email])
     return HttpResponseRedirect(settings.POST_LOGIN_URL)
 
 @csrf_exempt

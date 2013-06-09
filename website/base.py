@@ -22,7 +22,14 @@ def build_base_context(request):
     context['topmsg'] = request.GET.get('topmsg')
     return context
 
-def send_email_template(email_type, context, subject, recipients, *kwargs):
+def generate_base_email_context(request):
+    # add email template variables needed among all emails
+    return {'server_url': request.get_host(),
+           'facebook_url': 'https://www.facebook.com/reallocate.org',
+           'twitter_url': 'https://twitter.com/reallocate'}
+
+def send_email_template(request, email_type, context, subject, recipients, render=False, *kwargs):
+    context.update(generate_base_email_context(request))
     html_content = render_to_string("emails/" + email_type + ".html", context)
     try:
         text_content = render_to_string("emails/" + email_type + ".txt", context)
@@ -30,7 +37,7 @@ def send_email_template(email_type, context, subject, recipients, *kwargs):
         text_content = re.sub("<[^a].*?>", "", html_content)
     # TODO: check to see if recipient user acct wants this email type based on settings
     # or should this be done by the caller?
-    if DEPLOY_ENV == 'local':
+    if render:
         return html_content, text_content
     send_email(recipients, subject, text_content, html_content=html_content, *kwargs)
 
