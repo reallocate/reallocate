@@ -39,7 +39,8 @@ def profile(request):
 
     if request.method == "POST":
         avatar = request.FILES.get('file')
-        filename = remote_storage(avatar, request.user)
+        
+        filename = remote_storage(avatar, request.user) if avatar else ''
         
         user_profile.user.email = request.POST.get("email")
         user_profile.bio = request.POST.get("bio")
