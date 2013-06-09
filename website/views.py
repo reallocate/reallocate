@@ -280,7 +280,11 @@ def add_organization(request):
     return render_to_response('add_organization.html', context, context_instance=RequestContext(request))
         
 @login_required
+<<<<<<< HEAD
+def add_opportunity(request, oid=None, project=None):
+=======
 def add_opportunity(request, pid=None):
+>>>>>>> f219d7b2134e721566f0ed3932efe205a26324f5
     # Create new Opportunity
     project = get_object_or_404(Project, pk=pid)
     if not project:
@@ -292,6 +296,7 @@ def add_opportunity(request, pid=None):
     if not org:
         return HttpResponseRedirect('/add_organization')
     
+<<<<<<< HEAD
     # check the DB to see if there are any projects created by this org
     project = Project.objects.filter(organization_id=org.id)
     if not project:
@@ -299,6 +304,8 @@ def add_opportunity(request, pid=None):
     
     project = project[0]
 
+=======
+>>>>>>> f219d7b2134e721566f0ed3932efe205a26324f5
     if request.method == "POST":
         myform = OpportunityForm(request.POST)
         opportunity = myform.save(commit=False)
