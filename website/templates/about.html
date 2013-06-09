@@ -1,22 +1,108 @@
 {% extends 'theme/base.html' %}
-{% load i18n %}
 
-{% trans "This is the title" as the_title %}
+{% block extra_css %}
+<style>
+    body {
+        padding-top: 60px !important;   /*for our hero unit*/
+    }
+    .feature_container {
+        height: 400px;
+        margin-top: 60px;  
+    }
+    
+    .home_feature_slider {
+        background: url('/static/images/PLACEHOLDER.png');
+        background-size: 1500px 500px;
+        margin: 0 0 20px;
+        height: 500px;
+    }
+    .home_feature_slider_about {
+        background: url('/static/images/PLACEHOLDER.png');
+        background-size: 1500px 500px;
+        margin: 0 0 20px;
+        height: 300px;
+    }
 
-{% block meta_description %}{{ the_title }}{% endblock %}
+    .home-search {
+        margin: 0 0 20px;
+    }
+    .home-slogan {
+        margin: 0 0 20px;
+        text-align: center;
+    }
+    
+    footer {
+        margin-top: 30px;
+    }
+    
+    #hero-content {
+        margin-top: 175px;
+        padding: 10px;
+        background-color:rgba(0, 0, 0, 0.4);
+        border-radius: 3px;
+        text-align: center;
+    }
+    .h1hero-content{
+    	color: #ffffff;
+    	font-weight: 300;
+    }
+    .phero-content{
+    	color: #ffffff;
+    	font-weight: 300;
+    	font-size: 18px;
+    }
+    #hero-content-about{
+    	margin-top: 50px;
+        padding: 10px;
+        background-color:rgba(232, 232, 232, 0.8);
+        border-radius: 3px;
+        text-align: center;
+    }
+    #hero-content .give-icons {
+        color: #f2736a;
+        float: left;
+        padding: 0 10px;
+    }
+    .divider {
+    	padding:0 3px
+    }
+</style>
+{% endblock %}
+
+
+{% block hero %}
+    <div class="home_feature_slider">        
+        <div class="row-fluid">
+            <div id="hero-content" class="span5 offset5" text-align="center">
+                
+                <h1 class="h1hero-content">Lorem ipsum dolor sit amet.</h1> 
+                <p class="phero-content"> Consectetur adipiscing elit. Nullam hendrerit velit at justo lobortis, vitae.</h2>
+                
+            </div> 
+        </div>
+    </div>
+{% endblock %}
 
 
 {% block maincontent %}
-    
+  
     <div class="row-fluid">
         
         
 
         <h1>About ReAllocate</h1>
+        <div class="divider">
+        </div>
+
 
 <p>
 ReAllocate is a global network of world class engineers, designers and entrepreneurs empowering under served communities through technology and innovation to improve quality of life. ReAllocators engage in digital storytelling to inspire participation, promote collaboration, and raise awareness about humanitarian causes.
 </p>
+    <div class="home_feature_slider_about">        
+        <div class="row-fluid">
+
+        </div>
+    </div>
 
 <h2>
 Program Areas
@@ -26,10 +112,11 @@ Program Areas
 ReAllocate supports three program areas that intertwine to create an infrastructure that supports sustainable development through education, ecosystems, equality, and economics.
 
 </p>
-
-<h2>
-Innovation Centers
-</h2>
+	<div class="row-fluid">
+		<div text-align="center">
+			<h2>Innovation Centers</h2>
+		</div>
+	</div>
 
 <p>
 ReAllocate's capacity building initiative. Innovation Centers provide resources, expertise and training for sustainable economic and community development. Local facilities are converted into workshops, equipped with modules needed to create a development base (internet enabled computer labs, health centers, energy generation sites, etc.). These centers serve as hubs for 10-week intensive innovation programs where in-country fellows are paired one-on-one with expert mentors and coached though rapid prototyping, market testing and building a social business model.
