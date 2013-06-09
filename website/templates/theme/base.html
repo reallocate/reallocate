@@ -46,15 +46,15 @@
     {% if topmsg|default:'' != ''%}
         <div class='topmsg'>{{ topmsg }}</div>
     {% endif %}
-    
-    
+
+
     <div id="content" class="container main_container">
-        {% block maincontent %} 
+        {% block maincontent %}
         {% endblock %}
     </div>
 
     <div id="content_wide" class="main_container">
-        {% block widecontent %} 
+        {% block widecontent %}
         {% endblock %}
     </div>
     <br/>

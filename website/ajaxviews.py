@@ -1,6 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.exceptions import ObjectDoesNotExist
+from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import authenticate, login
 import json
@@ -11,6 +12,7 @@ from website.models import UserProfile, Project, Update
 
 @login_required
 # this won't crash w/ login_required but redirect doesn't work on ajax call - TODO: fix rather than these hide links
+
 def modify_project_relation(request, *args):
     # action = [follow, unfollow]
     project_id = request.GET.get('project_id', '')
@@ -29,9 +31,10 @@ def modify_project_relation(request, *args):
     print project.followed_by.all()
     project.save()
     response_data = { "success": "true" }
+
     return HttpResponse(json.dumps(response_data), mimetype="application/json")
     
-    
+   
 @login_required
 @csrf_exempt
 def add_update(request, *args):
@@ -69,3 +72,26 @@ def login_user(request):
     else:
 
       return HttpResponse(json.dumps({ 'success': False, 'message': 'Invalid username or password' }), content_type="application/json", status=403)
+
+
+def check_available(request, *args):
+
+    username = request.REQUEST.get('username')
+    email = request.REQUEST.get('email')
+
+    if username:
+
+        q = User.objects.filter(username=username)
+        response_data = True if q else False
+
+    elif email:
+
+        q = User.objects.filter(email=email)
+        response_data = True if q else False
+
+    else:
+
+        response_data = ''
+
+
+    return HttpResponse(json.dumps(response_data), mimetype="application/json")
