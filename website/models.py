@@ -27,6 +27,7 @@ class Organization(models.Model):
         return "Name: %s" % self.name
     
 class OrganizationForm(ModelForm):
+    
     class Meta:
         model = Organization
         fields = ('name', 'business_type', 'year_established', 'org_mission', 'address_one', 'address_two', 'city', 'state', 'country', 'zip_code', 'phone', 'URL',)
@@ -36,6 +37,7 @@ class OrganizationForm(ModelForm):
         }
 
 class Project(models.Model):
+
     organization = models.ForeignKey(Organization)
     name = models.CharField(max_length=100, blank=True)
     cause = models.CharField(max_length=100, blank=True)

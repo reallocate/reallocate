@@ -35,6 +35,7 @@ def profile(request):
         
     user_profile = request.user.get_profile()
     topmsg = None
+
     if request.method == "POST":
         avatar = request.FILES.get('file')
         filename = remote_storage(avatar, request.user)
@@ -52,6 +53,7 @@ def profile(request):
     }, context_instance=RequestContext(request))
 
 def public_profile(request, username=None):
+
     user = User.objects.filter(Q(email=username) | Q(username=username))
     user_profile = UserProfile.objects.filter(Q(user=user))
     context = base.build_base_context(request)
@@ -65,6 +67,7 @@ def public_profile(request, username=None):
     
 
 def login_page(request):
+    
     return render_to_response('login.html', {
         'a': 'a',
     }, context_instance=RequestContext(request))

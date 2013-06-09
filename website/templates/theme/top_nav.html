@@ -1,45 +1,32 @@
-<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h3 id="myModalLabel">Login</h3>
-  </div>
-  <div class="modal-body">
-<div class="row-fluid">
-       
+<div id="loginModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="loginModalLabel">Login</h3>
+    </div>
+    <div class="modal-body row-fluid">
         <div class="span6">
-            <h4>Reallocate.org</h4>
-            {{ state }}
-            <form action="/login/" method="post">
-                Email:
-                <input type="text" name="username" value="{{ username}}" /><br />
-                Password:
-                <input type="password" name="password" value="" /><br />
-        
-                <div class="clearfix"></div><br />
-                <input type="submit" class="btn-primary btn" value="Log In" />
+            <form class="form-horizontal" action="/login/" id="modal-login" method="post">
+                <div class="control-group">
+                    <input type="text" name="username" id="modal-username" value="{{ username }}" placeholder="email" />
+                </div>
+                <div class="control-group">
+                    <input type="password" name="password" id="modal-password" value="" placeholder="password" />
+                </div>
+                <div class="control-group">
+                    <label class="checkbox">
+                        <input type="checkbox"> Remember me
+                    </label>
+                    <button type="submit" class="btn">Log in</button>
+                </div>
             </form>
-        </div>    
-        <div class="span6">
-            <h4>Other networks</h4>
-            <a href="{% url "socialauth_begin" 'google' %}" class="btn"><i class="icon-google-plus"></i> Google</a>
-            <br/><br/>
-            <a href="{% url "socialauth_begin" 'facebook' %}" class="btn"><i class="icon-facebook"></i> Facebook</a>    
-            <br/><br/>
-            <a href="{% url "socialauth_begin" 'yahoo' %}" class="btn"><i class="icon-exlamation"></i> Yahoo</a>
-			<br/><br/>
-            <a href="{% url "socialauth_begin" 'linkedin' %}" class="btn"><i class="icon-linkedin"></i> LinkedIn</a>
-            <br /><br />
-            
-</div>
+        </div>
+        <div class="span4" id="social-logins">
+            <a href="{% url "socialauth_begin" 'google' %}" class="btn"><i class="icon-google-plus"></i> Google</a><br />
+            <a href="{% url "socialauth_begin" 'facebook' %}" class="btn"><i class="icon-facebook"></i> Facebook</a><br />    
+            <a href="{% url "socialauth_begin" 'linkedin' %}" class="btn"><i class="icon-linkedin"></i> LinkedIn</a><br />
         </div>
     </div>
-  </div>
-  <!-- <div class="modal-footer">
-    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-    <button class="btn btn-primary">Save changes</button>
-  </div> -->
 </div>
-
 
 <div class="navbar navbar-fixed-top">
     <div class="navbar-inner">
@@ -54,8 +41,7 @@
             <div class="nav-collapse collapse">
                 <ul class="nav">
                     <li><a href="/about"><strong>Learn</strong><br/>to ReAllocate</a></li>
-                    <li><a href="/learn"><strong>Create</strong><br/>an Opportunity</a></li>
-                    <!--<li><a href="/find-opportunity"><strong>Browse</strong><br/>Projects</a></li>-->
+                    <li><a href="/learn"><strong>Submit</strong><br/>a Project</a></li>
                     <li><a href="/search"><strong>Find</strong><br/>an Opportunity</a></li>
                 </ul>
             </div>
@@ -75,7 +61,7 @@
                             </ul>
                         </li> 
                     {% else %}
-                        <li><!--<a href="/login">--><a href="#myModal" role="button" data-toggle="modal">Login</a></li>
+                        <li><!--<a href="/login">--><a href="#loginModal" role="button" data-toggle="modal">Login</a></li>
                         <li><a href="/signup">Sign Up</a></li>
                     {% endif %}
                 </ul>

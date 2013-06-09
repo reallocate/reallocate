@@ -32,6 +32,7 @@ urlpatterns = patterns('',
                        url(r'^ajax/add-update', 'website.ajaxviews.add_update', name='add_update'),
                        
                        url(r'^login', 'website.views.login_user', name='login_user'),
+                       url(r'^ajax/login', 'website.ajaxviews.login_user'),
 
                        url(r'^public_profile/(?P<username>[^/]+)', 'website.views.public_profile', name='public_profile'), # public view
                        url(r'^profile', 'website.views.profile', name='profile'), # private settings page

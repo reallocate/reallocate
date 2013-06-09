@@ -155,3 +155,10 @@ h5 {
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
 }
+
+#loginModal form {
+    margin-bottom: 0px;
+}
+#loginModal #social-logins .btn {
+    margin-bottom: 12px;
+}

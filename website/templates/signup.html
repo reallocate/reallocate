@@ -47,11 +47,11 @@
 
         <div class="span4">
 	    <h3>Sign up</h3>
-	    <br/><br/>
+	    <br/>
 	    <form action="/signup/" method="post">
 		    <input type="text" name="email" placeholder="Email Address"><br/>
 		    <input type="password" name="password" value="" placeholder="Password"/><br />
-    
+    		<input type="password" name="password_verify" value="" placeholder="Re-type password"/><br />
 		    <input class="btn btn-small btn-primary" type="submit" value="Sign up" />
 	    </form>
 	</div>
@@ -60,7 +60,6 @@
     </div>
 
 {% endblock %}
-
 
 {% block bottomscript %}
 

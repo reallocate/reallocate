@@ -2,6 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.exceptions import ObjectDoesNotExist
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth import authenticate, login
 import json
 import website.base as base
 from myproject.settings import ADMIN_EMAIL
@@ -34,6 +35,7 @@ def modify_project_relation(request, *args):
 @login_required
 @csrf_exempt
 def add_update(request, *args):
+
     organization_id = request.POST.get('organization_id', None)
     project_id = request.POST.get('project_id', None)
     opportunity_id = request.POST.get('opportunity_id', None)
@@ -44,4 +46,26 @@ def add_update(request, *args):
                                    opportunity_id=opportunity_id, text=update_text, created_by=request.user)
     
     response_data = { "success": "true" }
+
     return HttpResponse(json.dumps(response_data), mimetype="application/json")
+
+
+@csrf_exempt
+def login_user(request):
+
+    username = request.REQUEST.get('username')
+    password = request.REQUEST.get('password')
+
+    user = authenticate(username=username, password=password)
+    
+    if user is not None:
+
+      if user.is_active:
+
+            login(request, user)
+            return HttpResponse(json.dumps({ 'success': True,}), content_type="application/json")
+      else:
+            return HttpResponse(json.dumps({ 'success': False, 'message': 'Your account has been disabled' }), content_type="application/json", status=403)
+    else:
+
+      return HttpResponse(json.dumps({ 'success': False, 'message': 'Invalid username or password' }), content_type="application/json", status=403)
