@@ -5,7 +5,7 @@
 ##################
 import os
 
-DEBUG = False
+DEBUG = True
 
 #############
 # DATABASES #
