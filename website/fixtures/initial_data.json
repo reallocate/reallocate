@@ -314,6 +314,7 @@
     "fields": {
       "status": "Active",
       "date_created": "2013-01-01",
+      "response": "How can i help?",
       "opportunity": 1,
       "user": 1
     }

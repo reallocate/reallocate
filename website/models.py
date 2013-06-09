@@ -144,5 +144,5 @@ class OpportunityEngagement(models.Model):
     date_created = models.DateField(auto_now_add=True)
      # this will be where the opp engagements can be approved
     status = models.CharField(max_length=100, choices=STATUS_CHOICES, default=STATUS_CHOICES[0][0])
-    # response = models.CharField(max_length=2000, blank=True) # response to the engagement
+    response = models.CharField(max_length=2000, blank=True) # response to the engagement
     
