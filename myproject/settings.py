@@ -6,7 +6,7 @@
 import os, sys
 
 DEBUG = False
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['*']  # todo:john - dont let this go live
 
 # OAuth keys for Social Auth
 TWITTER_CONSUMER_KEY = ''
