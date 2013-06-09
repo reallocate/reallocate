@@ -8,18 +8,18 @@
 
 {% block extra_css %}
     <style>
-        
+
         .sectionTitle {
             height: 50px;
             font-size: 2em;
             font-weight: 100;
         }
-        
+
         .projectImage img{
             width: 640px;
             height: 480px;
         }
-        
+
         .socialLinks {
             margin-top: 25px;
         }
@@ -30,13 +30,13 @@
             -webkit-box-shadow: 1px 2px 3px #808080;
             position: relative;
         }
-        
+
         .oppContainer:hover {
        border-color: rgba(82, 168, 236, 0.8);
        box-shadow: 0 5px 5px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(82, 168, 236, 0.6);
        cursor: pointer;
         }
-        
+
         .oppImage{
             height: 161px;
         }
@@ -45,28 +45,28 @@
             background-color: rgba(0,0,0,.55);
             height: 161px;
             color: #ffffff;
-            
+
         }
         .oppTitle{
             padding-top: 10px;
             font-size: 1.5em;
             font-family: 'Raleway', sans-serif;
         }
-        
+
         .oppDescription{
             padding: 5px 5px 0px;
             height: 80px;
             font-size: .9em
         }
-        
+
         .oppLink {
 
         }
-        
+
         .oppLink a {
             font-size: 1.3em;
         }
-        
+
         .updateThumb{ }
         .updateUserName{
             color: black;
@@ -80,14 +80,14 @@
         .updateMedia{
             margin:5px;
         }
-        
+
         .project_top {
             padding-top: 30px;
         }
         .project_top .project_media_url img {
             margin-bottom: 10px;
         }
-        
+
         .project_top .stat-label {
             font-weight: 100;
         }
@@ -95,10 +95,56 @@
             font-size: 2em;
             margin-bottom: 5px;
         }
+        .chart {
+            background-image: url(/static/images/chart_sprite.png);
+            background-repeat: no-repeat;
+            background-position: 0px 25px;
+            background-size: 35px;
+            padding-left: 45px;
+        }
+        .chart h5 {
+            margin-bottom: 2px;
+        }
+        .progress {
+            position: relative;
+            height: 40px;
+            background: #EDEDED;
+            -webkit-border-radius: 0;
+               -moz-border-radius: 0;
+                    border-radius: 0;
+            margin-bottom: 18px;
+        }
+        .progress .bar {
+            background: #F2736A;
+        }
+        .bar_progress, .pie_progress {
+            position: absolute;
+            color: #000;
+        }
+        .bar_progress {
+            top: 0;
+            left: 0;
+            font-size: 24px;
+            line-height: 40px;
+            padding-left: 5px;
+        }
+        .peity {
+            position: relative;
+        }
+        .pie_progress {
+            top: 50%;
+            left: 18px;
+            width: 150px;
+            margin-top: -28px;
+            font-size: 28px;
+            line-height: 28px;
+            text-align: center;
+            vertical-align: middle;
+        }
         .update-row {
             /*border-right: solid 1px #b0b0b0;*/
         }
-        
+
         .update_row {
             padding: 10px;
             margin-bottom: 20px;
@@ -117,11 +163,11 @@
             background-image:url(/static/images/bgtexture2.png);
             padding: 30px 0;
         }
-        
+
     </style>
-    
-    
+    <link rel="stylesheet" href="/static/css/jquery.easy-pie-chart.css">
 {% endblock %}
+
 {% block widecontent %}
 
 <!-- Header: Breadcrumb -->
@@ -131,7 +177,7 @@
         <li id="breadcrumb-menu-mission" class="active">{{ project.name }}</li>
     </ul>
 </div>
-    
+
 
 <!-- Header: Project -->
 <div class="container">
@@ -156,8 +202,8 @@
             </span>
         </div>
     </div>
-</div>    
-    
+</div>
+
 <!-- Header: Project Image -->
 <div style="background-image:url({{ project.media_url }}); background-size:cover; height: 350px;"></div>
 
@@ -177,9 +223,9 @@
         <div class="span5">
             <div class="span6">
                 <div class='fluid-row' style='margin-top:20px;'>
-                    <h4>Needs</h4><br/>
+                    <h4>Needs</h4>
                     {% for need in project.get_needs %}
-                        Need   
+                        Need
                     {% endfor %}
                     Industrial Design<br/>
                     Prototyping<br/>
@@ -191,7 +237,7 @@
                        <div style="float:left;"><img src="/static/images/profilepic-female1.png" class="follower_thumbnail"></div>
                     {% endfor %}
                     <div style="float:left;"><img src="/static/images/profilepic-female1.png" class="follower_thumbnail"></div>
-                    <div style="float:left;"><img src="/static/images/profilepic-female1.png" class="follower_thumbnail"></div>
+                    <div style="float:left;"><img src="/static/images/profilepic-female1.png" class="follower_thumbnail"> </div>
                     <div style="float:left;"><img src="/static/images/profilepic-female1.png" class="follower_thumbnail"></div>
                     <div style="float:left;"><img src="/static/images/profilepic-female1.png" class="follower_thumbnail"></div>
                 </div>
@@ -202,11 +248,40 @@
                     <a href=""><i class="icon-facebook icon-large" style="color: #4e7ac7;margin-right:10px;"></i></a>
                     <a href=""><i class="icon-linkedin-sign icon-large" style="color: #4e7ac7;margin-right:10px;"></i></a>
                 </div>
-            </div>    
+            </div>
             <div class="span6">
                 <div class="row-fluid">
                     {% include 'paypal-donate.inc' %}
-                    <img src="/static/images/chart.png"/>
+                    <div style="position: relative; text-align: center;">
+                        <div class="pie">46,54</div>
+                        <div class="pie_progress">
+                            46%
+                            <br>
+                            <span style="font-size: 0.9em">Complete</span>
+                        </div>
+                    </div>
+                    <div class="chart">
+                        <h5>Money</h5>
+                        <div class="progress">
+                            <div class="bar_progress">50%</div>
+                            <div class="bar" style="width: 50%"></div>
+                        </div>
+                        <h5>Knowledge</h5>
+                        <div class="progress">
+                            <div class="bar_progress">75%</div>
+                            <div class="bar" style="width: 75%"></div>
+                        </div>
+                        <h5>Skills</h5>
+                        <div class="progress">
+                            <div class="bar_progress">40%</div>
+                            <div class="bar" style="width: 40%"></div>
+                        </div>
+                        <h5>Equipment</h5>
+                        <div class="progress">
+                            <div class="bar_progress">20%</div>
+                            <div class="bar" style="width: 20%"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -270,19 +345,20 @@
                     </div>
                 </div>
             {% endfor %}
-        </div>        
+        </div>
         <div class="span5">
             <span style='float:right;'><h3>Similar Projects</h3></span>
             {% for project in similar_projects %}
-                    
+
             {% endfor %}
         </div>
     </div>
 </div>
-                    
+
 {% endblock %}
 
 {% block bottomscript %}
+<script src="/static/js/jquery.peity.min.js"></script>
 <script>
     $(document).ready(function(){
         $(".unfollow-project").click(function(){
@@ -296,6 +372,14 @@
             $(".unfollow-project").show();
             num_following = parseInt($("#num-following").html());
             $("#num-following").html((num_following + 1).toString())
+        });
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        $(".pie").peity("pie", {
+            colours: [ '#F2736A', '#EDE6ED' ],
+            diameter: 150,
         });
     });
 </script>
