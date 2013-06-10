@@ -163,8 +163,8 @@
             background-image:url(/static/images/bgtexture2.png);
             padding: 30px 0;
         }
-        .share {
-            cursor: pointer;
+        .share:hover {
+            text-decoration: none;
         }
     </style>
 {% endblock %}
@@ -245,16 +245,16 @@
                 <div class="clearfix"></div>
                 <div class="fluid-row">
                     <h4>Share</h4>
-                    <a href=""><i class="icon-twitter icon-large" style="color: #4e7ac7;margin-right:5px;"></i></a>
-                    <a class="share" onclick="shareOnFacebook();"><i class="icon-facebook icon-large" style="color: #4e7ac7;margin-right:10px;"></i></a>
-                    <!-- Facebook Sharing -->
-                    <script>
-                        function shareOnFacebook() {
-                            var sharer = "https://www.facebook.com/sharer/sharer.php?u=";
-                            window.open(sharer + location.href, 'sharer', 'width=626,height=436');
-                        }
-                    </script>
-                    <a href=""><i class="icon-linkedin-sign icon-large" style="color: #4e7ac7;margin-right:10px;"></i></a>
+                    <!-- AddThis Button BEGIN -->
+                    <div class="addthis_toolbox">
+                    <a class="share addthis_button_twitter">
+                        <i class="icon-twitter icon-large" style="color: #4e7ac7;margin-right:5px;"></i></a>
+                    <a class="share addthis_button_facebook">
+                        <i class="icon-facebook icon-large" style="color: #4e7ac7;margin-right:10px;"></i></a>
+                    <a class="share addthis_button_linkedin">
+                        <i class="icon-linkedin-sign icon-large" style="color: #4e7ac7;margin-right:10px;"></i></a>
+                    </div>
+                    <!-- AddThis Button END -->
                 </div>
             </div>
             <div class="span6">
@@ -390,5 +390,13 @@
             diameter: 150,
         });
     });
+</script>
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-51b5379c6ba6d63e"></script>
+<script>
+    var addthis_share = {
+        templates: {
+            twitter: 'check out this project on @reallocate',
+        }
+    };
 </script>
 {% endblock %}
