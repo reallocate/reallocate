@@ -21,8 +21,15 @@ $(document).ready(function() {
         e.preventDefault();
         login_user($('#modal-username').val(), $('#modal-password').val());
 
-    })  
-});     
+    });
+
+
+});   
+
+var validate_email = function() {
+
+    
+};
 
 var login_user = function(username, password) {
 
@@ -39,9 +46,11 @@ var login_user = function(username, password) {
             $('#modal-password').parent('.control-group').addClass('error');
         }
    });
-
 }
 
+
+
+// aka follow / unfollow
 var modify_project_relation = function(elem, action) {
 
     project_id = $(elem).attr("project-id");
