@@ -14,7 +14,7 @@ Initial Setup Steps
 ===========
 
 * git clone git@github.com:reallocate/reallocate.git
-* sudo pip(-2.7) install -r requirements.txt
+* sudo pip-2.7 install -r requirements.txt
 * create a settings_local.py file next to settings.py (you can find our private keys in our DropBox folder)
 * ./manage.py syncdb
    * It will offer to create a superuser; answer "no" -- you get admin / admin for free.
