@@ -163,35 +163,13 @@
             background-image:url(/static/images/bgtexture2.png);
             padding: 30px 0;
         }
-        .share {
-            cursor: pointer;
+        .share:hover {
+            text-decoration: none;
         }
     </style>
 {% endblock %}
 
 {% block widecontent %}
-
-<!-- Facebook API -->
-<div id="fb-root"></div>
-<script>
-  window.fbAsyncInit = function() {
-    // init the FB JS SDK
-    FB.init({
-      appId      : 469327236491565,
-      status     : true,  // Check Facebook Login status
-      xfbml      : true   // Look for social plugins on the page
-    });
-  };
-
-  // Load the SDK asynchronously
-  (function(d, s, id){
-     var js, fjs = d.getElementsByTagName(s)[0];
-     if (d.getElementById(id)) {return;}
-     js = d.createElement(s); js.id = id;
-     js.src = "//connect.facebook.net/en_US/all.js";
-     fjs.parentNode.insertBefore(js, fjs);
-   }(document, 'script', 'facebook-jssdk'));
-</script>
 
 <!-- Header: Breadcrumb -->
 <div class="container">
@@ -267,52 +245,17 @@
                 <div class="clearfix"></div>
                 <div class="fluid-row">
                     <h4>Share</h4>
-                    <a href=""><i class="icon-twitter icon-large" style="color: #4e7ac7;margin-right:5px;"></i></a>
-                    <a class="share" onClick="shareOnFacebook();"><i class="icon-facebook icon-large" style="color: #4e7ac7;margin-right:10px;"></i></a>
-                    <a href=""><i class="icon-linkedin-sign icon-large" style="color: #4e7ac7;margin-right:10px;"></i></a>
+                    <!-- AddThis Button BEGIN -->
+                    <div class="addthis_toolbox">
+                    <a class="share addthis_button_twitter">
+                        <i class="icon-twitter icon-large" style="color: #4e7ac7;margin-right:5px;"></i></a>
+                    <a class="share addthis_button_facebook">
+                        <i class="icon-facebook icon-large" style="color: #4e7ac7;margin-right:10px;"></i></a>
+                    <a class="share addthis_button_linkedin">
+                        <i class="icon-linkedin-sign icon-large" style="color: #4e7ac7;margin-right:10px;"></i></a>
+                    </div>
+                    <!-- AddThis Button END -->
                 </div>
-                <div id="share-response" class="modal hide fade">
-                  <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h3 id="response-heading"></h3>
-                  </div>
-                  <div class="modal-body">
-                    <p id="response-body"></p>
-                  </div>
-                  <div class="modal-footer">
-                    <a href="#" class="btn" data-dismiss="modal" aria-hidden="true">Close</a>
-                  </div>
-                </div>
-
-                <!-- Facebook Share Dialog -->
-                <script>
-                    function shareOnFacebook() {
-                        var params = {
-                            method: 'feed',
-                            name: 'ReAllocate Project Name',
-                            caption: 'ReAllocate Project',
-                            description: 'ReAllocate Project Description',
-                            link: window.location.href,
-                        };
-
-                        function callback(response) {
-                            if (response && response.post_id) {
-                                $('h3#response-heading').html('Success!');
-                                $('p#response-body').html("Thanks for sharing this on Facebook!");
-                                $('#share-response').modal();
-                            }
-                            else {
-                                $('h3#response-heading')
-                                  .html('Oops!');
-                                $('p#response-body')
-                                  .html('Something went wrong. Let us know so we can fix it.');
-                                $('#share-response').modal();
-                            }
-                        }
-
-                        FB.ui(params, callback);
-                    }
-                </script>
             </div>
             <div class="span6">
                 <div class="row-fluid">
@@ -447,5 +390,13 @@
             diameter: 150,
         });
     });
+</script>
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-51b5379c6ba6d63e"></script>
+<script>
+    var addthis_share = {
+        templates: {
+            twitter: 'check out this project on @reallocate',
+        }
+    };
 </script>
 {% endblock %}
