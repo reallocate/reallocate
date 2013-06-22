@@ -49,7 +49,7 @@
         You aren't following any projects<br/><br/>
     {% endif %}
     
-    {% for project in user_profile.followed_projects.all %}
+    {% for project in followed_projects %}
         <div class="control-group">
             <a href='/project/{{ project.id }}' class='project-name'>{{ project.name }}</a>&nbsp;&nbsp;&nbsp;&nbsp;
             <a href='#' class='unfollow-project' project-id='{{ project.id }}'>(stop following)</a>

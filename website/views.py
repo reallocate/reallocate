@@ -1,3 +1,4 @@
+import logging
 import boto
 from boto.s3.key import Key
 from myproject import settings
@@ -10,11 +11,14 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_exempt, csrf_protect
+from django.db.models import Q
+
 from website.models import OrganizationForm, Organization, ProjectForm, Project, Update, UserProfile
 from website.models import OpportunityEngagement, Opportunity, OpportunityForm
 from website.models import STATUS_ACTIVE, STATUS_CHOICES, STATUS_INACTIVE, STATUS_CLOSED
+
 import website.base as base
-from django.db.models import Q
+
 
 @login_required
 @csrf_exempt
@@ -23,6 +27,7 @@ def profile(request):
     
     def remote_storage(uploaded_file, user):
         """ for uploading avatars to s3 """
+
         c = boto.connect_s3(settings.AWS_ACCESS_KEY_ID, settings.AWS_SECRET_ACCESS_KEY)
         bucket = c.get_bucket(settings.S3_BUCKET)
         
@@ -32,12 +37,15 @@ def profile(request):
         k.key = filename
         k.set_contents_from_string(uploaded_file.read())
         k.set_acl('public-read')
+
         return 'http://s3.amazonaws.com/%s/%s' % (settings.S3_BUCKET, filename)
         
     user_profile = request.user.get_profile()
+    fp = request.user.project_set.all()
     topmsg = None
 
     if request.method == "POST":
+
         avatar = request.FILES.get('file')
         
         filename = remote_storage(avatar, request.user) if avatar else ''
@@ -51,8 +59,10 @@ def profile(request):
     
     return render_to_response('profile.html', {
         'user_profile': user_profile,
+        'followed_projects': fp,
         'topmsg': topmsg,
     }, context_instance=RequestContext(request))
+
 
 def public_profile(request, username=None):
 
