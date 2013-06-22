@@ -10,6 +10,7 @@ STATUS_ACTIVE = STATUS_CHOICES[1][0]
 STATUS_CLOSED = STATUS_CHOICES[2][0]
 
 class Organization(models.Model):
+
     name = models.CharField(max_length=100, blank=True)
     business_type = models.CharField(max_length=100, blank=True, default='nonprofit')
     status = models.CharField(max_length=100, choices=STATUS_CHOICES, default='unpublished')
@@ -30,6 +31,7 @@ class Organization(models.Model):
     def __unicode__(self):
         return "Name: %s" % self.name
     
+
 class OrganizationForm(ModelForm):
     
     class Meta:
@@ -39,6 +41,7 @@ class OrganizationForm(ModelForm):
         widgets = {
             'description': Textarea(attrs={'cols': 80, 'rows': 10}),
         }
+
 
 class Project(models.Model):
 
@@ -70,8 +73,11 @@ class ProjectForm(ModelForm):
             'description': Textarea(attrs={'cols': 80, 'rows': 10}),
         }
 
+
 OPP_TYPE_CHOICES = ((u'Equipment', u'Equipment'),(u'Knowledge', u'Knowledge'),(u'Money', u'Money'),(u'Skills', u'Skills'),)
+
 class Opportunity(models.Model):
+
     tags = TaggableManager()
     organization = models.ForeignKey(Organization)
     project = models.ForeignKey(Project)
@@ -96,7 +102,9 @@ class Opportunity(models.Model):
     class Meta:
         verbose_name_plural = "opportunities"
 
+
 class OpportunityForm(ModelForm):
+
     class Meta:
         model = Opportunity
         fields = ('name', 'description', 'short_desc', 'opp_type')
@@ -109,6 +117,7 @@ class OpportunityForm(ModelForm):
 # Docs: http://stackoverflow.com/a/965883/705945
 
 class UserProfile(models.Model):
+
     user = models.OneToOneField(User)
     bio = models.CharField(max_length=2000, blank=True)
     media_url = models.CharField(max_length=2000, blank=True)
@@ -121,12 +130,15 @@ class UserProfile(models.Model):
         return "%s's profile" % self.user
 
 def create_user_profile(sender, instance, created, **kwargs):
+
     if created:
         profile, created = UserProfile.objects.get_or_create(user=instance)
+
 
 post_save.connect(create_user_profile, sender=User)
 
 class Update(models.Model):
+
     organization = models.ForeignKey(Organization)
     project = models.ForeignKey(Project)
     opportunity = models.ForeignKey(Opportunity)
@@ -138,7 +150,9 @@ class Update(models.Model):
     def __unicode__(self):
         return "Update: %s" % "Coming soon!"
 
+
 class OpportunityEngagement(models.Model):
+    
     # to keep the project + reallocate in the loop, reallocate will approve the engagements
     # and stay in each conversation
     user = models.ForeignKey(User)

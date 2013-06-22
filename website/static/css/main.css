@@ -155,9 +155,46 @@ h5 {
     -webkit-border-radius: 5px;
 }
 
+.vert-or {
+    margin: 74px auto;
+    text-align: center;
+    width: 30px;
+}
+.vert-or div {
+    height: 30px;
+    border-left: 1px solid #999;
+    width: 1px;
+    margin: 0px auto;
+}
+.vert-or p {
+    color: #555;
+    padding: 2px;
+    margin: 0px auto;
+}
+
+#signup .well {
+    margin: 25px 30px;
+    width: 525px;
+}
+#signup #social-sign-in {
+    text-align: right;
+}
+#signup #social-sign-in .social-button{
+    margin: 10px 0px 0px 0px;
+}
+#loginModal {
+    width: 400px;
+    margin-left: -200px;
+}
 #loginModal form {
     margin-bottom: 0px;
 }
+#loginModal .vert-or {
+    margin: 15px auto;
+}
 #loginModal #social-logins .btn {
     margin-bottom: 12px;
+}
+#loginModal form input[type=text], #loginModal form input[type=password] {
+    width: auto;
 }

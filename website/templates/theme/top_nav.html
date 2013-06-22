@@ -4,7 +4,7 @@
         <h3 id="loginModalLabel">Login</h3>
     </div>
     <div class="modal-body row-fluid">
-        <div class="span5">
+        <div class="span6">
             <form class="form-horizontal" action="/login/" id="modal-login" method="post">
                 <div class="control-group">
                     <input type="text" name="username" id="modal-username" value="{{ username }}" placeholder="email" />
@@ -16,25 +16,24 @@
                     <label class="checkbox">
                         <input type="checkbox"> Remember me
                     </label>
-                    <div style="text-align:center;"><button type="submit" class="btn" style="text-align:center;">Log in</button>
-                    </div>
+                    <button type="submit" class="btn">Log in</button>
                 </div>
             </form>
         </div>
-        <div class="span2 offset1">
-            <div style="margin:25px 0px 5px 5px;">|</div>
-                <p>or</p>
-            <div style="margin-left:5px;">|</div>
+        <div class="vert-or span1">
+            <div></div>
+            <p>or</p>
+            <div></div>
         </div>
-        <div class="span4" id="social-logins">
+        <div class="span5" id="social-logins">
 
             <a href="{% url "socialauth_begin" 'google' %}" class="btn btn-primary"><i class="icon-google-plus"></i> Google</a><br />
             <a class="btn btn-info" href="/auth/facebook" style="background: #596F90;"><i class="icon-facebook"></i> Facebook</a><br />    
             <a href="{% url "socialauth_begin" 'linkedin' %}" class="btn btn-info"><i class="icon-linkedin"></i> LinkedIn</a><br />
         </div>
     </div>
-    <div class="modal-footer center">
-        Not a memeber? <a href="/signup">Signup!</a>
+    <div class="modal-footer">
+        Not a member? <a href="/signup">Signup!</a>
     </div>
 </div>
 

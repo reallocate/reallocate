@@ -23,13 +23,7 @@ $(document).ready(function() {
 
     });
 
-
 });   
-
-var validate_email = function() {
-
-    
-};
 
 var login_user = function(username, password) {
 
@@ -56,7 +50,7 @@ var modify_project_relation = function(elem, action) {
     project_id = $(elem).attr("project-id");
 
     $.ajax({
-        url : '/ajax/modify_project_relation',
+        url : '/ajax/modify-project-relation',
         data : {'project_id': project_id, 'action': action},
         success: function(res) {
             if (action == 'follow') {
