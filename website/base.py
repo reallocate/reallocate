@@ -15,10 +15,10 @@ def get_current_userprofile(request):
         return HttpResponse("error getting user profile")
 
 def build_base_context(request):
+
     context = {}
     if request.user.is_authenticated():
-        context['logged_in'] = True
-        context['user_email'] = request.user.email
+        context['user'] = request.user
     context['topmsg'] = request.GET.get('topmsg')
     return context
 

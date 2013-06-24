@@ -182,19 +182,19 @@ h5 {
 #signup #social-sign-in .social-button{
     margin: 10px 0px 0px 0px;
 }
-#loginModal {
+#login-modal {
     width: 400px;
     margin-left: -200px;
 }
-#loginModal form {
+#login-modal form {
     margin-bottom: 0px;
 }
-#loginModal .vert-or {
+#login-modal .vert-or {
     margin: 15px auto;
 }
-#loginModal #social-logins .btn {
+#login-modal #social-logins .btn {
     margin-bottom: 12px;
 }
-#loginModal form input[type=text], #loginModal form input[type=password] {
+#login-modal form input[type=text], #login-modal form input[type=password] {
     width: auto;
 }

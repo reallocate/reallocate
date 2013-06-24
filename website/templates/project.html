@@ -369,12 +369,13 @@
 <script src="/static/js/jquery.peity.min.js"></script>
 <script>
     $(document).ready(function(){
-        $(".unfollow-project").click(function(){
+        $(".unfollow-project").click(function() {
             $(this).hide();
             $(".follow-project").show();
             num_following = parseInt($("#num-following").html());
             $("#num-following").html((num_following - 1).toString())
         });
+
         $(".follow-project").click(function(){
             $(this).hide();
             $(".unfollow-project").show();

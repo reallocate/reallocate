@@ -90,8 +90,10 @@
 
 
 <script src="{{ STATIC_URL }}theme/js/bootstrap.min.js"></script>
-<script src="{{ STATIC_URL }}js/main.js"></script>
+<script src="{{ STATIC_URL }}js/main.js?2"></script>
 <script>
+{% if user %}reAllocate.user = "{{ user.username }}";{% endif %}
+
 {#    {% if not request.user.is_staff %}#}
     var _gaq = _gaq || [];
     _gaq.push(['_setAccount', 'UA-38925689-1']);
