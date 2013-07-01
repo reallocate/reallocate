@@ -6,57 +6,398 @@
 {% block meta_description %}{{ the_title }}{% endblock %}
 
 
+{% block extra_css %}
+    <style>
 
-{% block maincontent %}
+        .sectionTitle {
+            height: 50px;
+            font-size: 2em;
+            font-weight: 100;
+        }
+
+        .projectImage img{
+            width: 640px;
+            height: 480px;
+        }
+
+        .socialLinks {
+            margin-top: 25px;
+        }
+        .oppContainer{
+            margin-bottom: 20px;
+            box-shadow: 1px 2px 3px #808080;
+            -moz-box-shadow: 1px 2px 3px #808080;
+            -webkit-box-shadow: 1px 2px 3px #808080;
+            position: relative;
+        }
+
+        .oppContainer:hover {
+       border-color: rgba(82, 168, 236, 0.8);
+       box-shadow: 0 5px 5px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(82, 168, 236, 0.6);
+       cursor: pointer;
+        }
+
+        .oppImage{
+            height: 161px;
+        }
+
+        .oppText {
+            background-color: rgba(0,0,0,.55);
+            height: 161px;
+            color: #ffffff;
+
+        }
+        .oppTitle{
+            padding-top: 10px;
+            font-size: 1.5em;
+            font-family: 'Raleway', sans-serif;
+        }
+
+        .oppDescription{
+            padding: 5px 5px 0px;
+            height: 80px;
+            font-size: .9em
+        }
+
+        .oppLink {
+
+        }
+
+        .oppLink a {
+            font-size: 1.3em;
+        }
+
+        .updateThumb{ }
+        .updateUserName{
+            color: black;
+        }
+        .updateOppName{
+            color: #808080;
+        }
+        .updateText{
+            color: #808080;
+        }
+        .updateMedia{
+            margin:5px;
+        }
+
+        .project_top {
+            padding-top: 30px;
+        }
+        .project_top .project_media_url img {
+            margin-bottom: 10px;
+        }
+
+        .project_top .stat-label {
+            font-weight: 100;
+        }
+        .project_top .number {
+            font-size: 2em;
+            margin-bottom: 5px;
+        }
+        .chart {
+            background-image: url(/static/images/chart_sprite.png);
+            background-repeat: no-repeat;
+            background-position: 0px 25px;
+            background-size: 35px;
+            padding-left: 45px;
+        }
+        .chart h5 {
+            margin-bottom: 2px;
+        }
+        .progress {
+            position: relative;
+            height: 40px;
+            background: #EDEDED;
+            -webkit-border-radius: 0;
+               -moz-border-radius: 0;
+                    border-radius: 0;
+            margin-bottom: 18px;
+        }
+        .progress .bar {
+            background: #F2736A;
+        }
+        .bar_progress, .pie_progress {
+            position: absolute;
+            color: #000;
+        }
+        .bar_progress {
+            top: 0;
+            left: 0;
+            font-size: 24px;
+            line-height: 40px;
+            padding-left: 5px;
+        }
+        .peity {
+            position: relative;
+        }
+        .pie_progress {
+            top: 50%;
+            left: 18px;
+            width: 150px;
+            margin-top: -28px;
+            font-size: 28px;
+            line-height: 28px;
+            text-align: center;
+            vertical-align: middle;
+        }
+        .update-row {
+            /*border-right: solid 1px #b0b0b0;*/
+        }
+
+        .update_row {
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+        .follower_thumbnail{
+            width:25px;
+            height:25px;
+            margin-right:10px;
+            margin-bottom:10px;
+        }
+
+        .opportunity_row {
+            width: 100%;
+            margin-top:20px;
+            background-color: #1c6845;
+            background-image:url(/static/images/bgtexture2.png);
+            padding: 30px 0;
+        }
+        .share:hover {
+            text-decoration: none;
+        }
+    </style>
+{% endblock %}
+
+{% block widecontent %}
+
+<!-- Header: Breadcrumb -->
+<div class="container">
+    <ul class="breadcrumb">
+        <li id="breadcrumb-menu-home"><a href="/">Home</a><span class="divider">/</span></li>
+        <li id="breadcrumb-menu-mission" class="active">{{ project.name }}</li>
+    </ul>
+</div>
 
 
-    <h1></h1>
-
-
-    <div class="container-fluid">
-        <div class="row-fluid">
-            <br>
-            <h2>Create an opportunity for: {{ parent_project.name }} </h2>
-            <br>
-
+<!-- Header: Project -->
+<div class="container">
+    <div class="row-fluid">
+        <div class="span10 project_title">
+            <h5>Project</h5>
+            <h1 >{{ project.name }}</h1>
         </div>
-        <div class="row-fluid">
-
-            <div class="span12 left">
-
-                {% if show_form %}
-                    <form id="signup-form" class="form-horizontal" method="post">{% csrf_token %}
-
-                        {% for field in myform %}
-
-                            <div class="control-group">
-                                <label class="control-label" for="input{{ field.label }}">{{ field.label }}</label>
-
-                                <div class="controls">
-                                    {{ field }}
-                                </div>
-                            </div>
-
-                        {% endfor %}
-
-                        <div class="control-group">
-                            <div class="controls">
-                                <input class="btn btn-warning" type="submit" value="Save"/>
-                            </div>
-                        </div>
-
-                    </form>
-                {% else %}
-                    <h3>Thank you. We will contact you soon.</h3>
-                {% endif %}
+        <div class="span2">
+            <div class='follow-or-not'>
+                <a href="#" class="btn btn-block btn-primary login-required unfollow-project" {% if not is_following %}style='display:none;'{% endif %}project-id="{{ project.id }}">Following</a>
+                <a href="#" class="btn btn-block btn-primary login-required follow-project" {% if is_following %}style='display:none;'{% endif %} project-id="{{ project.id }}">Follow</a>
             </div>
-
         </div>
     </div>
+    <div class="row-fluid">
+        <div class="span6 offset6">
+            <span style='float:right;'>
+                <strong>Jump to</strong>:
+                <a href='#' class='jump' loc='opps'>Opportunities({{ num_opportunities }})</a>
+                <a href='#' class='jump' loc='updates'>Updates({{ num_updates|default:0 }})</a>
+            </span>
+        </div>
+    </div>
+</div>
 
+<!-- Header: Project Image -->
+<div style="background-image:url({{ project.media_url }}); background-size:cover; height: 350px;"></div>
+
+<!-- Body: About Project -->
+<div class="container project_top">
+    <div class="row-fluid">
+        <div class="span7">
+            <h3> About the Project</h3>
+            {{ project.description|safe }}
+            <div style="float:left;"><img src="/static/images/profile-female-avatar.png" style="width:50px;height:50px;"></div>
+            <div style="margin-top:35px;margin-left:60px;margin-bottom:20px;">
+                Created By <a class="username" href="/profile/{{ project.created_by.id }}">
+                                 {{ project.created_by.first_name }} {{ project.created_by.last_name }}</a>
+                for {{ project.organization.name }}
+            </div>
+        </div>
+        <div class="span5">
+            <div class="span6">
+                <div class='fluid-row' style='margin-top:20px;'>
+                    <h4>Needs</h4>
+                    {% for need in project.get_needs %}
+                        Need
+                    {% endfor %}
+                    Industrial Design<br/>
+                    Prototyping<br/>
+                    3D Printing<br/>
+                </div>
+                <div class='fluid-row'>
+                    <h4>Reallocators({{ num_following }})</h4>
+                    {% for follower in project.followers %}
+                       <div style="float:left;"><img src="/static/images/profilepic-female1.png" class="follower_thumbnail"></div>
+                    {% endfor %}
+                    <div style="float:left;"><img src="/static/images/profilepic-female1.png" class="follower_thumbnail"></div>
+                    <div style="float:left;"><img src="/static/images/profilepic-female1.png" class="follower_thumbnail"> </div>
+                    <div style="float:left;"><img src="/static/images/profilepic-female1.png" class="follower_thumbnail"></div>
+                    <div style="float:left;"><img src="/static/images/profilepic-female1.png" class="follower_thumbnail"></div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="fluid-row">
+                    <h4>Share</h4>
+                    <!-- AddThis Button BEGIN -->
+                    <div class="addthis_toolbox">
+                    <a class="share addthis_button_twitter">
+                        <i class="icon-twitter icon-large" style="color: #4e7ac7;margin-right:5px;"></i></a>
+                    <a class="share addthis_button_facebook">
+                        <i class="icon-facebook icon-large" style="color: #4e7ac7;margin-right:10px;"></i></a>
+                    <a class="share addthis_button_linkedin">
+                        <i class="icon-linkedin-sign icon-large" style="color: #4e7ac7;margin-right:10px;"></i></a>
+                    </div>
+                    <!-- AddThis Button END -->
+                </div>
+            </div>
+            <div class="span6">
+                <div class="row-fluid">
+                    {% include 'paypal-donate.inc' %}
+                    <div style="position: relative; text-align: center;">
+                        <div class="pie">46,54</div>
+                        <div class="pie_progress">
+                            46%
+                            <br>
+                            <span style="font-size: 0.9em">Complete</span>
+                        </div>
+                    </div>
+                    <div class="chart">
+                        <h5>Money</h5>
+                        <div class="progress">
+                            <div class="bar_progress">50%</div>
+                            <div class="bar" style="width: 50%"></div>
+                        </div>
+                        <h5>Knowledge</h5>
+                        <div class="progress">
+                            <div class="bar_progress">75%</div>
+                            <div class="bar" style="width: 75%"></div>
+                        </div>
+                        <h5>Skills</h5>
+                        <div class="progress">
+                            <div class="bar_progress">40%</div>
+                            <div class="bar" style="width: 40%"></div>
+                        </div>
+                        <h5>Equipment</h5>
+                        <div class="progress">
+                            <div class="bar_progress">20%</div>
+                            <div class="bar" style="width: 20%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Body: Opportunities -->
+<div class="opportunity_row">
+    <div class="container">
+        <div class="row-fluid">
+            <h3 style='color:#FFF;'>Opportunities</h3>
+            <h6 style='color:#FFF;'>Here are some ways you can interact and help with this project.</h6>
+        </div>
+        <div class="row-fluid">
+            {% for opp in opportunities|slice:":3" %}
+                {% include "includes/opportunity-pane.html" %}
+            {% endfor %}
+            {% comment %}
+                <div class="span4 opportunity_browse">
+                    <div style="float:right;font-weight:bold; color:#f2736a;text-align:center;">
+                        {{ opp.skill }}<br><i class="icon-fighter-jet icon-2x" style="color: #f2736a;">{{ opp.skill }}</i>
+                    </div>
+                    <strong><span style="color: #333; font-weight:bold;">{{ opp.skill }} skill</span></strong><br/>
+                    <span style="color: #999;">?20 Kudos?</span>
+                    <p></p>
+                    <h3><a href="/opportunity/{{ opp.id }}">{{ opp.name }}</a></h3>
+                    <p>{{ opp.desc|safe }} </p>
+                    <p><span style="color: #333; font-weight:bold;">?20 hrs/week?</span> for 2 weeks</p>
+                    <a href="/opportunity/{{ opp.id }}/">Learn more</a>
+                    <div style="float:right;"><a href="#" class="btn">Apply</a></div>
+                </div>
+            {% endcomment %}
+        </div>
+    </div>
+</div>
+
+<!-- Body: Additional -->
+<div class="container">
+    <div class="row-fluid">
+        <div class="span7">
+            <h3>Featured Update</h3>
+            <div style="background-color: #eee;padding:30px;margin-bottom: 50px;-webkit-border-radius: 5px;-moz-border-radius: 5px;border-radius: 5px;margin-top:20px;">
+                <div style="float:left;margin-right:15px;height:100px;"><img src="/static/images/profile-female-avatar.png" style="width:50px;height:50px;"></div>
+                <div style="float:inherit;"><div style="float:right;font-color: #888;"><span style="font-color:#888;">On {{ feat_update.creation_ts }}DATE</span></div>
+                By <a href="">{{ feat_update.user.username }} </a><br>
+                {{ feat_update.text }}
+                <img src="/static/images/featuredpostimage.jpg" style="width:320px;height:213px;margin-left: 70px;margin-top:20px;-webkit-border-radius: 5px;-moz-border-radius: 5px;border-radius: 5px;"></div>
+            </div>
+            <h3> Recent Updates</h3>
+            {% for update in updates %}
+                <div class="row-fluid update_row">
+                    <div class="span2">
+                        <img class="update_thumb" src="{{update.created_by.get_profile.media_url}}"/>
+                    </div>
+                    <div class="span10">
+                        <a class="username" href="/profile/{{update.created_by.id}}">
+                            {{update.created_by.first_name}} {{update.created_by.last_name}}
+                        </a>
+                        <div class="update_text">  {{update.text}}</div>
+                        <div class="update_media"> <img width="100%" height="100%" src="{{ update.media_url }}"> </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="span5">
+            <span style='float:right;'><h3>Similar Projects</h3></span>
+            {% for project in similar_projects %}
+
+            {% endfor %}
+        </div>
+    </div>
+</div>
 
 {% endblock %}
 
 {% block bottomscript %}
+<script src="/static/js/jquery.peity.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $(".unfollow-project").click(function() {
+            $(this).hide();
+            $(".follow-project").show();
+            num_following = parseInt($("#num-following").html());
+            $("#num-following").html((num_following - 1).toString())
+        });
 
+        $(".follow-project").click(function(){
+            $(this).hide();
+            $(".unfollow-project").show();
+            num_following = parseInt($("#num-following").html());
+            $("#num-following").html((num_following + 1).toString())
+        });
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        $(".pie").peity("pie", {
+            colours: [ '#F2736A', '#EDE6ED' ],
+            diameter: 150,
+        });
+    });
+</script>
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-51b5379c6ba6d63e"></script>
+<script>
+    var addthis_share = {
+        templates: {
+            twitter: 'check out this project on @reallocate',
+        }
+    };
+</script>
 {% endblock %}

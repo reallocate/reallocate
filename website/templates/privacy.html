@@ -1,0 +1,132 @@
+{% extends 'theme/base.html' %}
+
+{% block extra_css %}
+<style>
+    body {
+        padding-top: 60px !important;   /*for our hero unit*/
+    }
+    .feature_container {
+        height: 400px;
+        margin-top: 60px;  
+    }
+    
+    .home_feature_slider {
+        background: url('/static/images/PLACEHOLDER.png');
+        background-size: 1500px 500px;
+        margin: 0 0 20px;
+        height: 500px;
+    }
+    .home_feature_slider_about {
+        background: url('/static/images/PLACEHOLDER.png');
+        background-size: 1500px 500px;
+        margin: 0 0 20px;
+        height: 300px;
+    }
+
+    .home-search {
+        margin: 0 0 20px;
+    }
+    .home-slogan {
+        margin: 0 0 20px;
+        text-align: center;
+    }
+    
+    footer {
+        margin-top: 30px;
+    }
+    
+    #hero-content {
+        margin-top: 175px;
+        padding: 10px;
+        background-color:rgba(255, 255, 255, 0.6);
+        border-radius: 3px;
+        text-align: center;
+    }
+    .h1hero-content{
+    	color: #262626;
+    	font-weight: 300;
+    }
+    .phero-content{
+    	color: #262626;
+    	font-weight: 300;
+    	font-size: 18px;
+    }
+    #hero-content-about{
+    	margin-top: 50px;
+        padding: 10px;
+        background-color:rgba(232, 232, 232, 0.8);
+        border-radius: 3px;
+        text-align: center;
+    }
+    #hero-content .give-icons {
+        color: #f2736a;
+        float: left;
+        padding: 0 10px;
+    }
+    .divider {
+    	padding:0 3px
+    }
+</style>
+{% endblock %}
+
+
+{% block hero %}
+    <div class="home_feature_slider">        
+        <div class="row-fluid">
+            <div id="hero-content" class="span5 offset5" text-align="center">
+                
+                <h1 class="h1hero-content">Lorem ipsum dolor sit amet.</h1> 
+                <p class="phero-content"> Consectetur adipiscing elit. Nullam hendrerit velit at justo lobortis, vitae.</h2>
+                
+            </div> 
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block maincontent %}
+  
+    <div class="row-fluid">
+        
+        <h1>Privacy Policy</h1>
+        <div class="divider">
+        </div>
+
+            <p>
+                Your privacy is very important to us. Accordingly, we have developed this Policy in order for you to understand how we collect, use, communicate and disclose and make use of personal information. The following outlines our privacy policy.
+            </p>
+
+            <ul>
+                <li>
+                    Before or at the time of collecting personal information, we will identify the purposes for which information is being collected.
+                </li>
+                <li>
+                    We will collect and use of personal information solely with the objective of fulfilling those purposes specified by us and for other compatible purposes, unless we obtain the consent of the individual concerned or as required by law.       
+                </li>
+                <li>
+                    We will only retain personal information as long as necessary for the fulfillment of those purposes. 
+                </li>
+                <li>
+                    We will collect personal information by lawful and fair means and, where appropriate, with the knowledge or consent of the individual concerned. 
+                </li>
+                <li>
+                    Personal data should be relevant to the purposes for which it is to be used, and, to the extent necessary for those purposes, should be accurate, complete, and up-to-date. 
+                </li>
+                <li>
+                    We will protect personal information by reasonable security safeguards against loss or theft, as well as unauthorized access, disclosure, copying, use or modification.
+                </li>
+                <li>
+                    We will make readily available to customers information about our policies and practices relating to the management of personal information. 
+                </li>
+            </ul>
+
+            <p>
+                We are committed to conducting our business in accordance with these principles in order to ensure that the confidentiality of personal information is protected and maintained. 
+            </p>        
+            
+{% endblock %}
+
+
+{% block bottomscript %}
+
+{% endblock %}

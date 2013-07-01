@@ -104,6 +104,20 @@ def about(request):
     return render_to_response('about.html', context, context_instance=RequestContext(request))
 
 
+def privacy(request):
+
+    context = base.build_base_context(request)
+
+    return render_to_response('privacy.html', context, context_instance=RequestContext(request))
+
+
+def tos(request):
+
+    context = base.build_base_context(request)
+
+    return render_to_response('tos.html', context, context_instance=RequestContext(request))
+
+
 def learn(request):
 
     context = base.build_base_context(request)
@@ -189,7 +203,7 @@ def view_project(request, pid=1):
 
 
 @login_required
-def add_project(request):
+def new_project(request):
 
     # Show the sign page and collect emails
     context = base.build_base_context(request)
@@ -220,8 +234,38 @@ def add_project(request):
 
     context['myform'] = ProjectForm()
 
-    return render_to_response('add_project.html', context, context_instance=RequestContext(request))
+    return render_to_response('new_project.html', context, context_instance=RequestContext(request))
 
+@csrf_exempt
+def add_opportunity(request, oid):
+
+    opp = get_object_or_404(Opportunity, pk=oid)
+    project = get_object_or_404(Project, pk=opp.project.id)
+    organization = project.organization
+    updates = Update.objects.filter(opportunity=opp).order_by('-date_created')[0:10]
+    context = base.build_base_context(request)
+    
+    context.update({
+        'organization': organization,
+        'opportunity': opp,
+        'project': project,
+        'other_opps': [rec for rec in Opportunity.objects.filter(project=opp.project).all() if rec.id != opp.id],
+        'updates': updates,
+        'is_engaged': False})
+    
+    if request.user.is_authenticated():
+
+        context['is_following'] = request.user in project.followed_by.all()
+
+        try:
+            user_engagement = OpportunityEngagement.objects.get(opportunity=opp, user=request.user)
+        except ObjectDoesNotExist:
+            user_engagement = None
+
+        if user_engagement:
+            context['is_engaged'] = (user_engagement.status == STATUS_ACTIVE)
+            
+    return render_to_response('opportunity.html', context, context_instance=RequestContext(request)) 
 
 @csrf_exempt
 def view_opportunity(request, oid):
@@ -291,7 +335,7 @@ def search(request):
 
 @csrf_exempt
 @login_required
-def engage(request, oid=1):
+def engage_opportunity(request, oid=1):
 
     context = base.build_base_context(request)
 

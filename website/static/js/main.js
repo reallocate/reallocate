@@ -6,6 +6,7 @@ reAllocate = {
             if (!reAllocate.user) {
                 e.preventDefault();
                 $('#login-modal').modal('show');
+                
                 return False;
             }
         });
