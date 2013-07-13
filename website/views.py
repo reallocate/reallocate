@@ -46,11 +46,10 @@ def profile(request):
     context['followed_projects'] = request.user.project_set.all()
 
     if request.method == "POST":
-
         avatar = request.FILES.get('file')
-        
         filename = remote_storage(avatar, request.user) if avatar else ''
         
+        user_profile = request.user.get_profile()
         user_profile.user.email = request.POST.get("email")
         user_profile.bio = request.POST.get("bio")
         user_profile.media_url = filename
