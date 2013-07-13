@@ -138,6 +138,8 @@ def sign_up(request):
 
     context = base.build_base_context(request)
 
+    context['referrer'] = request.META.get('HTTP_REFERER', '/')
+
     if request.method == 'GET':
         return render_to_response('sign_up.html', context, context_instance=RequestContext(request))
 
@@ -153,9 +155,9 @@ def sign_up(request):
     
     email_context = {'email': email, 'user': user}
 
-    base.send_email_template(request, "welcome", email_context, "subject", [settings.ADMIN_EMAIL, email])
+    #base.send_email_template(request, "welcome", email_context, "subject", [settings.ADMIN_EMAIL, email])
 
-    return HttpResponseRedirect(settings.POST_LOGIN_URL)
+    return HttpResponseRedirect(request.POST.get('referrer', '/'))
 
 
 @csrf_exempt
