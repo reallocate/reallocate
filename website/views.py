@@ -284,8 +284,7 @@ def view_opportunity(request, pid, oid):
 
 @csrf_exempt
 @login_required
-def engage_opportunity(request, oid=1):
-
+def engage_opportunity(request, pid, oid=1):
     context = base.build_base_context(request)
 
     opp = get_object_or_404(Opportunity, pk=oid)
