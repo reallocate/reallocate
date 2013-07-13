@@ -44,8 +44,9 @@
       "user" : 1,
       "bio" : "This is a bio",
       "media_url" : "",
-      "organization" : 1
-
+      "organization" : 1,
+      "location": "San Francisco, CA",
+      "occupation": "Engineer"
     }
   },
   
@@ -55,8 +56,10 @@
     "fields": {
       "user" : 2,
       "bio" : "This is a second bio",
-      "media_url" : ""
-
+      "media_url" : "",
+      "organization": 1,
+      "location": "Oakland, CA",
+      "occupation": "Artist"
     }
   },
 
