@@ -171,7 +171,16 @@ h5 {
     padding: 2px;
     margin: 0px auto;
 }
-
+#add-opportunity p.short-desc {
+    margin-left: 10px;
+    margin-bottom: 15px;
+    line-height: 1em;
+}
+#add-opportunity p.name {
+    font-weight: bold;
+    line-height: 1em;
+    margin-left: 10px;
+}
 #signup .well {
     margin: 25px 30px;
     width: 525px;

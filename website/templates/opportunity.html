@@ -145,7 +145,7 @@
                         
                         {% if not is_engaged %}
                         <br/><br/>
-                        <a class="btn btn-primary btn-large" href='/opportunity/{{ opportunity.id }}/engage'>Engage</a>
+                        <a class="btn btn-primary btn-large" href='/project/{{ project.id }}/opportunity/{{ opportunity.id }}/engage'>Engage</a>
                         {% endif %}
                             
                     </div>
@@ -216,6 +216,7 @@
                     </div>
                     {% endif %}
 
+                    <a name="updates"></a>
                     {% for update in updates%}
                         <div class="row-fluid updateRow">
                             <div class="span2">
@@ -226,7 +227,7 @@
                                     {{update.created_by.first_name}} {{update.created_by.last_name}}
                                 </a>
                                 <!--<div class="updateOppName"> {{update.opportunity.name}} </div>-->
-                                <div class="updateText">  {{update.text}}</div>
+                                <div class="updateText">  {{update.text|safe}}</div>
                                 <div class="updateMedia"> <img width="100%" height="100%" src="{{ update.media_url }}"> </div>
                             </div>
                         </div>
@@ -235,7 +236,6 @@
                 
                 <div class="span4" id="related_opp_list">
                     <h3>Related Opportunities</h3>
-                    
                     
                         {% for opp in other_opps%}
                             <div class="oppWell">
@@ -288,15 +288,29 @@
         
         $('#post_update').submit(function() {
             var form = $(this);
+            
+            if (form.find('textarea').val().length == 0) {
+                alert('Please enter an update');
+                return false;
+            }
+            
+            var submit_button = form.find('input[type="submit"]');
+            submit_button.attr('disabled', 'disabled').val('Posting...');
             $.ajax({
                 url : '/ajax/add-update',
                 type: 'POST',
                 data : form.serialize(),
                 success :function(response){
                     console.log(response);
+                    window.location.assign('#updates');
+                    window.location.reload();
                 },
                 error : function(response){
                    console.log("failure to follow/unfollow");
+                },
+                complete: function() {
+                    submit_button.removeAttr('disabled');
+                    form.find('textarea').val('');
                 }
             });
    

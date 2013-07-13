@@ -29,7 +29,8 @@ def profile(request, username=None):
     if not username and not context.get('user'):
         return HttpResponseRedirect(settings.POST_LOGIN_URL)
     
-    if not username:
+    # this is a person viewing their own profile page, make it editable
+    if not username: 
         user = context['user']
         context['edit'] = True
     else:
@@ -62,6 +63,7 @@ def profile(request, username=None):
             filename = remote_storage(avatar, request.user) if avatar else ''
             user_profile.media_url = filename
         
+        user_profile = request.user.get_profile()
         user_profile.user.email = request.POST.get("email")
         user_profile.bio = request.POST.get("bio")
         user_profile.occupation = request.POST.get("occupation")
@@ -222,6 +224,7 @@ def view_project(request, pid=1):
     
     context['num_following'] = project.followed_by.count()
     context['donation_purpose'] = project.name
+    context['pid'] = project.id
 
     return render_to_response('project.html', context, context_instance=RequestContext(request))
 
@@ -268,7 +271,7 @@ def new_project(request):
 
 
 @csrf_exempt
-def view_opportunity(request, oid):
+def view_opportunity(request, pid, oid):
 
     opp = get_object_or_404(Opportunity, pk=oid)
     project = get_object_or_404(Project, pk=opp.project.id)
@@ -301,15 +304,13 @@ def view_opportunity(request, oid):
 
 @csrf_exempt
 @login_required
-def engage_opportunity(request, oid=1):
-
+def engage_opportunity(request, pid, oid=1):
     context = base.build_base_context(request)
 
     opp = get_object_or_404(Opportunity, pk=oid)
     # todo - deal with money type => donations rather than a freeform response
 
     if request.method == "POST":
-
         response = request.POST.get("response", "")
         opp_eng = OpportunityEngagement(user=request.user, opportunity=opp)
         opp_eng.response = response
@@ -322,10 +323,9 @@ def engage_opportunity(request, oid=1):
         base.send_admin_email(subject, html_content, html_content=html_content)
         topmsg = 'Thanks for your engagement - a project leader will get back to you as soon as possible'
 
-        return HttpResponseRedirect("/opportunity/" + str(opp.id) + "?topmsg=" + topmsg)
+        return HttpResponseRedirect("/project/%s/opportunity/%s?topmsg=%s" % (pid, oid, topmsg))
     
     context['opp'] = opp
-
     return render_to_response('engage.html', context, context_instance=RequestContext(request))
 
 
@@ -375,6 +375,8 @@ def add_opportunity(request, pid=None):
 
     context = base.build_base_context(request)
     project = get_object_or_404(Project, pk=pid)
+
+    context['opps'] = Opportunity.objects.filter(project=pid)
 
     if request.method == "POST":
 
