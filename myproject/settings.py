@@ -293,7 +293,7 @@ AUTHENTICATION_BACKENDS = (
 )
 
 # Redirects after login
-LOGIN_URL = '/login/'
+LOGIN_URL = '/login'
 LOGIN_REDIRECT_URL = '/'
 POST_LOGIN_URL = '/search'
 #LOGIN_ERROR_URL = '/login-error/'
