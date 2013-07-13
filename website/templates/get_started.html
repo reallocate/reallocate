@@ -8,31 +8,42 @@
 
 {% block maincontent %}
     
-    <div class="row-fluid">
+    <style>
+        .get-started-header {margin: 30px 0px;}
+        .get-started-header h3 {border-right: 2px solid #727272;}    
+        .get-started-header h4 {line-height: 1.6em;}
+        .get-started-icons {margin-bottom: 45px; text-align: center;}
+        .get-started-icons img {width: 100px; }
+        .get-started-steps {margin-bottom: 65px; font-size: 1.2em; line-height: 1.4em;}
+        .get-started-create-project {text-align: center;}
+        .get-started-create-project a {padding: 20px; font-size: 1.5em;}
 
-        <h3>What to do here</h3>
+    </style>
+    
+    <h1>Get Started</h1>
+    
+    <div class="row-fluid get-started-header">
 
-        <div>
-            "Many hands makes for light work."<br/>
-            Find opportunities to use your skills and resources to help projects working to improve the world.<br/>
-            Organizations, breakdown your projects into bit sized tasks that people can complete.
-            
-        </div>
-        
-        <h4>I have an organization with opportunities for people to help, what should I do?</h4>
+        <div class="span6"><h3>Would you like to build a thriving community of world class volunteers for your non profit or social venture?</h3></div>       
+        <div class="span6"><h4>ReAllocate helps you connect with world class talent. ReAllocators can provide engineering, design, development, storytelling and business support for your projects.</h4></div>
+    </div>
+        <div class="row-fluid get-started-icons">
+        <div class="span3"><img src="/static/images/get-started-lightbulb.jpg"/></div>
+        <div class="span3"><img src="/static/images/get-started-opportunities.jpg"/></div>
+        <div class="span3"><img src="/static/images/get-started-search.jpg"/></div>
+        <div class="span3"><img src="/static/images/get-started-handshake.jpg"/></div>
+    </div>
+    <div class="row-fluid get-started-steps">
+        <div class="span3">Post your project and tell the story of how you want to better the world</div>
+        <div class="span3">Create opportunities for people to provide their skills to your meaningful project</div>
+        <div class="span3">ReAllocate searches the network to find people with skills, knowledge and resources</div>
+        <div class="span3">You connect with ReAllocators who have a passion for your cause and the ability to help</div>
+    </div>    
+    <div class="get-started-create-project">
 
-        <div>
+        <a href="/organization/new" class="btn btn-primary login-required">Post your project</a>
 
-            <ol>
-                <li>Create an account</li>
-                <li>Create your Organization</li>
-                <li>Create a project</li>
-                <li>Create opportunities</li>
-            </ol>
-
-            <a href="/organization/new" class="btn btn_primary login-required">Start a new project</a>
-
-        </div>
+    </div>
 
 
 
