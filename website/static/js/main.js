@@ -1,7 +1,10 @@
 reAllocate = {
 
     init: function() {
-
+        
+        
+        this.setup_addthis();
+        
         $(".login-required").click(function(e) {
             if (!reAllocate.user) {
                 e.preventDefault();
@@ -36,6 +39,8 @@ reAllocate = {
             reAllocate.login_user($('#modal-username').val(), $('#modal-password').val());
 
         });
+        
+
     },   
 
     login_user: function(username, password) {
@@ -74,8 +79,35 @@ reAllocate = {
                 console.log("failure to follow/unfollow");
             }
        });
+    },
+    
+    // setup default sharing messages with overrides from calling page
+    setup_addthis: function(twitter, title, description) {
+        // to setup different shares on different buttons on the same page use markup explained in this article
+        // http://support.addthis.com/customer/portal/articles/381242-url-title
+        // currently only twitter uses the templates
+        // title + description appear to only work on linkedin ?
+        var default_twitter_msg = "Check out the work going on @reallocate http://reallocate.org";
+        var default_title = "Reallocate";
+        var default_description = "Check out the work going on @reallocate. http://reallocate.org";
+        
+        var final_title = (title) ? title: default_title;
+        var final_description = (description) ? description: default_description;
+        var twitter_msg = (twitter) ? twitter: default_twitter_msg;
+    
+        // sets global settings for included addthis_js
+        addthis_share = {
+            title: final_title,
+            description: final_description,
+            templates: {
+                twitter: twitter_msg,
+            }
+        } 
     }
 };
 
 // init page
-$(document).ready(function(){ reAllocate.init(); });
+$(document).ready(function(){
+    reAllocate.init();
+    var addthis_share = {};
+});
