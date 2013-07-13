@@ -315,10 +315,10 @@
                     <strong><span style="color: #333; font-weight:bold;">{{ opp.skill }} skill</span></strong><br/>
                     <span style="color: #999;">?20 Kudos?</span>
                     <p></p>
-                    <h3><a href="/opportunity/{{ opp.id }}">{{ opp.name }}</a></h3>
+                    <h3><a href="/project/{{ pid }}/opportunity/{{ opp.id }}">{{ opp.name }}</a></h3>
                     <p>{{ opp.desc|safe }} </p>
                     <p><span style="color: #333; font-weight:bold;">?20 hrs/week?</span> for 2 weeks</p>
-                    <a href="/opportunity/{{ opp.id }}/">Learn more</a>
+                    <a href="/project/{{ pid }}/opportunity/{{ opp.id }}/">Learn more</a>
                     <div style="float:right;"><a href="#" class="btn">Apply</a></div>
                 </div>
             {% endcomment %}
@@ -342,11 +342,11 @@
             {% for update in updates %}
                 <div class="row-fluid update_row">
                     <div class="span2">
-                        <img class="update_thumb" src="{{update.created_by.get_profile.media_url}}"/>
+                        <img class="update_thumb" src="{{ update.created_by.get_profile.media_url }}"/>
                     </div>
                     <div class="span10">
                         <a class="username" href="/profile/{{update.created_by.id}}">
-                            {{update.created_by.first_name}} {{update.created_by.last_name}}
+                            {{ update.created_by.first_name }} {{ update.created_by.last_name }}
                         </a>
                         <div class="update_text">  {{update.text}}</div>
                         <div class="update_media"> <img width="100%" height="100%" src="{{ update.media_url }}"> </div>
