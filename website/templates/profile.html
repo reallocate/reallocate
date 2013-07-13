@@ -53,9 +53,9 @@
                 <img style='width: 215px; height: 215px; border-radius:6px;' src='{{ user_profile.media_url|default:'/static/images/no-profile-image.png' }}' alt='Avatar for {{ profile.user|escape }}'/>
             </div>
             {% if edit %}
-                <div class='row-fluid' style='padding-top:20px;'>
-                    <label for="file" style='font-weight:bold'>Upload a new photo</label>
-                    <input type="file" name="file" id="file" value="Upload a new photo">
+                <div class="row-fluid" style="padding-top:20px; text-align: center;">
+                    <a class="delegate_file_upload btn btn-primary" href="#">Change profile picture</a>
+                    <input type="file" name="file" id="file" value="Upload a new photo" style="display: none;">
                 </div>
             {% endif %}
         </div>
@@ -192,4 +192,18 @@
         </div>
     </div>
 </div>
+{% endblock %}
+
+
+{% block bottomscript %}
+    <script>
+        
+        $('.delegate_file_upload').click(function() {
+            $('input[type="file"]').trigger('click');
+            return false;
+        });
+        
+
+    </script>
+
 {% endblock %}
