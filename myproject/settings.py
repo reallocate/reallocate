@@ -78,7 +78,6 @@ if 'DEPLOY_ENV' in os.environ and os.environ['DEPLOY_ENV'] != 'local':
     GOOGLE_AX_EXTRA_DATA = os.environ['GOOGLE_AX_EXTRA_DATA'] if 'GOOGLE_AX_EXTRA_DATA' in os.environ else None
 
 else:
-    print 'here'
     try:
         from settings_local import *
     except ImportError:
@@ -151,8 +150,6 @@ MEDIA_URL = ''
 
 STATIC_ROOT = os.path.join(PROJECT_ROOT, 'website', 'static')
 STATIC_URL = '/static/'
-
-print STATIC_ROOT
 
 # Additional locations of static files
 STATICFILES_DIRS = (
