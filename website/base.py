@@ -19,8 +19,11 @@ def build_base_context(request):
     context = {}
     if request.user.is_authenticated():
         context['user'] = request.user
+
     context['topmsg'] = request.GET.get('topmsg')
+
     return context
+
 
 def generate_base_email_context(request):
     # add email template variables needed among all emails

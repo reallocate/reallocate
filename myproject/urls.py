@@ -7,32 +7,31 @@ from myproject import settings
 admin.autodiscover()
 
 urlpatterns = patterns('',
-  # Examples:
-  # url(r'^$', 'myproject.views.home', name='home'),
+
   url(r'', include('social_auth.urls')),
-  url(r'^$', 'website.views.homepage', name='homepage'),
+  url(r'^$', 'website.views.home', name='home'),
   url(r'^about$', 'website.views.about', name='about'),
   url(r'^privacy$', 'website.views.privacy', name='privacy'),
   url(r'^tos$', 'website.views.tos', name='tos'),
-  url(r'^learn$', 'website.views.learn', name='learn'),
-  url(r'^signup', 'website.views.signup'),
-  url(r'^logout', 'django.contrib.auth.views.logout', {'next_page': '/'}),
+  url(r'^get-started$', 'website.views.get_started', name='get_started'),
+  url(r'^sign-up$', 'website.views.sign_up'),
+  url(r'^login$', 'website.views.login_user', name='login_user'),
+  url(r'^logout$', 'django.contrib.auth.views.logout', {'next_page': '/'}),
 
-  url(r'^project/new', 'website.views.new_project', name='new_project'),
-  url(r'^project/(?P<pid>\d+)', 'website.views.view_project', name='view_project'),
-  url(r'^project/(?P<pid>\d+)/opportunity/(?P<oid>\d+)/engage', 'website.views.engage_opportunity', name='engage_opportunity'),
+  url(r'^organization/new$', 'website.views.new_organization', name='new_organization'),
+  url(r'^project/new$', 'website.views.new_project', name='new_project'),
+  url(r'^project/(?P<pid>\d+)/opportunity/(?P<oid>\d+)/engage$', 'website.views.engage_opportunity', name='engage_opportunity'),
   url(r'^project/(?P<pid>\d+)/opportunity/(?P<oid>\d+)$', 'website.views.view_opportunity', name='view_opportunity'),
-  url(r'^project/(?P<pid>\d+)/opportunity/new', 'website.views.add_opportunity', name='add_opportunity'),
+  url(r'^project/(?P<pid>\d+)/opportunity/add$', 'website.views.add_opportunity', name='add_opportunity'),
+  url(r'^project/(?P<pid>\d+)$', 'website.views.view_project', name='view_project'),
 
   url(r'^ajax/modify-project-relation', 'website.ajaxviews.modify_project_relation', name='modify_project_relation'),
   url(r'^ajax/add-update', 'website.ajaxviews.add_update', name='add_update'),
   url(r'^ajax/check-available', 'website.ajaxviews.check_available', name=''),
-
-  url(r'^login', 'website.views.login_user', name='login_user'),
   url(r'^ajax/login', 'website.ajaxviews.login_user'),
 
-  url(r'^profile/(?P<username>[^/]+)', 'website.views.public_profile', name='public_profile'), # public view
-  url(r'^profile', 'website.views.profile', name='profile'), # private settings page
+  url(r'^profile/(?P<username>[^/]+)', 'website.views.public_profile', name='public_profile'),    # public view
+  url(r'^profile', 'website.views.profile', name='profile'),   # private settings page
 
   # pay-pal receiver
   url(r'^paypal', 'website.paypal.receive_paypal', name='paypal'),

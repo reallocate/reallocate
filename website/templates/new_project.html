@@ -12,40 +12,42 @@
 {% block widecontent %}
 
 <div class="container">
-    <ul class="breadcrumb">
-        <li id="breadcrumb-menu-home"><a href="/">Home</a><span class="divider">/</span></li>
-        <li id="breadcrumb-menu-mission" class="active">New Project</li>
-    </ul>
-</div>
-
-<div class="container">
 
     <div class="row-fluid">
-        <div class="span10 project_title">
-            <h5>New Project</h5>
-        </div>
-        <div class="span2">
-        </div>
+            <h3>New Project{% if org %} for <span>{{ org.name }}</span>{% endif %}</h3>
     </div>
 
     <div class="row-fluid">
-        <form class="form-horizontal">
+        <form class="form-horizontal" method="post">
             <div class="control-group">
-                <label class="control-label" for="project-name">Project Title</label>
+                <label class="control-label" for="name">Project Title</label>
                 <div class="controls">
-                    <input type="text" id="project-name">
+                    <input type="text" id="name" name="name">
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="industry">Industry</label>
+                <div class="controls">
+                    <select id="industry" name="industry">
+                        <option>Select</option>
+                    </select>
                 </div>
             </div>
             <div class="control-group">
                 <label class="control-label" for="short-desc">Short Description</label>
                 <div class="controls">
-                    <input type="text" id="short-desc" placeholder="a brief, one-line description">
+                    <input type="text" id="short-desc" name="short_desc" placeholder="a brief, one-line description">
                 </div>
             </div>
             <div class="control-group">
-                <label class="control-label" for="full-desc">Full Description</label>
+                <label class="control-label" for="description">Full Description</label>
                 <div class="controls">
-                    <textarea id="full-desc"></textarea>
+                    <textarea id="description" name="description"></textarea>
+                </div>
+            </div>
+            <div class="control-group">
+                <div class="controls">
+                    <button type="submit" class="btn">Save</button>
                 </div>
             </div>
         </form>

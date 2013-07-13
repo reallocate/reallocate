@@ -65,7 +65,9 @@ class Project(models.Model):
 
 
 class ProjectForm(ModelForm):
+
     class Meta:
+
         model = Project
         fields = ('name', 'industry', 'short_desc', 'description', )
 
@@ -79,7 +81,7 @@ OPP_TYPE_CHOICES = ((u'Equipment', u'Equipment'),(u'Knowledge', u'Knowledge'),(u
 class Opportunity(models.Model):
 
     tags = TaggableManager()
-    organization = models.ForeignKey(Organization)
+    organization = models.ForeignKey(Organization, blank=True)
     project = models.ForeignKey(Project)
     name = models.CharField(max_length=100, blank=True)
     media_url = models.CharField(max_length=200, blank=True)
@@ -101,6 +103,7 @@ class Opportunity(models.Model):
 
     class Meta:
         verbose_name_plural = "opportunities"
+
 
 
 class OpportunityForm(ModelForm):
@@ -152,7 +155,7 @@ class Update(models.Model):
 
 
 class OpportunityEngagement(models.Model):
-    
+
     # to keep the project + reallocate in the loop, reallocate will approve the engagements
     # and stay in each conversation
     user = models.ForeignKey(User)

@@ -88,13 +88,13 @@ def login_page(request):
     return render_to_response('login.html', context, context_instance=RequestContext(request))
 
 
-def homepage(request):
+def home(request):
 
     context = base.build_base_context(request)
 
     context['projects'] = Project.objects.all()[:12]
 
-    return render_to_response('homepage.html', context, context_instance=RequestContext(request))
+    return render_to_response('home.html', context, context_instance=RequestContext(request))
 
 
 def about(request):
@@ -118,11 +118,11 @@ def tos(request):
     return render_to_response('tos.html', context, context_instance=RequestContext(request))
 
 
-def learn(request):
+def get_started(request):
 
     context = base.build_base_context(request)
 
-    return render_to_response('learn.html', context, context_instance=RequestContext(request))
+    return render_to_response('get_started.html', context, context_instance=RequestContext(request))
 
 
 def test_email(request):
@@ -134,10 +134,12 @@ def test_email(request):
 
 
 @csrf_exempt
-def signup(request):
+def sign_up(request):
+
+    context = base.build_base_context(request)
 
     if request.method == 'GET':
-        return render_to_response('signup.html', context, context_instance=RequestContext(request))
+        return render_to_response('sign_up.html', context, context_instance=RequestContext(request))
 
     email = request.POST.get('email')
     password = request.POST.get('password')
@@ -163,8 +165,10 @@ def login_user(request):
 
     if request.POST:
 
-        context['username'] = request.POST.get('username')
+        username = request.POST.get('username')
         password = request.POST.get('password')
+
+        context['username'] = username
 
         user = authenticate(username=username, password=password)
 
@@ -202,70 +206,46 @@ def view_project(request, pid=1):
     return render_to_response('project.html', context, context_instance=RequestContext(request))
 
 
+@csrf_exempt
 @login_required
 def new_project(request):
 
     # Show the sign page and collect emails
     context = base.build_base_context(request)
 
-    context['show_add_project'] = True
+    if request.GET.get('org'):
+        org = Organization.objects.get(id=request.GET.get('org'))
 
     if request.method == "POST":
 
-        myform = ProjectForm(request.POST)
-        project = myform.save(commit=False)
+        project_form = ProjectForm(request.POST)
+        project = project_form.save(commit=False)
 
-        if myform.is_valid():
+        if project_form.is_valid():
             
             project.organization = request.user.get_profile().organization
             project.created_by = request.user
             project.save()
-            context['show_add_project'] = False
             
             # send admin email with link adminpanel to change project status
-            subj = "new project %s added by %s" % (project.name, context['user_email'])
+            subj = "new project %s added by %s" % (project.name, request.user.email)
             body = """Go here to and change status to active:<br/>
-                      <a href='%s/admin/website/project/%s'>approve</a>
-                      For now: remember to email the above email after their project is live""" % (
-                      request.get_host(), project.id)
-            base.send_admin_email(subj, body, html_content=body)
+                <a href='%s/admin/website/project/%s'>approve</a>
+                For now: remember to email the above email after their project is live""" % (
+                request.get_host(), project.id)
+
+            #base.send_admin_email(subj, body, html_content=body)
+
+            return HttpResponseRedirect('/project/%s/opportunity/add' % project.id)
+
         else:
+
             return HttpResponse("error")
 
-    context['myform'] = ProjectForm()
+    else:
 
-    return render_to_response('new_project.html', context, context_instance=RequestContext(request))
+        return render_to_response('new_project.html', context, context_instance=RequestContext(request))
 
-@csrf_exempt
-def add_opportunity(request, oid):
-
-    opp = get_object_or_404(Opportunity, pk=oid)
-    project = get_object_or_404(Project, pk=opp.project.id)
-    organization = project.organization
-    updates = Update.objects.filter(opportunity=opp).order_by('-date_created')[0:10]
-    context = base.build_base_context(request)
-    
-    context.update({
-        'organization': organization,
-        'opportunity': opp,
-        'project': project,
-        'other_opps': [rec for rec in Opportunity.objects.filter(project=opp.project).all() if rec.id != opp.id],
-        'updates': updates,
-        'is_engaged': False})
-    
-    if request.user.is_authenticated():
-
-        context['is_following'] = request.user in project.followed_by.all()
-
-        try:
-            user_engagement = OpportunityEngagement.objects.get(opportunity=opp, user=request.user)
-        except ObjectDoesNotExist:
-            user_engagement = None
-
-        if user_engagement:
-            context['is_engaged'] = (user_engagement.status == STATUS_ACTIVE)
-            
-    return render_to_response('opportunity.html', context, context_instance=RequestContext(request)) 
 
 @csrf_exempt
 def view_opportunity(request, oid):
@@ -297,40 +277,6 @@ def view_opportunity(request, oid):
             context['is_engaged'] = (user_engagement.status == STATUS_ACTIVE)
             
     return render_to_response('opportunity.html', context, context_instance=RequestContext(request))    
-    
-
-def search(request):
-
-    context = base.build_base_context(request)
-
-    # Search for Opportunities
-    context['opportunities'] = None
-        
-    #search form submission
-    if request.method == 'POST': 
-
-        #search text
-        search = request.POST.get("search")
-        print u'search: %s' % (search)
-
-        opp_type = request.POST.get("opp_type")
-        print u'opp_type: %s' % (opp_type)
-
-
-        if opp_type == 'Type...':
-            context['opportunities'] = Opportunity.objects.filter(Q(name__contains=search) | Q(status__contains=search) | Q(short_desc__contains=search) | Q(description__contains=search) | Q(opp_type__contains=search) | Q(tags__name__in=[search])).distinct()[:12]
-        else:    
-            context['opportunities'] = Opportunity.objects.filter(Q(name__contains=search) | Q(status__contains=search) | Q(short_desc__contains=search) | Q(description__contains=search) | Q(opp_type__contains=search) | Q(tags__name__in=[search])).filter(opp_type=opp_type).distinct()[:12]
-    
-    if not context['opportunities']:
-        context['opportunities'] = Opportunity.objects.all()[:12]
-
-    return render_to_response('search.html', context)
-
-    if request.user.is_authenticated():
-        context['is_engaged'] = request.user in opp.engaged_by.all()
-
-    return render_to_response('opportunity.html', context, context_instance=RequestContext(request))
 
 
 @csrf_exempt
@@ -355,6 +301,7 @@ def engage_opportunity(request, oid=1):
         # TODO: send to project/opp owner as well as admin
         base.send_admin_email(subject, html_content, html_content=html_content)
         topmsg = 'Thanks for your engagement - a project leader will get back to you as soon as possible'
+
         return HttpResponseRedirect("/opportunity/" + str(opp.id) + "?topmsg=" + topmsg)
     
     context['opp'] = opp
@@ -362,87 +309,85 @@ def engage_opportunity(request, oid=1):
     return render_to_response('engage.html', context, context_instance=RequestContext(request))
 
 
+@csrf_exempt
 @login_required
-def add_organization(request):
+def new_organization(request):
 
     context = base.build_base_context(request)
-    show_invite = True
 
     if request.method == "POST":
 
-        myform = OrganizationForm(request.POST)
-        organization = myform.save(commit=False)
+        org_form = OrganizationForm(request.POST)
+        org = org_form.save(commit=False)
 
-        if myform.is_valid():
+        if org_form.is_valid():
 
-            organization.ip_address = request.META['REMOTE_ADDR']
-            organization.created_by = request.user
-            organization.save()
+            org.created_by = request.user
+            org.save()
             
             profile = request.user.get_profile()
-            profile.organization_id = organization.id
+            profile.organization_id = org.id
             profile.save()
             
-            show_invite = False
             # send admin email with link adminpanel to change project status
-            subj = "new organization %s added by %s" % (organization.name, context['user_email'])
+            subj = "[ReAlloBot] New organization %s added by %s" % (org.name, request.user.username)
             body = """Go here to and change status to active:<br/>
-                      <a href='%s/admin/website/organization/%s'>approve</a>
+                      <a href='%s/admin/organization/%s'>approve</a>
                       For now: remember to email the above email after their organization is approved""" % (
-                      request.get_host(), organization.id)
-            base.send_admin_email(subj, body, html_content=body)
+                      request.get_host(), org.id)
+
+            #base.send_admin_email(subj, body, html_content=body)
+
+            next = '/project/new?org=%s' % org.id
+
+            return HttpResponseRedirect(next)
                       
         else:
 
             return HttpResponse("error")
 
-    context['myform'] = OrganizationForm()
-    context['show_invite'] = show_invite
-
-    return render_to_response('add_organization.html', context, context_instance=RequestContext(request))
+    return render_to_response('new_organization.html', context, context_instance=RequestContext(request))
         
 
+@csrf_exempt
 @login_required
 def add_opportunity(request, pid=None):
 
     context = base.build_base_context(request)
-
-    # Create new Opportunity
     project = get_object_or_404(Project, pk=pid)
 
-    if not project:
-        return HttpResponse("error - not referencing a real project with id:" + reper(pid))
-    
-    show_form = True
-    user_profile = base.get_current_userprofile(request)
-    org = user_profile.organization
-
-    if not org:
-        return HttpResponseRedirect('/add_organization')
-    
     if request.method == "POST":
 
-        myform = OpportunityForm(request.POST)
-        opportunity = myform.save(commit=False)
-        if myform.is_valid():
-            opportunity.project = project
-            opportunity.organization = org
-            opportunity.created_by = request.user
-            opportunity.save()
-            show_form = False
+        opp_form = OpportunityForm(request.POST)
+        opp = opp_form.save(commit=False)
+
+        if opp_form.is_valid():
+            
+            opp.project = project
+            opp.organization = project.organization
+            opp.created_by = request.user
+            opp.save()
+        
+            if request.POST.get('add'):
+
+                return HttpResponseRedirect('/project/%s/opportunity/add' % project.id)
+
+            else:
+
+                return HttpResponseRedirect('/')
+
         else:
-            return HttpResponse("error saving opportunity - invalid form")
 
-    myform = OpportunityForm()
-    
-    context['parent_project'] = project
-    context['myform'] = myform
-    context['show_form'] = show_form
+            return HttpResponse("error")
 
-    return render_to_response('add_opportunity.html', context, context_instance=RequestContext(request))
+    else:
+
+        return render_to_response('add_opportunity.html', context, context_instance=RequestContext(request))
 
     
 def search(request):
+
+    context = base.build_base_context(request)
 
     # Search for Opportunities
     opportunities = None
