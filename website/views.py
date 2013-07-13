@@ -63,7 +63,6 @@ def profile(request, username=None):
             filename = remote_storage(avatar, request.user) if avatar else ''
             user_profile.media_url = filename
         
-        user_profile = request.user.get_profile()
         user_profile.user.email = request.POST.get("email")
         user_profile.bio = request.POST.get("bio")
         user_profile.occupation = request.POST.get("occupation")
