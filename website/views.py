@@ -204,6 +204,7 @@ def view_project(request, pid=1):
     
     context['num_following'] = project.followed_by.count()
     context['donation_purpose'] = project.name
+    context['pid'] = project.id
 
     return render_to_response('project.html', context, context_instance=RequestContext(request))
 
@@ -250,7 +251,7 @@ def new_project(request):
 
 
 @csrf_exempt
-def view_opportunity(request, oid):
+def view_opportunity(request, pid, oid):
 
     opp = get_object_or_404(Opportunity, pk=oid)
     project = get_object_or_404(Project, pk=opp.project.id)
@@ -357,6 +358,8 @@ def add_opportunity(request, pid=None):
 
     context = base.build_base_context(request)
     project = get_object_or_404(Project, pk=pid)
+
+    context['opps'] = Opportunity.objects.filter(project=pid)
 
     if request.method == "POST":
 

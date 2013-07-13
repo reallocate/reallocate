@@ -12,65 +12,67 @@
 {% block widecontent %}
 
 <div class="container">
-    <ul class="breadcrumb">
-        <li id="breadcrumb-menu-home"><a href="/">Home</a><span class="divider">/</span></li>
-        <li id="breadcrumb-menu-mission" class="active">{{ project.name }}</li>
-        <li id="breadcrumb-menu-mission" class="active">Add Opportunity</li>
-    </ul>
-</div>
-
-<div class="container">
 
     <div class="row-fluid">
         <div class="span10">
-            <h5>Add Opportunity</h5>
-            <h3>{{ project.name }}</h3>
-        </div>
-        <div class="span2">
+            <h3>Add Opportunity</h3>
+            <h5>{{ project.name }}</h5>
         </div>
     </div>
 
-    <div class="row-fluid">
-        <form class="form-horizontal" method="post">
-            <div class="control-group">
-                <label class="control-label" for="name">Opportunity Title</label>
-                <div class="controls">
-                    <input type="text" id="name" name="name">
+    <div class="row-fluid" id="add-opportunity">
+        <div class="span5">
+            <form class="form-horizontal" method="post">
+                <div class="control-group">
+                    <label class="control-label" for="name">Opportunity Title</label>
+                    <div class="controls">
+                        <input type="text" id="name" name="name">
+                    </div>
                 </div>
-            </div>
-            <div class="control-group">
-                <label class="control-label" for="oppe-type">Type</label>
-                <div class="controls">
-                    <select id="opp-type" name="opp_type">
-                        <option>Select</option>
-                        <option>Equiptment</option>
-                        <option>Knowledge</option>
-                        <option>Money</option>
-                        <option>Skills</option>
-                    </select>
+                <div class="control-group">
+                    <label class="control-label" for="opp-type">Type</label>
+                    <div class="controls">
+                        <select id="opp-type" name="opp_type">
+                            <option>Select</option>
+                            <option>Equiptment</option>
+                            <option>Knowledge</option>
+                            <option>Money</option>
+                            <option>Skills</option>
+                        </select>
+                    </div>
                 </div>
-            </div>
-            <div class="control-group">
-                <label class="control-label" for="short-desc">Short Description</label>
-                <div class="controls">
-                    <input type="text" id="short-desc" name="short_desc" placeholder="a brief, one-line description">
+                <div class="control-group">
+                    <label class="control-label" for="short-desc">Short Description</label>
+                    <div class="controls">
+                        <input type="text" id="short-desc" name="short_desc" placeholder="a brief, one-line description">
+                    </div>
                 </div>
-            </div>
-            <div class="control-group">
-                <label class="control-label" for="description">Full Description</label>
-                <div class="controls">
-                    <textarea id="description" name="description"></textarea>
+                <div class="control-group">
+                    <label class="control-label" for="description">Full Description</label>
+                    <div class="controls">
+                        <textarea id="description" name="description"></textarea>
+                    </div>
                 </div>
-            </div>
-            <div class="control-group">
-                <div class="controls">
-                    <button type="button" onclick="add_another(this)" class="btn">add another</button>
-                    <button type="submit" class="btn">continue</button>
+                <div class="control-group">
+                    <div class="controls">
+                        <button type="button" onclick="add_another(this)" class="btn">Add another</button>
+                        <button type="submit" class="btn">Done</button>
+                    </div>
                 </div>
+            </form>
+        </div>
+        <div class="offset1 span5">
+            {% if opps %}
+            <h4>Current opportunities</h4>
+            {% for o in opps %}
+            <div class="opportunity">
+                <p class="name"><b>{{ o.name }}</b><p>
+                <p class="short-desc">{{ o.short_desc}}</p>
             </div>
-        </form>
+            {% endfor %}
+            {% endif %}
+        </div>
     </div>
-
 </div>
 
 {% endblock %}
