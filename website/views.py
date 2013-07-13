@@ -291,7 +291,6 @@ def engage_opportunity(request, pid, oid=1):
     # todo - deal with money type => donations rather than a freeform response
 
     if request.method == "POST":
-
         response = request.POST.get("response", "")
         opp_eng = OpportunityEngagement(user=request.user, opportunity=opp)
         opp_eng.response = response
@@ -304,10 +303,9 @@ def engage_opportunity(request, pid, oid=1):
         base.send_admin_email(subject, html_content, html_content=html_content)
         topmsg = 'Thanks for your engagement - a project leader will get back to you as soon as possible'
 
-        return HttpResponseRedirect("/opportunity/" + str(opp.id) + "?topmsg=" + topmsg)
+        return HttpResponseRedirect("/project/%s/opportunity/%s?topmsg=%s" % (pid, oid, topmsg))
     
     context['opp'] = opp
-
     return render_to_response('engage.html', context, context_instance=RequestContext(request))
 
 
