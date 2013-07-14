@@ -13,6 +13,13 @@ h5 {
     color: #888888;
 }
 
+.share:hover {
+    text-decoration: none;
+}
+.share{
+    margin:3px;
+}
+
 .navbar .brand img {
     width: 200px !important;
 }
@@ -132,19 +139,19 @@ h5 {
     }
 .opp_small{
     background-color: #eee;
-    padding:7px;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
-    border-radius: 5px
-    
+    border-radius: 5px;
+    padding:7px;
+    margin:5px;
 }
 .project_small{
-    margin-bottom:10px;
     background-color: #eee;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
     padding:7px;
+    margin:5px;
 }
 .project_img_small{
     padding:7px;

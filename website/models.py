@@ -125,6 +125,9 @@ class UserProfile(models.Model):
     bio = models.CharField(max_length=2000, blank=True)
     media_url = models.CharField(max_length=2000, blank=True)
     organization = models.ForeignKey(Organization, null=True, blank=True)
+    location = models.CharField(max_length=200, blank=True)
+    occupation = models.CharField(max_length=200, blank=True)
+    skills = TaggableManager()
     
     # skills
     # interests

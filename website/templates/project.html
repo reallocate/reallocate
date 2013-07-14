@@ -8,7 +8,6 @@
 
 {% block extra_css %}
     <style>
-
         .sectionTitle {
             height: 50px;
             font-size: 2em;
@@ -163,9 +162,6 @@
             background-image:url(/static/images/bgtexture2.png);
             padding: 30px 0;
         }
-        .share:hover {
-            text-decoration: none;
-        }
     </style>
 {% endblock %}
 
@@ -247,12 +243,15 @@
                     <h4>Share</h4>
                     <!-- AddThis Button BEGIN -->
                     <div class="addthis_toolbox">
-                    <a class="share addthis_button_twitter">
-                        <i class="icon-twitter icon-large" style="color: #4e7ac7;margin-right:5px;"></i></a>
-                    <a class="share addthis_button_facebook">
-                        <i class="icon-facebook icon-large" style="color: #4e7ac7;margin-right:10px;"></i></a>
-                    <a class="share addthis_button_linkedin">
-                        <i class="icon-linkedin-sign icon-large" style="color: #4e7ac7;margin-right:10px;"></i></a>
+                    <a class="share addthis_button_twitter ">
+                        <i class="icon-twitter icon-2x" style="color: #4e7ac7;"></i>
+                    </a>
+                    <a class="share addthis_button_facebook ">
+                        <i class="icon-facebook icon-2x" style="color: #4e7ac7;"></i>
+                    </a>
+                    <a class="share addthis_button_linkedin ">
+                        <i class="icon-linkedin-sign icon-2x" style="color: #4e7ac7;"></i>
+                    </a>
                     </div>
                     <!-- AddThis Button END -->
                 </div>
@@ -390,14 +389,12 @@
             colours: [ '#F2736A', '#EDE6ED' ],
             diameter: 150,
         });
-    });
+    
+    var twitter_share_msg = "Check out the work being done on {{ project.name }} at @reallocate. " + window.location.href;
+    var title = "Check out Reallocate";
+    var description = "Check out the work being done on {{ project.name }}.";
+    reAllocate.setup_addthis(twitter=twitter_share_msg, title=title, description=description);
+});
 </script>
-<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-51b5379c6ba6d63e"></script>
-<script>
-    var addthis_share = {
-        templates: {
-            twitter: 'check out this project on @reallocate',
-        }
-    };
-</script>
+
 {% endblock %}

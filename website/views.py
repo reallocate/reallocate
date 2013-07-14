@@ -22,10 +22,24 @@ import website.base as base
 
 @login_required
 @csrf_exempt
-def profile(request):
+def profile(request, username=None):
     """ for displaying and editing a users profile """
     
     context = base.build_base_context(request)
+    if not username and not context.get('user'):
+        return HttpResponseRedirect(settings.POST_LOGIN_URL)
+    
+    # this is a person viewing their own profile page, make it editable
+    if not username: 
+        user = context['user']
+        context['edit'] = True
+    else:
+        user = User.objects.filter(Q(email=username) | Q(username=username))
+    
+    user_profile = UserProfile.objects.filter(Q(user=user))
+    if len(user_profile) == 0:
+        return render_to_response('nosuchuser.html', context)
+    user_profile = user_profile[0] # replace above logic with None or single object?
 
     def remote_storage(uploaded_file, user):
         """ for uploading avatars to s3 """
@@ -41,23 +55,28 @@ def profile(request):
         k.set_acl('public-read')
 
         return 'http://s3.amazonaws.com/%s/%s' % (settings.S3_BUCKET, filename)
-        
-    context['user_profile'] = request.user.get_profile()
-    context['followed_projects'] = request.user.project_set.all()
-
+    
     if request.method == "POST":
-
-        avatar = request.FILES.get('file')
         
-        filename = remote_storage(avatar, request.user) if avatar else ''
+        avatar = request.FILES.get('file')
+        if avatar:
+            filename = remote_storage(avatar, request.user) if avatar else ''
+            user_profile.media_url = filename
         
         user_profile.user.email = request.POST.get("email")
         user_profile.bio = request.POST.get("bio")
-        user_profile.media_url = filename
-        user_profile.organization = request.POST.get("organization")
+        user_profile.occupation = request.POST.get("occupation")
+        user_profile.location = request.POST.get("location")
+        user_profile.skills.add(*[rec.strip() for rec in request.POST.get("skills", "").split(",")])
         user_profile.save()
 
         context['topmsg'] = 'Your settings have been saved'
+    
+    context['opps'] = Opportunity.objects.filter(engaged_by=user)
+    context['followed_projects'] = Project.objects.filter(followed_by=user)
+    context['my_projects'] = Project.objects.filter(created_by=user)
+    context['user_profile'] = user_profile
+    context['user_skills'] = ", ".join([rec.name for rec in user_profile.skills.all()])
     
     return render_to_response('profile.html', context, context_instance=RequestContext(request))
 
@@ -307,15 +326,13 @@ def view_opportunity(request, pid, oid):
 
 @csrf_exempt
 @login_required
-def engage_opportunity(request, oid=1):
-
+def engage_opportunity(request, pid, oid=1):
     context = base.build_base_context(request)
 
     opp = get_object_or_404(Opportunity, pk=oid)
     # todo - deal with money type => donations rather than a freeform response
 
     if request.method == "POST":
-
         response = request.POST.get("response", "")
         opp_eng = OpportunityEngagement(user=request.user, opportunity=opp)
         opp_eng.response = response
@@ -328,10 +345,9 @@ def engage_opportunity(request, oid=1):
         base.send_admin_email(subject, html_content, html_content=html_content)
         topmsg = 'Thanks for your engagement - a project leader will get back to you as soon as possible'
 
-        return HttpResponseRedirect("/opportunity/" + str(opp.id) + "?topmsg=" + topmsg)
+        return HttpResponseRedirect("/project/%s/opportunity/%s?topmsg=%s" % (pid, oid, topmsg))
     
     context['opp'] = opp
-
     return render_to_response('engage.html', context, context_instance=RequestContext(request))
 
 

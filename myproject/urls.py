@@ -32,8 +32,7 @@ urlpatterns = patterns('',
   url(r'^ajax/login', 'website.ajaxviews.login_user'),
   url(r'^ajax/update-project', 'website.ajaxviews.update_project'),
 
-  url(r'^profile/(?P<username>[^/]+)', 'website.views.public_profile', name='public_profile'),    # public view
-  url(r'^profile', 'website.views.profile', name='profile'),   # private settings page
+  url(r'^profile/?(?P<username>[^/]+)?', 'website.views.profile', name='profile'),    # public view
 
   # pay-pal receiver
   url(r'^paypal', 'website.paypal.receive_paypal', name='paypal'),

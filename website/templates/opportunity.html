@@ -139,13 +139,20 @@
                     </div>
                     <div class="span2">
                         <br/><br/>
-                        <i class="icon-linkedin-sign icon-2x" style="color: #4e7ac7;"></i>
-                        <i class="icon-twitter icon-2x" style="color: #4e7ac7;"></i>
-                        <i class="icon-facebook icon-2x" style="color: #4e7ac7;"></i>
+                        
+                        <a class="share addthis_button_twitter">
+                            <i class="icon-twitter icon-2x" style="color: #4e7ac7;"></i>
+                        </a>
+                        <a class="share addthis_button_facebook">
+                            <i class="icon-facebook icon-2x" style="color: #4e7ac7;"></i>
+                        </a>
+                        <a class="share addthis_button_linkedin">
+                            <i class="icon-linkedin-sign icon-2x" style="color: #4e7ac7;"></i>
+                        </a>
                         
                         {% if not is_engaged %}
                         <br/><br/>
-                        <a class="btn btn-primary btn-large" href='/opportunity/{{ opportunity.id }}/engage'>Engage</a>
+                        <a class="btn btn-primary btn-large" href='/project/{{ project.id }}/opportunity/{{ opportunity.id }}/engage'>Engage</a>
                         {% endif %}
                             
                     </div>
@@ -216,6 +223,7 @@
                     </div>
                     {% endif %}
 
+                    <a name="updates"></a>
                     {% for update in updates%}
                         <div class="row-fluid updateRow">
                             <div class="span2">
@@ -226,7 +234,7 @@
                                     {{update.created_by.first_name}} {{update.created_by.last_name}}
                                 </a>
                                 <!--<div class="updateOppName"> {{update.opportunity.name}} </div>-->
-                                <div class="updateText">  {{update.text}}</div>
+                                <div class="updateText">  {{update.text|safe}}</div>
                                 <div class="updateMedia"> <img width="100%" height="100%" src="{{ update.media_url }}"> </div>
                             </div>
                         </div>
@@ -235,7 +243,6 @@
                 
                 <div class="span4" id="related_opp_list">
                     <h3>Related Opportunities</h3>
-                    
                     
                         {% for opp in other_opps%}
                             <div class="oppWell">
@@ -280,7 +287,8 @@
 {% endblock %}
 
 {% block bottomscript %}
-    <script>
+<script>
+    $(document).ready(function () {
         $('#target').submit(function() {
             alert('Handler for .submit() called.');
             return false;
@@ -288,21 +296,39 @@
         
         $('#post_update').submit(function() {
             var form = $(this);
+            
+            if (form.find('textarea').val().length == 0) {
+                alert('Please enter an update');
+                return false;
+            }
+            
+            var submit_button = form.find('input[type="submit"]');
+            submit_button.attr('disabled', 'disabled').val('Posting...');
             $.ajax({
                 url : '/ajax/add-update',
                 type: 'POST',
                 data : form.serialize(),
                 success :function(response){
                     console.log(response);
+                    window.location.assign('#updates');
+                    window.location.reload();
                 },
                 error : function(response){
                    console.log("failure to follow/unfollow");
+                },
+                complete: function() {
+                    submit_button.removeAttr('disabled');
+                    form.find('textarea').val('');
                 }
             });
    
             return false;   
         });
-
-    </script>
+    var twitter_share_msg = "Check out the work being done on {{ opportunity.name }} for {{ project.name }} at @reallocate. " + window.location.href;
+    var title = "Check out Reallocate";
+    var description = "Check out the work we're doing : {{ opportunity.name }}.";
+    reAllocate.setup_addthis(twitter=twitter_share_msg, title=title, description=description);
+    });
+</script>
 
 {% endblock %}
