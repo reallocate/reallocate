@@ -207,3 +207,45 @@ h5 {
 #login-modal form input[type=text], #login-modal form input[type=password] {
     width: auto;
 }
+
+
+#manage-project input {
+    width: 580px;
+}
+#edit-project textarea {
+    width: 92%;
+    height: 180px;
+}
+#manage-project input[readonly=readonly] {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 3px;
+}
+#manage-project #project-name input {
+    font-size: 24px;
+}
+#manage-project #project-short-desc input {
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+#manage-project .wall {
+    border-top: 1px solid #ddd;
+    margin-top: 20px;
+}
+#manage-project #edit-project p {
+    position: relative;
+}
+
+#manage-project #edit-project p i {
+    display: none;
+    position: absolute;
+    left: -18px;
+    top: 6px;
+}
+#manage-project #edit-project #project-short-desc i {
+    top: 4px;
+}
+#manage-project #edit-project p:hover i {
+    display: inline;
+}

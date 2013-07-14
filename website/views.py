@@ -209,6 +209,29 @@ def view_project(request, pid=1):
     return render_to_response('project.html', context, context_instance=RequestContext(request))
 
 
+def manage_project(request, pid=1):
+
+    project = get_object_or_404(Project, pk=pid)
+    opps = Opportunity.objects.filter(project=project)
+    context = base.build_base_context(request)
+
+    context.update({
+        "project": project,
+        "opportunities": opps,
+        "num_opportunities": opps.count(),
+        "updates": Update.objects.filter(project=project)})
+    
+    if request.user.is_authenticated():
+        context['is_following'] = request.user in project.followed_by.all()
+    
+    context['num_following'] = project.followed_by.count()
+    context['donation_purpose'] = project.name
+    context['pid'] = project.id
+    context['opps'] = opps
+
+    return render_to_response('manage_project.html', context, context_instance=RequestContext(request))
+
+
 @csrf_exempt
 @login_required
 def new_project(request):

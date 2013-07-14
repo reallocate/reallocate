@@ -41,7 +41,7 @@ reAllocate = {
     login_user: function(username, password) {
 
         $.ajax({
-            url : '/ajax/login',
+            url: '/ajax/login',
             method: 'POST',
             data : {'username': username, 'password': password},
             success: function(res) {

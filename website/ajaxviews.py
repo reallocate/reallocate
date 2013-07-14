@@ -10,7 +10,7 @@ from django.contrib.auth import authenticate, login
 
 import website.base as base
 from myproject.settings import ADMIN_EMAIL
-from website.models import UserProfile, Project, Update
+from website.models import UserProfile, Project, ProjectForm, Update
 
 
 @login_required
@@ -61,6 +61,35 @@ def add_update(request, *args):
                                    opportunity_id=opportunity_id, text=update_text, created_by=request.user)
     
     response_data = { "success": "true" }
+
+    return HttpResponse(json.dumps(response_data), mimetype="application/json")
+
+
+@login_required
+@csrf_exempt
+def update_project(request, *args):
+
+    if request.POST:
+
+        project = Project.objects.get(id=request.POST.get('id'))
+
+        if project:
+
+            project.name = request.POST.get('name')
+            project.short_desc = request.POST.get('short_desc')
+            project.description = request.POST.get('description')
+
+            project.save()
+    
+            response_data = { "success": "true" }
+
+        else:
+
+            response_data = { "success": "false" } 
+
+    else:
+
+        response_data = { "sucess": "false" }
 
     return HttpResponse(json.dumps(response_data), mimetype="application/json")
 

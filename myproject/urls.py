@@ -23,12 +23,14 @@ urlpatterns = patterns('',
   url(r'^project/(?P<pid>\d+)/opportunity/(?P<oid>\d+)/engage$', 'website.views.engage_opportunity', name='engage_opportunity'),
   url(r'^project/(?P<pid>\d+)/opportunity/(?P<oid>\d+)$', 'website.views.view_opportunity', name='view_opportunity'),
   url(r'^project/(?P<pid>\d+)/opportunity/add$', 'website.views.add_opportunity', name='add_opportunity'),
+  url(r'^project/(?P<pid>\d+)/manage$', 'website.views.manage_project', name='manage_project'),
   url(r'^project/(?P<pid>\d+)$', 'website.views.view_project', name='view_project'),
 
   url(r'^ajax/modify-project-relation', 'website.ajaxviews.modify_project_relation', name='modify_project_relation'),
   url(r'^ajax/add-update', 'website.ajaxviews.add_update', name='add_update'),
   url(r'^ajax/check-available', 'website.ajaxviews.check_available', name=''),
   url(r'^ajax/login', 'website.ajaxviews.login_user'),
+  url(r'^ajax/update-project', 'website.ajaxviews.update_project'),
 
   url(r'^profile/(?P<username>[^/]+)', 'website.views.public_profile', name='public_profile'),    # public view
   url(r'^profile', 'website.views.profile', name='profile'),   # private settings page
