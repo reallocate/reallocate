@@ -141,6 +141,14 @@ def get_started(request):
 
     context = base.build_base_context(request)
 
+    if hasattr(request.user, 'email'):
+
+        context['next'] = '/organization/new'
+
+    else:
+
+        context['next'] = '/sign-up'
+
     return render_to_response('get_started.html', context, context_instance=RequestContext(request))
 
 
@@ -159,6 +167,11 @@ def sign_up(request):
 
     context['referrer'] = request.META.get('HTTP_REFERER', '/')
 
+    if re.match(r'/get-started', context['referrer']):  
+        context['next'] = '/organization/new'
+    else:
+        content['next'] = context['referrer']
+
     if request.method == 'GET':
         return render_to_response('sign_up.html', context, context_instance=RequestContext(request))
 
@@ -176,7 +189,7 @@ def sign_up(request):
 
     #base.send_email_template(request, "welcome", email_context, "subject", [settings.ADMIN_EMAIL, email])
 
-    return HttpResponseRedirect(request.POST.get('referrer', '/'))
+    return HttpResponseRedirect(request.POST.get('next', '/'))
 
 
 @csrf_exempt
