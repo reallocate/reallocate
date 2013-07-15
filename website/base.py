@@ -1,9 +1,13 @@
+from myproject import settings
+import re
 from website.models import UserProfile
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 from myproject.settings import FROM_EMAIL, ADMIN_EMAIL, DEPLOY_ENV
-import re
+
+import boto
+from boto.s3.key import Key
 
 def get_current_userprofile(request):
     try:
@@ -59,3 +63,16 @@ def send_email(recipients, subject, text_content, html_content=None, from_email=
 
 def send_admin_email(subject, text_content, html_content=None):
     send_email([ADMIN_EMAIL], "admin: " + subject, text_content, html_content=html_content)
+    
+
+def remote_storage(uploaded_file, filename, mime_type):
+    """ for uploading images to S3 """
+    c = boto.connect_s3(settings.AWS_ACCESS_KEY_ID, settings.AWS_SECRET_ACCESS_KEY)
+    bucket = c.get_bucket(settings.S3_BUCKET)
+    
+    k = Key(bucket)
+    k.set_metadata('Content-Type', mime_type)
+    k.key = filename
+    k.set_contents_from_string(uploaded_file)
+    k.set_acl('public-read')
+    return 'http://s3.amazonaws.com/%s/%s' % (settings.S3_BUCKET, filename)

@@ -209,6 +209,7 @@
                                 <span class="icon-camera icon"></span>
                             </button>
                             
+                            <input type="file" name="file" id="file" value="Upload a new photo"/>
                             <input class="btn btn-primary" type="submit" value="Post Update">
                             <input id="upload_button" type="file" name="uploaded_media" style="display: none;"/>
                             
@@ -286,7 +287,9 @@
             return false;
         });
         
-        $('#post_update').submit(function() {
+        $('#post_update').submit(function(event) {
+            event.preventDefault();
+            
             var form = $(this);
             
             if (form.find('textarea').val().length == 0) {
@@ -295,25 +298,37 @@
             }
             
             var submit_button = form.find('input[type="submit"]');
-            submit_button.attr('disabled', 'disabled').val('Posting...');
-            $.ajax({
-                url : '/ajax/add-update',
-                type: 'POST',
-                data : form.serialize(),
-                success :function(response){
-                    console.log(response);
+
+            var file = form.find('input[type="file"]').get(0).files[0];
+			var xhr = new XMLHttpRequest();
+			
+
+			//xhr.ontimeout = function() {
+			//	this.abort();
+			//	submission_error_cb();
+			//	return;
+			//}
+			//xhr.onerror = submission_error_cb;
+				
+			xhr.onreadystatechange = function(e) {
+				if (this.readyState != 4) { return; }
+				
+				if (this.status == 200 || this.status == 204) {
+					var response = JSON.parse(this.responseText);
+					console.log(response);
                     window.location.assign('#updates');
                     window.location.reload();
-                },
-                error : function(response){
-                   console.log("failure to follow/unfollow");
-                },
-                complete: function() {
-                    submit_button.removeAttr('disabled');
-                    form.find('textarea').val('');
-                }
-            });
-   
+            
+				} else if (this.status == 500 || this.status == 503) {
+					alert('An error occurrred');
+				}
+			};
+			xhr.timeout = 90000;
+			xhr.open('post', '/ajax/add-update?' + form.serialize(), true);
+			xhr.setRequestHeader("Content-Type", "application/octet-stream");
+            xhr.setRequestHeader("X-Mime-Type", file.type);
+			xhr.send(file);
+            
             return false;   
         });
 

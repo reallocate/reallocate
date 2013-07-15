@@ -1,5 +1,4 @@
-import json
-import logging
+import base, json, logging
 
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
@@ -45,25 +44,26 @@ def modify_project_relation(request, *args):
     response_data = { "success": "true" }
 
     return HttpResponse(json.dumps(response_data), mimetype="application/json")
-    
+  
    
 @login_required
 @csrf_exempt
 def add_update(request, *args):
-
-    organization_id = request.POST.get('organization_id', None)
-    project_id = request.POST.get('project_id', None)
-    opportunity_id = request.POST.get('opportunity_id', None)
-    update_text = request.POST.get('update_text', None)
+    organization_id = request.GET.get('organization_id', None)
+    project_id = request.GET.get('project_id', None)
+    opportunity_id = request.GET.get('opportunity_id', None)
+    update_text = request.GET.get('update_text', None)
+    mime_type = request.META.get('HTTP_X_MIME_TYPE')
     
+    # TODO: check mimetpye for proper file extensions
+    # TODO: make image name unique hash based on time to avoid collisions
+    filename = base.remote_storage(request.body, 'project/%s/opportunity/%s/image.png' % (project_id, opportunity_id), mime_type)
+
     # TODO:  error checking.  i.e. does user have permission?
-    update = Update.objects.create(organization_id=organization_id, project_id=project_id,
+    update = Update.objects.create(organization_id=organization_id, project_id=project_id, media_url=filename,
                                    opportunity_id=opportunity_id, text=update_text, created_by=request.user)
-    
-    response_data = { "success": "true" }
 
-    return HttpResponse(json.dumps(response_data), mimetype="application/json")
-
+    return HttpResponse(json.dumps({ "success": "true" }), mimetype="application/json")
 
 @csrf_exempt
 def login_user(request):
