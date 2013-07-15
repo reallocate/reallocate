@@ -139,9 +139,16 @@
                     </div>
                     <div class="span2">
                         <br/><br/>
-                        <i class="icon-linkedin-sign icon-2x" style="color: #4e7ac7;"></i>
-                        <i class="icon-twitter icon-2x" style="color: #4e7ac7;"></i>
-                        <i class="icon-facebook icon-2x" style="color: #4e7ac7;"></i>
+                        
+                        <a class="share addthis_button_twitter">
+                            <i class="icon-twitter icon-2x" style="color: #4e7ac7;"></i>
+                        </a>
+                        <a class="share addthis_button_facebook">
+                            <i class="icon-facebook icon-2x" style="color: #4e7ac7;"></i>
+                        </a>
+                        <a class="share addthis_button_linkedin">
+                            <i class="icon-linkedin-sign icon-2x" style="color: #4e7ac7;"></i>
+                        </a>
                         
                         {% if not is_engaged %}
                         <br/><br/>
@@ -281,7 +288,8 @@
 {% endblock %}
 
 {% block bottomscript %}
-    <script>
+<script>
+    $(document).ready(function () {
         $('#target').submit(function() {
             alert('Handler for .submit() called.');
             return false;
@@ -331,7 +339,11 @@
             
             return false;   
         });
-
-    </script>
+    var twitter_share_msg = "Check out the work being done on {{ opportunity.name }} for {{ project.name }} at @reallocate. " + window.location.href;
+    var title = "Check out Reallocate";
+    var description = "Check out the work we're doing : {{ opportunity.name }}.";
+    reAllocate.setup_addthis(twitter=twitter_share_msg, title=title, description=description);
+    });
+</script>
 
 {% endblock %}
