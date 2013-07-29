@@ -6,10 +6,11 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import authenticate, login
+from django.shortcuts import render_to_response, get_object_or_404
 
 import website.base as base
 from myproject.settings import ADMIN_EMAIL
-from website.models import UserProfile, Project, ProjectForm, Update
+from website.models import UserProfile, Project, ProjectForm, Update, Opportunity, OpportunityEngagement
 
 
 @login_required
@@ -24,7 +25,7 @@ def modify_project_relation(request, *args):
     try:
         project = Project.objects.get(pk=project_id)
 
-    except Exception, err:
+    except Exception, error:
 
         return HttpResponse(json.dumps({'failure': 'no project found'}), status=500)
 
@@ -41,29 +42,68 @@ def modify_project_relation(request, *args):
 
     project.save()
 
-    response_data = { "success": "true" }
+    response = { "success": "true" }
 
-    return HttpResponse(json.dumps(response_data), mimetype="application/json")
+    return HttpResponse(json.dumps(response), mimetype="application/json")
   
-   
+
+@csrf_exempt
+@login_required
+def engage_opportunity(request):
+
+    context = base.build_base_context(request)
+
+    pid = request.REQUEST.get('projectId')
+    oid = request.REQUEST.get('opportunityId')
+    response = {}
+
+    if pid and oid:
+
+        opp = get_object_or_404(Opportunity, pk=oid)
+        response = {}
+
+        opp_eng = OpportunityEngagement(user=request.user, opportunity=opp)
+        opp_eng.response = response
+
+        opp_eng.save()
+
+        subject = "New engagement with %s by %s" % (opp.name, request.user.email)
+        html_content = """Their response is: %s<br/>
+                       <a href='%s/admin/website/opportunityengagement/%s'>approve</a>""" % (
+                        response, request.get_host(), opp_eng.id)
+                       
+        # TODO: send to project/opp owner as well as admin
+        base.send_admin_email(subject, html_content, html_content=html_content)
+
+        response['message'] = "Thanks for your request. A project leader will get back to you as soon as possible."
+
+    else:
+
+        response['message'] = "No project or opportunity id."
+    
+    return HttpResponse(json.dumps(response), mimetype="application/json")
+
+
 @login_required
 @csrf_exempt
 def add_update(request, *args):
-    organization_id = request.GET.get('organization_id', None)
-    project_id = request.GET.get('project_id', None)
-    opportunity_id = request.GET.get('opportunity_id', None)
-    update_text = request.GET.get('update_text', None)
+
+    orgid = request.GET.get('orgid')
+    pid = request.GET.get('pid')
+    oid = request.GET.get('oid')
+    update_text = request.GET.get('update_text')
     mime_type = request.META.get('HTTP_X_MIME_TYPE')
     
-    # TODO: check mimetpye for proper file extensions
+    # TODO: check mimetype for proper file extensions
     # TODO: make image name unique hash based on time to avoid collisions
-    filename = base.remote_storage(request.body, 'project/%s/opportunity/%s/image.png' % (project_id, opportunity_id), mime_type)
+    filename = base.remote_storage(request.body, 'project/%s/opportunity/%s/image.png' % (pid, oid), mime_type)
 
     # TODO:  error checking.  i.e. does user have permission?
-    update = Update.objects.create(organization_id=organization_id, project_id=project_id, media_url=filename,
-                                   opportunity_id=opportunity_id, text=update_text, created_by=request.user)
+    update = Update.objects.create(organization_id=orgid, project_id=pid, media_url=filename,
+                                   opportunity_id=oid, text=update_text, created_by=request.user)
 
     return HttpResponse(json.dumps({ "success": "true" }), mimetype="application/json")
+
 
 @login_required
 @csrf_exempt
@@ -107,7 +147,13 @@ def login_user(request):
       if user.is_active:
 
             login(request, user)
-            return HttpResponse(json.dumps({ 'success': True,}), content_type="application/json")
+
+            response = { 'success': True, 'user': {'email': user.email, 'firstName': user.first_name, 'lastName': user.last_name} }
+            if request.POST.get('next'):
+                response['next'] = request.POST.get('next')
+
+            return HttpResponse(json.dumps(response), content_type="application/json")
+
       else:
             return HttpResponse(json.dumps({ 'success': False, 'message': 'Your account has been disabled' }), content_type="application/json", status=403)
     else:

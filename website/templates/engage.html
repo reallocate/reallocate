@@ -19,22 +19,22 @@
     <div class="container">
         <ul class="breadcrumb">
             <li id="breadcrumb-menu-home"><a href="/">Home</a><span class="divider">/</span></li>
-            <li id="breadcrumb-menu-home"><a href="/project/{{ opp.project.id }}">{{ opp.project.name }}</a><span class="divider">/</span></li>
-            <li id="breadcrumb-menu-home"><a href="/project/{{ opp.id }}">{{ opp.name }}</a></li>
+            <li id="breadcrumb-menu-home"><a href="/project/{{ opportunity.project.id }}">{{ opportunity.project.name }}</a><span class="divider">/</span></li>
+            <li id="breadcrumb-menu-home"><a href="/project/{{ opportunity.id }}">{{ opportunity.name }}</a></li>
         </ul>
     </div>
 
     <div class="opp_wrap container">
         <div class="row">
             <div class="span3">
-                <img src="{{opp.media_url}}"/>
+                <img src="{{ opportunity.media_url }}"/>
             </div>
     
             <div class="span9">
                 <div class="opp_title">
-                    <h1> {{ opp.name }}   </h1>
-                    <h2>{{ opp.project.name }}</h2>
-                    {{ opp.description }}<br/>
+                    <h1> {{ opportunity.name }}   </h1>
+                    <h2>{{ opportunity.project.name }}</h2>
+                    {{ opportunity.description }}<br/>
                 </div>
     
             </div>

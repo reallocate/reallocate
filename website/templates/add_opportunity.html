@@ -62,12 +62,12 @@
             </form>
         </div>
         <div class="offset1 span5">
-            {% if opps %}
+            {% if opportunities %}
             <h4>Current opportunities</h4>
-            {% for o in opps %}
+            {% for opportunity in opportunities %}
             <div class="opportunity">
-                <p class="name"><b>{{ o.name }}</b><p>
-                <p class="short-desc">{{ o.short_desc}}</p>
+                <p class="name"><b>{{ opportunity.name }}</b><p>
+                <p class="short-desc">{{ opportunity.short_desc}}</p>
             </div>
             {% endfor %}
             {% endif %}

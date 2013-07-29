@@ -6,6 +6,9 @@
     <div class="modal-body row-fluid">
         <div class="span6">
             <form class="form-horizontal" action="/login" id="modal-login" method="post">
+                {% if next %}
+                <input type="hidden" name="next" value="{{ next }}" />
+                {% endif %}
                 <div class="control-group">
                     <input type="text" name="username" id="modal-username" value="{{ username }}" placeholder="email" />
                 </div>
@@ -57,25 +60,34 @@
             
             <div class="nav-collapse collapse">
                 <ul class="nav pull-right" id="auth">
-                    {% if user.is_authenticated %}
-                        <li class="dropdown">
-                            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                                {{ user.email }}
-                                <b class="caret"></b>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a href="/profile">Profile</a></li>
-                                <li class="divider"></li>
-                                <li><a href="/logout">Logout</a></li>
-                            </ul>
-                        </li> 
-                    {% else %}
-                        <li><!--<a href="/login">--><a href="#login-modal" role="button" data-toggle="modal">Login</a></li>
-                        <li><a href="/sign-up">Sign Up</a></li>
-                    {% endif %}
+                    <li class="dropdown user">
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                            <span id="#user-email">{{ user.email }}</span>
+                            <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/profile">Profile</a></li>
+                            <li class="divider"></li>
+                            <li><a href="/logout">Logout</a></li>
+                        </ul>
+                    </li> 
+                    <li class="anon">
+                        <a href="#login-modal" role="button" data-toggle="modal">Login</a>
+                    </li>
+                    <li class="anon">
+                        <a href="/sign-up">Sign Up</a>
+                    </li>
                 </ul>
             </div>
-            <!--/.nav-collapse -->
+            <style>
+            {% if user.is_authenticated %}
+                .user { display: block; }
+                .anon { display: none; }
+            {% else %}
+                .user { display: none; }
+                .anon { display: block; }
+            {% endif %}
+            </style>
         </div>
     </div>
 </div>

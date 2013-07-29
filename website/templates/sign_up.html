@@ -41,11 +41,15 @@
         		    <input type="text" name="email" id="email" placeholder="Email Address"><br/>
         		    <input type="password" name="password" value="" id="password" placeholder="Password"/><br />
             		<input type="password" name="password_verify" value="" id="password_verify" placeholder="Re-type Password"/><br />
-        		    <input class="btn btn-small btn-primary" type="submit" value="Sign up" />
+        		    <input class="btn btn-small btn-primary" type="submit" id="sign-up-submit" value="Sign up" />
                     <input type="hidden" name="next" value="{{ next }}" />
         	    </form>
         	</div>
 
+        </div>
+
+        <div class="row-fluid">
+           <h4>Already have an account? <a href="{{ next }}" class="login-required">login</a></h4>
         </div>
 
     </div>
@@ -54,21 +58,38 @@
 
 {% block bottomscript %}
     <script>
-    $.ajax({
-        url : '/ajax/check-available',
-        method: 'POST',
-        data : {'email': email},
-        success: function(res) {
-            if (res) {
 
-            } else {
-                $('#modal-username').parent('.control-group').addClass('error');
-                $('#modal-password').parent('.control-group').addClass('error');
-            }
-        },
-        error: function(res) {
-            console.log('error in ajax request: ' + res);
+    $('#password_verify').on('blur', function(e) {
+
+        if (this.value != $('#password').attr('value')) {
+            $(this).addClass('error');
+            $('#sign-up-submit').attr('disabled', 'disabled');
+        } else {
+            $('#sign-up-submit').removeAttr('disabled');
         }
-   });
+    });
+
+    $('#email').on('blur', function(e) {
+
+        var email = this.value;
+
+        $.ajax({
+            url : '/ajax/check-available',
+            method: 'GET',
+            data : {'email': email},
+            success: function(res) {
+                if (!res) {
+                    $('#sign-up-submit').removeAttr('disabled');
+                } else {
+                    $('#sign-up-submit').attr('disabled', 'disabled');
+                    $('#email').addClass('error');
+                }
+            },
+            error: function(res) {
+                console.log('error in ajax request: ' + res);
+            }
+        });
+    });
+
     </script>
 {% endblock %}

@@ -6,13 +6,21 @@
 {% block meta_description %}{{ the_title }}{% endblock %}
 
 
-
 {% block maincontent %}
 
     <div class="container-fluid">
 
+        {% if organization %}
+        <div class="row">
+            <p>You're a member of <b>{{ organization.name }}</b></p>
+            <form method="post">
+                <input type="submit" value="Use this organization" name="use_users_org" class="btn btn-primary" />
+            </form>
+        </div>
+        {% endif %}
+
         <div class="row-fluid">
-            <h3>Create an Organization</h3>
+            <h3>Create {% if organization %}a new{% else %}an{% endif %} organization</h3>
         </div>
 
         <div class="row-fluid">

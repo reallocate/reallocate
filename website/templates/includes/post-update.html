@@ -1,0 +1,66 @@
+<div class="create_post">
+
+    <form id="post_update" enctype="multipart/form-data" method="post">
+        <input type="hidden" name="orgid" value="{{ organization.id }}"/>
+        <input type="hidden" name="pid" value="{{ project.id }}"/>
+        <input type="hidden" name="oid" value="{{ opportunity.id }}"/>
+        <textarea name="update_text" placeholder="How is your project going?"></textarea>
+        
+        <button type="submit" class="btn">
+            <span class="icon-camera icon"></span>
+        </button>
+        
+        <input type="file" name="file" id="file" value="Upload a new photo"/>
+        <input class="btn btn-primary" type="submit" value="Post Update">
+        <input id="upload_button" type="file" name="uploaded_media" style="display: none;"/>
+        
+    </form>
+
+</div>
+<script>
+    $(document).ready(function() {
+
+        $('#post_update').submit(function(event) {
+        event.preventDefault();
+        
+        var form = $(this);
+        
+        if (form.find('textarea').val().length == 0) {
+            alert('Please enter an update');
+            return false;
+        }
+        
+        var submit_button = form.find('input[type="submit"]');
+
+        var file = form.find('input[type="file"]').get(0).files[0];
+        var xhr = new XMLHttpRequest();
+        
+        //xhr.ontimeout = function() {
+        //  this.abort();
+        //  submission_error_cb();
+        //  return;
+        //}
+        //xhr.onerror = submission_error_cb;
+            
+        xhr.onreadystatechange = function(e) {
+            if (this.readyState != 4) { return; }
+            
+            if (this.status == 200 || this.status == 204) {
+                var response = JSON.parse(this.responseText);
+                console.log(response);
+                window.location.assign('#updates');
+                window.location.reload();
+        
+            } else if (this.status == 500 || this.status == 503) {
+                alert('An error occurrred');
+            }
+        };
+        xhr.timeout = 90000;
+        xhr.open('post', '/ajax/add-update?' + form.serialize(), true);
+        xhr.setRequestHeader("Content-Type", "application/octet-stream");
+        if (file) xhr.setRequestHeader("X-Mime-Type", file.type);
+        xhr.send(file);
+        
+        return false;   
+    });
+</script>

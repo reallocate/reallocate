@@ -1,21 +1,21 @@
-<div class="row opp_small" opp_id="{{ opp.id }}">
+<div class="row opp_small" opp_id="{{ opportunity.id }}">
 	<div class="span8">
-		<span style="font-size:10px;">{{ opp.opp_type }}</span><br/>
-		<a href="/project/{{ pid }}/opportunity/{{ opp.id }}">
-			<span style="font-size:14px;"><strong>{{ opp.name }}</strong></span>
+		<span style="font-size:10px;">{{ oppotunity.opp_type }}</span><br/>
+		<a href="/project/{{ opportunity.project.id }}/opportunity/{{ opportunity.id }}">
+			<span style="font-size:14px;"><strong>{{ opportunity.name }}</strong></span>
 		</a>
 	</div>
 	<div class="span4">
-		{% if opp.opp_type == 'skills' %}
+		{% if opportunity.opp_type == 'skills' %}
 			<i class="icon-fighter-jet icon-4x"></i>
 		{% endif %}
-		{% if opp.opp_type == 'skills' %}
+		{% if opportunity.opp_type == 'skills' %}
 			<i class="icon-book icon-4x"></i>
 		{% endif %}
-		{% if opp.opp_type == 'equipment' %}
+		{% if opportunity.opp_type == 'equipment' %}
 			<i class="icon-cogs icon-4x"></i>
 		{% endif %}
-		{% if opp.opp_type == 'money' %}
+		{% if opportunity.opp_type == 'money' %}
 			<i class="icon-money icon-4x"></i>
 		{% endif %}	
 	</div>

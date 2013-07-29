@@ -104,7 +104,7 @@
     <div class="container">
         <ul class="breadcrumb">
             <li id="breadcrumb-menu-home"><a href="/">Home</a><span class="divider">/</span></li>
-            <li id="breadcrumb-menu-home"><a href="/project/{{ project.id }}">{{ project.name }}</a><span class="divider">/</span></li>
+            <li id="breadcrumb-menu-home"><a href="/project/{{ opportunity.project.id }}">{{ opportunity.project.name }}</a><span class="divider">/</span></li>
             <li id="breadcrumb-menu-mission" class="active">{{ opportunity.name }}</li>
         </ul>
     </div>
@@ -150,9 +150,9 @@
                             <i class="icon-linkedin-sign icon-2x" style="color: #4e7ac7;"></i>
                         </a>
                         
-                        {% if not is_engaged %}
+                        {% if not engaged or pending %}
                         <br/><br/>
-                        <a class="btn btn-primary btn-large" href='/project/{{ project.id }}/opportunity/{{ opportunity.id }}/engage'>Engage</a>
+                        <button class="btn btn-primary btn-large"{% if pending %} disabled=disabled {% endif %} onclick="reAllocate.engageOpportunity(this, {{ opportunity.project.id }}, {{ opportunity.id }})">Engage</button>
                         {% endif %}
                             
                     </div>
@@ -163,13 +163,12 @@
 
     <div class="project_wrap container-fluid">
         <div class="container-fluid">
-            <div class="row-fluid oppoprtunityTop">
+            <div class="row-fluid opportunityTop">
         
                 <div class="span8">
                     <!--<div class="opp_image">
-                        <img src="{{opportunity.media_url}}"/>
+                        <img src="{{ opportunity.media_url }}"/>
                     </div>-->
-                    
                 </div>
             </div>
         </div>
@@ -204,38 +203,20 @@
                     <hr/>
 
                     <h3>Updates</h3>
-                    {% if is_engaged %}
-                    <div class="create_post">
-                        <form id="post_update" enctype="multipart/form-data" method="post">
-                            <input type="hidden" name="organization_id" value="{{organization.id}}"/>
-                            <input type="hidden" name="project_id" value="{{project.id}}"/>
-                            <input type="hidden" name="opportunity_id" value="{{opportunity.id}}"/>
-                            <textarea name="update_text" placeholder="How is your project going?"></textarea>
-                            
-                            <button type="submit" class="btn">
-                                <span class="icon-camera icon"></span>
-                            </button>
-                            
-                            <input type="file" name="file" id="file" value="Upload a new photo"/>
-                            <input class="btn btn-primary" type="submit" value="Post Update">
-                            <input id="upload_button" type="file" name="uploaded_media" style="display: none;"/>
-                            
-                        </form>
-                    </div>
-                    {% endif %}
+                    {% if engaged %}{% include "includes/post-update.html" %}{% endif %}
 
                     <a name="updates"></a>
                     {% for update in updates%}
                         <div class="row-fluid updateRow">
                             <div class="span2">
-                                <img class="updateThumb" src="{{update.created_by.get_profile.media_url}}"/>
+                                <img class="updateThumb" src="{{ update.created_by.get_profile.media_url }}"/>
                             </div>
                             <div class="span10">
                                 <a class="username" href="/profile/{{update.created_by.id}}">
-                                    {{update.created_by.first_name}} {{update.created_by.last_name}}
+                                    {{ update.created_by.first_name }} {{ update.created_by.last_name }}
                                 </a>
-                                <!--<div class="updateOppName"> {{update.opportunity.name}} </div>-->
-                                <div class="updateText">  {{update.text|safe}}</div>
+                                <!--<div class="updateOppName"> {{ update.opportunity.name }} </div>-->
+                                <div class="updateText">  {{ update.text|safe }}</div>
                                 <div class="updateMedia"> <img width="100%" height="100%" src="{{ update.media_url }}"> </div>
                             </div>
                         </div>
@@ -245,34 +226,34 @@
                 <div class="span4" id="related_opp_list">
                     <h3>Related Opportunities</h3>
                     
-                        {% for opp in other_opps%}
+                        {% for opportunity in other_opps %}
                             <div class="oppWell">
                             <div class="oppContainer">
                                 <div class="oppText">
-                                    <h4>{{opp.name}}
+                                    <h4>{{ opportunity.name }}
                                     
                                     <div class="opp-skill-icons">
-                                        {% if opp.opp_type == 'skills' %}
+                                        {% if opportunity.opp_type == 'skills' %}
                                             <i class="icon-fighter-jet icon-2x"></i>
                                         {% endif %}
                                         
-                                        {% if opp.opp_type == 'knowledge' %}
+                                        {% if opportunity.opp_type == 'knowledge' %}
                                             <i class="icon-book icon-2x"></i>
                                         {% endif %}
                                     
-                                        {% if opp.opp_type == 'equipment' %}
+                                        {% if opportunity.opp_type == 'equipment' %}
                                             <i class="icon-cogs icon-2x"></i>
                                         {% endif %}
                                     
-                                        {% if opp.opp_type == 'money' %}
+                                        {% if opportunity.opp_type == 'money' %}
                                             <i class="icon-money icon-2x"></i>
                                         {% endif %}
                                     </div>
                                     
                                     </h4>
-                                    <div class="oppDescription"> {{opp.short_desc|safe|truncatewords:15}}</div>
+                                    <div class="oppDescription"> {{ opportunity.short_desc|safe|truncatewords:15 }}</div>
                                     <div class="oppLink">
-                                        <a class="btn btn-primary" href="/opportunity/{{opp.id}}">Get Involved</a>
+                                        <a class="btn btn-primary" href="/project/{{ opportunity.project.id }}/opportunity/{{ opportunity.id }}">Get Involved</a>
                                     </div>
                                     <br/>
                                 </div>
@@ -293,56 +274,12 @@
         $('#target').submit(function() {
             alert('Handler for .submit() called.');
             return false;
-        });
-        
-        $('#post_update').submit(function(event) {
-            event.preventDefault();
-            
-            var form = $(this);
-            
-            if (form.find('textarea').val().length == 0) {
-                alert('Please enter an update');
-                return false;
-            }
-            
-            var submit_button = form.find('input[type="submit"]');
+        });     
 
-            var file = form.find('input[type="file"]').get(0).files[0];
-			var xhr = new XMLHttpRequest();
-			
-
-			//xhr.ontimeout = function() {
-			//	this.abort();
-			//	submission_error_cb();
-			//	return;
-			//}
-			//xhr.onerror = submission_error_cb;
-				
-			xhr.onreadystatechange = function(e) {
-				if (this.readyState != 4) { return; }
-				
-				if (this.status == 200 || this.status == 204) {
-					var response = JSON.parse(this.responseText);
-					console.log(response);
-                    window.location.assign('#updates');
-                    window.location.reload();
-            
-				} else if (this.status == 500 || this.status == 503) {
-					alert('An error occurrred');
-				}
-			};
-			xhr.timeout = 90000;
-			xhr.open('post', '/ajax/add-update?' + form.serialize(), true);
-			xhr.setRequestHeader("Content-Type", "application/octet-stream");
-            xhr.setRequestHeader("X-Mime-Type", file.type);
-			xhr.send(file);
-            
-            return false;   
-        });
-    var twitter_share_msg = "Check out the work being done on {{ opportunity.name }} for {{ project.name }} at @reallocate. " + window.location.href;
-    var title = "Check out Reallocate";
-    var description = "Check out the work we're doing : {{ opportunity.name }}.";
-    reAllocate.setup_addthis(twitter=twitter_share_msg, title=title, description=description);
+        var twitter_share_msg = "Check out the work being done on {{ opportunity.name }} for {{ project.name }} at @reallocate. " + window.location.href;
+        var title = "Check out Reallocate";
+        var description = "Check out the work we're doing : {{ opportunity.name }}.";
+        reAllocate.setupAddThis(twitter=twitter_share_msg, title=title, description=description);
     });
 </script>
 

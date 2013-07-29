@@ -2,30 +2,21 @@ reAllocate = {
 
     init: function() {
         
-        
-        this.setup_addthis();
+        this.setupAddThis();
         
         $(".login-required").click(function(e) {
+
             if (!reAllocate.user) {
+
                 e.preventDefault();
                 $('#login-modal').modal('show');
                 
-                return False;
-            }
-        });
-       
-        $(".follow-project").click(function() {
-            reAllocate.modify_project_relation(this, 'follow'); 
-        });
-   
-        $(".unfollow-project").click(function() {
-            if (!confirm("Are you sure you want to stop following this project?")) { 
                 return;
             }
-            reAllocate.modify_project_relation(this, 'unfollow');
-        }); 
+        });
 
         $('.thumbnail_container').click(function() {
+
             if ($(this).attr('type') == 'opportunity') {
                 window.location.href = '/opportunity/' +  $(this).attr('opportunity_id');
             } else if ($(this).attr('type') == 'project') {
@@ -36,21 +27,27 @@ reAllocate = {
         $('#modal-login').on('submit', function(e) {
 
             e.preventDefault();
-            reAllocate.login_user($('#modal-username').val(), $('#modal-password').val());
+            reAllocate.loginUser($('#modal-username').val(), $('#modal-password').val());
 
         });
-        
-
     },   
 
-    login_user: function(username, password) {
+    loginUser: function(username, password) {
 
         $.ajax({
             url: '/ajax/login',
             method: 'POST',
             data : {'username': username, 'password': password},
             success: function(res) {
-                location.reload();
+
+                $('#login-modal').modal('hide');
+
+                if (res.next) {
+                    location.href = res.next;
+                } else if (reAllocate.follow) {
+                    reAllocate.followProject(reAllocate.follow.e, reAllocate.follow.pid);
+                }
+                console.log(res);
             },
             error: function(res) {
 
@@ -60,19 +57,28 @@ reAllocate = {
        });
     },
 
-    // aka follow | unfollow
-    modify_project_relation: function(elem, action) {
+    // toggles follow/unfollow
+    followProject: function(e, pid) {
 
-        project_id = $(elem).attr("project-id");
+        var action = $(e).text().toLowerCase();
+
+        // make sure user is logged in
+        if (!reAllocate.user) {
+
+            reAllocate.follow = {'e': e, 'pid': pid};
+            $('#login-modal').modal('show');
+
+            return;
+        }
 
         $.ajax({
             url : '/ajax/modify-project-relation',
-            data : {'project_id': project_id, 'action': action},
+            data : {'project_id': pid, 'action': action},
             success: function(res) {
                 if (action == 'follow') {
-                    console.log("You have succesfully followed this project");
+                    $(e).text('Unfollow');
                 } else if (action == 'unfollow') {
-                    console.log("You have succesfully unfollowed this project");
+                    $(e).text('Follow');
                 }
             },
             error: function(res) {
@@ -80,9 +86,32 @@ reAllocate = {
             }
        });
     },
+
+    // sends engagement request for an opportunity
+    engageOpportunity: function(e, pid, oid) {
+
+        // make sure user is logged in
+        if (!reAllocate.user) {
+
+            $('#login-modal').modal('show');
+
+            return;
+        }
+
+        $.ajax({
+            url : '/ajax/engage-opportunity',
+            data : {'projectId': pid, 'opportunityId': oid},
+            success: function(res) {
+                $(e).attr('disabled', 'disabled');
+             },
+            error: function(res) {
+                console.log("failure to engage opportunity");
+            }
+       });
+    },
     
     // setup default sharing messages with overrides from calling page
-    setup_addthis: function(twitter, title, description) {
+    setupAddThis: function(twitter, title, description) {
         // to setup different shares on different buttons on the same page use markup explained in this article
         // http://support.addthis.com/customer/portal/articles/381242-url-title
         // currently only twitter uses the templates
@@ -107,7 +136,7 @@ reAllocate = {
 };
 
 // init page
-$(document).ready(function(){
+$(document).ready(function() {
     reAllocate.init();
     var addthis_share = {};
 });

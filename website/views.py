@@ -1,5 +1,6 @@
 import logging
 import boto
+import re
 from boto.s3.key import Key
 from myproject import settings
 
@@ -72,7 +73,7 @@ def profile(request, username=None):
 
         context['topmsg'] = 'Your settings have been saved'
     
-    context['opps'] = Opportunity.objects.filter(engaged_by=user)
+    context['opportunities'] = Opportunity.objects.filter(engaged_by=user)
     context['followed_projects'] = Project.objects.filter(followed_by=user)
     context['my_projects'] = Project.objects.filter(created_by=user)
     context['user_profile'] = user_profile
@@ -93,8 +94,8 @@ def public_profile(request, username=None):
 
         return render_to_response('nosuchuser.html', context)
 
-    context['profile'] = user_profile[0]
-    context['opps'] = Opportunity.objects.filter(engaged_by=user)
+    context['user_profile'] = user_profile[0]
+    context['opportunities'] = Opportunity.objects.filter(engaged_by=user)
     context['projects'] = Project.objects.filter(followed_by=user)
 
     return render_to_response('public_profile.html', context, context_instance=RequestContext(request))
@@ -167,10 +168,11 @@ def sign_up(request):
 
     context['referrer'] = request.META.get('HTTP_REFERER', '/')
 
-    if re.match(r'/get-started', context['referrer']):  
+    if re.search(r'\/get-started', context['referrer']): 
+        logging.error('get-started') 
         context['next'] = '/organization/new'
     else:
-        content['next'] = context['referrer']
+        context['next'] = context['referrer']
 
     if request.method == 'GET':
         return render_to_response('sign_up.html', context, context_instance=RequestContext(request))
@@ -199,6 +201,7 @@ def login_user(request):
 
     if request.POST:
 
+        logging.error('test')
         username = request.POST.get('username')
         password = request.POST.get('password')
 
@@ -209,8 +212,14 @@ def login_user(request):
         if user is not None:
 
             if user.is_active:
+
                 login(request, user)
-                return HttpResponseRedirect(settings.POST_LOGIN_URL)
+
+                next = request.POST.get('next') or settings.POST_LOGIN_URL
+                logging.error(next)
+
+                return HttpResponseRedirect(next)
+
             else:
                 context['state'] = "Your account is not active, please contact the site admin."
         else:
@@ -228,15 +237,10 @@ def view_project(request, pid=1):
     context.update({
         "project": project,
         "opportunities": opps,
-        "num_opportunities": opps.count(),
         "updates": Update.objects.filter(project=project)})
     
     if request.user.is_authenticated():
         context['is_following'] = request.user in project.followed_by.all()
-    
-    context['num_following'] = project.followed_by.count()
-    context['donation_purpose'] = project.name
-    context['pid'] = project.id
 
     return render_to_response('project.html', context, context_instance=RequestContext(request))
 
@@ -250,16 +254,10 @@ def manage_project(request, pid=1):
     context.update({
         "project": project,
         "opportunities": opps,
-        "num_opportunities": opps.count(),
         "updates": Update.objects.filter(project=project)})
     
     if request.user.is_authenticated():
         context['is_following'] = request.user in project.followed_by.all()
-    
-    context['num_following'] = project.followed_by.count()
-    context['donation_purpose'] = project.name
-    context['pid'] = project.id
-    context['opps'] = opps
 
     return render_to_response('manage_project.html', context, context_instance=RequestContext(request))
 
@@ -273,6 +271,7 @@ def new_project(request):
 
     if request.GET.get('org'):
         org = Organization.objects.get(id=request.GET.get('org'))
+        context['organization'] = org
 
     if request.method == "POST":
 
@@ -309,30 +308,29 @@ def new_project(request):
 def view_opportunity(request, pid, oid):
 
     opp = get_object_or_404(Opportunity, pk=oid)
-    project = get_object_or_404(Project, pk=opp.project.id)
-    organization = project.organization
     updates = Update.objects.filter(opportunity=opp).order_by('-date_created')[0:10]
     context = base.build_base_context(request)
     
     context.update({
-        'organization': organization,
         'opportunity': opp,
-        'project': project,
         'other_opps': [rec for rec in Opportunity.objects.filter(project=opp.project).all() if rec.id != opp.id],
         'updates': updates,
         'is_engaged': False})
     
     if request.user.is_authenticated():
 
-        context['is_following'] = request.user in project.followed_by.all()
+        context['is_following'] = request.user in opp.project.followed_by.all()
 
         try:
-            user_engagement = OpportunityEngagement.objects.get(opportunity=opp, user=request.user)
+            ue = OpportunityEngagement.objects.get(opportunity=opp.id, user=request.user.id)
         except ObjectDoesNotExist:
-            user_engagement = None
+            ue = None
 
-        if user_engagement:
-            context['is_engaged'] = (user_engagement.status == STATUS_ACTIVE)
+        if ue:
+            if ue.status == 'Unpublished' or ue.status == 'Pending':
+                context['pending'] = True
+            if ue.status == STATUS_ACTIVE: 
+                context['engaged'] = True
             
     return render_to_response('opportunity.html', context, context_instance=RequestContext(request))    
 
@@ -340,12 +338,14 @@ def view_opportunity(request, pid, oid):
 @csrf_exempt
 @login_required
 def engage_opportunity(request, pid, oid=1):
+
     context = base.build_base_context(request)
 
     opp = get_object_or_404(Opportunity, pk=oid)
     # todo - deal with money type => donations rather than a freeform response
 
     if request.method == "POST":
+
         response = request.POST.get("response", "")
         opp_eng = OpportunityEngagement(user=request.user, opportunity=opp)
         opp_eng.response = response
@@ -360,7 +360,8 @@ def engage_opportunity(request, pid, oid=1):
 
         return HttpResponseRedirect("/project/%s/opportunity/%s?topmsg=%s" % (pid, oid, topmsg))
     
-    context['opp'] = opp
+    context['opportunity'] = opp
+
     return render_to_response('engage.html', context, context_instance=RequestContext(request))
 
 
@@ -369,37 +370,44 @@ def engage_opportunity(request, pid, oid=1):
 def new_organization(request):
 
     context = base.build_base_context(request)
+    user_profile = request.user.get_profile()
+
+    if user_profile.organization_id:
+
+        org = Organization.objects.get(id=user_profile.organization_id)
+        context['organization'] = org
 
     if request.method == "POST":
 
-        org_form = OrganizationForm(request.POST)
-        org = org_form.save(commit=False)
+        if not request.POST.get('use_users_org'):
 
-        if org_form.is_valid():
+            org_form = OrganizationForm(request.POST)
+            org = org_form.save(commit=False)
 
-            org.created_by = request.user
-            org.save()
-            
-            profile = request.user.get_profile()
-            profile.organization_id = org.id
-            profile.save()
-            
-            # send admin email with link adminpanel to change project status
-            subj = "[ReAlloBot] New organization %s added by %s" % (org.name, request.user.username)
-            body = """Go here to and change status to active:<br/>
-                      <a href='%s/admin/organization/%s'>approve</a>
-                      For now: remember to email the above email after their organization is approved""" % (
-                      request.get_host(), org.id)
+            if org_form.is_valid():
 
-            #base.send_admin_email(subj, body, html_content=body)
+                org.created_by = request.user
+                org.save()
+                
+                user_profile.organization_id = org.id
+                user_profile.save()
+                
+                # send admin email with link adminpanel to change project status
+                subj = "[ReAlloBot] New organization %s added by %s" % (org.name, request.user.username)
+                body = """Go here to and change status to active:<br/>
+                          <a href='%s/admin/organization/%s'>approve</a>
+                          For now: remember to email the above email after their organization is approved""" % (
+                          request.get_host(), org.id)
 
-            next = '/project/new?org=%s' % org.id
+                #base.send_admin_email(subj, body, html_content=body)
+                          
+            else:
 
-            return HttpResponseRedirect(next)
-                      
-        else:
+                return HttpResponse("error")
 
-            return HttpResponse("error")
+        next = '/project/new?org=%s' % org.id
+
+        return HttpResponseRedirect(next)
 
     return render_to_response('new_organization.html', context, context_instance=RequestContext(request))
         
@@ -411,9 +419,13 @@ def add_opportunity(request, pid=None):
     context = base.build_base_context(request)
     project = get_object_or_404(Project, pk=pid)
 
-    context['opps'] = Opportunity.objects.filter(project=pid)
+    context['project'] = project
+    context['opportunities'] = Opportunity.objects.filter(project=pid)
 
     if request.method == "POST":
+
+        if request.POST.get('name') == '' and request.POST.get('short_desc') == '' and not request.POST.get('add'):
+            return HttpResponseRedirect('/project/%s/manage' % project.id)
 
         opp_form = OpportunityForm(request.POST)
         opp = opp_form.save(commit=False)
@@ -431,7 +443,7 @@ def add_opportunity(request, pid=None):
 
             else:
 
-                return HttpResponseRedirect('/')
+                return HttpResponseRedirect('/project/%s/manage' % project.id)
 
         else:
 

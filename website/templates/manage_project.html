@@ -17,10 +17,10 @@
                 <p id="project-name"><i class="icon-pencil"></i><input readonly="readonly" name="name" value="{{ project.name }}" /></p>
                 <p id="project-short-desc"><i class="icon-pencil"></i><input readonly="readonly" name="short_desc" value="{{ project.short_desc|safe }}" /></p>
 
-                <div id="desc-modal" class="modal hide fade" role="dialog" aria-labelledby="login-modal-label" aria-hidden="true">
+                <div id="desc-modal" class="modal hide fade" role="dialog" aria-labelledby="desc-modal-label" aria-hidden="true">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                        <h3 id="login-modal-label">Project description</h3>
+                        <h3 id="desc-modal-label">Project description</h3>
                     </div>
                     <div class="modal-body row-fluid">
                         <textarea name="description" id="project-desc">{{ project.description }}</textarea>
@@ -31,7 +31,15 @@
                 </div>
 
                 <p><a href="#desc-modal" role="button" class="btn" data-toggle="modal">Edit full description</a></p>
-                <p><button class="btn btn-primary">Post an update</button></p>            
+                <p><a href="#project-update-modal" class="btn btn-primary" data-toggle="modal">Post an update</a></p>            
+
+                <div id="project-update-modal" class="modal hide fade" role="dialog" aria-labelledby="project-update-modal-label" aria-hidden="true">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h3 id="project-update-modal-label">Project update</h3>
+                    </div>
+                    {% include "includes/post-update.html" %}
+                </div>
 
             </form>
 
@@ -56,7 +64,7 @@
 
         <div class="offset1 span4">
             <h3>Opportunities</h3>
-            {% for opp in opps %}
+            {% for opportunity in opportunities %}
             {% include "includes/opportunity-pane-small.html" %}
             {% endfor %}
         </div>
