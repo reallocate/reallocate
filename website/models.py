@@ -147,9 +147,9 @@ class Update(models.Model):
 
     organization = models.ForeignKey(Organization)
     project = models.ForeignKey(Project)
-    opportunity = models.ForeignKey(Opportunity)
-    text = models.TextField(blank=True)
-    media_url = models.CharField(max_length=1000, blank=True)
+    opportunity = models.ForeignKey(Opportunity, blank=True, null=True)
+    text = models.TextField(blank=True, null=True)
+    media_url = models.CharField(max_length=1000, blank=True, null=True)
     date_created = models.DateTimeField(auto_now_add=True)
     created_by = models.ForeignKey(User)
     
@@ -165,6 +165,6 @@ class OpportunityEngagement(models.Model):
     opportunity = models.ForeignKey(Opportunity)
     date_created = models.DateField(auto_now_add=True)
      # this will be where the opp engagements can be approved
-    status = models.CharField(max_length=100, choices=STATUS_CHOICES, default=STATUS_CHOICES[0][0])
+    status = models.CharField(max_length=100, choices=STATUS_CHOICES, default=STATUS_CHOICES[1][1])
     response = models.CharField(max_length=2000, blank=True) # response to the engagement
     

@@ -1,4 +1,4 @@
-from myproject import settings
+from website import settings
 import website.base as base
 from urllib import urlencode
 from urllib2 import urlopen, Request

@@ -31,18 +31,16 @@
                 </div>
 
                 <p><a href="#desc-modal" role="button" class="btn" data-toggle="modal">Edit full description</a></p>
-                <p><a href="#project-update-modal" class="btn btn-primary" data-toggle="modal">Post an update</a></p>            
-
-                <div id="project-update-modal" class="modal hide fade" role="dialog" aria-labelledby="project-update-modal-label" aria-hidden="true">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                        <h3 id="project-update-modal-label">Project update</h3>
-                    </div>
-                    {% include "includes/post-update.html" %}
-                </div>
+                <p><a href="#post-update-modal" class="btn btn-primary" data-toggle="modal">Post an update</a></p>            
 
             </form>
-
+            <div id="post-update-modal" class="modal hide fade" role="dialog" aria-labelledby="post-update-modal-label" aria-hidden="true">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h3 id="post-update-modal-label">Project update</h3>
+                </div>
+                {% include "includes/post-update.html" %}
+            </div>
         </div>
 
         <div class="offset1 span4" id="org">

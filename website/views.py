@@ -2,7 +2,7 @@ import logging
 import boto
 import re
 from boto.s3.key import Key
-from myproject import settings
+from website import settings
 
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render_to_response, get_object_or_404
@@ -313,6 +313,7 @@ def view_opportunity(request, pid, oid):
     
     context.update({
         'opportunity': opp,
+        'project': opp.project,
         'other_opps': [rec for rec in Opportunity.objects.filter(project=opp.project).all() if rec.id != opp.id],
         'updates': updates,
         'is_engaged': False})

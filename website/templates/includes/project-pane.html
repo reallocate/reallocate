@@ -85,16 +85,16 @@
         
 <div class="span4">
     <div project_id="{{ project.id }}" class="project-container" type="project" project_id="{{ project.id }}">
+        {% if project.media_url %}
         <div class="project-image">
             <a href="/project/{{ project.id }}"><img src="{{ project.media_url }}"></a>
         </div>
+        {% endif %}
         <div class="project-text">
-            <div class="project-cause">
-                <a href="/causes/{{cause.name}}">Cause</a>
-            </div>
-            <div class="project-name"><a href="/project/{{ project.id }}">{{project.name}}</a></div>
-            <div class="short_desc"><a href="/project/{{ project.id }}">{{project.short_desc}}</a></div>
+            <div class="project-name"><a href="/project/{{ project.id }}">{{ project.name }}</a></div>
+            <div class="short_desc"><a href="/project/{{ project.id }}">{{ project.short_desc }}</a></div>
         </div>
+        <!--
         <div class="row-fluid project-status">
             <div class="span5 pie-chart">
                 <img src="/static/images/piechart.png"/>
@@ -102,13 +102,14 @@
             <div class="span7 project-needs">
                 <strong>Needs</strong><br/>
                 <div class="need">
-                    CAD Design<br/>
-                    3D Printer Access<br/>
-                    Travel<br/>
-                    <a href="">See more...</a>
+                    [ TODO ]<br />
+                    <a href="/project/{{ project.id }}">See more&hellip;</a>
                 </div>
             </div>
         </div>
-        <div class="project-location"><a href="/locations/{{location.name}}">Location: {{project.city}}, {{project.state}}</a></div>
+        -->
+        {% if project.city and project.state %}
+        <div class="project-location"><a href="/locations/{{location.name}}">Location: {{ project.city }}, {{ project.state }}</a></div>
+        {% endif %}
     </div>
 </div>

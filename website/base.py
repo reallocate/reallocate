@@ -1,10 +1,10 @@
-from myproject import settings
-import re
+from website import settings
+import re, logging
 from website.models import UserProfile
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
-from myproject.settings import FROM_EMAIL, ADMIN_EMAIL, DEPLOY_ENV
+from website.settings import FROM_EMAIL, ADMIN_EMAIL, DEPLOY_ENV
 
 import boto
 from boto.s3.key import Key
@@ -17,6 +17,7 @@ def get_current_userprofile(request):
         if request.is_ajax():
             return HttpResponse(json.dumps({'failure': 'no user'}), status=500)
         return HttpResponse("error getting user profile")
+
 
 def build_base_context(request):
 
@@ -91,4 +92,5 @@ def remote_storage(uploaded_file, filename, mime_type):
     k.key = filename
     k.set_contents_from_string(uploaded_file)
     k.set_acl('public-read')
+
     return 'http://s3.amazonaws.com/%s/%s' % (settings.S3_BUCKET, filename)

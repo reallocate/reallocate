@@ -1,4 +1,5 @@
 import base, json, logging
+import hashlib, time
 
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
@@ -9,7 +10,7 @@ from django.contrib.auth import authenticate, login
 from django.shortcuts import render_to_response, get_object_or_404
 
 import website.base as base
-from myproject.settings import ADMIN_EMAIL
+from website.settings import ADMIN_EMAIL
 from website.models import UserProfile, Project, ProjectForm, Update, Opportunity, OpportunityEngagement
 
 
@@ -60,7 +61,7 @@ def engage_opportunity(request):
     if pid and oid:
 
         opp = get_object_or_404(Opportunity, pk=oid)
-        response = {}
+        message = request.REQUEST.get('message')
 
         opp_eng = OpportunityEngagement(user=request.user, opportunity=opp)
         opp_eng.response = response
@@ -68,9 +69,9 @@ def engage_opportunity(request):
         opp_eng.save()
 
         subject = "New engagement with %s by %s" % (opp.name, request.user.email)
-        html_content = """Their response is: %s<br/>
-                       <a href='%s/admin/website/opportunityengagement/%s'>approve</a>""" % (
-                        response, request.get_host(), opp_eng.id)
+        html_content = """%s<br/><br/>
+            <a href='%s/admin/website/opportunityengagement/%s'>approve</a>""" % (
+            message, request.get_host(), opp_eng.id)
                        
         # TODO: send to project/opp owner as well as admin
         base.send_admin_email(subject, html_content, html_content=html_content)
@@ -88,19 +89,26 @@ def engage_opportunity(request):
 @csrf_exempt
 def add_update(request, *args):
 
-    orgid = request.GET.get('orgid')
-    pid = request.GET.get('pid')
-    oid = request.GET.get('oid')
-    update_text = request.GET.get('update_text')
-    mime_type = request.META.get('HTTP_X_MIME_TYPE')
+    orgid = request.REQUEST.get('orgid')
+    pid = request.REQUEST.get('pid')
+    oid = request.REQUEST.get('oid')
+    text = request.REQUEST.get('text')
+    url = None
+
+    if request.body:
+
+        mime_type = request.META.get('HTTP_X_MIME_TYPE')
     
-    # TODO: check mimetype for proper file extensions
-    # TODO: make image name unique hash based on time to avoid collisions
-    filename = base.remote_storage(request.body, 'project/%s/opportunity/%s/image.png' % (pid, oid), mime_type)
+        # TODO: check mimetype for proper file extensions
+        ext = 'png'
+        hash = hashlib.sha1()
+        hash.update(str(time.time()))
+        filename = hash.hexdigest()[:10]
+        url = base.remote_storage(request.body, 'project/%s/%s.%s' % (pid, filename, ext), mime_type)
 
     # TODO:  error checking.  i.e. does user have permission?
-    update = Update.objects.create(organization_id=orgid, project_id=pid, media_url=filename,
-                                   opportunity_id=oid, text=update_text, created_by=request.user)
+    update = Update.objects.create(organization_id=orgid, project_id=pid, media_url=url,
+                                   opportunity_id=oid, text=text, created_by=request.user)
 
     return HttpResponse(json.dumps({ "success": "true" }), mimetype="application/json")
 
@@ -169,12 +177,12 @@ def check_available(request, *args):
     if username:
 
         q = User.objects.filter(username=username)
-        response_data = True if q else False
+        response_data = False if q else True
 
     elif email:
 
         q = User.objects.filter(email=email)
-        response_data = True if q else False
+        response_data = False if q else True
 
     else:
 

@@ -64,15 +64,7 @@
         margin-bottom: 15px;
         border-top: 1px solid rgba(81,114,131,.65);
         
-    }
-    .create_post{
-        border: 2px blue;
-    }
-
-    #post_update textarea{
-        width: 100%;
-    }
-    
+    }    
     .hero {
         background-image:url('{{ project.media_url }}');
         background-size:cover;
@@ -152,7 +144,8 @@
                         
                         {% if not engaged or pending %}
                         <br/><br/>
-                        <button class="btn btn-primary btn-large"{% if pending %} disabled=disabled {% endif %} onclick="reAllocate.engageOpportunity(this, {{ opportunity.project.id }}, {{ opportunity.id }})">Engage</button>
+                        <a href="#engage-modal" class="btn btn-primary btn-large" data-toggle="modal"{% if pending %} disabled=disabled {% endif %}>Engage</a>
+                        {% include 'includes/engage_modal.html' %}
                         {% endif %}
                             
                     </div>
@@ -223,47 +216,44 @@
                     {% endfor %}
                 </div>
                 
+                <!--
                 <div class="span4" id="related_opp_list">
                     <h3>Related Opportunities</h3>
-                    
-                        {% for opportunity in other_opps %}
-                            <div class="oppWell">
-                            <div class="oppContainer">
-                                <div class="oppText">
-                                    <h4>{{ opportunity.name }}
-                                    
+                    {% for opportunity in other_opps %}
+                    <div class="oppWell">
+                        <div class="oppContainer">
+                            <div class="oppText">
+                                <h4>{{ opportunity.name }} 
                                     <div class="opp-skill-icons">
                                         {% if opportunity.opp_type == 'skills' %}
-                                            <i class="icon-fighter-jet icon-2x"></i>
+                                        <i class="icon-fighter-jet icon-2x"></i>
                                         {% endif %}
                                         
                                         {% if opportunity.opp_type == 'knowledge' %}
-                                            <i class="icon-book icon-2x"></i>
+                                        <i class="icon-book icon-2x"></i>
                                         {% endif %}
                                     
                                         {% if opportunity.opp_type == 'equipment' %}
-                                            <i class="icon-cogs icon-2x"></i>
+                                        <i class="icon-cogs icon-2x"></i>
                                         {% endif %}
                                     
                                         {% if opportunity.opp_type == 'money' %}
-                                            <i class="icon-money icon-2x"></i>
+                                        <i class="icon-money icon-2x"></i>
                                         {% endif %}
-                                    </div>
-                                    
-                                    </h4>
-                                    <div class="oppDescription"> {{ opportunity.short_desc|safe|truncatewords:15 }}</div>
-                                    <div class="oppLink">
-                                        <a class="btn btn-primary" href="/project/{{ opportunity.project.id }}/opportunity/{{ opportunity.id }}">Get Involved</a>
-                                    </div>
-                                    <br/>
+                                    </div>        
+                                </h4>
+                                <div class="oppDescription"> {{ opportunity.short_desc|safe|truncatewords:15 }}</div>
+                                <div class="oppLink">
+                                    <a class="btn btn-primary" href="/project/{{ opportunity.project.id }}/opportunity/{{ opportunity.id }}">Get Involved</a>
                                 </div>
                             </div>
-                            </div>
-                        {% endfor %}
-                    
-                </div>  
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                -->
             </div>
-        </div><!-- -->
+        </div>
     </div>
     
 {% endblock %}

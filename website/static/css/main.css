@@ -256,3 +256,35 @@ h5 {
 #manage-project #edit-project p:hover i {
     display: inline;
 }
+
+/* post update */
+
+.post-update {
+    border: 2px blue;
+}
+.post-update .post-update-buttons {
+    position: relative;
+    clear: both;
+}
+.post-update .fake-file {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: 0;
+}
+.post-update .media-file {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: 5;
+    opacity: 0.0;
+}
+.post-update .submit-update {
+    position: absolute;
+    top: 0px;
+    left: 53px;
+    z-index: 10;
+}
+.post-update textarea {
+    width: 100%;
+}

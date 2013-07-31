@@ -1,29 +1,24 @@
-ReAllocate Marketplace
+ReAllocate Web Platform 
 ============================
 This open source project is for the ReAllocate (reallocate.org) marketplace, where knowledge meets need.
 
+PREREQUISITES
 
-Prereq's
------------------
-* Python 2.7
-* SQLite, MySQL, or something similar
-* (OS X) XCode or CLI
+- Python 2.7
+- SQLite, MySQL, or something similar
+- (OS X) XCode or CLI
 
+INITIAL SETUP
 
-Initial Setup Steps
-===========
+- git clone git@github.com:reallocate/reallocate.git
+- sudo pip-2.7 install -r requirements.txt
+- create a settings_local.py file next to settings.py (you can find our private keys in our DropBox folder)
+- ./manage.py syncdb (it will offer to create a superuser; answer "no" -- you get admin / admin for free)
+- ./manage.py runserver
 
-* git clone git@github.com:reallocate/reallocate.git
-* sudo pip-2.7 install -r requirements.txt
-* create a settings_local.py file next to settings.py (you can find our private keys in our DropBox folder)
-* ./manage.py syncdb
-   * It will offer to create a superuser; answer "no" -- you get admin / admin for free.
-* ./manage.py runserver
+OPTIONAL SETUP
 
-Optional Steps
-===========
-If you want to be able to connnect to AWS, Google, LinkedIn, etc you will
-need to add those keys. To do so:
+If you want to be able to connnect to AWS, Google, LinkedIn, etc you will need to add those keys. To do so:
 
-* create myproject/settings_local.py
-   * put all your overrides in there.  if you are a ReAllocate core team member, you can find this file in our dropbox
+- create myproject/settings_local.py
+- put all your overrides in there.  if you are a ReAllocate core team member, you can find this file in our Dropbox

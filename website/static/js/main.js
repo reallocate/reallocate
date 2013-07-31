@@ -24,13 +24,78 @@ reAllocate = {
             }
         });
 
-        $('#modal-login').on('submit', function(e) {
+        $('#modal-login').on('submit', function(event) {
 
-            e.preventDefault();
+            event.preventDefault();
             reAllocate.loginUser($('#modal-username').val(), $('#modal-password').val());
 
         });
+
+        // init all post update forms
+        $('.post-update form').each(function(i, form) {
+
+            $(form).on('submit', function(event) {
+
+                event.preventDefault();
+                reAllocate.postUpdate(form);
+            });
+        });
+
     },   
+
+    postUpdate: function(form) {
+
+        var form = $(form);
+        
+        if (form.find('textarea').val().length == 0) {
+            alert('Please enter an update');
+            return false;
+        }
+    
+        var submit_button = form.find('input[type="submit"]');
+        var file = form.find('input[type="file"]').get(0).files[0];
+        var xhr = new XMLHttpRequest();
+    
+        //xhr.ontimeout = function() {
+        //  this.abort();
+        //  submission_error_cb();
+        //  return;
+        //}
+        //xhr.onerror = submission_error_cb;
+        
+        xhr.onreadystatechange = function(e) {
+
+            if (this.readyState != 4) { return; }
+        
+            if (this.status == 200 || this.status == 204) {
+
+                //var response = JSON.parse(this.responseText);
+
+                // hide modal if used/exists else reload page
+                if ($('#post-update-modal').length) {
+                    $('#post-update-modal').modal('hide');
+                    console.log('modal');
+                } else {
+                    console.log('no modal');
+                    window.location.assign('#updates');
+                    window.location.reload();
+                }
+    
+            } else if (this.status == 500 || this.status == 503) {
+
+                alert('An error occurred uploading file');
+            }
+        };
+
+        xhr.timeout = 90000;
+        xhr.open('post', '/ajax/add-update?' + form.serialize(), true);
+        xhr.setRequestHeader("Content-Type", "application/octet-stream");
+        if (file) xhr.setRequestHeader("X-Mime-Type", file.type);
+
+        xhr.send(file);
+    
+        return false;
+    },
 
     loginUser: function(username, password) {
 
@@ -47,7 +112,8 @@ reAllocate = {
                 } else if (reAllocate.follow) {
                     reAllocate.followProject(reAllocate.follow.e, reAllocate.follow.pid);
                 }
-                console.log(res);
+
+                // update user header
             },
             error: function(res) {
 
@@ -88,7 +154,7 @@ reAllocate = {
     },
 
     // sends engagement request for an opportunity
-    engageOpportunity: function(e, pid, oid) {
+    engageOpportunity: function(message, pid, oid) {
 
         // make sure user is logged in
         if (!reAllocate.user) {
@@ -100,12 +166,12 @@ reAllocate = {
 
         $.ajax({
             url : '/ajax/engage-opportunity',
-            data : {'projectId': pid, 'opportunityId': oid},
+            data : {'projectId': pid, 'opportunityId': oid, 'message': message},
             success: function(res) {
-                $(e).attr('disabled', 'disabled');
-             },
+                window.location.reload();
+            },
             error: function(res) {
-                console.log("failure to engage opportunity");
+                alert("failed to engage opportunity");
             }
        });
     },
