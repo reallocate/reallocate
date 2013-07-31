@@ -103,17 +103,22 @@ reAllocate = {
             url: '/ajax/login',
             method: 'POST',
             data : {'username': username, 'password': password},
-            success: function(res) {
+            success: function(json) {
+
+                reAllocate.user = json.user;
 
                 $('#login-modal').modal('hide');
 
-                if (res.next) {
-                    location.href = res.next;
+                if (json.next) {
+                    location.href = json.next;
                 } else if (reAllocate.follow) {
                     reAllocate.followProject(reAllocate.follow.e, reAllocate.follow.pid);
                 }
 
-                // update user header
+                $('#user-email').text(json.user.email);
+                $('.user').css('display', 'block');
+                $('.anon').css('display', 'none');
+
             },
             error: function(res) {
 
