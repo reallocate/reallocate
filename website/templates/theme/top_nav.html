@@ -43,54 +43,54 @@
 </div>
 
 <div class="navbar navbar-fixed-top">
-    <div class="navbar-inner">
-        <div class="container">
-            <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="brand" href="/"><img src="/static/images/reallocate_logo.png"/></a>
 
-            <div class="nav-collapse collapse">
-                <ul class="nav">
-                    <li><a href="/about"><strong>Learn</strong><br/>to ReAllocate</a></li>
-                    <li><a href="/get-started"><strong>Submit</strong><br/>a Project</a></li>
-                    <!--<li><a href="/search"><strong>Find</strong><br/>an Opportunity</a></li>-->
-                </ul>
-            </div>
-            
-            <div class="nav-collapse collapse">
-                <ul class="nav pull-right" id="auth">
-                    <li class="dropdown user">
-                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                            <span id="user-email">{{ user.email }}</span>
-                            <b class="caret"></b>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a href="/profile">Profile</a></li>
-                            <li class="divider"></li>
-                            <li><a href="/logout">Logout</a></li>
-                        </ul>
-                    </li> 
-                    <li class="anon">
-                        <a href="#login-modal" role="button" data-toggle="modal">Login</a>
-                    </li>
-                    <li class="anon">
-                        <a href="/sign-up">Sign Up</a>
-                    </li>
-                </ul>
-            </div>
-            <style>
-            {% if user.is_authenticated %}
-                .user { display: block; }
-                .anon { display: none; }
-            {% else %}
-                .user { display: none; }
-                .anon { display: block; }
-            {% endif %}
-            </style>
+    <div class="container">
+
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-responsive-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/"><img src="/static/images/reallocate_logo.png"/></a>
+
+        <div class="nav-collapse collapse navbar-responsive-collapse">
+            <ul class="nav navbar">
+                <li><a href="/about"><strong>Learn</strong><br/>to ReAllocate</a></li>
+                <li><a href="/get-started"><strong>Submit</strong><br/>a Project</a></li>
+                <!--<li><a href="/search"><strong>Find</strong><br/>an Opportunity</a></li>-->
+            </ul>
         </div>
+        
+        <div class="nav-collapse collapse navbar-responsive-collapse">
+            <ul class="nav navbar pull-right" id="auth">
+                <li class="dropdown user">
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                        <span id="user-email">{{ user.email }}</span>
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/profile">Profile</a></li>
+                        <li class="divider"></li>
+                        <li><a href="/logout">Logout</a></li>
+                    </ul>
+                </li> 
+                <li class="anon">
+                    <a href="#login-modal" role="button" data-toggle="modal">Login</a>
+                </li>
+                <li class="anon">
+                    <a href="/sign-up">Sign Up</a>
+                </li>
+            </ul>
+        </div>
+        <style>
+        {% if user.is_authenticated %}
+            .user { display: block; }
+            .anon { display: none; }
+        {% else %}
+            .user { display: none; }
+            .anon { display: block; }
+        {% endif %}
+        </style>
     </div>
 </div>
 
