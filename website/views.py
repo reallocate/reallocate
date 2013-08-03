@@ -1,4 +1,4 @@
-import logging
+import logging, hashlib, random
 import boto
 import re
 from boto.s3.key import Key
@@ -160,6 +160,57 @@ def test_email(request):
 
     return HttpResponse(content=html_content)
 
+@csrf_exempt
+def reset_password(request):
+    context = base.build_base_context(request)
+    
+    if request.POST:
+        email = request.POST.get('email')
+        temp_password = request.POST.get('temp_password')
+        new_password = request.POST.get('password')
+        user = User.objects.filter(email=email)
+        if not user:
+            return HttpResponseRedirect('/')
+        user = user[0]
+        if not user.check_password(temp_password):
+            context['topmsg'] = "You have entered an incorrect temporary password"
+            return render_to_response('temp_password.html', context, context_instance=RequestContext(request))
+        user.set_password(new_password)
+        user.save()
+        
+        user = authenticate(username=email, password=new_password)
+        login(request, user)
+    
+        return HttpResponseRedirect("/")
+    
+    context['temp_password'] = request.GET.get("temp_password", "")
+    context['email'] = request.GET.get("email", "")
+    return render_to_response('reset_password.html', context, context_instance=RequestContext(request))
+    
+@csrf_exempt
+def forgot_password(request):
+    context = base.build_base_context(request)
+    
+    if request.POST:
+        email = request.POST.get('email')
+        reset_user = User.objects.filter(email=email)
+        if not reset_user:
+            return HttpResponseRedirect('/')
+        
+        temp_password = hashlib.md5(str(random.randint(0, 10000000))).hexdigest()[0:7]
+        reset_user = reset_user[0]
+        reset_user.set_password(temp_password)
+        reset_user.save()
+        
+        subj = "Your password on Reallocate has been reset"
+        body = """Click this link to choose a new password.<br/><a href='%s/reset-password?temp_password=%s&email=%s'>
+            Choose a new password</a><br/><br/>Thanks,<br/>Reallocate""" % (request.get_host(), temp_password, email)
+                
+        base.send_email(email, subj, body, html_content=body)
+        return HttpResponseRedirect('/forgot-password?topmsg=Your+password+has+been+reset.')
+        
+    context['email'] = request.GET.get('email', '')
+    return render_to_response('forgot_password.html', context, context_instance=RequestContext(request))
 
 @csrf_exempt
 def sign_up(request):
@@ -201,7 +252,6 @@ def login_user(request):
 
     if request.POST:
 
-        logging.error('test')
         username = request.POST.get('username')
         password = request.POST.get('password')
 
