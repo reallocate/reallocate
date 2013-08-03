@@ -241,6 +241,7 @@ def view_project(request, pid=1):
     
     if request.user.is_authenticated():
         context['is_following'] = request.user in project.followed_by.all()
+        context['is_admin'] = True if request.user == project.created_by else False
 
     return render_to_response('project.html', context, context_instance=RequestContext(request))
 
@@ -321,6 +322,7 @@ def view_opportunity(request, pid, oid):
     if request.user.is_authenticated():
 
         context['is_following'] = request.user in opp.project.followed_by.all()
+        context['is_engaged'] = True if request.user == opp.project.created_by else False
 
         try:
             ue = OpportunityEngagement.objects.get(opportunity=opp.id, user=request.user.id)
