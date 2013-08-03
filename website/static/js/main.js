@@ -107,6 +107,7 @@ reAllocate = {
 
                 reAllocate.user = json.user;
 
+                $(".bad-username-or-password").addClass('is-invisible');
                 $('#login-modal').modal('hide');
 
                 if (json.next) {
@@ -121,7 +122,7 @@ reAllocate = {
 
             },
             error: function(res) {
-
+                $(".bad-username-or-password").removeClass('is-invisible');
                 $('#modal-username').parent('.control-group').addClass('error');
                 $('#modal-password').parent('.control-group').addClass('error');
             }
