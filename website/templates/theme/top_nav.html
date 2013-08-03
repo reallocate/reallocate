@@ -6,7 +6,7 @@
                 <h3 id="login-modal-label" class="modal-title">Login</h3>
             </div>
             <div class="modal-body row">
-                <div class="col-6">
+                <div class="col-5 col-offset-1">
                     <form class="form-horizontal" action="/login" id="modal-login" method="post">
                         {% if next %}
                         <input type="hidden" name="next" value="{{ next }}" />
@@ -21,7 +21,7 @@
                             <label class="checkbox">
                                 <input type="checkbox"> Remember me
                             </label>
-                            <button type="submit" class="btn btn-primary">Log in</button>
+                            <button type="submit" class="btn btn-primary pull-right">Log in</button>
                         </div>
                     </form>
                 </div>
@@ -46,7 +46,7 @@
     </div>
 </div>
 
-<div class="navbar navbar-fixed-top">
+<div class="navbar">
 
     <div class="container">
 
@@ -60,14 +60,11 @@
         <div class="nav-collapse collapse navbar-responsive-collapse">
 
             <ul class="nav navbar-nav">
-                <li><a href="/about"><strong>Learn</strong><br/>to ReAllocate</a></li>
-                <li><a href="/get-started"><strong>Submit</strong><br/>a Project</a></li>
+                <li><a href="/about"><strong>Learn</strong> to ReAllocate</a></li>
+                <li><a href="/get-started"><strong>Submit</strong> a Project</a></li>
                 <!--<li><a href="/search"><strong>Find</strong><br/>an Opportunity</a></li>-->
             </ul>
 
-        </div>
-        
-        <div class="nav-collapse collapse navbar-responsive-collapse">
             <ul class="nav navbar-nav pull-right" id="auth">
                 <li class="dropdown user">
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
@@ -87,14 +84,15 @@
                     <a href="/sign-up">Sign Up</a>
                 </li>
             </ul>
+
         </div>
         <style>
         {% if user.is_authenticated %}
-            .user { display: block !important; }
-            .anon { display: none !important; }
+            .navbar .user { display: block; }
+            .navbar .anon { display: none; }
         {% else %}
-            .user { display: none !important; }
-            .anon { display: block !important; }
+            .navbar .user { display: none; }
+            .navbar .anon { display: block; }
         {% endif %}
         </style>
     </div>

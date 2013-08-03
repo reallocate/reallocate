@@ -3,128 +3,58 @@
 {% block extra_css %}
 <style>
     body {
-        padding-top: 60px !important;   /*for our hero unit*/
     }
-    .feature_container {
-        height: 400px;
-        margin-top: 60px;  
+    .jumbotron .overlay {
+        height: 100%;
+        width: 100%;
+        background: -webkit-gradient(linear, 0 0, 0 100%, from(rgba(0,0,0,0)), to(rgba(0,0,0,0.65)));
+        background: -webkit-linear-gradient(rgba(0,0,0,0) 0%, rgba(0,0,0,0.65) 100%);
+        background: -moz-linear-gradient(rgba(0,0,0,0) 0%, rgba(0,0,0,0.65) 100%);
+        background: -o-linear-gradient(rgba(0,0,0,0) 0%, rgba(0,0,0,0.65) 100%);
+        background: linear-gradient(rgba(0,0,0,0) 0%, rgba(0,0,0,0.65) 100%); /* FF3.6+ */ /* Chrome,Safari4+ */ /* Chrome10+,Safari5.1+ */ /* Opera 11.10+ */ /* IE10+ */ /* W3C */
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#a6000000',GradientType=0 ); /* IE6-9 */
     }
-    
-    .home_feature_slider {
-        background: url('/static/images/PLACEHOLDER.png');
-        background-size: 1500px 500px;
-        margin: 0 0 20px;
-        height: 500px;
-    }
-    .home_feature_slider_about {
-        background: url('/static/images/PLACEHOLDER.png');
-        background-size: 1500px 500px;
-        margin: 0 0 20px;
-        height: 300px;
-    }
-
-    .home-search {
-        margin: 0 0 20px;
-    }
-    .home-slogan {
-        margin: 0 0 20px;
-        text-align: center;
-    }
-    
-    footer {
-        margin-top: 30px;
-    }
-    
-    #hero-content {
-        margin-top: 175px;
-        padding: 10px;
-        background-color:rgba(255, 255, 255, 0.6);
-        border-radius: 3px;
-        text-align: center;
-    }
-    .h1hero-content{
-    	color: #262626;
-    	font-weight: 300;
-    }
-    .phero-content{
-    	color: #262626;
-    	font-weight: 300;
-    	font-size: 18px;
-    }
-    #hero-content-about{
-    	margin-top: 50px;
-        padding: 10px;
-        background-color:rgba(232, 232, 232, 0.8);
-        border-radius: 3px;
-        text-align: center;
-    }
-    #hero-content .give-icons {
-        color: #f2736a;
-        float: left;
-        padding: 0 10px;
-    }
-    .divider {
-    	padding:0 3px
+    .jumbotron {
+        padding: 0px;
+        background-image: url({{ project.media_url }});
+        background-size: cover;
+        height: 270px;
     }
 </style>
 {% endblock %}
 
-
-{% block hero %}
-    <div class="home_feature_slider">        
-        <div class="row-fluid">
-            <div id="hero-content" class="span5 offset5" text-align="center">
-                
-                <h1 class="h1hero-content">Lorem ipsum dolor sit amet.</h1> 
-                <p class="phero-content"> Consectetur adipiscing elit. Nullam hendrerit velit at justo lobortis, vitae.</h2>
-                
-            </div> 
+{% block jumbotron %}
+<div class="jumbotron">
+    <div class="overlay">
+        <div class="container">
+            <div class="row">
+                <div class="col-5 col-offset-5">
+                    <h2>Lorem ipsum dolor sit amet.</h2> 
+                    <h3>Consectetur adipiscing elit. Nullam hendrerit velit at justo lobortis, vitae.</h3>
+                </div>
+            </div>
         </div>
     </div>
+</div>
 {% endblock %}
 
+{% block content %}
 
-{% block maincontent %}
-  
-    <div class="row-fluid">
+<div class="container">
         
-        
+    <h1>About ReAllocate</h1>
 
-        <h1>About ReAllocate</h1>
-        <div class="divider">
-        </div>
+    <p>ReAllocate is a global network of world class engineers, designers and entrepreneurs empowering under served communities through technology and innovation to improve quality of life. ReAllocators engage in digital storytelling to inspire participation, promote collaboration, and raise awareness about humanitarian causes.</p>
 
+    <h2>Program Areas</h2>
 
-<p>
-ReAllocate is a global network of world class engineers, designers and entrepreneurs empowering under served communities through technology and innovation to improve quality of life. ReAllocators engage in digital storytelling to inspire participation, promote collaboration, and raise awareness about humanitarian causes.
-</p>
-    <div class="home_feature_slider_about">        
-        <div class="row-fluid">
+    <p>ReAllocate supports three program areas that intertwine to create an infrastructure that supports sustainable development through education, ecosystems, equality, and economics.</p>
 
-        </div>
-    </div>
+	<h2>Innovation Centers</h2>
 
-<h2>
-Program Areas
-</h2>
+    <p>ReAllocate's capacity building initiative. Innovation Centers provide resources, expertise and training for sustainable economic and community development. Local facilities are converted into workshops, equipped with modules needed to create a development base (internet enabled computer labs, health centers, energy generation sites, etc.). These centers serve as hubs for 10-week intensive innovation programs where in-country fellows are paired one-on-one with expert mentors and coached though rapid prototyping, market testing and building a social business model.</p>
 
-<p>
-ReAllocate supports three program areas that intertwine to create an infrastructure that supports sustainable development through education, ecosystems, equality, and economics.
-
-</p>
-	<div class="row-fluid">
-		<div text-align="center">
-			<h2>Innovation Centers</h2>
-		</div>
-	</div>
-
-<p>
-ReAllocate's capacity building initiative. Innovation Centers provide resources, expertise and training for sustainable economic and community development. Local facilities are converted into workshops, equipped with modules needed to create a development base (internet enabled computer labs, health centers, energy generation sites, etc.). These centers serve as hubs for 10-week intensive innovation programs where in-country fellows are paired one-on-one with expert mentors and coached though rapid prototyping, market testing and building a social business model.
-</p>
-
-<p>
-The trials of these innovative local start ups are documented and published online. A member of each cohort receives digital media training and follows each fellow through their trials and tribulations. The failures and successes are documented and provide fellows with a succinct video pitch for impact investing. Fellows are given direct follow up support for a period of time as they incubate their businesses.
-</p>
+    <p>The trials of these innovative local start ups are documented and published online. A member of each cohort receives digital media training and follows each fellow through their trials and tribulations. The failures and successes are documented and provide fellows with a succinct video pitch for impact investing. Fellows are given direct follow up support for a period of time as they incubate their businesses.</p>
 
 ReAllocate Alaska will be the site of the first ReAllocate Innovation Center.
 Tech-AID 
@@ -138,11 +68,8 @@ The Education Access program pairs experienced engineers, technologists, artists
 
 Watch how Education Access works with at risk youth to provide new opportunities in Printing the Future
 
-
-    </div>
-
+</div>
 {% endblock %}
-
 
 {% block bottomscript %}
 

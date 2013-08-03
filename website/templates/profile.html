@@ -2,32 +2,31 @@
 
 {% block extra_css %}
     <style>
-        .project-name{
+        .project-name {
             font-size:16px;
             font-weight:800;
         }
-        input, textarea{
+        input, textarea {
             width:350px;
         }
-        .profile_info_header{
+        .profile-info-header {
             text-align:right;
             font-size:16px;
-            
         }
-        .profile_header_edit{
+        .profile-header-edit {
             padding-top:6px;
         }
-        .profile_numbers {
+        .profile-numbers {
             width: 100%;
             margin-top:20px;
             background-color: #1c6845;
             background-image:url(/static/images/bgtexture2.png);
             color: #FFF;
         }
-        .bottom-profile-header{
+        .bottom-profile-header {
             text-align:center;
         }
-        .username{
+        .username {
             font-size:36px;
             font-weight:bold;
             color:white;
@@ -36,121 +35,110 @@
     </style>
 {% endblock %}
 
-{% block widecontent %}
+{% block content %}
 
-<div style='position:absolute;background-image:url(/static/images/bgtexture2.png);width:100%;height:80px;z-index:-1;'>
-    
-</div>    
-<!-- Header: Profile Info -->
+<div style='position:absolute; background-image:url(/static/images/bgtexture2.png);width:100%;height:80px;z-index:-1;'></div>    
 
 <div class='container'>
-    <div class='row-fluid' style='height:20px;'>
-    </div>
-    <div class='row-fluid' style='min-height:250px;'>
-        {% if edit %} <form id='update_profile' method='POST' enctype="multipart/form-data"> {% endif %}
-        <div class='span3 user-image'>
-            <div class='row-fluid'>
-                <img style='width: 215px; height: 215px; border-radius:6px;' src='{{ user_profile.media_url|default:'/static/images/no-profile-image.png' }}' alt='Avatar for {{ profile.user|escape }}'/>
-            </div>
+
+    <div class='row'>
+
+        {% if edit %}
+        <form id="update-profile" method="post" enctype="multipart/form-data">
+        {% endif %}
+        <div class="col-3 user-image">
+                <img src="{{ user_profile.media_url|default:'/static/images/no-profile-image.png' }}' alt='Avatar for {{ profile.user|escape }}" />
             {% if edit %}
-                <div class="row-fluid" style="padding-top:20px; text-align: center;">
-                    <a class="delegate_file_upload btn btn-primary" href="#">Change profile picture</a>
-                    <input type="file" name="file" id="file" value="Upload a new photo" style="display: none;">
-                </div>
+                <button class="delegate-file-upload btn btn-primary">Change profile picture</button>
+                <input type="file" name="file" id="file" value="Upload a new photo" style="display: none;">
             {% endif %}
         </div>
         
-        <div class='span9'>
-            <div class='row-fluid username'>
+        <div class="col-9">
+            <div class="username">
                 {{ user_profile.user.first_name }} {{ user_profile.user.last_name }}
             </div>
             {% if edit %}
-            <div class='row-fluid'>
-                <div class='span2 profile_info_header {% if edit %}profile_header_edit{% endif %}'><strong>Email:</strong></div>
-                <div class='span8'>    
-                    <input type='text' id='email' name='email' value='{{ user_profile.user.email }}' placeholder='Contact Email'/>
+            <div class="row">
+                <div class="col-2 profile-info-header {% if edit %}profile-header-edit{% endif %}"><strong>Email</strong></div>
+                <div class='col-8'>    
+                    <input type="text" id="email" name="email" value="{{ user_profile.user.email }}" placeholder="Contact Email" />
                 </div>
             </div>
             {% endif %}
-            <div class='row-fluid'>
-                <div class='span2 profile_info_header {% if edit %}profile_header_edit{% endif %}'><strong>Location:</strong></div>
-                <div class='span8'>
+            <div class="row">
+                <div class="col-2 profile-info-header {% if edit %}profile-header-edit{% endif %}"><strong>Location</strong></div>
+                <div class="col-8">
                     {% if edit %}
-                        <input type='text' name='location' placeholder='Location' value='{{ user_profile.location }}' />
+                        <input type="text" name="location" placeholder="Location" value="{{ user_profile.location }}" />
                     {% else %}
                         {{ user_profile.location|default:'San Francisco, CA' }}
                     {% endif %}
                 </div>
             </div>
-            <div class='row-fluid'>
-                <div class='span2 profile_info_header {% if edit %}profile_header_edit{% endif %}'><strong>Occupation:</strong></div>
-                <div class='span8'>
+            <div class="row">
+                <div class="col-2 profile-info-header {% if edit %}profile-header-edit{% endif %}"><strong>Occupation</strong></div>
+                <div class="col-8">
                     {% if edit %}
-                        <input type='text' name='occupation' placeholder='Occupation' value='{{ user_profile.occupation }}'/>
+                        <input type="text" name="occupation" placeholder="Occupation" value="{{ user_profile.occupation }}" />
                     {% else %}
                         {{ user_profile.occuption|default:'Renaissance Man' }}
                     {% endif %}
                 </div>
             </div>
-            <div class='row-fluid'>
-                <div class='span2 profile_info_header {% if edit %}profile_header_edit{% endif %}'><strong>Skills:</strong></div>
-                <div class='span8'>
+            <div class="row">
+                <div class="col-2 profile-info-header {% if edit %}profile-header-edit{% endif %}"><strong>Skills</strong></div>
+                <div class="col-8">
                     {% if edit %}
-                        <input type='text' name='skills' placeholder='Comma Separate Skills' value='{{ user_skills }}' />
+                        <input type="text" name="skills" placeholder="Comma Separate Skills" value="{{ user_skills }}" />
                     {% else %}
                         {{ user_skills|default:'This person has not added skills yet' }}
                     {% endif %}
                 </div>
             </div>
-            <div class='row-fluid'>
-                <div class='span2 profile_info_header {% if edit %}profile_header_edit{% endif %}'><strong>Bio:</strong></div>
-                <div class='span8'>
+            <div class="row-fluid">
+                <div class="col-2 profile-info-header {% if edit %}profile-header-edit{% endif %}"><strong>Bio</strong></div>
+                <div class="col-8">
                     {% if edit %}
-                        <textarea name='bio'>{{ user_profile.bio }}</textarea>
+                        <textarea name="bio">{{ user_profile.bio }}</textarea>
                     {% else %}
                         {{ user_profile.bio|default:'Default bio goes here' }}
                     {% endif %}
                 </div>
             </div>
             {% if edit %}
-                <div class='row-fluid' style='margin-top:10px;'>
-                    <div class='span3 profile_info_header'></div>
-                    <div class='span8'>
-                        <input type='submit' value='Save Your Profile' class='btn'/>
+                <div class="row">
+                    <div class="col-3 profile-info-header"></div>
+                    <div class="col-8">
+                        <input type="submit" value="Save Your Profile" class="btn btn-default" />
                     </div>
                 </div>
                 </form>
             {% endif %}
         </div>
-        <div class='span3' style='margin-top: 20px;'>
-            <div class='row-fluid' style='padding-left:3px;'>
-                {% if user_profile.linked_in %}<a class='' href='#'><h6>Linkedin profile</h6></a>{% endif %}
-                {% if user_profile.facebook %}<a class='' href='#'><h6>Facebook profile</h6></a>{% endif %}
-            </div>
+        <div class="col-3">
+            {% if user_profile.linked_in %}<a class='' href='#'><h6>Linkedin profile</h6></a>{% endif %}
+            {% if user_profile.facebook %}<a class='' href='#'><h6>Facebook profile</h6></a>{% endif %}
         </div>
-        
     </div>
 </div>
 
 {% comment %}
 <!-- Top Line Numbers on Profile -->
-<div class='profile_numbers'>
-    <div class='row-fluid'>
-        <div class='span8 offset3' style='padding: 20px;'>
-            <div class='span3' style='text-align: center;'>
-                    <span style='font-size: 3.5em;'>{{ projects|length }}</span>
-                    <br/>
-                    <span style='font-size: 1.3em;'>Projects</span>
+<div class="profile-numbers">
+    <div class="row">
+        <div class="col-8 col-offset-3">
+            <div class="col-3">
+                <p>{{ projects|length }}</p>
+                <p>Projects</p>
             </div>
-            <div class='span3' style='text-align: center;'>
-                    <span style='font-size: 3.5em;'>{{ opps|length }}</span>
-                    <br/>
-                    <span style='font-size: 1.3em;'>Opportunities</span>
+            <div class="col-3">
+                <p>{{ opps|length }}</p>
+                <p>Opportunities</p>
             </div>
-            <div class='span3' style='text-align: center;'>
-                    <span style='font-size: 3.5em;'>{{ profile.following|length|default:'2' }}</span>
-                    <br/>
-                    <span style='font-size: 1.3em;'>Following</span>
+            <div class="col-3">
+                <p>{{ profile.following|length|default:'2' }}</p>
+                <p>Following</p>
             </div>
         </div>
     </div>
@@ -158,11 +146,11 @@
 {% endcomment %}
 
 <!-- Updates, Opps, and Projects -->
-<div class='container'>
-    <div class='row-fluid' style='margin-top: 25px;'>
-        <div class='span4'>
-            <div class='row-fluid user_opportunities'>
-                <div class='row-fluid bottom-profile-header'>
+<div class="container">
+    <div class="row">
+        <div class="col-4">
+            <div class="opportunities">
+                <div class="bottom-profile-header">
                     <h3>Engaged Opportunities</h3>
                 </div>
                 {% for opportunity in opportunities %}
@@ -170,9 +158,9 @@
                 {% endfor %}
             </div>
         </div>
-        <div class='span4'>
-            <div class='row-fluid user_projects_followed'>
-                <div class='row-fluid bottom-profile-header'>
+        <div class="col-4">
+            <div class="user-projects-followed">
+                <div class="bottom-profile-header">
                     <h3>Owned Projects</h3>
                 </div>
                  {% for project in my_projects %}
@@ -180,9 +168,9 @@
                 {% endfor %}
             </div>
         </div>
-        <div class='span4'>
-            <div class='row-fluid user_projects_followed'>
-                <div class='row-fluid bottom-profile-header'>
+        <div class="col-4">
+            <div class="user-projects-followed">
+                <div class="bottom-profile-header">
                     <h3>Followed Projects</h3>
                 </div>
                  {% for project in followed_projects %}
@@ -194,16 +182,11 @@
 </div>
 {% endblock %}
 
-
 {% block bottomscript %}
     <script>
-        
-        $('.delegate_file_upload').click(function() {
+        $('.delegate-file-upload').click(function() {
             $('input[type="file"]').trigger('click');
             return false;
         });
-        
-
     </script>
-
 {% endblock %}

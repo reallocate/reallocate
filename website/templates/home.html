@@ -7,96 +7,83 @@
 {% block extra_css %}
 <style>
     body {
-        padding-top: 60px !important;   /*for our hero unit*/
     }
-    .feature_container {
-        height: 400px;
-        margin-top: 60px;  
+    #feature-unit {
+        padding: 10px 20px;
+        background-color: #fff;
+        border-radius: 5px;
+        opacity: 0.8;
+        margin: 0px auto 0px auto;
+        width: 408px;
     }
-    
-    .home_feature_slider {
-        background: url('/static/images/home-banner.png');
-        background-size: 1500px 500px;
-        margin: 0 0 20px;
-        height: 375px;
+    #feature-unit h1 {
+        font-size: 35px;
+        margin-bottom: 28px;
     }
-
-    .home-search {
-        margin: 0 0 20px;
+    #feature-unit #give-icons {
+        margin: 0px auto 0px auto;
+        width: 366px;
     }
-    .home-slogan {
-        margin: 0 0 20px;
-        text-align: center;
-    }
-    
-    footer {
-        margin-top: 30px;
-    }
-    
-    #hero-content {
-        margin-top: 75px;
-        padding: 10px;
-        background-color:rgba(232, 232, 232, 0.9);
-        border-radius: 3px;
-        text-align: center;
-    }
-    
-    #hero-content .give-icons {
-        color: #f2736a;
+    #feature-unit .give-icon {
+        font-size: 13px;
         float: left;
-        padding: 0 10px;
+        width: 91px;
+        text-align: center; 
+    }
+    h2 {
+        text-align: center;
+        margin: 0px auto 20px auto;
     }
 </style>
 {% endblock %}
 
-
-{% block hero %}
-    <div class="home_feature_slider">        
-        <div class="row">
-            <div id="hero-content" class="col-6 col-offset-3">
-                
+{% block jumbotron %}
+    <div class="jumbotron">
+        <div class="container">
+            <div id="feature-unit">            
                 <h1>You Have a Lot to Give</h1>
                 
-                <div>
-                    <div class="give-icons"><i class="icon-fighter-jet icon-4x"></i><br/>Skills</div>
-                    <div class="give-icons"><i class="icon-book icon-4x"></i><br/>Knowledge</div>
-                    <div class="give-icons"><i class="icon-cogs icon-4x"></i><br/>Equipment</div>
-                    <div class="give-icons"><i class="icon-money icon-4x"></i><br/>Money</div>
+                <div id="give-icons">
+                    <div class="give-icon"><i class="icon-fighter-jet icon-4x"></i><br/>Skills</div>
+                    <div class="give-icon"><i class="icon-book icon-4x"></i><br/>Knowledge</div>
+                    <div class="give-icon"><i class="icon-cogs icon-4x"></i><br/>Equipment</div>
+                    <div class="give-icon"><i class="icon-money icon-4x"></i><br/>Money</div>
                 </div>
-                
-                
-            </div> 
-        </div>
+                <div class="clearfix"></div>
+            </div>
+        </div> 
     </div>
 {% endblock %}
 
-{% block maincontent %}
-   <!-- <div class="row home-search">
-        <form action="" method="post">{% csrf_token %}
-                <input type="text"  name="search" id="search" value="Search..."onclick="if(this.value=='Search...'){this.value=''}"
-                onblur="if(this.value==''){this.value='Search...'}">
-                <select name="opp_type" id="opp_type">
-                <option value="">Search By:</option>
-                <option value="Skills">Skill set</option>
-                <option value="Knowledge">Knowledge</option>
-                <option value="Equipment">Equipment</option>
-                <option value="Money">Money</option>
-                </select>
-                <input type="submit" class="btn btn-primary" value="Search">
-        </form>
-    </div> -->
-    
-    <div class="home-slogan"><h1>Choose a project and share your passion</h1></div>
-    
-    <div class="row projects_row">
-        {% for project in projects %}
-            {% include "includes/project-pane.html" %}
-        {% endfor %}
+{% block content %}
+    <div class="container">
+        <!-- <div class="row home-search">
+            <form action="" method="post">{% csrf_token %}
+                    <input type="text"  name="search" id="search" value="Search..."onclick="if(this.value=='Search...'){this.value=''}"
+                    onblur="if(this.value==''){this.value='Search...'}">
+                    <select name="opp_type" id="opp_type">
+                    <option value="">Search By:</option>
+                    <option value="Skills">Skill set</option>
+                    <option value="Knowledge">Knowledge</option>
+                    <option value="Equipment">Equipment</option>
+                    <option value="Money">Money</option>
+                    </select>
+                    <input type="submit" class="btn btn-primary" value="Search">
+            </form>
+        </div> -->
+        
+        <h2>Choose a project and share your passion</h2>
+        
+        <div class="row projects">
+            {% for project in projects %}
+            <div class="col-4">
+                {% include "includes/project-pane.html" %}
+            </div>
+            {% endfor %}
+        </div>
     </div>
-
 {% endblock %}
 
 {% block bottomscript %}
 
 {% endblock %}
-

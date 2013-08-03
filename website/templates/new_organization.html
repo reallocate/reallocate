@@ -5,88 +5,62 @@
 
 {% block meta_description %}{{ the_title }}{% endblock %}
 
+{% block content %}
 
-{% block maincontent %}
-
-    <div class="container-fluid">
+    <div class="container">
 
         {% if organization %}
-        <div class="row">
-            <p>You're a member of <b>{{ organization.name }}</b></p>
-            <form method="post">
-                <input type="submit" value="Use this organization" name="use_users_org" class="btn btn-primary" />
-            </form>
-        </div>
+        <h4>You're a member of <b>{{ organization.name }}</b></h4>
+        <form method="post">
+            <input type="submit" value="Use this organization" name="use_users_org" class="btn btn-primary" />
+        </form>
         {% endif %}
 
-        <div class="row-fluid">
-            <h3>Create {% if organization %}a new{% else %}an{% endif %} organization</h3>
-        </div>
+        <h3>Create {% if organization %}a new{% else %}an{% endif %} organization</h3>
 
-        <div class="row-fluid">
+        <div class="row">
+            <div class="col-6">
+                <form id="new-org-form" class="form-horizontal col-12" method="post">{% csrf_token %}
 
-            <div class="span6 left">
+                    <div class="form-group">
 
-                    <form id="new-org-form" class="form-horizontal" method="post">{% csrf_token %}
+                        <label for="name">Organization name</label>
+                        <input class="form-control" type="text" id="name" name="name" />
 
-                        <div class="control-group">
+                    </div>
 
-                            <label class="control-label" for="name">Organization name</label>
+                    <div class="form-group">
+                        
+                        <label for="URL">Website</label>
+                        <input class="form-control" type="text" id="URL" name="URL" />
 
-                            <div class="controls">
-                                <input type="text" id="name" name="name" />
-                            </div>
+                    </div>
 
-                        </div>
+                    <div class="form-group">
+                        
+                        <label for="country">Country</label>
+                        <select class="form-control" id="country" name="country">
+                            <option>Select country</option>
+                            <option value="United States">United States</option>
+                        </select>
 
-                        <div class="control-group">
-                            
-                            <label class="control-label" for="URL">Website</label>
+                    </div>
 
-                            <div class="controls">
-                                <input type="text" id="URL" name="URL" />
-                            </div>
+                    <div class="form-group">
+                        
+                        <label for="org_mission">Mission Statement</label>
+                        <textarea class="form-control" id="org_mission" name="org_mission"></textarea>
 
-                        </div>
+                    </div>
 
-                        <div class="control-group">
-                            
-                            <label class="control-label" for="country">Country</label>
+                    <div class="form-group">
+                        <button class="btn btn-default pull-right" type="submit">Save</button>
+                    </div>
 
-                            <div class="controls">
-                                <select id="country" name="country">
-                                    <option>Select country</option>
-                                    <option value="United States">United States</option>
-                                </select>
-                            </div>
-
-                        </div>
-
-                        <div class="control-group">
-                            
-                            <label class="control-label" for="org_mission">Mission Statement</label>
-
-                            <div class="controls">
-                                <textarea id="org_mission" name="org_mission"></textarea>
-                            </div>
-
-                        </div>
-
-                        <div class="control-group">
-
-                            <div class="controls">
-                                <input class="btn" type="submit" value="Save" />
-                            </div>
-
-                        </div>
-
-                    </form>
-
+                </form>
             </div>
-
         </div>
     </div>
-
 
 {% endblock %}
 

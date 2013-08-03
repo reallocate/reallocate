@@ -16,7 +16,6 @@
     <![endif]-->
     <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-51b5379c6ba6d63e"></script>
 
-    <!-- Fav and touch icons -->
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ STATIC_URL }}theme/ico/apple-touch-icon-144-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ STATIC_URL }}theme/ico/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ STATIC_URL }}theme/ico/apple-touch-icon-72-precomposed.png">
@@ -32,62 +31,34 @@
     {% endblock %}
 
 </head>
-
 <body>
 
-{% include "theme/top_nav.html" %}
+    {% include "theme/top_nav.html" %}
 
-{% block hero %}
-{% endblock %}
+    {% block jumbotron %}
+    {% endblock %}
 
     {% if topmsg|default:'' != ''%}
-        <div class='topmsg'>{{ topmsg }}</div>
+    <div class='topmsg'>{{ topmsg }}</div>
     {% endif %}
 
-
-    <div id="content" class="container main_container">
-        {% block maincontent %}
-        {% endblock %}
+    <div id="{{ page_name }}">
+    {% block content %}
+    {% endblock %}
     </div>
 
-    <div id="content_wide" class="main_container">
-        {% block widecontent %}
-        {% endblock %}
-    </div>
-    <br/>
-
-    <!-- FOOTER -->
     <footer class="container">
         <p>&copy; 2013 ReAllocate, 501c3. <a href="/privacy">Privacy</a> &middot; <a href="/tos">Terms of Use</a></p>
     </footer>
 
 </div>
-<!-- /container -->
-
-<!-- Le javascript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
-{#<script src="{{ STATIC_URL }}theme/js/jquery.js"></script>#}
-{#<script src="{{ STATIC_URL }}theme/js/bootstrap-transition.js"></script>#}
-{#<script src="{{ STATIC_URL }}theme/js/bootstrap-alert.js"></script>#}
-{#<script src="{{ STATIC_URL }}theme/js/bootstrap-modal.js"></script>#}
-{#<script src="{{ STATIC_URL }}theme/js/bootstrap-dropdown.js"></script>#}
-{#<script src="{{ STATIC_URL }}theme/js/bootstrap-scrollspy.js"></script>#}
-{#<script src="{{ STATIC_URL }}theme/js/bootstrap-tab.js"></script>#}
-{#<script src="{{ STATIC_URL }}theme/js/bootstrap-tooltip.js"></script>#}
-{#<script src="{{ STATIC_URL }}theme/js/bootstrap-popover.js"></script>#}
-{#<script src="{{ STATIC_URL }}theme/js/bootstrap-button.js"></script>#}
-{#<script src="{{ STATIC_URL }}theme/js/bootstrap-collapse.js"></script>#}
-{#<script src="{{ STATIC_URL }}theme/js/bootstrap-carousel.js"></script>#}
-{#<script src="{{ STATIC_URL }}theme/js/bootstrap-typeahead.js"></script>#}
-
 
 <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 <script src="http://code.jquery.com/jquery-migrate-1.1.1.min.js"></script>
 
-
 <script src="{{ STATIC_URL }}theme/js/bootstrap.min.js"></script>
 <script src="{{ STATIC_URL }}js/main.js?2"></script>
+
 <script>
 {% if user %}reAllocate.user = "{{ user.username }}";{% endif %}
 

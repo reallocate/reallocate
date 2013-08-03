@@ -5,253 +5,177 @@
 
 {% block meta_description %}{{ the_title }}{% endblock %}
 
-
 {% block extra_css %}
     <style>
-        
-    .sectionTitle {
-        height: 50px;
-        font-size: 2em;
-        font-weight: 100;
-    }
-
-    .oppWell{
-        margin-bottom: 20px;
-        box-shadow: 1px 2px 3px #808080;
-        -moz-box-shadow: 1px 2px 3px #808080;
-        -webkit-box-shadow: 1px 2px 3px #808080;
+    #opp-title {
         position: relative;
-        padding: 6px;
-        border-radius: 5px;
-        background: #f5f5f5;
+        height: 100%;
     }
-    
-    .oppContainer:hover {
-        border-color: rgba(82, 168, 236, 0.8);
-        box-shadow: 0 3px 3px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(82, 168, 236, 0.6);
-        cursor: pointer;
+    #opp-title button {
+        margin-top: 20px;
     }
-    
-    .oppImage{
+    #opp-title h1 {
+        color: #fdfdfd;
+        font-size: 38px;
+        letter-spacing: 1px;
+        font-weight: normal;
+        margin-top: 0px;
+    }
+    #opp-title .row {
+        width: 100%;
+        position: absolute;
+        bottom: 12px;
+    }
+    .opp-image {
         height: 161px;
     }
-    /*.oppWell {*/
-    /*    border-radius: 5px;*/
-    /*    background: #f5f5f5;*/
-    /*}*/
-
-
-    
-    .oppDescription{
-        font-size: .9em
+    .opp-description {
+        font-size: 18px;
+        border-bottom: 1px solid #ddd;
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+    }  
+    .update {
+        border-bottom: 1px solid #ededed;
+        margin-bottom: 10px;
     }
-    
-    .explanation {
-        padding-top: 10px;
-        font-size: .9em
+    .update:last-child {
+        border: none;
     }
-    
-    .oppLink {
-        padding-top: 20px;
+    .update-username {
+        color: black;
     }
-    
-    .oppLink a {
-        font-size: 1.3em;
+    .update-opp-name {
+        color: #808080;
     }
-
-    .updateRow {
-        padding: 10px;
-        margin-bottom: 15px;
-        border-top: 1px solid rgba(81,114,131,.65);
-        
-    }    
-    .hero {
-        background-image:url('{{ project.media_url }}');
-        background-size:cover;
-        height: 200px;
-
+    .update-text {
+        color: #808080;
     }
-    
-    .hero .inner {
-        background-color: rgba(255, 255, 255, 0.8);
-        height: 200px;
+    .update-media img {
+        width: 100%;
     }
-    
+    .jumbotron .overlay {
+        height: 100%;
+        width: 100%;
+        background: -webkit-gradient(linear, 0 0, 0 100%, from(rgba(0,0,0,0)), to(rgba(0,0,0,0.65)));
+        background: -webkit-linear-gradient(rgba(0,0,0,0) 0%, rgba(0,0,0,0.65) 100%);
+        background: -moz-linear-gradient(rgba(0,0,0,0) 0%, rgba(0,0,0,0.65) 100%);
+        background: -o-linear-gradient(rgba(0,0,0,0) 0%, rgba(0,0,0,0.65) 100%);
+        background: linear-gradient(rgba(0,0,0,0) 0%, rgba(0,0,0,0.65) 100%); /* FF3.6+ */ /* Chrome,Safari4+ */ /* Chrome10+,Safari5.1+ */ /* Opera 11.10+ */ /* IE10+ */ /* W3C */
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#a6000000',GradientType=0 ); /* IE6-9 */
+    }
+    .jumbotron {
+        padding: 0px;
+        background-image: url('{% if opportunity.media_url %}{{ opportunity.media_url }}{% else %}{{ project.media_url }}{% endif %}');
+        background-size: cover;
+        height: 270px;
+    }
     .skill-icons {
         font-weight:bold;
         color:#f2736a;
         margin: 0 auto;
     }
-    
-    .opp-skill-icons {
-        font-weight:bold;
-        color:#f2736a;
-        float: right;
-    }
     </style>
 {% endblock %}
 
-{% block widecontent %}
-
+{% block breadcrumb %}
     <div class="container">
         <ul class="breadcrumb">
-            <li id="breadcrumb-menu-home"><a href="/">Home</a><span class="divider">/</span></li>
-            <li id="breadcrumb-menu-home"><a href="/project/{{ opportunity.project.id }}">{{ opportunity.project.name }}</a><span class="divider">/</span></li>
-            <li id="breadcrumb-menu-mission" class="active">{{ opportunity.name }}</li>
+            <li><a href="/">Home</a></li>
+            <li><a href="/project/{{ opportunity.project.id }}">{{ opportunity.project.name }}</a></li>
+            <li class="active">{{ opportunity.name }}</li>
         </ul>
     </div>
+{% endblock %}
 
-    <!-- Header: Project Image -->
-    <div class="hero">
-        <div class="container-fluid inner">
-            <div class="container">
-                <div class="row">
-                    <div class="span10">
-                        <h5>Opportunity</h5>
-                        <h1>{{ opportunity.name }}</h1>
-                        
-                        <div class="skill-icons">
-                            {% if opportunity.opp_type == 'skills' %}
-                                <div class="give-icons"><i class="icon-fighter-jet icon-4x"></i><br/>Skills</div>
-                            {% endif %}
-                            
-                            {% if opportunity.opp_type == 'knowledge' %}
-                                <div class="give-icons"><i class="icon-book icon-4x"></i><br/>Knowledge</div>
-                            {% endif %}
-                        
-                            {% if opportunity.opp_type == 'equipment' %}
-                                <div class="give-icons"><i class="icon-cogs icon-4x"></i><br/>Equipment</div>
-                            {% endif %}
-                        
-                            {% if opportunity.opp_type == 'money' %}
-                                <div class="give-icons"><i class="icon-money icon-4x"></i><br/>Money</div>
-                            {% endif %}
-                        </div>
-                        
+{% block jumbotron %}
+<div class="jumbotron">
+    <div class="overlay">
+        <div id="opp-title" class="container">
+            <div class="row">
+                <div class="col-10">
+                    <h4>{{ project.name }}</h4>
+                    <h1>{{ opportunity.name }}</h1> 
+                </div>
+                <div class="col-2">
+                    <div class="skill-icons">
+                    {% if opportunity.opp_type == 'skills' %}
+                        <div class="give-icons"><i class="icon-fighter-jet icon-4x"></i><br/>Skills</div>
+                    {% endif %}
+                    
+                    {% if opportunity.opp_type == 'knowledge' %}
+                        <div class="give-icons"><i class="icon-book icon-4x"></i><br/>Knowledge</div>
+                    {% endif %}
+                
+                    {% if opportunity.opp_type == 'equipment' %}
+                        <div class="give-icons"><i class="icon-cogs icon-4x"></i><br/>Equipment</div>
+                    {% endif %}
+                
+                    {% if opportunity.opp_type == 'money' %}
+                        <div class="give-icons"><i class="icon-money icon-4x"></i><br/>Money</div>
+                    {% endif %}
                     </div>
-                    <div class="span2">
-                        <br/><br/>
-                        
-                        <a class="share addthis_button_twitter">
-                            <i class="icon-twitter icon-2x" style="color: #4e7ac7;"></i>
-                        </a>
-                        <a class="share addthis_button_facebook">
-                            <i class="icon-facebook icon-2x" style="color: #4e7ac7;"></i>
-                        </a>
-                        <a class="share addthis_button_linkedin">
-                            <i class="icon-linkedin-sign icon-2x" style="color: #4e7ac7;"></i>
-                        </a>
-                        
-                        {% if not engaged or pending %}
-                        <br/><br/>
-                        <a href="#engage-modal" class="btn btn-primary btn-large" data-toggle="modal"{% if pending %} disabled=disabled {% endif %}>Engage</a>
-                        {% include 'includes/engage_modal.html' %}
-                        {% endif %}
-                            
-                    </div>
+                    {% if not engaged or pending %}
+                    <a href="#engage-modal" class="btn btn-block btn-primary" data-toggle="modal"{% if pending %} disabled=disabled {% endif %}>Engage</a>
+                    {% include 'includes/engage_modal.html' %}
+                    {% endif %}
                 </div>
             </div>
         </div>
     </div>
+</div>
+{% endblock %}
 
-    <div class="project_wrap container-fluid">
-        <div class="container-fluid">
-            <div class="row-fluid opportunityTop">
+{% block content %}
+
+    <div class="container">
+
+        <div class="row">
         
-                <div class="span8">
-                    <!--<div class="opp_image">
-                        <img src="{{ opportunity.media_url }}"/>
-                    </div>-->
+            <div class="col-8">
+
+                <p class="opp-description">{{ opportunity.description|safe }}</p>
+
+                <h4>Recent Updates</h4>
+                <a name="updates"></a>
+                {% if engaged %}{% include "includes/post-update.html" %}{% endif %}
+      
+                {% for update in updates %}
+                <div class="update">
+                    {% if update.media_url %}
+                    <div class="update-media"><img src="{{ update.media_url }}"></div>
+                    {% endif %}
+                    <p class="update-date">{{ update.date_created.date }}</p>
+                    <p class="update-text">{{ update.text|safe }}</p>
+                    {% if update.created_by.get_profile.media_url %}                    
+                    <img class="update-avatar" src="{{ update.created_by.get_profile.media_url }}" />
+                    {% endif %}
+                    <a class="update-username" href="/profile/{{ update.created_by.id }}">
+                        {{ update.created_by.first_name }} {{ update.created_by.last_name }}
+                    </a>
                 </div>
+                {% endfor %}
+
             </div>
-        </div>
-        
-        
-        <div class="container opportunityLower">
-            <div class="row-fluid">   
-                <div class="span8" id="updates">
-                    
-                    <div class="row-fluid">
-                        <div class="span2"><h4>Description</h4></div>
-                        <div class="span10 explanation">
-                            {{ opportunity.description|safe }}
-                        </div>
-                    </div>
-                    
-                    <div class="row-fluid">
-                        <div class="span2"><h4>Deliverables</h4></div>
-                        <div class="span10 explanation">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas eu magna non felis venenatis adipiscing. Ut elementum bibendum nisi in accumsan. Curabitur imperdiet, lacus et mollis euismod, elit dui vestibulum nulla, eu bibendum leo metus condimentum nisl. Cras et diam a nunc pretium venenatis hendrerit vel metus. Quisque semper ornare tellus ut commodo.
-                        </div>
-                    </div>
-                    
-                    
-                    <div class="row-fluid">
-                        <div class="span2"><h4>Prerequisites</h4></div>
-                        <div class="span10 explanation">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas eu magna non felis venenatis adipiscing. Ut elementum bibendum nisi in accumsan. Curabitur imperdiet, lacus et mollis euismod, elit dui vestibulum nulla, eu bibendum leo metus condimentum nisl. Cras et diam a nunc pretium venenatis hendrerit vel metus. Quisque semper ornare tellus ut commodo.
-                        </div>
-                    </div>
-                    
-                    <hr/>
 
-                    <h3>Updates</h3>
-                    {% if engaged %}{% include "includes/post-update.html" %}{% endif %}
+            <div class="col-4">
+                <div class="addthis-toolbox">
+                    <a class="share addthis-button-twitter ">
+                        <i class="icon-twitter icon-2x"></i>
+                    </a>
+                    <a class="share addthis-button-facebook ">
+                        <i class="icon-facebook icon-2x"></i>
+                    </a>
+                    <a class="share addthis-button-linkedin ">
+                        <i class="icon-linkedin-sign icon-2x"></i>
+                    </a>
+                </div>
+                <h4>Deliverables</h4>
+                <p class="opp-deliverables">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas eu magna non felis venenatis adipiscing. Ut elementum bibendum nisi in accumsan. Curabitur imperdiet, lacus et mollis euismod, elit dui vestibulum nulla, eu bibendum leo metus condimentum nisl. Cras et diam a nunc pretium venenatis hendrerit vel metus. Quisque semper ornare tellus ut commodo.</p>
 
-                    <a name="updates"></a>
-                    {% for update in updates%}
-                        <div class="row-fluid updateRow">
-                            <div class="span2">
-                                <img class="updateThumb" src="{{ update.created_by.get_profile.media_url }}"/>
-                            </div>
-                            <div class="span10">
-                                <a class="username" href="/profile/{{update.created_by.id}}">
-                                    {{ update.created_by.first_name }} {{ update.created_by.last_name }}
-                                </a>
-                                <!--<div class="updateOppName"> {{ update.opportunity.name }} </div>-->
-                                <div class="updateText">  {{ update.text|safe }}</div>
-                                <div class="updateMedia"> <img width="100%" height="100%" src="{{ update.media_url }}"> </div>
-                            </div>
-                        </div>
-                    {% endfor %}
-                </div>
-                
-                <!--
-                <div class="span4" id="related_opp_list">
-                    <h3>Related Opportunities</h3>
-                    {% for opportunity in other_opps %}
-                    <div class="oppWell">
-                        <div class="oppContainer">
-                            <div class="oppText">
-                                <h4>{{ opportunity.name }} 
-                                    <div class="opp-skill-icons">
-                                        {% if opportunity.opp_type == 'skills' %}
-                                        <i class="icon-fighter-jet icon-2x"></i>
-                                        {% endif %}
-                                        
-                                        {% if opportunity.opp_type == 'knowledge' %}
-                                        <i class="icon-book icon-2x"></i>
-                                        {% endif %}
-                                    
-                                        {% if opportunity.opp_type == 'equipment' %}
-                                        <i class="icon-cogs icon-2x"></i>
-                                        {% endif %}
-                                    
-                                        {% if opportunity.opp_type == 'money' %}
-                                        <i class="icon-money icon-2x"></i>
-                                        {% endif %}
-                                    </div>        
-                                </h4>
-                                <div class="oppDescription"> {{ opportunity.short_desc|safe|truncatewords:15 }}</div>
-                                <div class="oppLink">
-                                    <a class="btn btn-primary" href="/project/{{ opportunity.project.id }}/opportunity/{{ opportunity.id }}">Get Involved</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    {% endfor %}
-                </div>
-                -->
+                <h4>Prerequisites</h4>
+                <p class="opp-prereqs">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas eu magna non felis venenatis adipiscing. Ut elementum bibendum nisi in accumsan. Curabitur imperdiet, lacus et mollis euismod, elit dui vestibulum nulla, eu bibendum leo metus condimentum nisl. Cras et diam a nunc pretium venenatis hendrerit vel metus. Quisque semper ornare tellus ut commodo.</p>
+
             </div>
         </div>
     </div>

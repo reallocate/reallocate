@@ -1,32 +1,25 @@
-<div class="span4 opp_browse">
-	<div opp_id="{{ opportunity.id }}">
-		<div class="opp_thumb">
-			<a href="/project/{{ opportunity.project.id }}/opportunity/{{ opportunity.id }}"><img src="{{ opportunity.media_url }}"/></a>
-		</div>
-		<div class="opp_lower">
-			<div class="text-center">
-				<strong><a href="/project/{{ project.id }}/opportunity/{{ opportunity.id }}"><h4>{{ opportunity.name }}</h4></a></strong>
-			</div>
-			<div class="text-center">
-				<h5>{{ opportunity.opp_type|title }}</h5>
-			</div>
-			<div class="text-center">
-				{% for tag in opportunity.tags.all %}
-					{{ tag }}{% if forloop.last %}{% else %}, {% endif %}
-				{% endfor %}
-			</div>
-			<div class="short_desc" style="color:#555;">
-				{{ opportunity.short_desc }}
-			</div>
-			<br/>
-			{% comment %}
-			<div class="location">
-				<div class="icon-map-marker" style="margin:5px;"></div><a href="">San Francisco, CA</a>
-			</div>
-			{% endcomment %}
-			<div class="project_name">
-				<div class="icon-wrench" style="margin:5px;"></div><a href="/project/{{ opportunity.project.id }}">{{ opportunity.project.name }}</a>
-			</div>
-		</div>
+<div class="opportunity">
+	<div class="opp-thumb">
+		<a href="/project/{{ opportunity.project.id }}/opportunity/{{ opportunity.id }}"><img src="{{ opportunity.media_url }}"/></a>
+	</div>
+	<div class="opp-text">
+		<p class="opp-name"><a href="/project/{{ project.id }}/opportunity/{{ opportunity.id }}">{{ opportunity.name }}</a></p>
+		<p class="opp-type">{{ opportunity.opp_type|title }}</p>
+		<p class="opp-tags">
+		{% for tag in opportunity.tags.all %}
+			{{ tag }}{% if forloop.last %}{% else %}, {% endif %}
+		{% endfor %}
+		</p>
+		<p class="opp-short-desc">
+			{{ opportunity.short_desc }}
+		</p>
+		{% comment %}
+		<p class="opp-location">
+			<div class="icon-map-marker"></div><a href="">San Francisco, CA</a>
+		</p>
+		{% endcomment %}
+		<p class="opp-project-name">
+			<a href="/project/{{ opportunity.project.id }}">{{ opportunity.project.name }}</a>
+		</p>
 	</div>
 </div>

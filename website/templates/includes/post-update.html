@@ -5,14 +5,14 @@
         <input type="hidden" name="orgid" value="{{ project.organization.id }}"/>
         <input type="hidden" name="pid" value="{{ project.id }}"/>
         <input type="hidden" name="oid" value="{{ opportunity.id }}"/>
-        <textarea name="text" placeholder="How is your project going?"></textarea>
+        <textarea class="form-control" name="text" placeholder="How is your project going?"></textarea>
         
-        <div class="post-update-buttons">
-            <button type="submit" class="btn fake-file"><span class="icon-camera icon"></span></button>
-            <input class="media-file" type="file" name="file" value="Upload a new photo"/>
-            <input class="btn btn-primary submit-update" type="submit" value="Post Update">
+        <div class="post-update-buttons pull-right">
+            <button type="submit" class="btn btn-default fake-file"><span class="icon-camera icon"></span></button>
+            <input class="media-file" type="file" name="file" value="Upload a new photo" />
+            <button class="btn btn-primary submit-update" type="submit">Post Update</button>
         </div>
-        <div class="clearfix"></div>
+
     </form>
 
 </div>
