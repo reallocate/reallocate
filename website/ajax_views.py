@@ -51,7 +51,6 @@ def modify_project_relation(request, *args):
 @csrf_exempt
 @login_required
 def engage_opportunity(request):
-
     context = base.build_base_context(request)
 
     pid = request.REQUEST.get('projectId')
@@ -59,11 +58,10 @@ def engage_opportunity(request):
     response = {}
 
     if pid and oid:
-
         opp = get_object_or_404(Opportunity, pk=oid)
         message = request.REQUEST.get('message')
 
-        opp_eng = OpportunityEngagement(user=request.user, opportunity=opp)
+        opp_eng = OpportunityEngagement(user=request.user, opportunity=opp, project_id=pid)
         opp_eng.response = response
 
         opp_eng.save()
