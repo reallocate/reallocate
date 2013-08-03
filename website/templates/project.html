@@ -25,6 +25,9 @@
             position: absolute;
             bottom: 12px;
         }
+        #about {
+            margin-bottom: 30px;
+        }
         .section-title {
             height: 50px;
             font-size: 2em;
@@ -38,6 +41,7 @@
             margin-top: 25px;
         }
         .opportunities {
+            border-top: 1px solid #e2e2e2;
         }
         .opportunity {
             position: relative;
@@ -72,9 +76,16 @@
         .opp-project-name {
             font-size: 13px;
         }
+        #updates {
+            border-left: 1px solid #e2e2e2;
+        }
+        #updates h3 {
+            padding-left: 15px;
+        }
         .update {
+            padding: 0px 0px 10px 15px;
             border-bottom: 1px solid #ededed;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
         }
         .update:last-child {
             border: none;
@@ -162,7 +173,7 @@
         .post-update {
             margin-bottom: 25px;
             padding-bottom: 18px;
-            border-bottom: 1px solid #ddd;
+            border-bottom: 1px solid #e3e3e3;
         }
         </style>
 {% endblock %}
@@ -207,7 +218,7 @@
 </div>
 -->
 
-<div class="container">
+<div class="container">  
     <div class="row">
         <div class="col-6">
             <div id="about">
@@ -216,95 +227,99 @@
                 <p>Created By <a class="username" href="/profile/{{ project.created_by.id }}">{{ project.created_by.first_name }} {{ project.created_by.last_name }}</a> for {{ project.organization.name }}</p>
             </div>
             <div id="updates">
-                <h3>Recent Updates</h3>
-                {% if is_admin %}{% include "includes/post-update.html" %}{% endif %}
-                {% for update in updates %}
-                <div class="update">
-                    {% if update.media_url %}
-                    <div class="update-media"><img src="{{ update.media_url }}"></div>
-                    {% endif %}
-                    <p class="update-date">{{ update.date_created.date }}</p>
-                    <p class="update-text">{{ update.text }}</p>
-                    {% if update.created_by.get_profile.media_url %}                    
-                    <img class="update-avatar" src="{{ update.created_by.get_profile.media_url }}" />
-                    {% endif %}
-                    <a class="update-username" href="/profile/{{ update.created_by.id }}">
-                        {{ update.created_by.first_name }} {{ update.created_by.last_name }}
-                    </a>
+                    <h3>Recent Updates</h3>
+                    {% if is_admin %}{% include 'includes/post-update.html' %}{% endif %}
+                    {% for update in updates %}
+                    <div class="update">
+                        {% if update.media_url %}
+                        <div class="update-media"><img src="{{ update.media_url }}"></div>
+                        {% endif %}
+                        <p class="update-date">{{ update.date_created.date }}</p>
+                        <p class="update-text">{{ update.text }}</p>
+                        {% if update.created_by.get_profile.media_url %}                    
+                        <img class="update-avatar" src="{{ update.created_by.get_profile.media_url }}" />
+                        {% endif %}
+                        <a class="update-username" href="/profile/{{ update.created_by.id }}">
+                            {{ update.created_by.first_name }} {{ update.created_by.last_name }}
+                        </a>
+                    </div>
+                    {% endfor %}
                 </div>
-                {% endfor %}
-            </div>
-        </div>
-        <div class="col-3">
-            <div class="addthis-toolbox">
-                <a class="share addthis-button-twitter ">
-                    <i class="icon-twitter icon-2x"></i>
-                </a>
-                <a class="share addthis-button-facebook ">
-                    <i class="icon-facebook icon-2x"></i>
-                </a>
-                <a class="share addthis-button-linkedin ">
-                    <i class="icon-linkedin-sign icon-2x"></i>
-                </a>
-            </div>
-            <!--
-            <div class="row">
-                <h4>Needs</h4>
-                {% for need in project.get_needs %}
-                    <p>{{ need }}</p>
-                {% endfor %}
-            </div>
-            -->
-            <div>
-                <h4>Reallocators ({{ project.followed_by.count }})</h4>
-                {% for follower in project.followers %}
-                   <img src="/static/images/profilepic-female1.png" class="follower-thumb img-responsive" />
-                   <p class="follower">{{ follower.username }}</p>
-                {% endfor %}
-            </div>
-            <div class="clearfix"></div>
-            <!--
-            <div>
-                {% include 'paypal-donate.inc' %}
-                <div>
-                    <div class="pie">46,54</div>
-                    <div class="pie-progress">
-                        46%
-                        <br>
-                        <span>Complete</span>
+        </div>    
+        <div class="col-6">
+                    <div class="addthis-toolbox">
+                        <a class="share addthis-button-twitter ">
+                            <i class="icon-twitter icon-2x"></i>
+                        </a>
+                        <a class="share addthis-button-facebook ">
+                            <i class="icon-facebook icon-2x"></i>
+                        </a>
+                        <a class="share addthis-button-linkedin ">
+                            <i class="icon-linkedin-sign icon-2x"></i>
+                        </a>
                     </div>
-                </div>
-                <div class="chart">
-                    <h5>Money</h5>
-                    <div class="progress">
-                        <div class="bar-progress">50%</div>
-                        <div class="bar"></div>
+                    <!--
+                    <div class="row">
+                        <h4>Needs</h4>
+                        {% for need in project.get_needs %}
+                            <p>{{ need }}</p>
+                        {% endfor %}
                     </div>
-                    <h5>Knowledge</h5>
-                    <div class="progress">
-                        <div class="bar-progress">75%</div>
-                        <div class="bar"></div>
+                    -->
+                    <div>
+                        <h4>Reallocators ({{ project.followed_by.count }})</h4>
+                        {% for follower in project.followers %}
+                           <img src="/static/images/profilepic-female1.png" class="follower-thumb img-responsive" />
+                           <p class="follower">{{ follower.username }}</p>
+                        {% endfor %}
                     </div>
-                    <h5>Skills</h5>
-                    <div class="progress">
-                        <div class="bar-progress">40%</div>
-                        <div class="bar"></div>
+                    <div class="clearfix"></div>
+                    <!--
+                    <div>
+                        {% include 'paypal-donate.inc' %}
+                        <div>
+                            <div class="pie">46,54</div>
+                            <div class="pie-progress">
+                                46%
+                                <br>
+                                <span>Complete</span>
+                            </div>
+                        </div>
+                        <div class="chart">
+                            <h5>Money</h5>
+                            <div class="progress">
+                                <div class="bar-progress">50%</div>
+                                <div class="bar"></div>
+                            </div>
+                            <h5>Knowledge</h5>
+                            <div class="progress">
+                                <div class="bar-progress">75%</div>
+                                <div class="bar"></div>
+                            </div>
+                            <h5>Skills</h5>
+                            <div class="progress">
+                                <div class="bar-progress">40%</div>
+                                <div class="bar"></div>
+                            </div>
+                            <h5>Equipment</h5>
+                            <div class="progress">
+                                <div class="bar-progress">20%</div>
+                                <div class="bar"></div>
+                            </div>
+                        </div>
                     </div>
-                    <h5>Equipment</h5>
-                    <div class="progress">
-                        <div class="bar-progress">20%</div>
-                        <div class="bar"></div>
+                    -->
+            <div class="opportunities">
+                <h3>Opportunities to get engaged</h3>
+                    <div class="row">
+                        {% for opportunity in opportunities %}
+                            <div class="col-6">
+                                {% include "includes/opportunity-pane.html" %}
+                            </div>
+                        {% endfor %}                    
                     </div>
-                </div>
             </div>
-            -->
-        </div>
-        <div class="col-3 opportunities">
-            <h4>Opportunities</h4>
-            {% for opportunity in opportunities %}
-                {% include "includes/opportunity-pane.html" %}
-            {% endfor %}
-        </div>
+        </div>  
     </div>
 </div>
 <!--

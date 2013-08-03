@@ -245,6 +245,7 @@ h5 {
     top: 7px;
     z-index: 5;
     opacity: 0.0;
+    width: 41px;
 }
 .post-update .submit-update {
     position: relative;
