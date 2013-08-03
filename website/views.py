@@ -291,16 +291,16 @@ def view_project(request, pid=1):
     
     if request.user.is_authenticated():
         context['is_following'] = request.user in project.followed_by.all()
+        context['is_admin'] = True if request.user == project.created_by else False
 
     return render_to_response('project.html', context, context_instance=RequestContext(request))
 
 
 def manage_project(request, pid=1):
-
     project = get_object_or_404(Project, pk=pid)
     opps = Opportunity.objects.filter(project=project)
     context = base.build_base_context(request)
-
+    opp_engagements = OpportunityEngagement(user=request.user, opportunity=opp)
     context.update({
         "project": project,
         "opportunities": opps,
@@ -371,6 +371,7 @@ def view_opportunity(request, pid, oid):
     if request.user.is_authenticated():
 
         context['is_following'] = request.user in opp.project.followed_by.all()
+        context['is_engaged'] = True if request.user == opp.project.created_by else False
 
         try:
             ue = OpportunityEngagement.objects.get(opportunity=opp.id, user=request.user.id)
@@ -396,7 +397,6 @@ def engage_opportunity(request, pid, oid=1):
     # todo - deal with money type => donations rather than a freeform response
 
     if request.method == "POST":
-
         response = request.POST.get("response", "")
         opp_eng = OpportunityEngagement(user=request.user, opportunity=opp)
         opp_eng.response = response

@@ -1,21 +1,20 @@
-<div id="engage-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="engage-modal-label" aria-hidden="true">
-    <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h3 id="engage-modal-label">{{ opportunity.name }}</h3>
-    </div>
-    <div class="modal-body row-fluid">
-        <form class="form-horizontal" action="/login" id="engage-form" method="post">
-            {% if next %}
-            <input type="hidden" name="next" value="{{ next }}" />
-            {% endif %}
-            <div class="control-group">
-                <textarea name="message" id="engage-message" placeholder="Awesome! Tell us briefly what interests you about this opportunity and what you can contribute."></textarea>
+<div id="engage-modal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="modal-title">{{ opportunity.name }}</h3>
             </div>
-        </form>
-    </div>
-    <div class="modal-footer">
-        <div class="control-group">
-            <button type="button" class="btn" onclick="reAllocate.engageOpportunity($('#engage-message').attr('value'), {{ opportunity.project.id }}, {{ opportunity.id }}); $('#engage-modal').modal('hide');">Send</button>
+            <div class="modal-body">
+                <form class="form-horizontal" action="/login" id="engage-form" method="post">
+                    {% if next %}
+                    <input type="hidden" name="next" value="{{ next }}" />
+                    {% endif %}
+                    <textarea class="form-control" name="message" id="engage-message" placeholder="Awesome! Tell us briefly what interests you about this opportunity and what you can contribute."></textarea>
+                    <button type="button" class="btn btn-default pull-right" onclick="reAllocate.engageOpportunity($('#engage-message').attr('value'), {{ opportunity.project.id }}, {{ opportunity.id }}); $('#engage-modal').modal('hide');">Send</button>
+                    <div class="clearfix"></div>
+                </form>
+            </div>
         </div>
     </div>
 </div>

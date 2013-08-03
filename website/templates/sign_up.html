@@ -21,7 +21,6 @@
     	   <h2>Create an account</h2>
     	   <p>Creating an account allows you to engage with opportunties and post projects.</p>
 
-            
             <div class="col-4 col-offset-1" id="social-sign-in">
                 <h3>Sign in with...</h3>
 				<div class='social-button'>
@@ -40,7 +39,7 @@
         	    <p>or</p>
                 <div></div>
         	</div>
-            
+
             <div class="col-4">
 
         	    <h3>Sign up</h3>
@@ -77,10 +76,10 @@
     $('#password_verify').on('blur keyup', function(e) {
 
         if (this.value != $('#password').attr('value')) {
-            $(this).parents('.control-group').addClass('error');
+            $(this).parents('.form-group').addClass('has-error');
             $('#sign-up-submit').attr('disabled', 'disabled');
         } else {
-            $(this).parents('.control-group').removeClass('error');
+            $(this).parents('.form-group').removeClass('has-error');
             $('#sign-up-submit').removeAttr('disabled');
         }
     });
@@ -96,12 +95,12 @@
             success: function(available) {
                 console.log(available);
                 if (available) {
-                    $(email).parents('.control-group').removeClass('error');
+                    $(email).parents('.form-group').removeClass('has-error');
                     $('#sign-up-submit').removeAttr('disabled');
                 } else {
-                    $(email).parents('.control-group').addClass('error');
+                    $(email).parents('.form-group').addClass('has-error');
                     $('#sign-up-submit').attr('disabled', 'disabled');
-                    $('#email').addClass('error');
+                    $('#email').addClass('has-error');
                 }
             },
             error: function(res) {

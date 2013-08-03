@@ -235,25 +235,20 @@ h5 {
 }
 .post-update .post-update-buttons {
     position: relative;
-    clear: both;
 }
 .post-update .fake-file {
-    position: absolute;
-    top: 0px;
-    left: 0px;
+    position: relative;
     z-index: 0;
 }
 .post-update .media-file {
     position: absolute;
-    top: 0px;
-    left: 0px;
+    top: 7px;
     z-index: 5;
     opacity: 0.0;
+    width: 41px;
 }
 .post-update .submit-update {
-    position: absolute;
-    top: 0px;
-    left: 53px;
+    position: relative;
     z-index: 10;
 }
 .post-update textarea {
@@ -331,6 +326,9 @@ h5 {
 }
 .project-location a {
     color: #4E7284; 
+}
+.modal-buttons {
+    margin-top: 18px;
 }
 .is-invisible{
     visibility: hidden;

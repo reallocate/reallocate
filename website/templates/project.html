@@ -167,6 +167,11 @@
             background-size: cover;
             height: 270px;
         }
+        .post-update {
+            margin-bottom: 25px;
+            padding-bottom: 18px;
+            border-bottom: 1px solid #e3e3e3;
+        }
         </style>
 {% endblock %}
 
@@ -220,6 +225,7 @@
             </div>
             <div id="updates">
                     <h3>Recent Updates</h3>
+                    {% if is_admin %}{% include 'includes/post-update.html' %}{% endif %}
                     {% for update in updates %}
                     <div class="update">
                         {% if update.media_url %}
