@@ -29,15 +29,22 @@
     .opp-image {
         height: 161px;
     }
+    .opp-overview {
+        margin-bottom: 20px;
+    }
     .opp-description {
         font-size: 18px;
         border-bottom: 1px solid #ddd;
         padding-bottom: 10px;
         margin-bottom: 20px;
-    }  
+    }
+    .post-opp-update {
+        margin-bottom: 20px;
+    }
     .update {
+        padding-bottom: 10px;
         border-bottom: 1px solid #ededed;
-        margin-bottom: 10px;
+        margin-bottom: 15px;
     }
     .update:last-child {
         border: none;
@@ -94,7 +101,7 @@
         <div id="opp-title" class="container">
             <div class="row">
                 <div class="col-10">
-                    <h4>{{ project.name }}</h4>
+                    <h4><a href="/project/{{ opportunity.project.id }}">{{ project.name }}</a></h4>
                     <h1>{{ opportunity.name }}</h1> 
                 </div>
                 <div class="col-2">
@@ -133,14 +140,18 @@
         <div class="row">
         
             <div class="col-8">
-
-                <p class="opp-description">{{ opportunity.description|safe }}</p>
-
+                <div class="opp-overview">
+                    <p class="opp-description">{{ opportunity.description|safe }}</p>
+                </div>
+                
+                
                 <h4>Recent Updates</h4>
                 <a name="updates"></a>
-                {% if engaged %}{% include "includes/post-update.html" %}{% endif %}
+                <div class="post-opp-update">
+                    {% if engaged %}{% include "includes/post-update.html" %}{% endif %}
       
-                {% for update in updates %}
+                    {% for update in updates %}
+                </div>
                 <div class="update">
                     {% if update.media_url %}
                     <div class="update-media"><img src="{{ update.media_url }}"></div>
@@ -177,7 +188,7 @@
                 <p class="opp-prereqs">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas eu magna non felis venenatis adipiscing. Ut elementum bibendum nisi in accumsan. Curabitur imperdiet, lacus et mollis euismod, elit dui vestibulum nulla, eu bibendum leo metus condimentum nisl. Cras et diam a nunc pretium venenatis hendrerit vel metus. Quisque semper ornare tellus ut commodo.</p>
                 
                 <h4>Resources</h4>
-                <p class="opp-resources">http://Linkto3rdpartyresource.com</p>
+                <p class="opp-resources"><a href="#">http://Linkto3rdpartyresource.com</a></p>
             </div>
         </div>
     </div>
