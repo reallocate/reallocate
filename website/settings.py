@@ -296,15 +296,6 @@ POST_LOGIN_URL = '/search'
 #LOGIN_ERROR_URL = '/login-error/'
 #LOGOUT_URL= '/accounts/logout/'
 
-
-# used in django social Auth
-#TEMPLATE_CONTEXT_PROCESSORS = (
-#  'social_auth.context_processors.social_auth_by_name_backends',
-#  'social_auth.context_processors.social_auth_backends',
-#  'social_auth.context_processors.social_auth_by_type_backends',
-#  'social_auth.context_processors.social_auth_login_redirect',
-#  )
-
 SOCIAL_AUTH_DEFAULT_USERNAME = 'new_social_auth_user'
 SOCIAL_AUTH_UUID_LENGTH = 16
 
