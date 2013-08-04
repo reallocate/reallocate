@@ -16,8 +16,9 @@
     }
     .jumbotron {
         padding: 0px;
-        background-image: url({{ project.media_url }});
+        background-image: url('/static/images/flickr_sunset.jpg');
         background-size: cover;
+        background-position: 0px -340px;
         height: 270px;
     }
 </style>
@@ -25,16 +26,7 @@
 
 {% block jumbotron %}
 <div class="jumbotron">
-    <div class="overlay">
-        <div class="container">
-            <div class="row">
-                <div class="col-5 col-offset-5">
-                    <h2>Lorem ipsum dolor sit amet.</h2> 
-                    <h3>Consectetur adipiscing elit. Nullam hendrerit velit at justo lobortis, vitae.</h3>
-                </div>
-            </div>
-        </div>
-    </div>
+
 </div>
 {% endblock %}
 

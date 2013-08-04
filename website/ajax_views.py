@@ -98,11 +98,13 @@ def add_update(request, *args):
         mime_type = request.META.get('HTTP_X_MIME_TYPE')
     
         # TODO: check mimetype for proper file extensions
+        # TODO: create create_s3_media_url() on update object, then move this code below object creation
         ext = 'png'
         hash = hashlib.sha1()
         hash.update(str(time.time()))
         filename = hash.hexdigest()[:10]
-        url = base.remote_storage(request.body, 'project/%s/%s.%s' % (pid, filename, ext), mime_type)
+        
+        url = base.send_to_remote_storage(request.body, 'project/%s/%s.%s' % (pid, filename, ext), mime_type)
 
     # TODO:  error checking.  i.e. does user have permission?
     update = Update.objects.create(organization_id=orgid, project_id=pid, media_url=url,

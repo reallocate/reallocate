@@ -45,6 +45,12 @@
                     <label for="description">Full Description</label>
                     <textarea class="form-control" id="description" name="description"></textarea>
                 </div>
+                <div class="form-group">
+                        <label for="name">Add an Image</label> (optional)<br/>
+                        <button class="delegate-file-upload btn btn-primary">Upload Image</button>
+                        <i class="icon-ok icon-2x file-upload-ok" style='padding-left:10px;display:none;color:blue;'></i>
+                        <input type="file" name="file" id="file" value="Upload a new photo" style="display: none;">
+                </div>
                 <div class="form-group pull-right">
                     <button type="button" onclick="add_another(this)" class="btn btn-default">Add another</button>
                     <button type="submit" class="btn btn-default">Done</button>

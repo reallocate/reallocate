@@ -51,7 +51,7 @@
         <form id="update-profile" method="post" enctype="multipart/form-data">
         {% endif %}
         <div class="col-3 user-image">
-                <img src="{{ user_profile.media_url|default:'/static/images/no-profile-image.png' }}' alt='Avatar for {{ profile.user|escape }}" />
+                <img src="{{ user_profile.media_url|default:'/static/images/no-profile-image.png' }}" alt="Avatar for {{ profile.user|escape }}" />
             {% if edit %}
                 <button class="delegate-file-upload btn btn-primary">Change profile picture</button>
                 <input type="file" name="file" id="file" value="Upload a new photo" style="display: none;">
@@ -189,10 +189,4 @@
 {% endblock %}
 
 {% block bottomscript %}
-    <script>
-        $('.delegate-file-upload').click(function() {
-            $('input[type="file"]').trigger('click');
-            return false;
-        });
-    </script>
 {% endblock %}
