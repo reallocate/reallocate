@@ -326,7 +326,7 @@ h5 {
 .project-location {
     position: absolute;
     font-weight: bold;
-    bottom: 0px;
+    bottom: 5px;
 }
 .project-location a {
     color: #4E7284; 
@@ -334,4 +334,7 @@ h5 {
 .modal-buttons {
     margin-top: 18px;
 }
-
+footer {
+    margin-top: 25px;
+    text-align: center;
+}
