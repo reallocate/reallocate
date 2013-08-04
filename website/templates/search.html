@@ -5,49 +5,7 @@
 
 {% block extra_css %}
 <style>
-	.opportunities {
 
-    }
-    .opportunity {
-        position: relative;
-        border: 1px solid #ededed;
-        border-radius: 5px;
-        background-color: #e9e9e9;
-        margin-bottom: 15px;
-        height: 150px;
-    }
-    .opp-thumb {
-        padding: 3px;
-        float: left;
-        width: 150px;
-       	height: 98%;
-        overflow: hidden;
-    }
-    .opp-thumb img {
-    	width: 220px;
-        height: auto;
-    }
-    .opp-text {
-    	float: left;
-        padding: 3px 8px;
-        width: 400px;
-    }
-    .opp-name {
-        margin-top: 12px;
-        font-size: 18px;
-        font-family: 'Raleway', sans-serif;
-        line-height: 0.2em;
-    }
-    .opp-type {
-        font-size: 12px;
-        font-style: italic;
-    }
-    .opp-short-desc {
-        font-size: 13px;
-    }
-    .opp-project-name {
-        font-size: 13px;
-    }
 </style>
 {% endblock %}
 
@@ -81,7 +39,11 @@
 				<h3>All Opportunities</h3>
 				<div class="opportunities">
 				{% for opportunity in opportunities %}
-				{% include "includes/opportunity-pane.html" %}
+					<div class="row">
+						<div class="col-4">
+							{% include "includes/opportunity-pane.html" %}			
+						</div>	
+					</div>	
 				{% endfor %}
 				</div>
 			</div>
