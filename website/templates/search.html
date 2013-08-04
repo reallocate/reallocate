@@ -5,44 +5,87 @@
 
 {% block extra_css %}
 <style>
-	.opp_browse{
-		background:#f5f5f5
-	}
+	.opportunities {
+
+    }
+    .opportunity {
+        position: relative;
+        border: 1px solid #ededed;
+        border-radius: 5px;
+        background-color: #e9e9e9;
+        margin-bottom: 15px;
+        height: 150px;
+    }
+    .opp-thumb {
+        padding: 3px;
+        float: left;
+        width: 150px;
+       	height: 98%;
+        overflow: hidden;
+    }
+    .opp-thumb img {
+    	width: 220px;
+        height: auto;
+    }
+    .opp-text {
+    	float: left;
+        padding: 3px 8px;
+        width: 400px;
+    }
+    .opp-name {
+        margin-top: 12px;
+        font-size: 18px;
+        font-family: 'Raleway', sans-serif;
+        line-height: 0.2em;
+    }
+    .opp-type {
+        font-size: 12px;
+        font-style: italic;
+    }
+    .opp-short-desc {
+        font-size: 13px;
+    }
+    .opp-project-name {
+        font-size: 13px;
+    }
 </style>
 {% endblock %}
 
-{% block maincontent %}
-	
+{% block breadcrumb %}
 	<ul class="breadcrumb">
-		<li id="breadcrumb-menu-home"><a href="/">Home</a><span class="divider">/</span></li>
-		<li id="breadcrumb-menu-mission"
-			class="active">Search
-		</li>
+		<li><a href="/">Home</a></li>
+		<li class="active">Find Opportunity</li>
 	</ul>
-    
-	<div class="row-fluid">
-		<form action="" method="post">{% csrf_token %}
-			<input type="text"  name="search" id="search" value="Search..."onclick="if(this.value=='Search...'){this.value=''}"
-			onblur="if(this.value==''){this.value='Search...'}">
-			<select name="opp_type" id="opp_type">
-			<option value="">Search By:</option>
-			<option value="Skills">Skill set</option>
-			<option value="Knowledge">Knowledge</option>
-			<option value="Equipment">Equipment</option>
-			<option value="Money">Money</option>
-			</select>
-			<input type="submit" class="btn btn-primary" value="Search" style="margin-top:-10px;margin-left:10px;">
-		</form>
-	</div>
-	
-	<div class="row-fluid">
-		{% for opp in opportunities %}
-			{% if forloop.counter0|divisibleby:3 %}
-				</div>
-				<div class="row-fluid">
-			{% endif %}
+{% endblock %}
+
+{% block content %}
+	<div class="container">
+		<div class="row">
+			<div class="col-3">
+				<!--
+				<form method="post">{% csrf_token %}
+					<input type="text"  name="search" id="search" value="Search..."onclick="if(this.value=='Search...'){this.value=''}"
+					onblur="if(this.value==''){this.value='Search...'}">
+					<select name="opp_type" id="opp_type">
+					<option value="">Search By:</option>
+					<option value="Skills">Skill set</option>
+					<option value="Knowledge">Knowledge</option>
+					<option value="Equipment">Equipment</option>
+					<option value="Money">Money</option>
+					</select>
+					<input type="submit" class="btn btn-primary" value="Search" style="margin-top:-10px;margin-left:10px;">
+				</form>
+				-->
+			</div>
+			<div class="col-9">
+				<h3>All Opportunities</h3>
+				<div class="opportunities">
+				{% for opportunity in opportunities %}
 				{% include "includes/opportunity-pane.html" %}
-		{% endfor %}
+				{% endfor %}
+				</div>
+			</div>
+		</div>
 	</div>
 
 {% endblock %}
