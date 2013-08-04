@@ -4,6 +4,23 @@ reAllocate = {
         
         this.setupAddThis();
         
+        $('.delegate-file-upload').click(function() {
+            
+            $('input[type="file"]').trigger('click');
+            return false;
+        
+        });
+        
+        $('input[type="file"]').on('change', function(){
+            // show check mark next to file upload box after file is attached
+            
+            upload_ok = $(".file-upload-ok");
+            if (upload_ok){
+                upload_ok.show();
+            }
+            
+        });
+        
         $(".login-required").click(function(e) {
 
             if (!reAllocate.user) {

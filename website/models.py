@@ -62,7 +62,9 @@ class Project(models.Model):
     
     def __unicode__(self):
         return "Name: %s" % self.name
-
+    
+    def make_s3_media_url(self, uploaded_file):
+        return 'projects/%s/%s' % (self.id, uploaded_file.name)
 
 class ProjectForm(ModelForm):
 
@@ -103,8 +105,9 @@ class Opportunity(models.Model):
 
     class Meta:
         verbose_name_plural = "opportunities"
-
-
+        
+    def make_s3_media_url(self, uploaded_file):
+        return 'opportunities/%s/%s' % (self.id, uploaded_file.name)
 
 class OpportunityForm(ModelForm):
 
@@ -134,6 +137,10 @@ class UserProfile(models.Model):
 
     def __str__(self):
         return "%s's profile" % self.user
+    
+    def make_s3_media_url(self, uploaded_file):
+        return 'users/%s/%s' % (self.user.email, uploaded_file.name)
+        
 
 def create_user_profile(sender, instance, created, **kwargs):
 

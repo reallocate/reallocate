@@ -81,7 +81,7 @@ def send_admin_email(subject, text_content, html_content=None):
     send_email([ADMIN_EMAIL], "admin: " + subject, text_content, html_content=html_content)
     
 
-def remote_storage(uploaded_file, filename, mime_type):
+def send_to_remote_storage(uploaded_file, filename, mime_type):
 
     """ for uploading images to S3 """
     c = boto.connect_s3(settings.AWS_ACCESS_KEY_ID, settings.AWS_SECRET_ACCESS_KEY)
@@ -90,7 +90,8 @@ def remote_storage(uploaded_file, filename, mime_type):
     k = Key(bucket)
     k.set_metadata('Content-Type', mime_type)
     k.key = filename
-    k.set_contents_from_string(uploaded_file)
+    # depending on where this comes from, uploaded_file is a string or an object that needs .read()
+    k.set_contents_from_string(uploaded_file if isinstance(uploaded_file, basestring) else uploaded_file.read())
     k.set_acl('public-read')
 
     return 'http://s3.amazonaws.com/%s/%s' % (settings.S3_BUCKET, filename)

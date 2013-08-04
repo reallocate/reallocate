@@ -42,27 +42,11 @@ def profile(request, username=None):
         return render_to_response('nosuchuser.html', context)
     user_profile = user_profile[0] # replace above logic with None or single object?
 
-    def remote_storage(uploaded_file, user):
-        """ for uploading avatars to s3 """
-
-        c = boto.connect_s3(settings.AWS_ACCESS_KEY_ID, settings.AWS_SECRET_ACCESS_KEY)
-        bucket = c.get_bucket(settings.S3_BUCKET)
-        
-        filename = 'users/%s/%s' % (user.email, uploaded_file.name)
-        k = Key(bucket)
-        k.set_metadata('Content-Type', 'image/png')
-        k.key = filename
-        k.set_contents_from_string(uploaded_file.read())
-        k.set_acl('public-read')
-
-        return 'http://s3.amazonaws.com/%s/%s' % (settings.S3_BUCKET, filename)
-    
     if request.method == "POST":
         
         avatar = request.FILES.get('file')
         if avatar:
-            filename = remote_storage(avatar, request.user) if avatar else ''
-            user_profile.media_url = filename
+            user_profile.media_url = base.send_to_remote_storage(avatar, user_profile.make_s3_media_url(avatar), "image/png")
         
         user_profile.user.email = request.POST.get("email")
         user_profile.bio = request.POST.get("bio")
@@ -330,10 +314,16 @@ def new_project(request):
         project = project_form.save(commit=False)
 
         if project_form.is_valid():
-            
+
             project.organization = request.user.get_profile().organization
             project.created_by = request.user
             project.save()
+            
+            # this has to occur after initial save b/c we use pk id as part of the s3 filepath
+            media_file = request.FILES.get('file')
+            if media_file:
+                project.media_url = base.send_to_remote_storage(media_file, project.make_s3_media_url(media_file), "image/png")
+                project.save()
             
             # send admin email with link adminpanel to change project status
             subj = "new project %s added by %s" % (project.name, request.user.email)
@@ -489,6 +479,13 @@ def add_opportunity(request, pid=None):
             opp.created_by = request.user
             opp.save()
         
+            # this has to occur after initial save b/c we use pk id as part of the s3 filepath
+            media_file = request.FILES.get('file')
+            if media_file:
+                opp.media_url = base.send_to_remote_storage(media_file, opp.make_s3_media_url(media_file), "image/png")
+                opp.save()
+            
+            
             if request.POST.get('add'):
 
                 return HttpResponseRedirect('/project/%s/opportunity/add' % project.id)
