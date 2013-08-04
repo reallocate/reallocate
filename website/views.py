@@ -250,10 +250,11 @@ def manage_project(request, pid=1):
     project = get_object_or_404(Project, pk=pid)
     opps = Opportunity.objects.filter(project=project)
     context = base.build_base_context(request)
-    opp_engagements = OpportunityEngagement(user=request.user, opportunity=opp)
+    opp_engagements = OpportunityEngagement.objects.all().filter(project_id=pid)
     context.update({
         "project": project,
         "opportunities": opps,
+        "opp_engagements": opp_engagements,
         "updates": Update.objects.filter(project=project)})
     
     if request.user.is_authenticated():
