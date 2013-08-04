@@ -139,9 +139,8 @@ reAllocate = {
 
             },
             error: function(res) {
-                $(".bad-username-or-password").removeClass('is-invisible');
-                $('#modal-username').parent('.control-group').addClass('error');
-                $('#modal-password').parent('.control-group').addClass('error');
+                $('#modal-username').parent('.form-group').addClass('has-error');
+                $('#modal-password').parent('.form-group').addClass('has-error');
             }
        });
     },

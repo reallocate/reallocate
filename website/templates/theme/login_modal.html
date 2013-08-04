@@ -3,50 +3,54 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h3 id="login-modal-label" class="modal-title">Login</h3>
+                <h3 id="login-modal-label" class="modal-title">Sign in</h3>
             </div>
-            <div class="modal-body row">
-                <div class="col-5 col-offset-1">
-                    <div style="height:30px;"></div>
-                    <form class="form-horizontal" action="/login" id="modal-login" method="post">
-                        {% if next %}
-                        <input type="hidden" name="next" value="{{ next }}" />
-                        {% endif %}
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-7">
+                        <form action="/login" id="modal-login" method="post">
+                            {% if next %}
+                            <input type="hidden" name="next" value="{{ next }}" />
+                            {% endif %}
+                            <div class="form-group">
+                                <input class="form-control" type="text" name="username" id="modal-username" value="{{ username }}" placeholder="email" />
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" type="password" name="password" id="modal-password" value="" placeholder="password" />
+                                <span class="help-block">Incorrect username or password</span>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary pull-right">Sign in</button>
+                                <label class="checkbox">
+                                    <input type="checkbox"> Remember me
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <p class="pull-right forgot"><a href='#' class='forgot-password'>Forgot your password?</a></p>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="vert-or col-1">
+                        <div></div>
+                        <p>or</p>
+                        <div></div>
+                    </div>
+                    <div class="col-4" id="social-logins">
                         <div class="form-group">
-                            <input class="form-control" type="text" name="username" id="modal-username" value="{{ username }}" placeholder="email" />
+                            <a href="{% url "socialauth_begin" "linkedin" %}" class="btn btn-info"><i class="icon-linkedin"></i> LinkedIn</a>
                         </div>
                         <div class="form-group">
-                            <input class="form-control" type="password" name="password" id="modal-password" value="" placeholder="password" />
-                        </div>
-                        <div class="bad-username-or-password is-invisible" style='font-size:10px;color:red;margin:-5px;'>
-                            Your username or password is incorrect.<br/>
-                            <a href='/forgot-password' class='forgot-password'>Forgot your password?</a>
+                            <a href="{% url "socialauth_begin" "google" %}" class="btn btn-info"><i class="icon-google-plus"></i> Google</a>
                         </div>
                         <div class="form-group">
-                            <label class="checkbox">
-                                <input type="checkbox"> Remember me
-                            </label>
+                            <a href="{% url "socialauth_begin" "facebook" %}" class="btn btn-info"><i class="icon-facebook"></i> Facebook</a>
                         </div>
-                </div>
-                <div class="col-5 col-offset-1" id="social-logins">
-                    <b>Or login with:</b> <br/><br/>
-                    <a href="{% url "socialauth_begin" "linkedin" %}" class="btn btn-info"><i class="icon-linkedin"></i> LinkedIn</a><br />
-                    <a href="{% url "socialauth_begin" "google" %}" class="btn btn-primary"><i class="icon-google-plus"></i> Google</a><br />
-                    <a class="btn btn-info" href="/auth/facebook" style="background: #596F90;"><i class="icon-facebook"></i> Facebook</a><br />
-                    <span style='font-size:10px;color:#888;'>
-                        *Currently, if you signed up with one of the above services, you must re-login with the same service.
-                    </span>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-7">
-                <button type="submit" class="btn btn-primary pull-right">Log in</button>
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">
-                Not a member? <a href="/sign-up">Signup!</a>
+                Not a member? <a href="/sign-up">Sign up!</a>
             </div>
-            </form>
         </div>
     </div>
 </div>

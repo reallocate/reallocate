@@ -507,10 +507,6 @@ def search(request):
 
     context = base.build_base_context(request)
 
-    # Search for Opportunities
-    opportunities = None
-        
-    #search form submission
     if request.method == 'POST': 
 
         #search text
@@ -524,16 +520,12 @@ def search(request):
         else:    
             opportunities = Opportunity.objects.filter(Q(name__contains=search) | Q(status__contains=search) | Q(short_desc__contains=search) | Q(description__contains=search) | Q(opp_type__contains=search) | Q(tags__name__in=[search])).filter(opp_type=opp_type).distinct()[:12]
 
-    if not opportunities:
+    else:
 
-        print u'NO OPPORTUNITIES FOUND'
-        opportunities = Opportunity.objects.all()[:12]
+        opportunities = Opportunity.objects.all()
 
-    context['oppotunities'] = opportunities
+    context['opportunities'] = opportunities
 
     return render_to_response('search.html', context, context_instance=RequestContext(request))
 
-    if request.user.is_authenticated():
-        context['is_engaged'] = request.user in opp.engaged_by.all()
-
-    return render_to_response('opportunity.html', context, context_instance=RequestContext(request))
+    

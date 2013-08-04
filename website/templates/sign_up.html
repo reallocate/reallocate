@@ -6,9 +6,15 @@
 {% block meta_description %}{{ the_title }}{% endblock %}
 {% block extra_css %}
 	<style>
-		.social-button{
-			margin-top:10px;
-		}
+        .form-group .help-block {
+            display: none;
+        }
+        .form-group.has-error .help-block {
+            display: block;
+        }
+        h5 {
+            margin-bottom: 20px;
+        }
 	</style>
 {% endblock extra_css%}
 
@@ -16,55 +22,53 @@
 
     <div class="container">
 
+        <h3>Create an account</h3>
+        <h5>Creating an account allows you to engage with opportunties and post projects.</h5>
+
         <div class="row">
 
-    	   <h2>Create an account</h2>
-    	   <p>Creating an account allows you to engage with opportunties and post projects.</p>
+            <div class="col-3">
 
-            <div class="col-4 col-offset-1" id="social-sign-in">
-                <h3>Sign in with...</h3>
-				<div class='social-button'>
-					<a href="{% url "socialauth_begin" "linkedin" %}" class="btn btn-info"><i class="icon-linkedin"></i> LinkedIn</a>
-				</div>
-				<div class='social-button'>
-				<a href="{% url "socialauth_begin" "google" %}" class="btn btn-primary"><i class="icon-google-plus"></i> Google</a>
-				</div>
-				<div class='social-button'>
-				<a class="btn btn-info" href="/auth/facebook" style="background: #596F90;"><i class="icon-facebook"></i> Facebook</a>
-				</div>
-            </div>
-
-            <div class="col-1 vert-or">
-                <div></div>
-        	    <p>or</p>
-                <div></div>
-        	</div>
-
-            <div class="col-4">
-
-        	    <h3>Sign up</h3>
-
-        	    <form method="post">
-
+        	    <form method="post" id="sign-up-form">
                     <div class="form-group">
                         <input class="form-control" type="text" name="email" id="email" placeholder="Email Address">
+                        <span class="help-block">That email is already in use</span>
                     </div>
                     <div class="form-group">
                         <input class="form-control" type="password" name="password" value="" id="password" placeholder="Password"/>
                     </div>
                     <div class="form-group">
                         <input class="form-control" type="password" name="password_verify" value="" id="password_verify" placeholder="Re-type Password"/>
+                        <span class="help-block">Passwords don't match</span>
                     </div>
                     <div class="form-group pull-right">
-                        <button class="btn btn-primary" type="submit" id="sign-up-submit">Sign up</button>
+                        <button class="btn btn-primary" type="submit" id="sign-up-submit" disabled="disabled">Sign up</button>
                     </div>
                     <input type="hidden" name="next" value="{{ next }}" />
-
         	    </form>
         	</div>
+
+            <div class="col-1 vert-or">
+                <div></div>
+                <p>or</p>
+                <div></div>
+            </div>
+
+            <div class="col-3" id="social-sign-in">
+
+                <div class="form-group">
+                    <a href="{% url "socialauth_begin" "linkedin" %}" class="btn btn-info"><i class="icon-linkedin"></i> LinkedIn</a>
+                </div>
+                <div class="form-group">
+                    <a href="{% url "socialauth_begin" "google" %}" class="btn btn-info"><i class="icon-google-plus"></i> Google</a>
+                </div>
+                <div class="form-group">
+                    <a class="btn btn-info" href="{% url "socialauth_begin" "google" %}"><i class="icon-facebook"></i> Facebook</a>
+                </div>
+            </div>
         </div>
 
-        <h4>Already have an account? <a href="{{ next }}" class="login-required">login</a></h4>
+        <p class="sign-in">Already have an account? <a href="{{ next }}" class="login-required">Sign In</a></h4>
 
     </div>
 
@@ -80,7 +84,10 @@
             $('#sign-up-submit').attr('disabled', 'disabled');
         } else {
             $(this).parents('.form-group').removeClass('has-error');
-            $('#sign-up-submit').removeAttr('disabled');
+            $('#sign-up-submit').data('validPassword', true);
+            if ($('#sign-up-submit').data('validUsername')) {
+                $('#sign-up-submit').removeAttr('disabled');
+            };
         }
     });
 
@@ -93,10 +100,12 @@
             method: 'GET',
             data : {'email': email.value},
             success: function(available) {
-                console.log(available);
                 if (available) {
                     $(email).parents('.form-group').removeClass('has-error');
-                    $('#sign-up-submit').removeAttr('disabled');
+                    $('#sign-up-submit').data('validUsername', true);
+                    if ($('#sign-up-submit').data('validPassword')) {
+                        $('#sign-up-submit').removeAttr('disabled');
+                    }
                 } else {
                     $(email).parents('.form-group').addClass('has-error');
                     $('#sign-up-submit').attr('disabled', 'disabled');

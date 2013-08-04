@@ -5,44 +5,49 @@
 
 {% block extra_css %}
 <style>
-	.opp_browse{
-		background:#f5f5f5
-	}
+
 </style>
 {% endblock %}
 
-{% block maincontent %}
-	
+{% block breadcrumb %}
 	<ul class="breadcrumb">
-		<li id="breadcrumb-menu-home"><a href="/">Home</a><span class="divider">/</span></li>
-		<li id="breadcrumb-menu-mission"
-			class="active">Search
-		</li>
+		<li><a href="/">Home</a></li>
+		<li class="active">Find Opportunity</li>
 	</ul>
-    
-	<div class="row-fluid">
-		<form action="" method="post">{% csrf_token %}
-			<input type="text"  name="search" id="search" value="Search..."onclick="if(this.value=='Search...'){this.value=''}"
-			onblur="if(this.value==''){this.value='Search...'}">
-			<select name="opp_type" id="opp_type">
-			<option value="">Search By:</option>
-			<option value="Skills">Skill set</option>
-			<option value="Knowledge">Knowledge</option>
-			<option value="Equipment">Equipment</option>
-			<option value="Money">Money</option>
-			</select>
-			<input type="submit" class="btn btn-primary" value="Search" style="margin-top:-10px;margin-left:10px;">
-		</form>
-	</div>
-	
-	<div class="row-fluid">
-		{% for opp in opportunities %}
-			{% if forloop.counter0|divisibleby:3 %}
+{% endblock %}
+
+{% block content %}
+	<div class="container">
+		<div class="row">
+			<div class="col-3">
+				<!--
+				<form method="post">{% csrf_token %}
+					<input type="text"  name="search" id="search" value="Search..."onclick="if(this.value=='Search...'){this.value=''}"
+					onblur="if(this.value==''){this.value='Search...'}">
+					<select name="opp_type" id="opp_type">
+					<option value="">Search By:</option>
+					<option value="Skills">Skill set</option>
+					<option value="Knowledge">Knowledge</option>
+					<option value="Equipment">Equipment</option>
+					<option value="Money">Money</option>
+					</select>
+					<input type="submit" class="btn btn-primary" value="Search" style="margin-top:-10px;margin-left:10px;">
+				</form>
+				-->
+			</div>
+			<div class="col-9">
+				<h3>All Opportunities</h3>
+				<div class="opportunities">
+				{% for opportunity in opportunities %}
+					<div class="row">
+						<div class="col-4">
+							{% include "includes/opportunity-pane.html" %}			
+						</div>	
+					</div>	
+				{% endfor %}
 				</div>
-				<div class="row-fluid">
-			{% endif %}
-				{% include "includes/opportunity-pane.html" %}
-		{% endfor %}
+			</div>
+		</div>
 	</div>
 
 {% endblock %}

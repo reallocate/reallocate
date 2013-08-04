@@ -53,11 +53,41 @@ h5 {
     box-shadow: 0 5px 5px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(82, 168, 236, 0.6);
     cursor: pointer;
 }
-.opp-thumb {
-    overflow: hidden;
+.opportunities {
+    border-top: 1px solid #e2e2e2;
 }
-.opportunity-thumb img{
-    min-height: 180px;
+.opportunity {
+    position: relative;
+    border: 1px solid #ededed;
+    border-radius: 5px;
+    background-color: #e9e9e9;
+    margin-bottom: 16px;
+}
+.opp-thumb {
+    padding: 3px;
+}
+.opp-thumb img {
+    width: 204px;
+    height: auto;
+}
+.opp-text {
+    padding: 3px 8px;
+}
+.opp-name {
+    margin-top: 14px;
+    font-size: 15px;
+    font-family: 'Raleway', sans-serif;
+    line-height: 0em;
+}
+.opp-type {
+    font-size: 12px;
+    font-style: italic;
+}
+.opp-short-desc {
+    font-size: 13px;
+}
+.opp-project-name {
+    font-size: 13px;
 }
 .thumnail-container .name {
     font-family: 'Raleway', sans-serif;
@@ -139,7 +169,7 @@ h5 {
 }
 
 .vert-or {
-    margin: 74px auto;
+    margin: 10px auto;
     text-align: center;
     width: 30px;
 }
@@ -151,8 +181,13 @@ h5 {
 }
 .vert-or p {
     color: #555;
-    padding: 2px;
-    margin: 0px auto;
+    position: relative;
+    top: 4px;
+    left: -6px;
+    letter-spacing: 2px;
+}
+#login-modal .vert-or {
+    margin-top: 27px;
 }
 #add-opportunity p.short-desc {
     margin-left: 10px;
@@ -174,19 +209,25 @@ h5 {
 #signup #social-sign-in {
     margin: 10px 0px 0px 0px;
 }
-#login-modal {
-    
+#login-modal .modal-dialog {
+    width: 438px;
 }
 #login-modal form {
     margin-bottom: 0px;
 }
-#login-modal .vert-or {
-    margin: 15px auto;
-}
-#login-modal #social-logins .btn {
-    margin-bottom: 12px;
-}
 #login-modal form input[type=text], #login-modal form input[type=password] {
+}
+#login-modal .form-group .help-block {
+    display: none;
+    font-size: 13px;
+}
+#login-modal .form-group.has-error .help-block {
+    display: block;
+}
+#login-modal .forgot {
+    clear: right;
+    margin-top: 15px;
+    font-size: 11px;
 }
 #manage-project input {
     width: 580px;
@@ -301,17 +342,10 @@ h5 {
     line-height: 1em;
     margin-bottom: 10px;
 }  
-.project-text .short_desc {
-    margin-top:20px;
-    overflow: hidden;
-    font-size: 12px;
-    line-height: 1.2em;
-    text-align: center;
-}
 .project-status {
     margin-top: 10px;
 }
-.project-status .pie-chart{
+.project-status .pie-chart {
     margin-left: 5px;
     max-width: 100px;   
 }
@@ -330,6 +364,4 @@ h5 {
 .modal-buttons {
     margin-top: 18px;
 }
-.is-invisible{
-    visibility: hidden;
-}
+
