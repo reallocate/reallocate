@@ -17,6 +17,8 @@ urlpatterns = patterns('',
   url(r'^sign-up$', 'website.views.sign_up'),
   url(r'^login$', 'website.views.login_user', name='login_user'),
   url(r'^logout$', 'django.contrib.auth.views.logout', {'next_page': '/'}),
+  url(r'^forgot-password$', 'website.views.forgot_password', name='forgot_password'),
+  url(r'^reset-password$', 'website.views.reset_password', name='reset_password'),
 
   url(r'^organization/new/$', 'website.views.new_organization', name='new_organization'),
   url(r'^project/new/$', 'website.views.new_project', name='new_project'),

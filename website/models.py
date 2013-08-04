@@ -163,6 +163,7 @@ class OpportunityEngagement(models.Model):
     # and stay in each conversation
     user = models.ForeignKey(User)
     opportunity = models.ForeignKey(Opportunity)
+    project = models.ForeignKey(Project)
     date_created = models.DateField(auto_now_add=True)
      # this will be where the opp engagements can be approved
     status = models.CharField(max_length=100, choices=STATUS_CHOICES, default=STATUS_CHOICES[1][1])
