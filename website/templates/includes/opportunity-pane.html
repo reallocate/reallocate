@@ -11,7 +11,7 @@
 		{% endfor %}
 		</p>
 		<p class="opp-short-desc">
-			{{ opportunity.short_desc }}
+			{{ opportunity.short_desc|truncatechars:140 }}
 		</p>
 		{% comment %}
 		<p class="opp-location">

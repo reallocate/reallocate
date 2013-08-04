@@ -38,13 +38,13 @@
 			<div class="col-9">
 				<h3>All Opportunities</h3>
 				<div class="opportunities">
-				{% for opportunity in opportunities %}
 					<div class="row">
+						{% for opportunity in opportunities %}
 						<div class="col-4">
 							{% include "includes/opportunity-pane.html" %}			
 						</div>	
+						{% endfor %}
 					</div>	
-				{% endfor %}
 				</div>
 			</div>
 		</div>
