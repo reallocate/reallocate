@@ -73,7 +73,7 @@
 {% block bottomscript %}
     <script>
 
-    $('#password_verify').on('blur', function(e) {
+    $('#password_verify').on('blur keyup', function(e) {
 
         if (this.value != $('#password').attr('value')) {
             $(this).parents('.form-group').addClass('has-error');
