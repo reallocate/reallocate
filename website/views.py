@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from django.http import HttpResponse, HttpResponseRedirect
-from django.core.exceptions import ObjectDoesNotExist
+from django.core.exceptions import ObjectDoesNotExist, PermissionDenied
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_exempt, csrf_protect
@@ -281,7 +281,13 @@ def view_project(request, pid=1):
 
 
 def manage_project(request, pid=1):
+
     project = get_object_or_404(Project, pk=pid)
+
+    if not request.user.is_authenticated() or project.created_by != request.user:
+        raise PermissionDenied
+
+
     opps = Opportunity.objects.filter(project=project)
     context = base.build_base_context(request)
     opp_engagements = OpportunityEngagement.objects.all().filter(project_id=pid)
