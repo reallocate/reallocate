@@ -6,14 +6,22 @@
 {% block meta_description %}{{ the_title }}{% endblock %}
 {% block extra_css %}
 	<style>
+        .well {
+            padding-top: 43px;
+            width: 502px;
+        }
+        .vert-or {
+            margin-top: 25px;
+        }
         .form-group .help-block {
             display: none;
         }
         .form-group.has-error .help-block {
             display: block;
         }
-        h5 {
-            margin-bottom: 20px;
+        .sign-in {
+            margin-top: 0px;
+            line-height: 0em;
         }
 	</style>
 {% endblock extra_css%}
@@ -25,51 +33,52 @@
         <h3>Create an account</h3>
         <h5>Creating an account allows you to engage with opportunties and post projects.</h5>
 
-        <div class="row">
+        <div class="well">
 
-            <div class="col-3">
+            <div class="row">
 
-        	    <form method="post" id="sign-up-form">
-                    <div class="form-group">
-                        <input class="form-control" type="text" name="email" id="email" placeholder="Email Address">
-                        <span class="help-block">That email is already in use</span>
-                    </div>
-                    <div class="form-group">
-                        <input class="form-control" type="password" name="password" value="" id="password" placeholder="Password"/>
-                    </div>
-                    <div class="form-group">
-                        <input class="form-control" type="password" name="password_verify" value="" id="password_verify" placeholder="Re-type Password"/>
-                        <span class="help-block">Passwords don't match</span>
-                    </div>
-                    <div class="form-group pull-right">
-                        <button class="btn btn-primary" type="submit" id="sign-up-submit" disabled="disabled">Sign up</button>
-                    </div>
-                    <input type="hidden" name="next" value="{{ next }}" />
-        	    </form>
-        	</div>
+                <div class="col-6 col-offset-1">
 
-            <div class="col-1 vert-or">
-                <div></div>
-                <p>or</p>
-                <div></div>
-            </div>
+            	    <form method="post" id="sign-up-form">
+                        <div class="form-group">
+                            <input class="form-control" type="text" name="email" id="email" placeholder="Email Address">
+                            <span class="help-block">That email is already in use</span>
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" type="password" name="password" value="" id="password" placeholder="Password"/>
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" type="password" name="password_verify" value="" id="password_verify" placeholder="Re-type Password"/>
+                            <span class="help-block">Passwords don't match</span>
+                        </div>
+                        <div class="form-group pull-right">
+                            <button class="btn btn-primary" type="submit" id="sign-up-submit" disabled="disabled">Sign up</button>
+                        </div>
+                        <input type="hidden" name="next" value="{{ next }}" />
+            	    </form>
+            	</div>
 
-            <div class="col-3" id="social-sign-in">
-
-                <div class="form-group">
-                    <a href="{% url "socialauth_begin" "linkedin" %}" class="btn btn-info"><i class="icon-linkedin"></i> LinkedIn</a>
+                <div class="col-1 vert-or">
+                    <div></div>
+                    <p>or</p>
+                    <div></div>
                 </div>
-                <div class="form-group">
-                    <a href="{% url "socialauth_begin" "google" %}" class="btn btn-info"><i class="icon-google-plus"></i> Google</a>
-                </div>
-                <div class="form-group">
-                    <a class="btn btn-info" href="{% url "socialauth_begin" "google" %}"><i class="icon-facebook"></i> Facebook</a>
+
+                <div class="col-4" id="social-sign-in">
+
+                    <div class="form-group">
+                        <a href="{% url "socialauth_begin" "linkedin" %}" class="btn btn-primary"><i class="icon-linkedin"></i> LinkedIn</a>
+                    </div>
+                    <div class="form-group">
+                        <a href="{% url "socialauth_begin" "google" %}" class="btn btn-primary"><i class="icon-google-plus"></i> Google</a>
+                    </div>
+                    <div class="form-group">
+                        <a class="btn btn-primary" href="{% url "socialauth_begin" "facebook" %}"><i class="icon-facebook"></i> Facebook</a>
+                    </div>
                 </div>
             </div>
         </div>
-
-        <p class="sign-in">Already have an account? <a href="{{ next }}" class="login-required">Sign In</a></h4>
-
+        <h4 class="sign-in">Already have an account? <a href="{{ next }}" class="login-required">Sign In.</a></h4>
     </div>
 
 {% endblock %}

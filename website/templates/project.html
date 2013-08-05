@@ -11,9 +11,6 @@
             position: relative;
             height: 100%;
         }
-        #project-title button {
-            margin-top: 20px;
-        }
         #project-title h1 {
             color: #fdfdfd;
             font-size: 38px;
@@ -135,6 +132,17 @@
             padding-bottom: 18px;
             border-bottom: 1px solid #e3e3e3;
         }
+        .addthis-toolbox .share i {
+            font-size: 31px;
+            line-height: 0.3em;
+        }
+        .follow {
+            width: 90px;
+            margin-left: 5px;
+        }
+        .follow-share {
+            margin-top: 12px;
+        }
         </style>
 {% endblock %}
 
@@ -146,19 +154,25 @@
 {% endblock %}
 
 {% block jumbotron %}
-<style>
- 
-</style>
 <div class="jumbotron">
     <div class="overlay">
         <div id="project-title" class="container">
              <div class="row">
-                <div class="col-10">
+                <div class="col-9">
                     <h1>{{ project.name }}</h1>
                 </div>
-                <div class="col-2">
-                    <div class='follow-or-not'>
-                        <button class="btn btn-block btn-primary follow" onclick="reAllocate.followProject(this, {{ project.id }});">{% if is_following %}Unfollow{% else %}Follow{% endif %}</button>
+                <div class="col-3">
+                    <div class='follow-share addthis-toolbox'>
+                        <a class="share addthis-button-twitter ">
+                            <i class="icon-twitter icon-2x"></i>
+                        </a>
+                        <a class="share addthis-button-facebook ">
+                            <i class="icon-facebook icon-2x"></i>
+                        </a>
+                        <a class="share addthis-button-linkedin ">
+                            <i class="icon-linkedin-sign icon-2x"></i>
+                        </a>
+                        <button class="btn btn-primary follow" onclick="reAllocate.followProject(this, {{ project.id }});">{% if is_following %}Unfollow{% else %}Follow{% endif %}</button>
                     </div>
                 </div>
             </div>
@@ -207,17 +221,6 @@
                 </div>
         </div>    
         <div class="col-6">
-                    <div class="addthis-toolbox">
-                        <a class="share addthis-button-twitter ">
-                            <i class="icon-twitter icon-2x"></i>
-                        </a>
-                        <a class="share addthis-button-facebook ">
-                            <i class="icon-facebook icon-2x"></i>
-                        </a>
-                        <a class="share addthis-button-linkedin ">
-                            <i class="icon-linkedin-sign icon-2x"></i>
-                        </a>
-                    </div>
                     <!--
                     <div class="row">
                         <h4>Needs</h4>
@@ -227,10 +230,9 @@
                     </div>
                     -->
                     <div>
-                        <h4>Reallocators ({{ project.followed_by.count }})</h4>
-                        {% for follower in project.followers %}
-                           <img src="/static/images/profilepic-female1.png" class="follower-thumb img-responsive" />
-                           <p class="follower">{{ follower.username }}</p>
+                        <h4>Reallocators ({{ engagement.count }})</h4>
+                        {% for e in engagement %}
+                           <p class="follower"><a href="/profile/{{ e.user.id }}">{{ e.user.first_name }} {{ e.user.last_name }}</a></p>
                         {% endfor %}
                     </div>
                     <div class="clearfix"></div>

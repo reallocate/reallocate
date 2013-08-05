@@ -11,7 +11,7 @@ from django.shortcuts import render_to_response, get_object_or_404
 
 import website.base as base
 from website.settings import ADMIN_EMAIL
-from website.models import UserProfile, Project, ProjectForm, Update, Opportunity, OpportunityEngagement
+from website.models import UserProfile, Project, ProjectForm, Update, Organization, Opportunity, OpportunityEngagement
 
 
 @login_required
@@ -190,3 +190,21 @@ def check_available(request, *args):
 
 
     return HttpResponse(json.dumps(response_data), mimetype="application/json")
+
+
+def check_org_name(request, *args):
+
+    name = request.REQUEST.get('name')
+
+    if name:
+
+        q = Organization.objects.filter(name=name)
+        response_data = False if q else True
+
+    else:
+
+        response_data = ''
+
+
+    return HttpResponse(json.dumps(response_data), mimetype="application/json")
+

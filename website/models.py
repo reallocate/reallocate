@@ -95,6 +95,7 @@ class Opportunity(models.Model):
     featured = models.BooleanField(default=False, blank=True)
     opp_type = models.CharField(max_length=100, choices=OPP_TYPE_CHOICES, blank=True) # TODO: replace with taggit? Four main options: Service, Donation, Rental, Question
     engaged_by = models.ManyToManyField(User, blank=True, through='OpportunityEngagement')
+    
     # prerequisites = models.ManyToManyField(Opportunity)  - assuming that pre-reqs = other opps
     # time estimate - TODO: See v2 Feature Doc https://docs.google.com/a/reallocate.org/document/d/1AY-2h9pa028USr3ofwUQjjoZ2kKGnRQZ0xoIQYk-urs/edit
     # deliverable - TODO: separate free-form text field

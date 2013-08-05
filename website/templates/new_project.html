@@ -6,6 +6,11 @@
 {% block meta_description %}{{ the_title }}{% endblock %}
 
 {% block extra_css %}
+    <style>
+        .well {
+            width: 550px;
+        }
+    </style>
 {% endblock %}
 
 {% block content %}
@@ -14,43 +19,46 @@
 
         <h3>New Project{% if organization %} for <span>{{ organization.name }}</span>{% endif %}</h3>
 
-        <div class="row">
-            <div class="col-6">
-                <form class="form-horizontal col-12" method="post" enctype="multipart/form-data">
-                    <div class="form-group">
-                        <label for="name">Project Title</label>
-                        <input class="form-control" type="text" id="name" name="name">
-                    </div>
-                    <div class="form-group">
-                        <label for="industry">Industry</label>
-                        <select class="form-control" id="industry" name="industry">
-                            <option>Select</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="short-desc">Short Description</label>
-                        <input class="form-control" type="text" id="short-desc" name="short_desc" placeholder="a brief, one-line description">
-                    </div>
-                    <div class="form-group">
-                        <label for="description">Full Description</label>
-                        <textarea class="form-control" id="description" name="description"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="name">Add an Image</label> (optional)<br/>
-                        <button class="delegate-file-upload btn btn-primary">Upload Image</button>
-                        <i class="icon-ok icon-2x file-upload-ok" style='padding-left:10px;display:none;color:blue;'></i>
-                        <input type="file" name="file" id="file" value="Upload a new photo" style="display: none;">
-                    </div>
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-default pull-right">Save</button>
-                    </div>
-                </form>
-            </div>
+        <div class="well">
+
+            <form class="" method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="name">Project Title</label>
+                    <input class="form-control required" type="text" id="name" name="name">
+                    <span class="help-block">Please provide a project name</span>
+                </div>
+                <div class="form-group">
+                    <label for="industry">Industry</label>
+                    <select class="form-control" id="industry" name="industry">
+                        <option>Select</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="short-desc">Short Description</label>
+                    <input class="form-control required" type="text" id="short-desc" name="short_desc" placeholder="a brief, one-line description">
+                    <span class="help-block">Please provide a brief description</span>
+                </div>
+                <div class="form-group">
+                    <label for="description">Full Description</label>
+                    <textarea class="form-control" id="description" name="description"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="name">Add an Image</label> (optional)<br/>
+                    <button class="delegate-file-upload btn btn-default">Select Image</button>
+                    <i class="icon-ok icon-2x file-upload-ok" style="display: none;"></i>
+                    <input type="file" name="file" id="file" value="Upload a new photo" style="display: none;">
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary pull-right" disable="disabled">Next</button>
+                    <div class="clearfix"></div>
+                </div>
+            </form>
+    
         </div>
     </div>
 
 {% endblock %}
 
 {% block bottomscript %}
-
+    
 {% endblock %}

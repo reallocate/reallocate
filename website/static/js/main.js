@@ -58,7 +58,27 @@ reAllocate = {
             });
         });
 
+        // form validation
+        $('.required').on('blur', function(e) {
+
+            if (!this.value) {
+                $(this).parents('.form-group').addClass('has-error');
+            } else {
+                $(this).parents('.form-group').removeClass('has-error');
+            }
+
+            reAllocate.validateForm();
+        });
     },   
+
+    validateForm: function() {
+
+        if ($('.form-group').hasClass('has-error') || $('.required[value=]').length) {
+            $(this).parents('form').find('button[type=submit]').attr('disabled','disabled');
+        } else {
+            $(this).parents('form').find('button[type=submit]').removeAttr('disabled');
+        }
+    },
 
     postUpdate: function(form) {
 
@@ -124,11 +144,13 @@ reAllocate = {
 
                 reAllocate.user = json.user;
 
-                $(".bad-username-or-password").addClass('is-invisible');
                 $('#login-modal').modal('hide');
 
-                if (json.next) {
-                    location.href = json.next;
+                var next = json.next || $('form input[name="next"]').attr('value');
+                console.log(next);
+
+                if (next) {
+                    location.href = next;
                 } else if (reAllocate.follow) {
                     reAllocate.followProject(reAllocate.follow.e, reAllocate.follow.pid);
                 }

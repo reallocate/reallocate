@@ -7,39 +7,44 @@
 
 
 {% block extra_css %}
+    <style>
+    #add-opportunity {
+        border-right: 1px solid #ddd;
+    }
+    </style>
 {% endblock %}
 
 {% block content %}
 
 <div class="container">
+                <h3>Add Opportunity for {{ project.name }}</h3>
+    <div class="well">
 
-    <div class="row">
-        <div class="col-10">
-            <h3>Add Opportunity</h3>
-            <h5>{{ project.name }}</h5>
-        </div>
-    </div>
+        <div class="row">
 
-    <div class="row" id="add-opportunity">
-        <div class="col-5">
-            <form class="form-horizontal col-12" method="post">
+            <div class="col-7" id="add-opportunity">
+
+                <form method="post">
                 <div class="form-group">
                     <label for="name">Opportunity Title</label>
-                    <input class="form-control" type="text" id="name" name="name">
+                    <input class="form-control required" type="text" id="name" name="name">
+                    <span class="help-block">Please provide a title</span>
                 </div>
                 <div class="form-group">
                     <label for="opp-type">Type</label>
-                    <select class="form-control" id="opp-type" name="opp_type">
+                    <select class="form-control required" id="opp-type" name="opp_type">
                         <option>Select</option>
                         <option>Equipment</option>
                         <option>Knowledge</option>
                         <option>Money</option>
                         <option>Skills</option>
                     </select>
+                    <span class="help-block">Please select a opportunity type</span>
                 </div>
                 <div class="form-group">
                     <label for="short-desc">Short Description</label>
-                    <input class="form-control" type="text" id="short-desc" name="short_desc" placeholder="a brief, one-line description">
+                    <input class="form-control required" type="text" id="short-desc" name="short_desc" placeholder="a brief, one-line description">
+                    <span class="help-block">Please provide a brief description</span>
                 </div>
                 <div class="form-group">
                     <label for="description">Full Description</label>
@@ -47,26 +52,30 @@
                 </div>
                 <div class="form-group">
                         <label for="name">Add an Image</label> (optional)<br/>
-                        <button class="delegate-file-upload btn btn-primary">Upload Image</button>
-                        <i class="icon-ok icon-2x file-upload-ok" style='padding-left:10px;display:none;color:blue;'></i>
+                        <button class="delegate-file-upload btn btn-default">Select Image</button>
+                        <i class="icon-ok icon-2x file-upload-ok" style="display: none;"></i>
                         <input type="file" name="file" id="file" value="Upload a new photo" style="display: none;">
                 </div>
                 <div class="form-group pull-right">
-                    <button type="button" onclick="add_another(this)" class="btn btn-default">Add another</button>
-                    <button type="submit" class="btn btn-default">Done</button>
+                    <button type="button" onclick="add_another(this)" class="btn btn-primary">Add</button>
+                    <button type="submit" class="btn btn-primary">Done</button>
                 </div>
-            </form>
-        </div>
-        <div class="col-offset-1 col-5">
-            {% if opportunities %}
-            <h4>Current opportunities</h4>
-            {% for opportunity in opportunities %}
-            <div class="opportunity">
-                <p class="name"><b>{{ opportunity.name }}</b><p>
-                <p class="short-desc">{{ opportunity.short_desc}}</p>
+                </form>
             </div>
-            {% endfor %}
-            {% endif %}
+
+            <div class="col-5">
+                <h4>Current Opportunities</h4>
+                {% if opportunities %}
+                {% for opportunity in opportunities %}
+                <div class="opportunity">
+                    <p class="name"><b>{{ opportunity.name }}</b><p>
+                    <p class="short-desc">{{ opportunity.short_desc}}</p>
+                </div>
+                {% endfor %}
+                {% else %}
+                <p>None</p>
+                {% endif %}
+            </div>
         </div>
     </div>
 </div>

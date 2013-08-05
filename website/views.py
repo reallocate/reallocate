@@ -266,11 +266,13 @@ def view_project(request, pid=1):
 
     project = get_object_or_404(Project, pk=pid)
     opps = Opportunity.objects.filter(project=project)
+    engagement = OpportunityEngagement.objects.filter(project=project)
     context = base.build_base_context(request)
 
     context.update({
         "project": project,
         "opportunities": opps,
+        "engagement": engagement,
         "updates": Update.objects.filter(project=project)})
     
     if request.user.is_authenticated():
@@ -290,11 +292,11 @@ def manage_project(request, pid=1):
 
     opps = Opportunity.objects.filter(project=project)
     context = base.build_base_context(request)
-    opp_engagements = OpportunityEngagement.objects.all().filter(project_id=pid)
+    engagement = OpportunityEngagement.objects.filter(project_id=pid)
     context.update({
         "project": project,
         "opportunities": opps,
-        "opp_engagements": opp_engagements,
+        "engagement": engagement,
         "updates": Update.objects.filter(project=project)})
     
     if request.user.is_authenticated():

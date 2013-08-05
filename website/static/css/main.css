@@ -54,7 +54,7 @@ h5 {
     cursor: pointer;
 }
 .opportunities {
-    border-top: 1px solid #e2e2e2;
+    
 }
 .opportunity {
     position: relative;
@@ -223,11 +223,11 @@ h5 {
 }
 #login-modal form input[type=text], #login-modal form input[type=password] {
 }
-#login-modal .form-group .help-block {
+.form-group .help-block {
     display: none;
     font-size: 13px;
 }
-#login-modal .form-group.has-error .help-block {
+.form-group.has-error .help-block {
     display: block;
 }
 #login-modal .forgot {
@@ -373,4 +373,9 @@ h5 {
 footer {
     margin-top: 25px;
     text-align: center;
+}
+.file-upload-ok {
+    line-height: 0.4em !important;
+    padding-left: 10px;
+    color: green;
 }
