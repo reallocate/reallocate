@@ -194,7 +194,9 @@ def forgot_password(request):
         return HttpResponseRedirect('/forgot-password?topmsg=Your+password+has+been+reset.')
         
     context['email'] = request.GET.get('email', '')
+
     return render_to_response('forgot_password.html', context, context_instance=RequestContext(request))
+
 
 @csrf_exempt
 def sign_up(request):
@@ -363,9 +365,11 @@ def view_opportunity(request, pid, oid):
     context.update({
         'opportunity': opp,
         'project': opp.project,
+        'resources': opp.resources.split(','),
         'other_opps': [rec for rec in Opportunity.objects.filter(project=opp.project).all() if rec.id != opp.id],
         'updates': updates,
-        'is_engaged': False})
+        'is_engaged': False
+    })
     
     if request.user.is_authenticated():
 

@@ -132,7 +132,7 @@
             padding-bottom: 18px;
             border-bottom: 1px solid #e3e3e3;
         }
-        .addthis-toolbox .share i {
+        .addthis_toolbox .share i {
             font-size: 31px;
             line-height: 0.3em;
         }
@@ -162,14 +162,14 @@
                     <h1>{{ project.name }}</h1>
                 </div>
                 <div class="col-3">
-                    <div class='follow-share addthis-toolbox'>
-                        <a class="share addthis-button-twitter ">
+                    <div class='follow-share addthis_toolbox'>
+                        <a class="share addthis_button_twitter ">
                             <i class="icon-twitter icon-2x"></i>
                         </a>
-                        <a class="share addthis-button-facebook ">
+                        <a class="share addthis_button_facebook ">
                             <i class="icon-facebook icon-2x"></i>
                         </a>
-                        <a class="share addthis-button-linkedin ">
+                        <a class="share addthis_button_linkedin ">
                             <i class="icon-linkedin-sign icon-2x"></i>
                         </a>
                         <button class="btn btn-primary follow" onclick="reAllocate.followProject(this, {{ project.id }});">{% if is_following %}Unfollow{% else %}Follow{% endif %}</button>

@@ -9,6 +9,7 @@ STATUS_INACTIVE = STATUS_CHOICES[0][0]
 STATUS_ACTIVE = STATUS_CHOICES[1][0]
 STATUS_CLOSED = STATUS_CHOICES[2][0]
 
+
 class Organization(models.Model):
 
     name = models.CharField(max_length=100, blank=True)
@@ -66,12 +67,13 @@ class Project(models.Model):
     def make_s3_media_url(self, uploaded_file):
         return 'projects/%s/%s' % (self.id, uploaded_file.name)
 
+
 class ProjectForm(ModelForm):
 
     class Meta:
 
         model = Project
-        fields = ('name', 'industry', 'short_desc', 'description', )
+        fields = ('name', 'industry', 'short_desc', 'description', 'media_url')
 
         widgets = {
             'description': Textarea(attrs={'cols': 80, 'rows': 10}),
@@ -92,10 +94,11 @@ class Opportunity(models.Model):
     created_by = models.ForeignKey(User, related_name="created_by_related")
     short_desc = models.TextField(blank=True)
     description = models.TextField(blank=True)
+    resources = models.TextField(blank=True)
     featured = models.BooleanField(default=False, blank=True)
     opp_type = models.CharField(max_length=100, choices=OPP_TYPE_CHOICES, blank=True) # TODO: replace with taggit? Four main options: Service, Donation, Rental, Question
     engaged_by = models.ManyToManyField(User, blank=True, through='OpportunityEngagement')
-    
+
     # prerequisites = models.ManyToManyField(Opportunity)  - assuming that pre-reqs = other opps
     # time estimate - TODO: See v2 Feature Doc https://docs.google.com/a/reallocate.org/document/d/1AY-2h9pa028USr3ofwUQjjoZ2kKGnRQZ0xoIQYk-urs/edit
     # deliverable - TODO: separate free-form text field
@@ -110,11 +113,12 @@ class Opportunity(models.Model):
     def make_s3_media_url(self, uploaded_file):
         return 'opportunities/%s/%s' % (self.id, uploaded_file.name)
 
+
 class OpportunityForm(ModelForm):
 
     class Meta:
         model = Opportunity
-        fields = ('name', 'description', 'short_desc', 'opp_type')
+        fields = ('name', 'description', 'short_desc', 'opp_type', 'resources', 'media_url')
 
         widgets = {
             'description': Textarea(attrs={'cols': 80, 'rows': 10}),
