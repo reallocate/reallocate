@@ -28,7 +28,7 @@ reAllocate = {
                 e.preventDefault();
                 $('#login-modal').modal('show');
                 
-                return;
+                return false;
             }
         });
 

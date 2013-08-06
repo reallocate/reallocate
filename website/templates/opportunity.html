@@ -38,12 +38,8 @@
     }
     .opp-description {
         font-size: 18px;
-        border-bottom: 1px solid #ddd;
         padding-bottom: 10px;
-        margin-bottom: 20px;
-    }
-    .post-opp-update {
-        margin-bottom: 20px;
+        margin-bottom: 25px;
     }
     .update {
         padding-bottom: 10px;
@@ -155,7 +151,7 @@
                         </a>
   
                         {% if not engaged or pending %}
-                        <a href="#engage-modal" class="engage-button btn btn-primary" data-toggle="modal"{% if pending %} disabled=disabled {% endif %}>Engage</a>
+                        <a href="#engage-modal" class="engage-button btn btn-primary login-required" data-toggle="modal"{% if pending %} disabled=disabled {% endif %}>Engage</a>
                         {% include 'includes/engage_modal.html' %}
                         {% endif %}
                     </div>
@@ -173,13 +169,17 @@
         
             <div class="col-8">
 
-                <h4>Overview</h4>
+                <h3>Overview</h3>
                 <p class="opp-description">{{ opportunity.description|safe }}</p>
             
-                <h4>Recent Updates</h4>
+                <h3>Recent Updates</h3>
                 <a name="updates"></a>
-                <div class="post-opp-update">
-                    {% if engaged %}{% include "includes/post-update.html" %}{% endif %}
+                <div id="updates">
+                    {% if engaged %}
+                    <div class="post-update update">
+                    {% include "includes/post-update.html" %}
+                    </div>
+                    {% endif %}
                     {% for update in updates %}
                     <div class="update">
                         {% if update.media_url %}

@@ -201,24 +201,24 @@
                 <p>Created By <a class="username" href="/profile/{{ project.created_by.id }}">{{ project.created_by.first_name }} {{ project.created_by.last_name }}</a> for {{ project.organization.name }}</p>
             </div>
             <div id="updates">
-                    <h3>Recent Updates</h3>
-                    {% if is_admin %}{% include 'includes/post-update.html' %}{% endif %}
-                    {% for update in updates %}
-                    <div class="update">
-                        {% if update.media_url %}
-                        <div class="update-media"><img src="{{ update.media_url }}"></div>
-                        {% endif %}
-                        <p class="update-date">{{ update.date_created.date }}</p>
-                        <p class="update-text">{{ update.text }}</p>
-                        {% if update.created_by.get_profile.media_url %}                    
-                        <img class="update-avatar" src="{{ update.created_by.get_profile.media_url }}" />
-                        {% endif %}
-                        <a class="update-username" href="/profile/{{ update.created_by.id }}">
-                            {{ update.created_by.first_name }} {{ update.created_by.last_name }}
-                        </a>
-                    </div>
-                    {% endfor %}
+                <h3>Recent Updates</h3>
+                {% if is_admin %}{% include 'includes/post-update.html' %}{% endif %}
+                {% for update in updates %}
+                <div class="update">
+                    {% if update.media_url %}
+                    <div class="update-media"><img src="{{ update.media_url }}"></div>
+                    {% endif %}
+                    <p class="update-date">{{ update.date_created.date }}</p>
+                    <p class="update-text">{{ update.text }}</p>
+                    {% if update.created_by.get_profile.media_url %}                    
+                    <img class="update-avatar" src="{{ update.created_by.get_profile.media_url }}" />
+                    {% endif %}
+                    <a class="update-username" href="/profile/{{ update.created_by.id }}">
+                        {{ update.created_by.first_name }} {{ update.created_by.last_name }}
+                    </a>
                 </div>
+                {% endfor %}
+            </div>
         </div>    
         <div class="col-6">
                     <!--
