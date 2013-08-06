@@ -82,6 +82,7 @@ reAllocate = {
 
     postUpdate: function(form) {
 
+
         var form = $(form);
         
         if (form.find('textarea').val().length == 0) {
@@ -111,9 +112,7 @@ reAllocate = {
                 // hide modal if used/exists else reload page
                 if ($('#post-update-modal').length) {
                     $('#post-update-modal').modal('hide');
-                    console.log('modal');
                 } else {
-                    console.log('no modal');
                     window.location.assign('#updates');
                     window.location.reload();
                 }

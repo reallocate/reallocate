@@ -39,7 +39,7 @@
         }
         #updates {
         }
-        .update {
+        .update, .post-update {
             padding: 0px 0px 10px 0px;
             border-bottom: 1px solid #ededed;
             margin-bottom: 15px;
@@ -127,11 +127,6 @@
             background-size: cover;
             height: 270px;
         }
-        .post-update {
-            margin-bottom: 25px;
-            padding-bottom: 18px;
-            border-bottom: 1px solid #e3e3e3;
-        }
         .addthis_toolbox .share i {
             font-size: 31px;
             line-height: 0.3em;
@@ -200,9 +195,12 @@
                 {{ project.description|safe }}
                 <p>Created By <a class="username" href="/profile/{{ project.created_by.id }}">{{ project.created_by.first_name }} {{ project.created_by.last_name }}</a> for {{ project.organization.name }}</p>
             </div>
+            {% if is_admin %}
+            {% include 'includes/post-update.html' %}
+            {% endif %}
+            {% if updates %}
             <div id="updates">
                 <h3>Recent Updates</h3>
-                {% if is_admin %}{% include 'includes/post-update.html' %}{% endif %}
                 {% for update in updates %}
                 <div class="update">
                     {% if update.media_url %}
@@ -219,6 +217,7 @@
                 </div>
                 {% endfor %}
             </div>
+            {% endif %}
         </div>    
         <div class="col-6">
                     <!--
