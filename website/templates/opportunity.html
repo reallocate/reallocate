@@ -12,14 +12,18 @@
         height: 100%;
     }
     #opp-title .engage-button {
-        margin-top: 32px;
+        margin-left: 10px;
     }
     #opp-title h1 {
         color: #333;
-        font-size: 38px;
+        font-size: 26px;
         letter-spacing: 1px;
         font-weight: normal;
         margin-top: 0px;
+    }
+    #opp-title h4 {
+        margin-top: 8px;
+        margin-bottom: 5px;
     }
     #opp-title .row {
         width: 100%;
@@ -86,6 +90,17 @@
     }
     .give-icons {
         text-align: center;
+        line-height: 1.2em;
+    }
+    .give-icons i {
+        font-size: 3.2em;
+    }
+    .addthis_toolbox {
+        font-size: 15px;
+        margin-top: 20px;
+    }
+    .addthis_toolbox .share i {
+        line-height: 0.2em;
     }
     </style>
 {% endblock %}
@@ -123,15 +138,27 @@
                     {% endif %}
                     </div>
                 </div>
-                <div class="col-9">
+                <div class="col-8">
                     <h4><a href="/project/{{ opportunity.project.id }}">{{ project.name }}</a></h4>
                     <h1>{{ opportunity.name }}</h1> 
                 </div>
-                <div class="col-2">
-                    {% if not engaged or pending %}
-                    <a href="#engage-modal" class="engage-button btn btn-block btn-primary" data-toggle="modal"{% if pending %} disabled=disabled {% endif %}>Engage</a>
-                    {% include 'includes/engage_modal.html' %}
-                    {% endif %}
+                <div class="col-3">
+                    <div class="addthis_toolbox">
+                        <a class="share addthis_button_twitter ">
+                            <i class="icon-twitter icon-2x"></i>
+                        </a>
+                        <a class="share addthis_button_facebook ">
+                            <i class="icon-facebook icon-2x"></i>
+                        </a>
+                        <a class="share addthis_button_linkedin ">
+                            <i class="icon-linkedin-sign icon-2x"></i>
+                        </a>
+  
+                        {% if not engaged or pending %}
+                        <a href="#engage-modal" class="engage-button btn btn-primary" data-toggle="modal"{% if pending %} disabled=disabled {% endif %}>Engage</a>
+                        {% include 'includes/engage_modal.html' %}
+                        {% endif %}
+                    </div>
                 </div>
             </div>
         </div>
@@ -172,18 +199,6 @@
             </div>
 
             <div class="col-4">
-
-                <div class="addthis-toolbox">
-                    <a class="share addthis-button-twitter ">
-                        <i class="icon-twitter icon-2x"></i>
-                    </a>
-                    <a class="share addthis-button-facebook ">
-                        <i class="icon-facebook icon-2x"></i>
-                    </a>
-                    <a class="share addthis-button-linkedin ">
-                        <i class="icon-linkedin-sign icon-2x"></i>
-                    </a>
-                </div>
                 
                 {% if resources.length %}
                 <h4>Resources</h4>
