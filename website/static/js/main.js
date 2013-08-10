@@ -67,16 +67,19 @@ reAllocate = {
                 $(this).parents('.form-group').removeClass('has-error');
             }
 
-            reAllocate.validateForm();
+            reAllocate.validateForm($(this).parents('form'));
         });
     },   
 
-    validateForm: function() {
+    validateForm: function(form) {
 
-        if ($('.form-group').hasClass('has-error') || $('.required[value=]').length) {
-            $(this).parents('form').find('button[type=submit]').attr('disabled','disabled');
+        console.log(form);
+        
+        if ($(form).find('.form-group').hasClass('has-error') || $(form).find('.required[value=]').length) {
+            $(form).find('button[type=submit]').attr('disabled','disabled');
         } else {
-            $(this).parents('form').find('button[type=submit]').removeAttr('disabled');
+            $(form).find('button[type=submit]').removeAttr('disabled');
+
         }
     },
 

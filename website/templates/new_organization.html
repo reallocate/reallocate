@@ -114,20 +114,21 @@
             url : '/ajax/check-org-name',
             method: 'GET',
             data : {'name': name.value},
-            success: function(available) {`
+            success: function(available) {
                 if (available) {
                     $(name).parents('.form-group').removeClass('has-error');
                 } else {
                     $(name).siblings('.help-block').text('That organization already exists');
                     $(name).parents('.form-group').addClass('has-error');
                 }
+                
+                reAllocate.validateForm($(name).parents('form'));
             },
             error: function(res) {
-                console.log('error in ajax request: ' + res);
+                //console.log('error in ajax request: ' + res);
             }
         });
 
-        reAllocate.validateForm();
     });
 
     </script>
