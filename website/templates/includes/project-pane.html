@@ -4,7 +4,7 @@
     </div>
     <div class="project-text">
         <div class="project-name"><a href="/project/{{ project.id }}">{{ project.name }}</a></div>
-        <div class="short-desc"><a href="/project/{{ project.id }}">{{ project.short_desc }}</a></div>
+        <div class="short-desc"><a href="/project/{{ project.id }}">{{ project.short_desc|truncatechars:200 }}</a></div>
         <!--
         <div class="row project-status">
             <div class="col-5 pie-chart">
@@ -12,7 +12,7 @@
             </div>
             <div class="col-7 project-needs">
                 <strong>Needs</strong><br/>
-                <div class="need">
+                <div class="need"
                     [ TODO ]<br />
                     <a href="/project/{{ project.id }}">See more&hellip;</a>
                 </div>

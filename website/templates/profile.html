@@ -3,38 +3,59 @@
 {% block extra_css %}
     <style>
         .project-name {
-            font-size:16px;
-            font-weight:800;
-        }
-        input, textarea {
-            width:350px;
+            font-size: 16px;
+            font-weight: 800;
         }
         .profile-info {
             margin-bottom: 15px;   
         }        
         .profile-info-header {
-            text-align: left;
-            font-size:16px;
         }
         .profile-header-edit {
-            padding-top:6px;
-            margin-bottom: 10px;
         }
         .profile-numbers {
             width: 100%;
-            margin-top:20px;
+            margin-top: 20px;
             background-color: #1c6845;
-            background-image:url(/static/images/bgtexture2.png);
+            background-image: url(/static/images/bgtexture2.png);
             color: #FFF;
         }
         .bottom-profile-header {
-            text-align:center;
+            text-align: center;
         }
         .username {
-            font-size:36px;
-            font-weight:bold;
-            color:white;
-            margin-bottom:45px;
+            font-size: 36px;
+            font-weight: bold;
+            color: white;
+            margin-bottom: 45px;
+        }
+        #user-details {
+            border-bottom: 1px solid #dedede;
+            margin-bottom: 10px;
+            padding-bottom: 20px;
+        }
+        #user-image {
+            margin-top: 20px;
+        }
+        #user-image img {
+            width: 100%;
+            margin-bottom: 10px;
+
+        }
+        #update-profile .form-control[readonly="readonly"], #update-profile #bio div {
+            border: none;
+            background-color: transparent;
+            box-shadow: none;
+            -webkit-box-shadow: none;
+        }
+        #update-profile textarea.form-control[readonly="readonly"] {
+            display: none;
+        }
+        #update-profile div.form-control[readonly="readonly"] {
+            display: block;
+        }
+        #update-profile div.form-control {
+            display: none;
         }
     </style>
 {% endblock %}
@@ -43,96 +64,72 @@
 
 <div style='position:absolute; background-image:url(/static/images/bgtexture2.png);width:100%;height:80px;z-index:-1;'></div>    
 
-<div class='container'>
+<div class="container">
 
-    <div class='row'>
+    <div class="row" id="user-details">
 
-        {% if edit %}
-        <form id="update-profile" method="post" enctype="multipart/form-data">
-        {% endif %}
-        <div class="col-3 user-image">
-                <img src="{{ user_profile.media_url|default:'/static/images/no-profile-image.png' }}" alt="Avatar for {{ profile.user|escape }}" />
-            {% if edit %}
-                <button class="delegate-file-upload btn btn-primary">Change profile picture</button>
+        <form id="update-profile" class="form-horizontal" method="post" enctype="multipart/form-data">
+
+            <div class="col-3" id="user-image">
+                <img src="{{ user_profile.media_url|default:'/static/images/no-profile-image.png' }}" alt="Avatar for {{ profile.user|escape }}" class="img-thumbnail" />
+                <button class="delegate-file-upload btn btn-default btn-block" style="display: none;">Change profile picture</button>
                 <input type="file" name="file" id="file" value="Upload a new photo" style="display: none;">
-            {% endif %}
-        </div>
+            </div>
         
-        <div class="col-9">
-            <div class="username">
-                {{ user_profile.user.first_name }} {{ user_profile.user.last_name }}
-            </div>
-            <div class=" profile-info">
-                {% if edit %}
-                <div class="row">
-                    <div class="col-2 profile-info-header {% if edit %}profile-header-edit{% endif %}"><strong>Email</strong></div>
-                    <div class='col-8'>    
-                        <input type="text" id="email" name="email" value="{{ user_profile.user.email }}" placeholder="Contact Email" />
+            <div class="col-8 col-offset-1">
+
+                <div class="username">
+                    {{ user_profile.user.first_name }} {{ user_profile.user.last_name }}
+                </div>
+
+                <div class="profile-info">
+
+                    <div class="form-group">
+                        <label class="control-label col-2 profile-info-header {% if edit %}profile-header-edit{% endif %}">Email</label>
+                        <div class="col-8">
+                            <input class="col-8 form-control" readonly="readonly" type="text" id="email" name="email" value="{{ user_profile.user.email }}" placeholder="Contact Email" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-2 profile-info-header {% if edit %}profile-header-edit{% endif %}">Location</label>
+                        <div class="col-8">
+                            <input class="form-control" readonly="readonly" type="text" name="location" placeholder="Location" value="{{ user_profile.location }}" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-2 profile-info-header {% if edit %}profile-header-edit{% endif %}">Occupation</label>
+                        <div class="col-8">
+                            <input class="form-control" readonly="readonly" type="text" name="occupation" placeholder="Occupation" value="{{ user_profile.occupation }}" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-2 profile-info-header {% if edit %}profile-header-edit{% endif %}">Skills</label>
+                        <div class="col-8">
+                            <input class="form-control" readonly="readonly" type="text" name="skills" placeholder="Comma separated skills" value="{{ user_skills }}" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-2 profile-info-header {% if edit %}profile-header-edit{% endif %}">Bio</label>
+                        <div class="col-8" id="bio">
+                            <textarea class="form-control" readonly="readonly" name="bio">{{ user_profile.bio }}</textarea>
+                            <div class="form-control" readonly="readonly">{{ user_profile.bio }}</div>
+                        </div>
                     </div>
                 </div>
-                {% endif %}
-                <div class="row">
-                    <div class="col-2 profile-info-header {% if edit %}profile-header-edit{% endif %}"><strong>Location</strong></div>
-                    <div class="col-8">
-                        {% if edit %}
-                            <input type="text" name="location" placeholder="Location" value="{{ user_profile.location }}" />
-                        {% else %}
-                            {{ user_profile.location|default:'San Francisco, CA' }}
-                        {% endif %}
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-2 profile-info-header {% if edit %}profile-header-edit{% endif %}"><strong>Occupation</strong></div>
-                    <div class="col-8">
-                        {% if edit %}
-                            <input type="text" name="occupation" placeholder="Occupation" value="{{ user_profile.occupation }}" />
-                        {% else %}
-                            {{ user_profile.occuption|default:'Renaissance Man' }}
-                        {% endif %}
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-2 profile-info-header {% if edit %}profile-header-edit{% endif %}"><strong>Skills</strong></div>
-                    <div class="col-8">
-                        {% if edit %}
-                            <input type="text" name="skills" placeholder="Comma Separate Skills" value="{{ user_skills }}" />
-                        {% else %}
-                            {{ user_skills|default:'This person has not added skills yet' }}
-                        {% endif %}
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-2 profile-info-header {% if edit %}profile-header-edit{% endif %}"><strong>Bio</strong></div>
-                    <div class="col-8">
-                        {% if edit %}
-                            <textarea name="bio">{{ user_profile.bio }}</textarea>
-                        {% else %}
-                            {{ user_profile.bio|default:'Default bio goes here' }}
-                        {% endif %}
-                    </div>
-                </div>
-                
-                {% if edit %}
-            </div>
+    
                 <div class="row">
                     <div class="col-8 col-offset-2">
-                        <input type="submit" value="Save Your Profile" class="btn btn-default" />
+                        <button type="button" onclick="editProfile()" class="btn btn-default btn-block">Edit your profile</button>
+                        <button type="submit" style="display: none;"  class="btn btn-primary btn-block">Save your profile</button>
                     </div>
                 </div>
-                </form>
-            {% endif %}
-        </div>
-        <div class="col-3">
-            {% if user_profile.linked_in %}<a class='' href='#'><h6>Linkedin profile</h6></a>{% endif %}
-            {% if user_profile.facebook %}<a class='' href='#'><h6>Facebook profile</h6></a>{% endif %}
-        </div>
+            </div>
+        </form>
     </div>
-</div>
 
-{% comment %}
-<!-- Top Line Numbers on Profile -->
-<div class="profile-numbers">
-    <div class="row">
+    {% comment %}
+    <!-- Top Line Numbers on Profile -->
+    <div class="profile-numbers row">
         <div class="col-8 col-offset-3">
             <div class="col-3">
                 <p>{{ projects|length }}</p>
@@ -148,17 +145,13 @@
             </div>
         </div>
     </div>
-</div>
-{% endcomment %}
+    {% endcomment %}
 
-<!-- Updates, Opps, and Projects -->
-<div class="container">
+    <!-- Updates, Opps, and Projects -->
     <div class="row">
         <div class="col-4">
             <div class="opportunities">
-                <div class="bottom-profile-header">
-                    <h3>Engaged Opportunities</h3>
-                </div>
+                <h3>Engaged Opportunities</h3>
                 {% for opportunity in opportunities %}
                     {% include 'includes/opportunity-pane-small.html' %}
                 {% endfor %}
@@ -166,9 +159,7 @@
         </div>
         <div class="col-4">
             <div class="user-projects-followed">
-                <div class="bottom-profile-header">
-                    <h3>Owned Projects</h3>
-                </div>
+                <h3>Projects</h3>
                  {% for project in my_projects %}
                     {% include 'includes/project-pane-small.html' %}
                 {% endfor %}
@@ -176,9 +167,7 @@
         </div>
         <div class="col-4">
             <div class="user-projects-followed">
-                <div class="bottom-profile-header">
-                    <h3>Followed Projects</h3>
-                </div>
+                <h3>Following</h3>
                  {% for project in followed_projects %}
                     {% include 'includes/project-pane-small.html' %}
                 {% endfor %}
@@ -189,4 +178,12 @@
 {% endblock %}
 
 {% block bottomscript %}
+<script>
+function editProfile() {
+    $(".form-control[readonly]").removeAttr('readonly');
+    $("button[type='submit']").css('display', 'block');
+    $("button[type='button']").css('display', 'none');
+    $("button.delegate-file-upload").css('display', 'block');
+}
+</script>
 {% endblock %}

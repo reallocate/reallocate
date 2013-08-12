@@ -283,10 +283,6 @@ h5 {
 .post-update .post-update-buttons {
     position: relative;
 }
-.post-update .fake-file {
-    position: relative;
-    z-index: 0;
-}
 .post-update .media-file {
     position: absolute;
     top: 7px;
@@ -306,6 +302,7 @@ h5 {
 .project {
     position: relative;
     margin-bottom: 30px;
+    padding-bottom: 1px;
     min-height: 330px;
     background-color: #f9f9f9;
     box-shadow: 1px 2px 3px #808080;
@@ -338,6 +335,7 @@ h5 {
     padding: 8px;
     width: 100%;
     height: 100%;
+    margin-bottom: 35px;
 }
 .project-text a {
     color: #0C3645; 
@@ -378,4 +376,11 @@ footer {
     line-height: 0.4em !important;
     padding-left: 10px;
     color: green;
+}
+
+img.update-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 5px;
+    vertical-align: top;
 }
