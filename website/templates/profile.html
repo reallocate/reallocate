@@ -72,8 +72,10 @@
 
             <div class="col-3" id="user-image">
                 <img src="{{ user_profile.media_url|default:'/static/images/no-profile-image.png' }}" alt="Avatar for {{ profile.user|escape }}" class="img-thumbnail" />
+                {% if edit %}
                 <button class="delegate-file-upload btn btn-default btn-block" style="display: none;">Change profile picture</button>
                 <input type="file" name="file" id="file" value="Upload a new photo" style="display: none;">
+                {% endif %}
             </div>
         
             <div class="col-8 col-offset-1">
@@ -116,13 +118,14 @@
                         </div>
                     </div>
                 </div>
-    
+                {% if edit %}
                 <div class="row">
                     <div class="col-8 col-offset-2">
                         <button type="button" onclick="editProfile()" class="btn btn-default btn-block">Edit your profile</button>
                         <button type="submit" style="display: none;"  class="btn btn-primary btn-block">Save your profile</button>
                     </div>
                 </div>
+                {% endif %}
             </div>
         </form>
     </div>

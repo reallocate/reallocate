@@ -34,12 +34,15 @@ def profile(request, username=None):
     if not username: 
         user = context['user']
         context['edit'] = True
+    elif re.match(r'^\d+', username):
+        user = User.objects.filter(id=username)
     else:
         user = User.objects.filter(Q(email=username) | Q(username=username))
     
     user_profile = UserProfile.objects.filter(Q(user=user))
     if len(user_profile) == 0:
-        return render_to_response('nosuchuser.html', context)
+        return HttpResponseRedirect('/')
+
     user_profile = user_profile[0] # replace above logic with None or single object?
 
     if request.method == "POST":
@@ -275,7 +278,7 @@ def view_project(request, pid=1):
         "project": project,
         "opportunities": opps,
         "engagement": engagement,
-        "updates": Update.objects.filter(project=project)})
+        "updates": Update.objects.filter(project=project).order_by('-date_created')})
     
     if request.user.is_authenticated():
         context['is_following'] = request.user in project.followed_by.all()
@@ -289,8 +292,7 @@ def manage_project(request, pid=1):
     project = get_object_or_404(Project, pk=pid)
 
     if not request.user.is_authenticated() or project.created_by != request.user:
-        raise PermissionDenied
-
+        return HttpResponseRedirect('/')
 
     opps = Opportunity.objects.filter(project=project)
     context = base.build_base_context(request)
