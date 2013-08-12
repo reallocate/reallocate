@@ -74,7 +74,7 @@ reAllocate = {
     validateForm: function(form) {
 
         console.log(form);
-        
+
         if ($(form).find('.form-group').hasClass('has-error') || $(form).find('.required[value=]').length) {
             $(form).find('button[type=submit]').attr('disabled','disabled');
         } else {
@@ -87,6 +87,8 @@ reAllocate = {
 
 
         var form = $(form);
+        
+        form.find('button[type=submit]').attr('disabled', 'disabled');
         
         if (form.find('textarea').val().length == 0) {
             alert('Please enter an update');
