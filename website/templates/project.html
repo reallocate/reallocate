@@ -25,6 +25,9 @@
         #about {
             margin-bottom: 30px;
         }
+        #about p {
+
+        }
         .section-title {
             height: 50px;
             font-size: 2em;
@@ -192,7 +195,7 @@
         <div class="col-6">
             <div id="about">
                 <h3>About the Project</h3>
-                {{ project.description|safe }}
+                <p>{{ project.description|safe }}</p>
                 <p>Created By <a class="username" href="/profile/{{ project.created_by.id }}">{{ project.created_by.first_name }} {{ project.created_by.last_name }}</a> for {{ project.organization.name }}</p>
             </div>
             {% if is_admin %}
