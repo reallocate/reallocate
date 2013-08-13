@@ -304,13 +304,12 @@ h5 {
     padding-bottom: 1px;
     min-height: 330px;
     background-color: #f9f9f9;
-    box-shadow: 1px 2px 3px #808080;
-    -moz-box-shadow: 1px 2px 3px #808080;
-    -webkit-box-shadow: 1px 2px 3px #808080;
+    box-shadow: 5px 5px 5px #808080;
+    -moz-box-shadow: 5px 5px 5px #808080;
+    -webkit-box-shadow: 5px 5px 5px #808080;
 }
 .project:hover {
     border-color: rgba(82, 168, 236, 0.8);
-    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(82, 168, 236, 0.6);
     cursor: pointer;
 }
 .project-image {

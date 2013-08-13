@@ -1,6 +1,30 @@
 {% extends 'theme/base.html' %}
 
 {% block extra_css %}
+    <style>
+        #updates {
+        }
+        .update, .post-update {
+            padding: 0px 0px 10px 0px;
+            border-bottom: 1px solid #ededed;
+            margin-bottom: 15px;
+        }
+        .update:last-child {
+            border: none;
+        }
+        .update-username {
+            color: black;
+        }
+        .update-opp-name {
+            color: #808080;
+        }
+        .update-text {
+            color: #808080;
+        }
+        .update-media img {
+            width: 100%;
+        }
+    </style>
 {% endblock %}
 
 {% block content %}
@@ -36,24 +60,9 @@
                     </div>
                 </div>
 
-                <p><a href="#desc-modal" role="button" class="btn btn-default" data-toggle="modal">Edit full description</a></p>
-                <p><a href="#post-update-modal" class="btn btn-primary" data-toggle="modal">Post an update</a></p>            
+                <p><a href="#desc-modal" role="button" class="btn btn-default" data-toggle="modal">Edit full description</a></p>      
 
             </form>
-            <div id="post-update-modal" class="modal fade">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h4 class="modal-title" id="post-update-modal-label">Project update</h4>
-                        </div>
-                        <div class="modal-body">
-                            {% include "includes/post-update.html" %}
-                        </div>
-                    </div>
-                </div>
-
-            </div>
         </div>
 
         <div class="col-offset-1 col-4" id="org">
@@ -69,20 +78,44 @@
     <div class="row wall">
 
         <div class="col-7">
-            <h4>Recent Activity</h4>            
+            {% if updates %}
+            <div id="updates">
+                <h4>Updates</h4>
+                {% include 'includes/post-update.html' %}
+                {% for update in updates %}
+                <div class="update">
+                    {% if update.media_url %}
+                    <div class="update-media"><img src="{{ update.media_url }}"></div>
+                    {% endif %}
+                    <p class="update-date">{{ update.date_created.date }}</p>
+                    <p class="update-text">{{ update.text }}</p>
+                    {% if update.created_by.get_profile.media_url %}                    
+                    <img class="update-avatar" src="{{ update.created_by.get_profile.media_url }}" />
+                    {% endif %}
+                    <a class="update-username" href="/profile/{{ update.created_by.id }}">
+                    {{ update.created_by.first_name }} {{ update.created_by.last_name }}
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
         </div>
 
         <div class="col-offset-1 col-4">
-            <h4>Opportunities</h4>
+
+            <h4>Opportunity Engagment</h4>
             {% for opportunity in opportunities %}
                 {% include "includes/opportunity-pane-small.html" %}
+                <ul>
+                {% for engagement in engagements %}
+                    {% ifequal opportunity engagement.opportunity %}
+                    <li><a href="/profile/{{ engagement.user.id }}">{{ engagement.user.first_name }} {{ engagement.user.last_name }}</a>
+                    {% if engagement.status == "Pending" %} (Pending){% endif %}</li>
+                    {% endifequal %}
+                {% endfor %}
+                </ul>
             {% endfor %}
-            <h4>Engaged Users</h4>
-            {% for opp in opp_engagements %}
-                <div>
-                    {{ opp.user.first_name }} {{ opp.user.last_name }}
-                </div>
-            {% endfor %}
+
         </div>
 
     </div>

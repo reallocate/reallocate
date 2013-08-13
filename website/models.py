@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from taggit.managers import TaggableManager
 
-STATUS_CHOICES = (('Unpublished', 'Unpublished'), ('Active', 'Active'), ('Closed', 'Closed'))
+STATUS_CHOICES = (('Pending', 'Pending'), ('Active', 'Active'), ('Closed', 'Closed'))
 STATUS_INACTIVE = STATUS_CHOICES[0][0]
 STATUS_ACTIVE = STATUS_CHOICES[1][0]
 STATUS_CLOSED = STATUS_CHOICES[2][0]
@@ -14,7 +14,7 @@ class Organization(models.Model):
 
     name = models.CharField(max_length=100, blank=True)
     business_type = models.CharField(max_length=100, blank=True, default='nonprofit')
-    status = models.CharField(max_length=100, choices=STATUS_CHOICES, default='unpublished')
+    status = models.CharField(max_length=100, choices=STATUS_CHOICES, default='Pending')
     year_established = models.CharField(max_length=4, blank=True)
     date_created = models.DateTimeField(auto_now_add=True)
     org_mission = models.TextField(blank=True)
@@ -52,7 +52,7 @@ class Project(models.Model):
     city = models.CharField(max_length=100, blank=True)
     state = models.CharField(max_length=100, blank=True)
     country = models.CharField(max_length=100,blank=True)
-    status = models.CharField(max_length=100, choices=STATUS_CHOICES, default='unpublished')
+    status = models.CharField(max_length=100, choices=STATUS_CHOICES, default='Pending')
     industry = models.CharField(max_length=100, blank=True)
     date_created = models.DateTimeField(auto_now_add=True)
     short_desc = models.TextField(blank=True)

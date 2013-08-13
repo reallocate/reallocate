@@ -147,8 +147,10 @@ def test_email(request):
 
     return HttpResponse(content=html_content)
 
+
 @csrf_exempt
 def reset_password(request):
+
     context = base.build_base_context(request)
     
     if request.POST:
@@ -174,8 +176,10 @@ def reset_password(request):
     context['email'] = request.GET.get("email", "")
     return render_to_response('reset_password.html', context, context_instance=RequestContext(request))
     
+
 @csrf_exempt
 def forgot_password(request):
+
     context = base.build_base_context(request)
     
     if request.POST:
@@ -296,12 +300,13 @@ def manage_project(request, pid=1):
 
     opps = Opportunity.objects.filter(project=project)
     context = base.build_base_context(request)
-    engagement = OpportunityEngagement.objects.filter(project_id=pid)
+    engagements = OpportunityEngagement.objects.filter(project_id=pid)
     context.update({
         "project": project,
         "opportunities": opps,
-        "engagement": engagement,
-        "updates": Update.objects.filter(project=project)})
+        "engagements": engagements,
+        "updates": Update.objects.filter(project=project).order_by("-date_created")
+    })
     
     if request.user.is_authenticated():
         context['is_following'] = request.user in project.followed_by.all()

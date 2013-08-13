@@ -212,7 +212,7 @@
                     <img class="update-avatar" src="{{ update.created_by.get_profile.media_url }}" />
                     {% endif %}
                     <a class="update-username" href="/profile/{{ update.created_by.id }}">
-                        {{ update.created_by.first_name }} {{ update.created_by.last_name }}
+                    {{ update.created_by.first_name }} {{ update.created_by.last_name }}
                     </a>
                 </div>
                 {% endfor %}
