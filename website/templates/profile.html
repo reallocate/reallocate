@@ -57,6 +57,9 @@
         #update-profile div.form-control {
             display: none;
         }
+        .form-group {
+            margin-bottom: 4px;
+        }
     </style>
 {% endblock %}
 
@@ -152,29 +155,23 @@
 
     <!-- Updates, Opps, and Projects -->
     <div class="row">
-        <div class="col-4">
-            <div class="opportunities">
-                <h3>Engaged Opportunities</h3>
-                {% for opportunity in opportunities %}
-                    {% include 'includes/opportunity-pane-small.html' %}
-                {% endfor %}
-            </div>
+        <div class="col-4 opportunities">
+            <h3>Engaged Opportunities</h3>
+            {% for opportunity in opportunities %}
+            {% include 'includes/opportunity-pane-small.html' %}
+            {% endfor %}
         </div>
-        <div class="col-4">
-            <div class="user-projects-followed">
-                <h3>Projects</h3>
-                 {% for project in my_projects %}
-                    {% include 'includes/project-pane-small.html' %}
-                {% endfor %}
-            </div>
+        <div class="col-4 user-projects-followed">
+            <h3>Projects</h3>
+            {% for project in my_projects %}
+            {% include 'includes/project-pane-small.html' %}
+            {% endfor %}
         </div>
-        <div class="col-4">
-            <div class="user-projects-followed">
-                <h3>Following</h3>
-                 {% for project in followed_projects %}
-                    {% include 'includes/project-pane-small.html' %}
-                {% endfor %}
-            </div>
+        <div class="col-4 user-projects-followed">
+            <h3>Following</h3>
+            {% for project in followed_projects %}
+            {% include 'includes/project-pane-small.html' %}
+            {% endfor %}
         </div>
     </div>
 </div>

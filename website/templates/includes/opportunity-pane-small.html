@@ -1,22 +1,37 @@
-<div class="row opportunity-small">
-	<div class="col-8">
-		<p>{{ oppotunity.opp_type }}</p>
-		<p>
-			<a href="/project/{{ opportunity.project.id }}/opportunity/{{ opportunity.id }}"><strong>{{ opportunity.name }}</strong></a>
-		</p>
-	</div>
-	<div class="col-4">
+
+<div class="opportunity-small">
+	<a href="/project/{{ opportunity.project.id }}/opportunity/{{ opportunity.id }}">
+		<p class="opp-name">
 		{% if opportunity.opp_type == 'skills' %}
-			<i class="icon-fighter-jet icon-4x"></i>
+		<i class="icon-star icon-1x"></i>
 		{% endif %}
-		{% if opportunity.opp_type == 'skills' %}
-			<i class="icon-book icon-4x"></i>
+		{% if opportunity.opp_type == 'knowledge' %}
+		<i class="icon-book icon-1x"></i>
 		{% endif %}
 		{% if opportunity.opp_type == 'equipment' %}
-			<i class="icon-cogs icon-4x"></i>
+		<i class="icon-cogs icon-1x"></i>
 		{% endif %}
 		{% if opportunity.opp_type == 'money' %}
-			<i class="icon-money icon-4x"></i>
-		{% endif %}	
-	</div>
+		<i class="icon-money icon-1x"></i>
+		{% endif %}
+		{{ opportunity.name }}</p>
+		<p class="project-name">{{ opportunity.project.name }}</p>
+
+	</a>
+	{% if edit %}
+	<div id="post-update-{{ opportunity.project.id }}{{ opportunity.id }}" class="modal fade">
+         <div class="modal-dialog">
+	        <div class="modal-content">
+	            <div class="modal-header">
+	                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	                <h3 id="post-update-{{ opportunity.project.id }}{{ opportunity.id }}-label" class="modal-title">{{ opportunity.name }} update</h3>
+	            </div>
+	            <div class="modal-body">
+	            {% include 'includes/post-update.html' %}
+	            </div>
+	        </div>
+		</div>
+    </div>
+    <p class="post-update-button"><a href="#post-update-{{ opportunity.project.id }}{{ opportunity.id }}" data-toggle="modal" alt="Post update"><i class="icon-comment icon-2x"></i></a></p>
+    {% endif %}
 </div>

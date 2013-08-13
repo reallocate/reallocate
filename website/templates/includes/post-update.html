@@ -2,9 +2,14 @@
 
     <form enctype="multipart/form-data" method="post">
 
-        <input type="hidden" name="orgid" value="{{ project.organization.id }}"/>
-        <input type="hidden" name="pid" value="{{ project.id }}"/>
-        <input type="hidden" name="oid" value="{{ opportunity.id }}"/>
+        {% if project %}
+        <input type="hidden" name="orgid" value="{{ project.organization.id }}" />
+        <input type="hidden" name="pid" value="{{ project.id }}" />
+        {% else %}
+        <input type="hidden" name="oid" value="{{ opportunity.id }}" />
+        <input type="hidden" name="orgid" value="{{ opportunity.project.organization.id }}" />
+        <input type="hidden" name="pid" value="{{ opportunity.project.id }}" />
+        {% endif %}
         <textarea class="form-control" name="text" placeholder="How is your project going?"></textarea>
         
         <div class="modal-buttons post-update-buttons">

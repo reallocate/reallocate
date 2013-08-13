@@ -10,7 +10,7 @@ h5 {
     color: #888888;
 }
 .container {
-    width: 940px !important;
+    
 }
 .jumbotron {
     margin-top: -20px;
@@ -99,8 +99,8 @@ h5 {
     font-family: 'Raleway', sans-serif;
     font-weight: bold;
 }
-.thumnail-container .location a{
-    margin-left: 5px
+.thumnail-container .location a {
+    margin-left: 5px;
 }
 .username {
     font-weight: bold;
@@ -129,14 +129,14 @@ h5 {
     margin-left: 30px;
 }
 .topmsg {
-    margin-top:20px;
-    margin-bottom:20px;
-    font-size:20px;
-    font-weight:bold;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-size: 20px;
+    font-weight: bold;
     color: red;
 }
 .text-center {
-    text-align:center;
+    text-align: center;
 }
 .opp-browse {
         background-color: #fff;
@@ -144,10 +144,10 @@ h5 {
         -webkit-border-radius: 5px;
         -moz-border-radius: 5px;
         border-radius: 5px;
-        margin-top:10px;
-        margin-bottom:10px;
+        margin-top: 10px;
+        margin-bottom: 10px;
         font-family: 'Raleway', sans-serif;
-        float:left;
+        float: left;
 }
 .opp-small {
     background-color: #eee;
@@ -167,9 +167,8 @@ h5 {
 }
 .project-img-small {
     padding:7px;
-    width:200px;
     height:100px;
-     border-radius: 5px;
+    border-radius: 5px;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
 }
@@ -383,4 +382,57 @@ img.update-avatar {
     height: 50px;
     border-radius: 5px;
     vertical-align: top;
+}
+.opportunity-small {
+    position: relative;
+    background-color: #ededed;
+    border-radius: 5px;
+    padding: 5px;
+    margin: 15px 5px 15px 5px;
+    height: 57px;
+    color: #333;
+}
+.opportunity-small a {
+    color: #333;
+    text-decoration: none;
+}
+.opportunity-small .opp-name {
+    font-size: 16px;
+    margin-top: 0px;
+    line-height: 1.5em;
+
+}
+.opportunity-small .project-name {
+    font-size: 12px;
+}
+.opportunity-small .opp-type {
+    float: right;
+}
+.post-update-button {
+    text-transform: uppercase;
+    font-size: 12px;
+    position: absolute;
+    right: -2px;
+    top: -10px;
+    width: 20px;
+    height: 20px;
+    display: none;
+}
+.post-update-button a {
+    color: #428bca;
+}
+.opportunity-small:hover .post-update-button, .project-small:hover .post-update-button {
+    display: block;
+}
+.project-small {
+    position: relative;
+    margin: 15px 0px 15px 0px;
+}
+.project-small a {
+    text-decoration: none;
+}
+.project-small h4 {
+    font-family: 'Raleway', sans-serif;
+    margin: 0px 0px 10px 0px;
+    font-size: 16px;
 }

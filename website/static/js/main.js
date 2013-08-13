@@ -6,7 +6,7 @@ reAllocate = {
         
         $('.delegate-file-upload').click(function() {
             
-            $('input[type="file"]').trigger('click');
+            $(this).siblings('input[type="file"]').trigger('click');
             return false;
         
         });
@@ -73,8 +73,6 @@ reAllocate = {
 
     validateForm: function(form) {
 
-        console.log(form);
-
         if ($(form).find('.form-group').hasClass('has-error') || $(form).find('.required[value=]').length) {
             $(form).find('button[type=submit]').attr('disabled','disabled');
         } else {
@@ -87,14 +85,14 @@ reAllocate = {
 
 
         var form = $(form);
-        
-        form.find('button[type=submit]').attr('disabled', 'disabled');
-        
+
         if (form.find('textarea').val().length == 0) {
             alert('Please enter an update');
             return false;
         }
     
+        form.find('button[type=submit]').attr('disabled', 'disabled');
+
         var submit_button = form.find('input[type="submit"]');
         var file = form.find('input[type="file"]').get(0).files[0];
         var xhr = new XMLHttpRequest();
@@ -151,7 +149,6 @@ reAllocate = {
                 $('#login-modal').modal('hide');
 
                 var next = json.next || $('form input[name="next"]').attr('value');
-                console.log(next);
 
                 if (next) {
                     location.href = next;
