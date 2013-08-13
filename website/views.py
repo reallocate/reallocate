@@ -58,7 +58,7 @@ def profile(request, username=None):
         user_profile.skills.add(*[rec.strip() for rec in request.POST.get("skills", "").split(",")])
         user_profile.save()
 
-        context['topmsg'] = 'Your settings have been saved'
+        context['alert'] = 'Your changes have been saved.'
     
     context['opportunities'] = Opportunity.objects.filter(engaged_by=user)
     context['followed_projects'] = Project.objects.filter(followed_by=user)
@@ -162,7 +162,7 @@ def reset_password(request):
             return HttpResponseRedirect('/')
         user = user[0]
         if not user.check_password(temp_password):
-            context['topmsg'] = "You have entered an incorrect temporary password"
+            context['alert'] = "You have entered an incorrect temporary password."
             return render_to_response('temp_password.html', context, context_instance=RequestContext(request))
         user.set_password(new_password)
         user.save()
@@ -198,7 +198,7 @@ def forgot_password(request):
             Choose a new password</a><br/><br/>Thanks,<br/>Reallocate""" % (request.get_host(), temp_password, email)
                 
         base.send_email(email, subj, body, html_content=body)
-        return HttpResponseRedirect('/forgot-password?topmsg=Your+password+has+been+reset.')
+        return HttpResponseRedirect('/forgot-password?alert=Your+password+has+been+reset.')
         
     context['email'] = request.GET.get('email', '')
 
@@ -417,9 +417,9 @@ def engage_opportunity(request, pid, oid=1):
                         response, request.get_host(), opp_eng.id)
         # TODO: send to project/opp owner as well as admin
         base.send_admin_email(subject, html_content, html_content=html_content)
-        topmsg = 'Thanks for your engagement - a project leader will get back to you as soon as possible'
+        alert = 'Thanks for your engagement - a project leader will get back to you as soon as possible'
 
-        return HttpResponseRedirect("/project/%s/opportunity/%s?topmsg=%s" % (pid, oid, topmsg))
+        return HttpResponseRedirect("/project/%s/opportunity/%s?alert=%s" % (pid, oid, alert))
     
     context['opportunity'] = opp
 

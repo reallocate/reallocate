@@ -25,7 +25,7 @@ def build_base_context(request):
     if request.user.is_authenticated():
         context['user'] = request.user
 
-    context['topmsg'] = request.GET.get('topmsg')
+    context['alert'] = request.GET.get('alert')
 
     return context
 

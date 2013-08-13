@@ -105,7 +105,7 @@ h5 {
 .username {
     font-weight: bold;
 }
-.thumnail-container .project-name a{
+.thumnail-container .project-name a {
     margin-left: 5px
 }
 .project-wrap {
@@ -127,13 +127,6 @@ h5 {
 }      
 .form-title {
     margin-left: 30px;
-}
-.topmsg {
-    margin-top: 20px;
-    margin-bottom: 20px;
-    font-size: 20px;
-    font-weight: bold;
-    color: red;
 }
 .text-center {
     text-align: center;

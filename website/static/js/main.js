@@ -58,6 +58,12 @@ reAllocate = {
             });
         });
 
+        $('.post-update-button').tooltip({
+            'html': true,
+            'delay': {'show': 600, 'hide': 100},
+            'title': 'Post&nbsp;update'
+        });
+
         // form validation
         $('.required').on('blur', function(e) {
 
