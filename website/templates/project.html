@@ -195,7 +195,7 @@
         <div class="col-6">
             <div id="about">
                 <h3>About the Project</h3>
-                <p>{{ project.description|safe }}</p>
+                <p class="pre">{{ project.description }}</p>
                 <p>Created By <a class="username" href="/profile/{{ project.created_by.id }}">{{ project.created_by.first_name }} {{ project.created_by.last_name }}</a> for {{ project.organization.name }}</p>
             </div>
             {% if is_admin %}
@@ -210,7 +210,7 @@
                     <div class="update-media"><img src="{{ update.media_url }}"></div>
                     {% endif %}
                     <p class="update-date">{{ update.date_created.date }}</p>
-                    <p class="update-text">{{ update.text }}</p>
+                    <p class="update-text pre">{{ update.text }}</p>
                     {% if update.created_by.get_profile.media_url %}                    
                     <img class="update-avatar" src="{{ update.created_by.get_profile.media_url }}" />
                     {% endif %}

@@ -9,6 +9,9 @@ h1, h2, h3, h4, h5 {
 h5 {
     color: #888888;
 }
+.pre {
+    white-space: pre-wrap;
+}
 .container {
     
 }

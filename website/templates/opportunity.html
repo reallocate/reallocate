@@ -170,7 +170,7 @@
             <div class="col-7">
 
                 <h3>Overview</h3>
-                <p class="opp-description">{{ opportunity.description|safe }}</p>
+                <p class="opp-description pre">{{ opportunity.description }}</p>
             
                 {% if engaged %}
                 {% include "includes/post-update.html" %}
@@ -185,7 +185,7 @@
                         <div class="update-media"><img src="{{ update.media_url }}"></div>
                         {% endif %}
                         <p class="update-date">{{ update.date_created.date }}</p>
-                        <p class="update-text">{{ update.text|safe }}</p>
+                        <p class="update-text pre">{{ update.text }}</p>
                         {% if update.created_by.get_profile.media_url %}                    
                         <img class="update-avatar" src="{{ update.created_by.get_profile.media_url }}" />
                         {% endif %}

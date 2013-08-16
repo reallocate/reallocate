@@ -87,7 +87,7 @@
                     <div class="update-media"><img src="{{ update.media_url }}"></div>
                     {% endif %}
                     <p class="update-date">{{ update.date_created.date }}</p>
-                    <p class="update-text">{{ update.text }}</p>
+                    <p class="update-text pre">{{ update.text }}</p>
                     {% if update.created_by.get_profile.media_url %}                    
                     <img class="update-avatar" src="{{ update.created_by.get_profile.media_url }}" />
                     {% endif %}
