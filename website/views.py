@@ -51,6 +51,8 @@ def profile(request, username=None):
         if avatar:
             user_profile.media_url = base.send_to_remote_storage(avatar, user_profile.make_s3_media_url(avatar), "image/png")
         
+        user_profile.user.first_name = request.POST.get("first_name")
+        user_profile.user.last_name = request.POST.get("last_name")
         user_profile.user.email = request.POST.get("email")
         user_profile.bio = request.POST.get("bio")
         user_profile.occupation = request.POST.get("occupation")

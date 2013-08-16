@@ -24,10 +24,15 @@
             text-align: center;
         }
         .username {
+            margin-bottom: 32px;
+            margin-top: 13px;
+
+        }
+        .username p {
+            letter-spacing: 2px;
             font-size: 36px;
             font-weight: bold;
             color: white;
-            margin-bottom: 45px;
         }
         #user-details {
             border-bottom: 1px solid #dedede;
@@ -40,6 +45,9 @@
         #user-image img {
             width: 100%;
             margin-bottom: 10px;
+            box-shadow: 4px 4px 4px #444;
+            -moz-box-shadow: 4px 4px 4px #444;
+            -webkit-box-shadow: 4px 4px 4px #444;
 
         }
         #update-profile .form-control[readonly="readonly"], #update-profile #bio div {
@@ -65,7 +73,7 @@
 
 {% block content %}
 
-<div style='position:absolute; background-image:url(/static/images/bgtexture2.png);width:100%;height:80px;z-index:-1;'></div>    
+<div style='position:absolute; background-color: rgb(80,113,140); width:100%; height:80px; z-index:-1;'></div>    
 
 <div class="container">
 
@@ -74,7 +82,7 @@
         <form id="update-profile" class="form-horizontal" method="post" enctype="multipart/form-data">
 
             <div class="col-3" id="user-image">
-                <img src="{{ user_profile.media_url|default:'/static/images/no-profile-image.png' }}" alt="Avatar for {{ profile.user|escape }}" class="img-thumbnail" />
+                <img src="{{ user_profile.media_url|default:'/static/images/no-profile-image.png' }}" alt="Avatar for {{ profile.user|escape }}" />
                 {% if edit %}
                 <button class="delegate-file-upload btn btn-default btn-block" style="display: none;">Change profile picture</button>
                 <input type="file" name="file" id="file" value="Upload a new photo" style="display: none;">
@@ -84,7 +92,19 @@
             <div class="col-8 col-offset-1">
 
                 <div class="username">
-                    {{ user_profile.user.first_name }} {{ user_profile.user.last_name }}
+                    <p>{{ user_profile.user.first_name }} {{ user_profile.user.last_name }}<p>
+                    <div class="form-group hide">
+                        <label class="control-label col-2">First name</label>
+                        <div class="col-8">
+                            <input class="form-control" type="text" name="first_name" value="{{ user_profile.user.first_name }}" placeholder="First name" />
+                        </div>
+                    </div>
+                    <div class="form-group hide">
+                        <label class="control-label col-2">Last name</label>
+                        <div class="col-8">
+                            <input class="form-control" type="text" name="last_name" placeholder="Last name" value="{{ user_profile.user.last_name }}" />
+                        </div>
+                    </div>
                 </div>
 
                 <div class="profile-info">
@@ -92,7 +112,7 @@
                     <div class="form-group">
                         <label class="control-label col-2 profile-info-header {% if edit %}profile-header-edit{% endif %}">Email</label>
                         <div class="col-8">
-                            <input class="col-8 form-control" readonly="readonly" type="text" id="email" name="email" value="{{ user_profile.user.email }}" placeholder="Contact Email" />
+                            <input class="form-control" readonly="readonly" type="text" id="email" name="email" value="{{ user_profile.user.email }}" placeholder="Contact Email" />
                         </div>
                     </div>
                     <div class="form-group">
@@ -181,6 +201,8 @@
 <script>
 function editProfile() {
     $(".form-control[readonly]").removeAttr('readonly');
+    $(".username .hide").removeClass('hide');
+    $(".username p").addClass('hide');
     $("button[type='submit']").css('display', 'block');
     $("button[type='button']").css('display', 'none');
     $("button.delegate-file-upload").css('display', 'block');
