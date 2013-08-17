@@ -75,6 +75,23 @@ reAllocate = {
 
             reAllocate.validateForm($(this).parents('form'));
         });
+        $('textarea[data-word-limit]').on('keyup', function() {
+            var limit = parseInt($(this).attr('data-word-limit'));
+            var words = this.value.split(' ').length;
+            if (words > limit) {
+                if (!$(this).parents('.form-group').hasClass('has-error')) {
+                    var e = $('<span/>').addClass('help-block').html('Please limit your answer to '+limit+' words.');
+                    $(this).after(e);
+                    $(this).parents('.form-group').addClass('has-error');
+                }
+            } else {
+                if ($(this).parents('.form-group').hasClass('has-error')) {
+                    $(this).parents('.form-group').removeClass('has-error');
+                    $(this).siblings('span.help-block').remove();
+                }
+            }
+            reAllocate.validateForm($(this).parents('form'));
+        });
     },   
 
     validateForm: function(form) {

@@ -35,12 +35,24 @@
                 </div>
                 <div class="form-group">
                     <label for="short-desc">Short Description</label>
-                    <input class="form-control required" type="text" id="short-desc" name="short_desc" placeholder="a brief, one-line description">
+                    <input class="form-control required" length="109" type="text" id="short-desc" name="short_desc" placeholder="a brief, one-line description">
                     <span class="help-block">Please provide a brief description</span>
                 </div>
                 <div class="form-group">
-                    <label for="description">Full Description</label>
-                    <textarea class="form-control" id="description" name="description"></textarea>
+                    <label for="description">Where did the idea for this project come from?</label>
+                    <textarea class="form-control required" id="description" name="description" data-word-limit="100"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="description">Who are the people that make up the current project team?</label>
+                    <textarea class="form-control required" id="description2" name="description2" data-word-limit="100"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="description">What is the current state of the project?</label>
+                    <textarea class="form-control required" id="description3" name="description3" data-word-limit="100"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="description">What is your vision for the future of this project?</label>
+                    <textarea class="form-control required" id="description4" name="description4" data-word-limit="200"></textarea>
                 </div>
                 <div class="form-group">
                     <label for="name">Add an Image</label> (optional)<br/>
@@ -49,7 +61,7 @@
                     <input type="file" name="file" id="file" value="Upload a new photo" style="display: none;">
                 </div>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-primary pull-right" disable="disabled">Next</button>
+                    <button type="submit" class="btn btn-primary pull-right" disabled="disabled">Next</button>
                     <div class="clearfix"></div>
                 </div>
             </form>
@@ -60,5 +72,7 @@
 {% endblock %}
 
 {% block bottomscript %}
-    
+<script>
+
+</script>    
 {% endblock %}
