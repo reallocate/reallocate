@@ -76,7 +76,7 @@ class ProjectForm(ModelForm):
     class Meta:
 
         model = Project
-        fields = ('name', 'industry', 'short_desc', 'description', 'media_url')
+        fields = ('name', 'industry', 'short_desc', 'description', 'description2', 'description3', 'description4', 'media_url')
 
         widgets = {
             'description': Textarea(attrs={'cols': 80, 'rows': 10}),

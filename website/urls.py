@@ -23,7 +23,6 @@ urlpatterns = patterns('',
   url(r'^organization/new/$', 'website.views.new_organization', name='new_organization'),
   url(r'^project/new/$', 'website.views.new_project', name='new_project'),
   url(r'^project/(?P<pid>\d+)/opportunity/(?P<oid>\d+)/engage/$', 'website.views.engage_opportunity', name='engage_opportunity'),
-  url(r'^project/(?P<pid>\d+)/opportunity/(?P<oid>\d+)/$', 'website.views.view_opportunity', name='view_opportunity'),
   url(r'^project/(?P<pid>\d+)/opportunity/add/$', 'website.views.add_opportunity', name='add_opportunity'),
   url(r'^project/(?P<pid>\d+)/manage/$', 'website.views.manage_project', name='manage_project'),
   url(r'^project/(?P<pid>\d+)/$', 'website.views.view_project', name='view_project'),
@@ -35,6 +34,7 @@ urlpatterns = patterns('',
   url(r'^ajax/check-org-name', 'website.ajax_views.check_org_name'),
   url(r'^ajax/login', 'website.ajax_views.login_user'),
   url(r'^ajax/update-project', 'website.ajax_views.update_project'),
+  url(r'^ajax/delete-opportunity', 'website.ajax_views.delete_opportunity'),
 
   url(r'^profile/?(?P<username>[^/]+)?', 'website.views.profile', name='profile'),    # public view
 

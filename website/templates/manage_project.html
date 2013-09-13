@@ -24,6 +24,18 @@
         .update-media img {
             width: 100%;
         }
+        #image img {
+            width: 288px;
+        }
+        p.edit {
+            margin: -10px 8px 0 8px;
+        }
+        p.edit a {
+            font-size: 12px;
+        }
+        p.edit span {
+            float: right;
+        }
     </style>
 {% endblock %}
 
@@ -32,39 +44,83 @@
 <div class="container" id="manage-project">
 
     <div class="row">
-    
+
         <div class="col-7">
 
-            <form method="post" id="edit-project">
+            <p id="project-name">{{ project.name }}</p>
+            <p id="project-short-desc">{{ project.short_desc|safe }}</p>
 
-                <input type="hidden" name="id" value="{{ project.id }}" />
-                <p id="project-name"><i class="icon-pencil"></i><input readonly="readonly" name="name" value="{{ project.name }}" /></p>
-                <p id="project-short-desc"><i class="icon-pencil"></i><input readonly="readonly" name="short_desc" value="{{ project.short_desc|safe }}" /></p>
-
-                <div id="desc-modal" class="modal fade">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                <h4 id="desc-modal-label" class="modal-title">Project description</h4>
-                            </div>
-                            <div class="modal-body">
-                                <textarea class="form-control" name="description" id="project-desc">{{ project.description }}</textarea>
+            <div id="desc-modal" class="modal fade">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 id="desc-modal-label" class="modal-title">Project details</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form method="post" id="edit-project" enctype="multipart/form-data">{% csrf_token %}
+                                <input type="hidden" name="id" value="{{ project.id }}" />
+                                <input type="hidden" name="organization_id" value="{{ project.organization.id }}" />
+                                <div class="form-group">
+                                    <label for="name">Project Title</label>
+                                    <input class="form-control required" type="text" id="name" name="name" value="{{ project.name }}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="industry">Industry</label>
+                                    <select class="form-control" id="industry" name="industry">
+                                        <option>Select</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="short-desc">Short Description</label>
+                                    <input class="form-control required" length="109" type="text" id="short-desc" name="short_desc" value="{{ project.short_desc }}">
+                                    <span class="help-block">110 characters or less</span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="description">Where did the idea for this project come from?</label>
+                                    <textarea class="form-control required" id="description" name="description" data-word-limit="100">{{ project.description }}</textarea>
+                                    <span class="help-block">100 words or less</span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="description">Who are the people that make up the current project team?</label>
+                                    <textarea class="form-control required" id="description2" name="description2" data-word-limit="100">{{ project.description2 }}</textarea>
+                                    <span class="help-block">100 words or less</span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="description">What is the current state of the project?</label>
+                                    <textarea class="form-control required" id="description3" name="description3" data-word-limit="100">{{ project.description3 }}</textarea>
+                                    <span class="help-block">100 words or less</span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="description">What is your vision for the future of this project?</label>
+                                    <textarea class="form-control required" id="description4" name="description4" data-word-limit="200">{{ project.description4 }}</textarea>
+                                    <span class="help-block">200 words or less</span>
+                                </div>
+                                <div class="form-group">
+                                        <label for="name">Upload new photo</label><br/>
+                                        <button class="delegate-file-upload btn btn-default">Select Image</button>
+                                        <i class="icon-ok icon-2x file-upload-ok" style="display: none;"></i>
+                                        <input type="file" name="file" value="Upload new photo" style="display: none;">
+                                </div>
                                 <div class="pull-right modal-buttons">
                                     <button class="btn btn-default" data-dismiss="modal">Close</button>
-                                    <button class="btn btn-primary" onclick="$(this).parents('form').submit();" data-dismiss="modal">Save changes</button>
+                                    <input class="btn btn-primary" type="submit" value="Save Changes" />
                                 </div>
-                                <div class="clearfix"></div>
-                            </div>
+                            </form>
+                            <div class="clearfix"></div>
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <p><a href="#desc-modal" role="button" class="btn btn-default" data-toggle="modal">Edit full description</a></p>      
+            <p><a href="#desc-modal" role="button" class="btn btn-default" data-toggle="modal">Edit details</a></p>      
 
-            </form>
         </div>
 
+        <div class="col-offset-1 col-4" id="image">
+            <img src="{{ project.media_url }}" />
+        </div>
+<!--
         <div class="col-offset-1 col-4" id="org">
             <fieldset>
                 <h4>{{ project.organization.name }}</h4>
@@ -72,7 +128,7 @@
                 <p>{{ project.organization.org_mission }}</p>
             </fieldset>
         </div>
-        
+-->
     </div>
 
     <div class="row wall">
@@ -112,7 +168,81 @@
                     {% endifequal %}
                 {% endfor %}
                 </ul>
+                <div id="opportunity{{ opportunity.id }}-modal" class="modal fade">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                <h4 id="desc-modal-label" class="modal-title">Edit Opportunity</h4>
+                            </div>
+                            <div class="modal-body">
+                                <form method="post" enctype="multipart/form-data">{% csrf_token %}
+                                    <input type="hidden" name="id" value="{{ opportunity.id }}" />
+                                    <input type="hidden" name="type" value="opportunity" />
+                                    <div class="form-group">
+                                        <label for="name">Opportunity Title</label>
+                                        <input class="form-control required" type="text" name="name" value="{{ opportunity.name }}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="short-desc">Short Description</label>
+                                        <input class="form-control required" length="109" type="text" name="short_desc" value="{{ opportunity.short_desc }}">
+                                        <span class="help-block">110 characters or less</span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="description">Description</label>
+                                        <textarea class="form-control required" name="description" data-word-limit="100">{{ opportunity.description }}</textarea>
+                                        <span class="help-block">100 words or less</span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="opp-type">Type</label>
+                                        <select class="form-control required" name="opp_type">
+                                            <option>Select</option>
+                                            <option{% ifequal opportunity.opp_type 'Equipment' %} selected{% endifequal %}>Equipment</option>
+                                            <option{% ifequal opportunity.opp_type 'Knowledge' %} selected{% endifequal %}>Knowledge</option>
+                                            <option{% ifequal opportunity.opp_type 'Money' %} selected{% endifequal %}>Money</option>
+                                            <option{% ifequal opportunity.opp_type 'Skills' %} selected{% endifequal %}>Skills</option>
+                                        </select>
+                                        <span class="help-block">Please select a opportunity type</span>
+                                    </div>                
+                                    <div class="form-group">
+                                        <label for="resources">Resources</label>
+                                        <textarea class="form-control" name="resources"></textarea>
+                                        <span class="help-block" style="display: true;">comma seperated list of URLs</span>
+                                    </div>
+                                    <div class="form-group">
+                                            <label for="name">Upload new photo</label><br/>
+                                            <button class="delegate-file-upload btn btn-default">Select Image</button>
+                                            <i class="icon-ok icon-2x file-upload-ok" style="display: none;"></i>
+                                            <input type="file" name="file" value="Upload new photo" style="display: none;">
+                                    </div>
+                                    <div class="pull-right modal-buttons">
+                                        <button class="btn btn-default" data-dismiss="modal">Close</button>
+                                        <input class="btn btn-primary" type="submit" value="Save Changes" />
+                                    </div>
+                                </form>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p class="edit"><a href="#opportunity{{ opportunity.id }}-modal" role="button" data-toggle="modal">edit details</a><span><a href="#delete-opportunity{{ opportunity.id }}-modal" data-toggle="modal" role="button">delete</a></span></p>
+                <div id="delete-opportunity{{ opportunity.id }}-modal" class="modal fade">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-body">
+                                <h4 class="pull-left">Delete this opportunity?</h4>
+                                <p class="pull-right">
+                                    <button class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                    <button class="btn btn-default" onclick="deleteOpportunity({{ opportunity.id }})">Yes</button>
+                                </p>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             {% endfor %}
+            <br />
+            <a href="/project/{{ project.id }}/opportunity/add">add opportunity</a>
 
         </div>
 
@@ -127,37 +257,21 @@
 {% block bottomscript %}
 
 <script>
+function deleteOpportunity(id) {
 
-    $('#edit-project input').on('click', function() {
-        $(this).removeAttr('readonly');
-    });
-    $('#edit-project input').on('blur', function() {
-        $(this).attr('readonly', 'readonly');
-        if ($(this).data('changed')) {
-            $(this).parents('form').submit();
+
+    $.ajax({
+        url : '/ajax/delete-opportunity',
+        method: 'post',
+        data : {'opportunityId': id},
+        success: function(res) {
+            window.location.reload();
+        },
+        error: function(res) {
+            alert("failed to delete opportunity");
         }
-    });
-    $('#edit-project input').on('change', function() {
-        $(this).data('changed', true);  
-    });
-    $('#edit-project').on('submit', function(e) {
-
-        e.preventDefault();
-
-        $.ajax({
-            url: '/ajax/update-project',
-            method: 'POST',
-            data: $(this).serialize(),
-            success: function(res) {
-                console.log(res)
-            },
-            error: function(res) {
-                console.log(res)
-            }
-        });
-
-    });
-
+   });
+}
 </script>
 
 {% endblock %}

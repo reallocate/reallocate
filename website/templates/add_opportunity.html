@@ -17,14 +17,14 @@
 {% block content %}
 
 <div class="container">
-                <h3>Add Opportunity for {{ project.name }}</h3>
+    <h3>Add Opportunity for {{ project.name }}</h3>
     <div class="well">
 
         <div class="row">
 
             <div class="col-7" id="add-opportunity">
 
-                <form method="post">
+                <form method="post" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="name">Opportunity Title</label>
                     <input class="form-control required" type="text" id="name" name="name">

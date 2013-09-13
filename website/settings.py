@@ -60,6 +60,7 @@ ADMIN_EMAIL = "admin@reallocate.org"
 # Allow any settings to be defined in local_settings.py which should be
 # ignored in your version control system allowing for settings to be defined per machine.
 if 'DEPLOY_ENV' in os.environ and os.environ['DEPLOY_ENV'] != 'local':
+
     DEPLOY_ENV = os.environ['DEPLOY_ENV']
     DEBUG = True if 'DEBUG' in os.environ and os.environ['DEBUG'] == 'True' else False
     S3_BUCKET = os.environ['S3_BUCKET'] if 'S3_BUCKET' in os.environ else None
@@ -100,7 +101,6 @@ DATABASES = {'default': dj_database_url.config(default='sqlite:/data.db')}
 
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 APP_NAME = 'reallocate'
-S3_BUCKET = AWS_STORAGE_BUCKET_NAME ='production-reallocate'
 
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),

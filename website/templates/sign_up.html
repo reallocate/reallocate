@@ -42,14 +42,14 @@
             	    <form method="post" id="sign-up-form">
                         <div class="form-group">
                             <input class="form-control" type="text" name="email" id="email" placeholder="Email Address">
-                            <span class="help-block">That email is already in use</span>
+                            <span class="help-block error">That email is already in use</span>
                         </div>
                         <div class="form-group">
                             <input class="form-control" type="password" name="password" value="" id="password" placeholder="Password"/>
                         </div>
                         <div class="form-group">
                             <input class="form-control" type="password" name="password_verify" value="" id="password_verify" placeholder="Re-type Password"/>
-                            <span class="help-block">Passwords don't match</span>
+                            <span class="help-block error">Passwords don't match</span>
                         </div>
                         <div class="form-group pull-right">
                             <button class="btn btn-primary" type="submit" id="sign-up-submit" disabled="disabled">Sign up</button>

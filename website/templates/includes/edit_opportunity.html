@@ -1,0 +1,25 @@
+<div class="post-update">
+
+    <form enctype="multipart/form-data" method="post">
+
+        {% if project %}
+        <input type="hidden" name="orgid" value="{{ project.organization.id }}" />
+        <input type="hidden" name="pid" value="{{ project.id }}" />
+        {% else %}
+        <input type="hidden" name="oid" value="{{ opportunity.id }}" />
+        <input type="hidden" name="orgid" value="{{ opportunity.project.organization.id }}" />
+        <input type="hidden" name="pid" value="{{ opportunity.project.id }}" />
+        {% endif %}
+        <textarea class="form-control" name="text" placeholder="How is your project going?"></textarea>
+        
+        <div class="modal-buttons post-update-buttons">
+            <button type="submit" class="btn btn-default delegate-file-upload"><span class="icon-picture icon"></span> Add Image</button>
+            <i class="icon-ok icon-2x file-upload-ok" style="display: none;"></i>
+            <input type="file" name="file" id="file" value="Upload a new photo" style="display: none;">
+            <button class="btn btn-primary submit-update pull-right" type="submit">Post Update</button>
+            <div class="clearfix"></div>
+        </div>
+
+    </form>
+
+</div>

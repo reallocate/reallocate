@@ -313,6 +313,41 @@ def manage_project(request, pid=1):
     if request.user.is_authenticated():
         context['is_following'] = request.user in project.followed_by.all()
 
+    if request.method == "POST":
+
+        if request.POST.get('type', '') == 'opportunity':
+
+            opportunity = get_object_or_404(Opportunity, pk=request.POST['id'])
+            opportunity_form = OpportunityForm(request.POST or None, instance=opportunity)
+            opportunity = opportunity_form.save(commit=False)
+
+            media_file = request.FILES.get('file')
+            if media_file:
+                opportunity.media_url = base.send_to_remote_storage(media_file, opportunity.make_s3_media_url(media_file), "image/png")
+
+            if opportunity_form.is_valid():
+                opportunity.save()
+            else:
+                context['error'] = "failed to update opportunity"
+
+        else:
+
+            project_form = ProjectForm(request.POST or None, instance=project)
+            project = project_form.save(commit=False)
+
+            media_file = request.FILES.get('file')
+
+            if media_file:
+                project.media_url = base.send_to_remote_storage(media_file, project.make_s3_media_url(media_file), "image/png")
+
+            if project_form.is_valid():
+
+                project.save()
+
+            else:
+
+                context['error'] = "failed to update project"
+
     return render_to_response('manage_project.html', context, context_instance=RequestContext(request))
 
 

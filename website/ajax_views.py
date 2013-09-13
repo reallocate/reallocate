@@ -142,6 +142,31 @@ def update_project(request, *args):
     return HttpResponse(json.dumps(response_data), mimetype="application/json")
 
 
+@login_required
+@csrf_exempt
+def delete_opportunity(request, *args):
+
+    if request.POST:
+
+        opportunity = Opportunity.objects.get(id=request.POST.get('opportunityId'))
+
+        if opportunity:
+
+            opportunity.delete()
+    
+            response_data = { "success": "true" }
+
+        else:
+
+            response_data = { "success": "false" } 
+
+    else:
+
+        response_data = { "sucess": "false" }
+
+    return HttpResponse(json.dumps(response_data), mimetype="application/json")
+
+
 @csrf_exempt
 def login_user(request):
 

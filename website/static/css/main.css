@@ -218,11 +218,11 @@ h5 {
 }
 #login-modal form input[type=text], #login-modal form input[type=password] {
 }
-.form-group .help-block {
+.form-group .help-block.error {
     display: none;
     font-size: 13px;
 }
-.form-group.has-error .help-block {
+.form-group.has-error .help-block.error {
     display: block;
 }
 #login-modal .forgot {
@@ -231,7 +231,6 @@ h5 {
     font-size: 11px;
 }
 #manage-project input {
-    width: 580px;
 }
 #edit-project textarea {
     height: 180px;
@@ -242,10 +241,10 @@ h5 {
     cursor: pointer;
     padding: 3px;
 }
-#manage-project #project-name input {
+#manage-project #project-name {
     font-size: 24px;
 }
-#manage-project #project-short-desc input {
+#manage-project #project-short-desc {
     font-size: 16px;
     margin-bottom: 20px;
 }

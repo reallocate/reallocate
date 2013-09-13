@@ -196,6 +196,9 @@
             <div id="about">
                 <h3>About the Project</h3>
                 <p class="pre">{{ project.description }}</p>
+                <p class="pre">{{ project.description2 }}</p>
+                <p class="pre">{{ project.description3 }}</p>
+                <p class="pre">{{ project.description4 }}</p>
                 <p>Created By <a class="username" href="/profile/{{ project.created_by.id }}">{{ project.created_by.first_name }} {{ project.created_by.last_name }}</a> for {{ project.organization.name }}</p>
             </div>
             {% if is_admin %}
