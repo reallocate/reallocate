@@ -61,6 +61,10 @@
     .update-media img {
         width: 100%;
     }
+    .update object, .update iframe {
+        width: 534px;
+        height: 297px;
+    }
     .jumbotron .overlay {
         height: 100%;
         width: 100%;
@@ -192,6 +196,8 @@
                     <div class="update">
                         {% if update.media_url %}
                         <div class="update-media"><img src="{{ update.media_url }}"></div>
+                        {% elif update.video %}
+                        <div class="update-media">{{ update.video|safe }}</div>
                         {% endif %}
                         <p class="update-date">{{ update.date_created.date }}</p>
                         <p class="update-text pre">{{ update.text }}</p>

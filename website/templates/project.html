@@ -161,7 +161,7 @@
         <div id="project-title" class="container">
              <div class="row">
                 <div class="col-9">
-                    <h1>{{ project.name }}</h1>
+                    <h1>{{ project.name }}{% if is_admin %} <a href="/project/{{ project.id }}/manage" class="btn btn-primary">Manage</a>{% endif %}</h1>
                 </div>
                 <div class="col-3">
                     <div class='follow-share addthis_toolbox'>

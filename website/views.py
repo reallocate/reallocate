@@ -65,6 +65,8 @@ def profile(request, username=None):
     context['opportunities'] = Opportunity.objects.filter(engaged_by=user)
     context['followed_projects'] = Project.objects.filter(followed_by=user)
     context['my_projects'] = Project.objects.filter(created_by=user)
+    for p in context['my_projects']:
+        p.is_admin = True
     context['user_profile'] = user_profile
     context['user_skills'] = ", ".join([rec.name for rec in user_profile.skills.all()])
     
@@ -314,6 +316,10 @@ def manage_project(request, pid=1):
         "updates": Update.objects.filter(project=project).order_by("-date_created")
     })
     
+    for u in context['updates']:
+
+        (u.video, u.text) = embed_video(u.text)
+
     if request.user.is_authenticated():
         context['is_following'] = request.user in project.followed_by.all()
 
@@ -419,6 +425,10 @@ def view_opportunity(request, pid, oid):
         'is_engaged': False
     })
     
+    for u in context['updates']:
+
+        (u.video, u.text) = embed_video(u.text)
+
     if request.user.is_authenticated():
 
         context['is_following'] = request.user in opp.project.followed_by.all()

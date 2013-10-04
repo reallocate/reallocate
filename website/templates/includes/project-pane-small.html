@@ -3,7 +3,7 @@
         <h4>{{ project.name }}</h4>
         <div class="project-img-small" style="background-image:url({{ project.media_url }});"></div>
     </a>
-    {% if edit %}
+    {% if project.is_admin %}
 	<div id="post-update-p{{ project.id }}" class="modal fade">
          <div class="modal-dialog">
 	        <div class="modal-content">
