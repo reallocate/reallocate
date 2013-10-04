@@ -591,15 +591,24 @@ def search(request):
 
 def embed_video(update_text):
 
-    r = re.search(r'(http[s]*:\/\/www\.youtube\.com/watch\?v=([a-z|A-Z|0-9]+).*?)[\s|$]', update_text)
+    vimeo = re.search(r'(http[s]*:\/\/vimeo\.com/([0-9]+).*?)[\s|$]*', update_text)
+    youtube = re.search(r'(http[s]*:\/\/www\.youtube\.com/watch\?v=([a-z|A-Z|0-9]+).*?)[\s|$]*', update_text)
 
-    if r:
+    if youtube:
 
-        video_code = r.group(2)
+        video_id = youtube.group(2)
 
-        embed_tag = '<object width="425" height="350" data="http://www.youtube.com/v/%s" type="application/x-shockwave-flash"><param name="src" value="http://www.youtube.com/v/%s" /></object>' % (video_code, video_code)
+        embed_tag = '<object data="http://www.youtube.com/v/%s" type="application/x-shockwave-flash"><param name="src" value="http://www.youtube.com/v/%s" /></object>' % (video_id, video_id)
 
-        return [embed_tag, update_text.replace(r.group(1), '')]
+        return [embed_tag, update_text.replace(youtube.group(1), '')]
+
+    elif vimeo:
+
+        video_id = vimeo.group(2)
+
+        embed_tag = '<iframe src="http://player.vimeo.com/video/%s" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>' % video_id
+
+        return [embed_tag, update_text.replace(vimeo.group(1), '')]
 
     else:
 
