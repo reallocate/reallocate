@@ -101,7 +101,7 @@ def home(request):
 
     context = base.build_base_context(request)
 
-    context['projects'] = Project.objects.all()[:12]
+    context['projects'] = Project.objects.all()[:36]
 
     return render_to_response('home.html', context, context_instance=RequestContext(request))
 
