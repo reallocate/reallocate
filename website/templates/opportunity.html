@@ -77,6 +77,9 @@
         /*background-image: url('{% if opportunity.media_url %}{{ opportunity.media_url }}{% else %}{{ project.media_url }}{% endif %}');*/
         height: 150px;
     }
+    .jumbotron .opportunity-media img {
+        width: 175px;
+    }
     .skill-icons {
         text-align: center;
         font-weight: bold;
@@ -115,7 +118,13 @@
 <div class="jumbotron">
         <div id="opp-title" class="container">
             <div class="row">
+                {% if opportunity.media_url %}
+                <div class="col-2">
+                    <div class="opportunity-media"><img src="{{ opportunity.media_url }}"></div>
+                </div>
+                {% endif %}
                 <div class="col-1">
+
                     <div class="skill-icons">
                     {% if opportunity.opp_type.lower == 'skills' %}
                         <div class="give-icons"><i class="icon-star icon-4x"></i><br/>Skills</div>
@@ -134,7 +143,7 @@
                     {% endif %}
                     </div>
                 </div>
-                <div class="col-8">
+                <div class="col-6">
                     <h4><a href="/project/{{ opportunity.project.id }}">{{ project.name }}</a></h4>
                     <h1>{{ opportunity.name }}</h1> 
                 </div>
@@ -168,7 +177,7 @@
         <div class="row">
         
             <div class="col-7">
-
+                
                 <h3>Overview</h3>
                 <p class="opp-description pre">{{ opportunity.description }}</p>
             

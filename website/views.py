@@ -286,6 +286,10 @@ def view_project(request, pid=1):
         "engagement": engagement,
         "updates": Update.objects.filter(project=project).order_by('-date_created')})
     
+    for u in context['updates']:
+
+        (u.video, u.text) = embed_video(u.text)
+
     if request.user.is_authenticated():
         context['is_following'] = request.user in project.followed_by.all()
         context['is_admin'] = True if request.user == project.created_by else False
@@ -584,4 +588,20 @@ def search(request):
 
     return render_to_response('search.html', context, context_instance=RequestContext(request))
 
-    
+
+def embed_video(update_text):
+
+    r = re.search(r'(http[s]*:\/\/www\.youtube\.com/watch\?v=([a-z|A-Z|0-9]+).*?)[\s|$]', update_text)
+
+    if r:
+
+        video_code = r.group(2)
+
+        embed_tag = '<object width="425" height="350" data="http://www.youtube.com/v/%s" type="application/x-shockwave-flash"><param name="src" value="http://www.youtube.com/v/%s" /></object>' % (video_code, video_code)
+
+        return [embed_tag, update_text.replace(r.group(1), '')]
+
+    else:
+
+        return [None, update_text]
+
