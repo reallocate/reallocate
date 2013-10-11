@@ -9,6 +9,163 @@ STATUS_INACTIVE = STATUS_CHOICES[0][0]
 STATUS_ACTIVE = STATUS_CHOICES[1][0]
 STATUS_CLOSED = STATUS_CHOICES[2][0]
 
+CAUSES = [
+    'Advocacy & Human Rights',
+    'Animals',
+    'Arts & Culture',
+    'Children & Youth',
+    'Civic Engagement',
+    'Community',
+    'Computers & Technology',
+    'Crisis Support',
+    'Disabled',
+    'Disaster Relief',
+    'Education & Literacy',
+    'Emergency & Safety',
+    'Employment',
+    'Environment',
+    'Spiritual',
+    'Health & Medicine',
+    'Homeless & Housing',
+    'Hunger',
+    'Immigrants & Refugees',
+    'International',
+    'Justice & Legal',
+    'LGBT',
+    'Media & Broadcasting',
+    'Politics',
+    'Race & Ethnicity',
+    'Science & Technology',
+    'Seniors',
+    'Sports & Recreation',
+    'Veterans & Military Families',
+    'Women'
+]
+
+SKILLS = {
+    'Administrative': [
+        'Office Reception',
+        'Office Management',
+        'Executive Admin'
+    ],
+    'Disaster Relief': [
+        'Disaster Cleanup',
+        'Disaster Relief & Shelters',
+        'Disaster Relief Call Center'
+    ],
+    'Food Service & Events': [
+        'Cooking / Catering',
+        'Event Design & Planning',
+        'Food & Beverage Services',
+        'Event Management'
+    ],
+    'Information Technology': [
+        'Information Architecture',
+        'Web Design',
+        'User Experience',
+        'E-commererce',
+        'Software Engineering',
+        'Network Administration',
+        'Help Desk',
+        'Quality Assurance',
+        'Technical Writing'
+    ],
+    'Real Estate, Faciliites, Construction': [
+        'Building Architecture',
+        'Facilities Management',
+        'Interior Design',
+        'Renovation',
+        'Real Estate & Leasing',
+        'Landscaping',
+        'Construction'
+    ],
+    'Legal': [
+        'Legal (General)',
+        'Intellectual Property',
+        'Employment Law',
+        'Tax Law',
+        'Family Law',
+        'Mergers & Aquisitions',
+        'Litigation',
+        'Paralegal',
+        'Contract Negotiations',
+        ''
+    ],
+    'Engineering': [
+        'Systems Engineering',
+        'Mechanical Engineering',
+        'Civil Engineering',
+        'Chemical Engineering',
+        'Electrical Engineering'
+    ],
+    'Enviornment': [
+        'Habitat Restoration',
+        'Enviornmental Policy',
+        'Enviornmental Education',
+        'Pollution Prevention',
+        'Agriculture'
+    ],
+    'Education': [
+        'General Education',
+        'Tutoring',
+        'Literacy / Reading',
+        'Youth Activities'
+    ],
+    'Healthcare': [
+        'Mental Health',
+        'Dental',
+        'First Aid / CPR',
+        'Nursing',
+        'Physician',
+        'EMT',
+        'Message Therapy',
+        'Child Medical Service'
+    ],
+    'Logistics': [
+        'Driving',
+        'Supply Chain',
+        'Warehousing',
+        'Inventory Management'
+    ],
+    'Children & Family': [
+        'Youth Services',
+        'Family Therapy',
+        'Child Care',
+        'Elder Care',
+        'Crisis Intervention'
+    ],
+    'Business': [
+        'Business Development',
+        'Customer Acquisition',
+        'Strategic Planning',
+        'Market Research',
+        'Product Development',
+        'Business Analysis',
+        'Marketing & Communication',
+        'Public Relations',
+        'Sales',
+        'Brand Development & Messaging'
+    ],
+    'Finance': [
+        'Financial Planning',
+        'Budgeting',
+        'Cost Analysis',
+        'Tax Preperation',
+        'Accounting',
+        'Bookkeeping',
+        'Fundraising'
+    ],
+    'Arts': [
+        'Visual Arts',
+        'Music Arts',
+        'Dance',
+        'Theater Arts',
+        'Crafts',
+        'Photography',
+        'Exibition Arts'
+    ]
+}
+
 
 class Organization(models.Model):
 
@@ -61,6 +218,7 @@ class Project(models.Model):
     description3 = models.TextField(blank=True)
     description4 = models.TextField(blank=True)
     media_url = models.CharField(max_length=200, blank=True)
+    video_url = models.CharField(max_length=200, blank=True)
     created_by = models.ForeignKey(User)
     followed_by = models.ManyToManyField(User, blank=True, related_name='followed_by')
     
@@ -76,14 +234,15 @@ class ProjectForm(ModelForm):
     class Meta:
 
         model = Project
-        fields = ('name', 'industry', 'short_desc', 'description', 'description2', 'description3', 'description4', 'media_url')
+        fields = ('name', 'industry', 'short_desc', 'description', 'description2', 'description3', 'description4',  'video_url', 'media_url')
 
         widgets = {
             'description': Textarea(attrs={'cols': 80, 'rows': 10}),
         }
 
 
-OPP_TYPE_CHOICES = ((u'Equipment', u'Equipment'),(u'Knowledge', u'Knowledge'),(u'Money', u'Money'),(u'Skills', u'Skills'),)
+OPP_TYPE_CHOICES = ((u'Equipment', u'Equipment'), (u'Knowledge', u'Knowledge'), (u'Money', u'Money'), (u'Skills', u'Skills'),)
+
 
 class Opportunity(models.Model):
 
@@ -99,7 +258,10 @@ class Opportunity(models.Model):
     description = models.TextField(blank=True)
     resources = models.TextField(blank=True)
     featured = models.BooleanField(default=False, blank=True)
-    opp_type = models.CharField(max_length=100, choices=OPP_TYPE_CHOICES, blank=True) # TODO: replace with taggit? Four main options: Service, Donation, Rental, Question
+
+    opp_type = models.CharField(max_length=100, choices=OPP_TYPE_CHOICES, blank=True) 
+    #opp_category = models.CharField(max_length=100, blank=True)
+
     engaged_by = models.ManyToManyField(User, blank=True, through='OpportunityEngagement')
 
     # prerequisites = models.ManyToManyField(Opportunity)  - assuming that pre-reqs = other opps
@@ -138,6 +300,7 @@ class UserProfile(models.Model):
     organization = models.ForeignKey(Organization, null=True, blank=True)
     location = models.CharField(max_length=200, blank=True)
     occupation = models.CharField(max_length=200, blank=True)
+    causes = models.CharField(max_length=100, blank=True)
     skills = TaggableManager()
     
     # skills
@@ -158,6 +321,7 @@ def create_user_profile(sender, instance, created, **kwargs):
 
 post_save.connect(create_user_profile, sender=User)
 
+ 
 class Update(models.Model):
 
     organization = models.ForeignKey(Organization)

@@ -11,6 +11,19 @@
     #add-opportunity {
         border-right: 1px solid #ddd;
     }
+    .opportunity {
+        height: auto;
+        min-height: 10px;
+        padding: 5px;
+        font-size: 12px;
+        clear: both;
+    }
+    .opportunity img {
+        width: 125px;
+        height: 125px;
+        float: left;
+        margin: 0 10px 10px 0;
+    }
     </style>
 {% endblock %}
 
@@ -73,6 +86,9 @@
                 {% if opportunities %}
                 {% for opportunity in opportunities %}
                 <div class="opportunity">
+                    {% if opportunity.media_url %}
+                    <img src="{{ opportunity.media_url }}" />
+                    {% endif %}
                     <p class="name"><b>{{ opportunity.name }}</b><p>
                     <p class="short-desc">{{ opportunity.short_desc}}</p>
                 </div>

@@ -31,6 +31,9 @@
         #image img {
             width: 288px;
         }
+        #project-name a {
+            color: #333;
+        }
         p.edit {
             margin: -10px 8px 0 8px;
         }
@@ -51,7 +54,7 @@
 
         <div class="col-7">
 
-            <p id="project-name">{{ project.name }}</p>
+            <p id="project-name"><a href="/project/{{ project.id }}">{{ project.name }}</a></p>
             <p id="project-short-desc">{{ project.short_desc|safe }}</p>
 
             <div id="desc-modal" class="modal fade">
@@ -70,8 +73,8 @@
                                     <input class="form-control required" type="text" id="name" name="name" value="{{ project.name }}">
                                 </div>
                                 <div class="form-group">
-                                    <label for="industry">Industry</label>
-                                    <select class="form-control" id="industry" name="industry">
+                                    <label for="causes">Causes</label>
+                                    <select class="form-control" id="causes" name="cause">
                                         <option>Select</option>
                                     </select>
                                 </div>
@@ -101,10 +104,15 @@
                                     <span class="help-block">200 words or less</span>
                                 </div>
                                 <div class="form-group">
-                                        <label for="name">Upload new photo</label><br/>
-                                        <button class="delegate-file-upload btn btn-default">Select Image</button>
-                                        <i class="icon-ok icon-2x file-upload-ok" style="display: none;"></i>
-                                        <input type="file" name="file" value="Upload new photo" style="display: none;">
+                                    <label for="name">Add a Video URL</label>
+                                    <input class="form-control" type="text" id="video-url" name="video_url" value="{{ project.video_url }}">
+                                    <span class="help-block">YouTube and Vimeo URLs supported</span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="name">Upload new photo</label><br />
+                                    <button class="delegate-file-upload btn btn-default">Select Image</button>
+                                    <i class="icon-ok icon-2x file-upload-ok" style="display: none;"></i>
+                                    <input type="file" name="file" value="Upload new photo" style="display: none;">
                                 </div>
                                 <div class="pull-right modal-buttons">
                                     <button class="btn btn-default" data-dismiss="modal">Close</button>
