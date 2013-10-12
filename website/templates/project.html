@@ -28,6 +28,10 @@
         #about p {
 
         }
+        #video iframe {
+            width: 100%;
+            height: 256px;
+        }
         .section-title {
             height: 50px;
             font-size: 2em;
@@ -197,6 +201,11 @@
 <div class="container">  
     <div class="row">
         <div class="col-6">
+            {% if project.video %}
+            <div id="video">
+                {{ project.video|safe }}
+            </div>
+            {% endif %}
             <div id="about">
                 <h3>About the Project</h3>
                 <p class="pre">{{ project.description }}</p>

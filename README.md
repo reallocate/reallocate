@@ -20,5 +20,5 @@ OPTIONAL SETUP
 
 If you want to be able to connnect to AWS, Google, LinkedIn, etc you will need to add those keys. To do so:
 
-- create myproject/settings_local.py
+- create website/settings_local.py
 - put all your overrides in there.  if you are a ReAllocate core team member, you can find this file in our Dropbox
