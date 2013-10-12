@@ -288,8 +288,9 @@ def view_project(request, pid=1):
         "engagement": engagement,
         "updates": Update.objects.filter(project=project).order_by('-date_created')})
     
-    (project.video, foo) = embed_video(project.video_url)
-    
+    if project.video_url:
+        (project.video, foo) = embed_video(project.video_url)
+
     for u in context['updates']:
 
         (u.video, u.text) = embed_video(u.text)
