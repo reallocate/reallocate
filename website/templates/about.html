@@ -21,6 +21,15 @@
         background-position: 0px -340px;
         height: 270px;
     }
+    
+    /* Section Styles */
+    .section {
+	height: 400px;
+	background-color: #cf5678;
+    }
+    
+    
+    
 </style>
 {% endblock %}
 
@@ -32,11 +41,14 @@
 
 {% block content %}
 
-<div class="container">
-    <h2>Connecting World Class Talent with Real World Problems.</h2>
-    
-    <p>Lets create and share action!</p>
-    
+<div>
+    <div class="section">
+	<div class="container" style="padding: 45px 30px;">
+    <div class="col-6" style="float:left;"><p style="font-size: 3em;">Connect with<br/> <strong>World Class Talent</strong>. <br/>Work on<br/><strong>Real World Problems</strong>.</p></div>
+    <div class="col-6" style="float:right;"><img style="max-height: 300px;" src="/static/images/flickr_sunset.jpg"></div>
+	</div>
+    </div>
+	
     <p>There are people like you all over the world who are trying to make a difference in their community, one project at a time.</p> 
     
     <p>Post your project and give the community opportunities to plug in their skills, knowledge, in-kind resources and financial capital.</p>
