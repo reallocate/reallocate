@@ -73,9 +73,12 @@
                                     <input class="form-control required" type="text" id="name" name="name" value="{{ project.name }}">
                                 </div>
                                 <div class="form-group">
-                                    <label for="causes">Causes</label>
-                                    <select class="form-control" id="causes" name="cause">
-                                        <option>Select</option>
+                                    <label for="cause">Cause</label>
+                                    <select class="form-control required" id="cause" name="cause">
+                                        <option>None</option>
+                                        {% for cause in causes %}
+                                        <option value="{{ cause }}">{{ cause }}</option>
+                                        {% endfor %}
                                     </select>
                                 </div>
                                 <div class="form-group">

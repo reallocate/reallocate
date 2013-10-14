@@ -16,7 +16,7 @@ from django.db.models import Q
 
 from website.models import OrganizationForm, Organization, ProjectForm, Project, Update, UserProfile
 from website.models import OpportunityEngagement, Opportunity, OpportunityForm
-from website.models import STATUS_ACTIVE, STATUS_CHOICES, STATUS_INACTIVE, STATUS_CLOSED
+from website.models import STATUS_ACTIVE, STATUS_CHOICES, STATUS_INACTIVE, STATUS_CLOSED, CAUSES
 
 import website.base as base
 
@@ -370,6 +370,7 @@ def new_project(request):
 
     # Show the sign page and collect emails
     context = base.build_base_context(request)
+    context['causes'] = CAUSES
 
     if request.GET.get('org'):
         org = Organization.objects.get(id=request.GET.get('org'))
