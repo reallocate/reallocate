@@ -73,9 +73,12 @@
                                     <input class="form-control required" type="text" id="name" name="name" value="{{ project.name }}">
                                 </div>
                                 <div class="form-group">
-                                    <label for="causes">Causes</label>
-                                    <select class="form-control" id="causes" name="cause">
-                                        <option>Select</option>
+                                    <label for="cause">Cause</label>
+                                    <select class="form-control required" id="cause" name="cause">
+                                        <option>None</option>
+                                        {% for cause in causes %}
+                                        <option value="{{ cause }}">{{ cause }}</option>
+                                        {% endfor %}
                                     </select>
                                 </div>
                                 <div class="form-group">
@@ -84,24 +87,9 @@
                                     <span class="help-block">110 characters or less</span>
                                 </div>
                                 <div class="form-group">
-                                    <label for="description">Where did the idea for this project come from?</label>
-                                    <textarea class="form-control required" id="description" name="description" data-word-limit="100">{{ project.description }}</textarea>
-                                    <span class="help-block">100 words or less</span>
-                                </div>
-                                <div class="form-group">
-                                    <label for="description">Who are the people that make up the current project team?</label>
-                                    <textarea class="form-control required" id="description2" name="description2" data-word-limit="100">{{ project.description2 }}</textarea>
-                                    <span class="help-block">100 words or less</span>
-                                </div>
-                                <div class="form-group">
-                                    <label for="description">What is the current state of the project?</label>
-                                    <textarea class="form-control required" id="description3" name="description3" data-word-limit="100">{{ project.description3 }}</textarea>
-                                    <span class="help-block">100 words or less</span>
-                                </div>
-                                <div class="form-group">
-                                    <label for="description">What is your vision for the future of this project?</label>
-                                    <textarea class="form-control required" id="description4" name="description4" data-word-limit="200">{{ project.description4 }}</textarea>
-                                    <span class="help-block">200 words or less</span>
+                                    <label for="description">Full project description</label>
+                                    <textarea class="form-control required" id="description" name="description" data-word-limit="50">{{ project.description }}</textarea>
+                                    <span class="help-block">50 words or less</span>
                                 </div>
                                 <div class="form-group">
                                     <label for="name">Add a Video URL</label>

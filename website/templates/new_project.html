@@ -28,29 +28,23 @@
                     <span class="help-block">Please provide a project name</span>
                 </div>
                 <div class="form-group">
+                    <label for="cause">Cause</label>
+                    <select class="form-control required" id="cause" name="cause">
+                        <option>Please select a relevent cause</option>
+                        {% for cause in causes %}
+                        <option value="{{ cause }}">{{ cause }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
                     <label for="short-desc">Short Description</label>
                     <input class="form-control required" length="109" type="text" id="short-desc" name="short_desc" placeholder="a brief, one-line description">
                     <span class="help-block">Please provide a brief description under 110 characters</span>
                 </div>
                 <div class="form-group">
-                    <label for="description">Where did the idea for this project come from?</label>
-                    <textarea class="form-control required" id="description" name="description" data-word-limit="100"></textarea>
-                    <span class="help-block">Please limit your answer to 100 words or less</span>
-                </div>
-                <div class="form-group">
-                    <label for="description">Who are the people that make up the current project team?</label>
-                    <textarea class="form-control required" id="description2" name="description2" data-word-limit="100"></textarea>
-                    <span class="help-block">Please limit your answer to 100 words or less</span>
-                </div>
-                <div class="form-group">
-                    <label for="description">What is the current state of the project?</label>
-                    <textarea class="form-control required" id="description3" name="description3" data-word-limit="100"></textarea>
-                    <span class="help-block">Please limit your answer to 100 words or less</span>
-                </div>
-                <div class="form-group">
-                    <label for="description">What is your vision for the future of this project?</label>
-                    <textarea class="form-control required" id="description4" name="description4" data-word-limit="200"></textarea>
-                    <span class="help-block">Please limit your answer to 200 words or less</span>
+                    <label for="description">Describe this project in detail</label>
+                    <textarea class="form-control required" id="description" name="description" data-word-limit="50"></textarea>
+                    <span class="help-block">Please limit your answer to 50 words or less</span>
                 </div>
                 <div class="form-group">
                     <label for="name">Add a Video URL</label> (optional)<br/>

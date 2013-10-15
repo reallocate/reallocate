@@ -1,10 +1,16 @@
 <div class="project">
+    {% if project.media_url %}
     <div class="project-image">
         <a href="/project/{{ project.id }}"><img src="{{ project.media_url }}"></a>
     </div>
-    <div class="project-text">
-        <div class="project-name"><a href="/project/{{ project.id }}">{{ project.name }}</a></div>
-        <div class="short-desc"><a href="/project/{{ project.id }}">{{ project.short_desc|truncatechars:109 }}</a></div>
+    {% endif %}
+    <div class="project-text"><a href="/project/{{ project.id }}">
+        <div class="project-name">{{ project.name }}</div>
+        {% if not project.media_url %}
+        <div class="description">{{ project.description|truncatechars:560 }}</div>
+        {% else %}
+        <div class="short-desc">{{ project.short_desc|truncatechars:130 }}</div>
+        {% endif %}
         <!--
         <div class="row project-status">
             <div class="col-5 pie-chart">
@@ -22,5 +28,5 @@
         {% if project.city and project.state %}
         <div class="project-location">Location: {{ project.city }}, {{ project.state }}</div>
         {% endif %}
-    </div>
+    </a></div>
 </div>
