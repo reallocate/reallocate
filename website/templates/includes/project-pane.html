@@ -1,7 +1,9 @@
 <div class="project">
+    {% if project.media_url %}
     <div class="project-image">
         <a href="/project/{{ project.id }}"><img src="{{ project.media_url }}"></a>
     </div>
+    {% endif %}
     <div class="project-text">
         <div class="project-name"><a href="/project/{{ project.id }}">{{ project.name }}</a></div>
         <div class="short-desc"><a href="/project/{{ project.id }}">{{ project.short_desc|truncatechars:109 }}</a></div>

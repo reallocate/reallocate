@@ -234,7 +234,7 @@ class ProjectForm(ModelForm):
     class Meta:
 
         model = Project
-        fields = ('name', 'industry', 'short_desc', 'description', 'description2', 'description3', 'description4',  'video_url', 'media_url')
+        fields = ('name', 'industry', 'short_desc', 'description', 'video_url', 'media_url')
 
         widgets = {
             'description': Textarea(attrs={'cols': 80, 'rows': 10}),

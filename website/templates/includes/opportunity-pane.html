@@ -1,7 +1,9 @@
 <div class="opportunity">
+	{% if opportunity.media_url %}
 	<div class="opp-thumb">
 		<a href="/project/{{ opportunity.project.id }}/opportunity/{{ opportunity.id }}"><img src="{{ opportunity.media_url }}"/></a>
 	</div>
+	{% endif %}
 	<div class="opp-text">
 		<p class="opp-name"><a href="/project/{{ project.id }}/opportunity/{{ opportunity.id }}">{{ opportunity.name }}</a></p>
 		<p class="opp-type">{{ opportunity.opp_type|title }}</p>
