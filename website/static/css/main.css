@@ -305,6 +305,9 @@ h5 {
     -moz-box-shadow: 5px 5px 5px #808080;
     -webkit-box-shadow: 5px 5px 5px #808080;
 }
+.project a:hover {
+    text-decoration: none;
+}
 .project:hover {
     border-color: rgba(82, 168, 236, 0.8);
     cursor: pointer;
@@ -313,7 +316,6 @@ h5 {
     height: 168px;
     overflow: hidden;        
     position: relative;
-    margin-bottom: 10px;
 }
 .project-image img {
     height: 168px;
@@ -340,6 +342,7 @@ h5 {
     font-size: 25px;
     line-height: 1em;
     margin-bottom: 10px;
+    margin-top: 5px;
 }  
 .project-status {
     margin-top: 10px;
