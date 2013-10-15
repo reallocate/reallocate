@@ -12,9 +12,11 @@
 			{{ tag }}{% if forloop.last %}{% else %}, {% endif %}
 		{% endfor %}
 		</p>
-		<p class="opp-short-desc">
-			{{ opportunity.short_desc|truncatechars:140 }}
-		</p>
+		{% if not opportunity.media_url %}
+		<p class="opp-description">{{ opportunity.description|truncatechars:500 }}</p>
+		{% else %}
+		<p class="opp-short-desc">{{ opportunity.short_desc|truncatechars:140 }}</p>
+		{% endif %}
 		{% comment %}
 		<p class="opp-location">
 			<div class="icon-map-marker"></div><a href="">San Francisco, CA</a>
