@@ -1,0 +1,31 @@
+{
+  "name": "reallocate",
+  "version": "0.0.1",
+  "description": "front end builders",
+  "main": "index.js",
+  "dependencies": {
+    "grunt": "~0.4.1"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-compass": "~0.6.0",
+    "grunt-contrib-requirejs": "~0.4.1",
+    "grunt-contrib-uglify": "~0.2.4",
+    "grunt-contrib-handlebars": "~0.5.11",
+    "grunt-contrib-sass": "~0.5.0",
+    "grunt-modernizr": "~0.3.0",
+    "grunt-concurrent": "~0.4.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/reallocate/reallocate.git"
+  },
+  "author": "Haroun Serang",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/reallocate/reallocate/issues"
+  }
+}
