@@ -15,6 +15,7 @@
         filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#a6000000',GradientType=0 ); /* IE6-9 */
     }
     .jumbotron {
+	margin-bottom: 0px;
         padding: 0px;
         background-image: url('/static/images/flickr_sunset.jpg');
         background-size: cover;
@@ -25,9 +26,18 @@
     /* Section Styles */
     .section {
 	height: 400px;
-	background-color: #cf5678;
     }
     
+    #give-icons {
+        margin: 35px auto 0px auto;
+        width: 366px;
+    }
+    .give-icon {
+        font-size: 13px;
+        float: left;
+        width: 91px;
+        text-align: center; 
+    }
     
     
 </style>
@@ -42,13 +52,48 @@
 {% block content %}
 
 <div>
-    <div class="section">
+    <div class="section" style="background-color: #cf5678;">
 	<div class="container" style="padding: 45px 30px;">
-    <div class="col-6" style="float:left;"><p style="font-size: 3em;">Connect with<br/> <strong>World Class Talent</strong>. <br/>Work on<br/><strong>Real World Problems</strong>.</p></div>
-    <div class="col-6" style="float:right;"><img style="max-height: 300px;" src="/static/images/flickr_sunset.jpg"></div>
+	    <div class="col-6" style="float:left;"><p style="font-size: 3em;">Connect with<br/> <strong>World Class Talent</strong>. <br/>Work on<br/><strong>Real World Problems</strong>.</p></div>
+	    <div class="col-6" style="float:right;"><img style="max-height: 300px;" src="/static/images/flickr_sunset.jpg"></div>
 	</div>
     </div>
-	
+    
+    <div class="section">
+	<div class="container" style="padding: 45px 30px;">
+	    <div class="col-12">
+		<p style="font-size: 2.3em; text-align: justify;">Post your project. Share opportunities for people to plug in</p>
+		<div id="give-icons">
+		    <div class="give-icon"><i class="icon-star icon-4x"></i><br/>Skills</div>
+		    <div class="give-icon"><i class="icon-book icon-4x"></i><br/>Knowledge</div>
+		    <div class="give-icon"><i class="icon-cogs icon-4x"></i><br/>In Kind</div>
+		    <div class="give-icon"><i class="icon-money icon-4x"></i><br/>Money</div>
+		</div>
+	    </div>
+	</div>    
+    </div>
+    
+    <div class="section" style="background-color: #cf5678;">
+	<div class="container" style="padding: 45px 30px;">
+	    <div class="col-6" style="float:left;"><img style="max-height: 300px;" src="/static/images/flickr_sunset.jpg"></div>
+	    <div class="col-6" style="float:right;"><p style="font-size: 3em;">Build a team of supporters and invite new contributors</p></div>
+	</div>
+    </div>	
+
+        <div class="section">
+	<div class="container" style="padding: 45px 30px;">
+	    <div class="col-12">
+		<p style="font-size: 2.3em; text-align: justify;">Post your project. Share opportunities for people to plug in</p>
+		<div id="give-icons">
+		    <div class="give-icon"><i class="icon-star icon-4x"></i><br/>Skills</div>
+		    <div class="give-icon"><i class="icon-book icon-4x"></i><br/>Knowledge</div>
+		    <div class="give-icon"><i class="icon-cogs icon-4x"></i><br/>In Kind</div>
+		    <div class="give-icon"><i class="icon-money icon-4x"></i><br/>Money</div>
+		</div>
+	    </div>
+	</div>    
+    </div>
+
     <p>There are people like you all over the world who are trying to make a difference in their community, one project at a time.</p> 
     
     <p>Post your project and give the community opportunities to plug in their skills, knowledge, in-kind resources and financial capital.</p>
