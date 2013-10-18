@@ -42,6 +42,9 @@
         #user-image {
             margin-top: 20px;
         }
+        #user-image .file-upload-ok {
+            font-size: 18px;
+        }
         #user-image img {
             width: 100%;
             margin-bottom: 10px;
@@ -88,7 +91,7 @@
             <div class="col-3" id="user-image">
                 <img src="{{ user_profile.media_url|default:'/static/images/no-profile-image.png' }}" alt="Avatar for {{ profile.user|escape }}" />
                 {% if edit %}
-                <button class="delegate-file-upload btn btn-default btn-block" style="display: none;">Change profile picture</button>
+                <button class="delegate-file-upload btn btn-default btn-block" style="display: none;">Change profile picture<i class="icon-ok icon-2x file-upload-ok" style="display: none;"></i></button>
                 <input type="file" name="file" id="file" value="Upload a new photo" style="display: none;">
                 {% endif %}
             </div>

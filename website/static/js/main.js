@@ -11,14 +11,13 @@ reAllocate = {
         
         });
         
-        $('input[type="file"]').on('change', function(){
+        $('input[type="file"]').on('change', function() {
             // show check mark next to file upload box after file is attached
             
-            upload_ok = $(this).siblings(".file-upload-ok");
+            upload_ok = $(this).parent().find(".file-upload-ok");
             if (upload_ok){
                 upload_ok.show();
             }
-            
         });
         
         $(".login-required").click(function(e) {
