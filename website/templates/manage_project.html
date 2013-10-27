@@ -82,8 +82,8 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="short-desc">Short Description</label>
-                                    <input class="form-control required" length="109" type="text" id="short-desc" name="short_desc" value="{{ project.short_desc }}">
+                                    <label for="short-desc">Short Description</label><span class="limit-status"></span>
+                                    <input class="form-control required" data-char-limit="110" length="115" type="text" id="short-desc" name="short_desc" value="{{ project.short_desc }}">
                                     <span class="help-block">110 characters or less</span>
                                 </div>
                                 <div class="form-group">

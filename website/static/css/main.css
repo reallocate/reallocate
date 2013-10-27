@@ -141,6 +141,15 @@ h5 {
     box-shadow: 0 5px 5px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(82, 168, 236, 0.6);
     cursor: pointer;
 }
+.limit-status {
+    float: right;
+    font-size: 11px;
+    font-family: helvetica, sans-serif;
+    color: #777;
+    position: relative;
+    top: 8px;
+    right: 2px;
+}
 .opportunities {
     
 }

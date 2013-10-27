@@ -84,6 +84,18 @@ reAllocate = {
             }
             reAllocate.validateForm($(this).parents('form'));
         });
+        $('input[data-char-limit]').on('keyup', function() {
+            var limit = parseInt($(this).attr('data-char-limit'));
+            var chars = this.value.length;
+            var display = chars + ' / ' + limit;
+            $(this).siblings('.limit-status').html(display);
+            if (chars > limit) {
+                $(this).parents('.form-group').addClass('has-error');
+            } else {
+                $(this).parents('.form-group').removeClass('has-error');
+            }
+            reAllocate.validateForm($(this).parents('form'));
+        });
     },   
 
     validateForm: function(form) {
