@@ -16,7 +16,7 @@ from django.db.models import Q
 
 from website.models import OrganizationForm, Organization, ProjectForm, Project, Update, UserProfile
 from website.models import OpportunityEngagement, Opportunity, OpportunityForm
-from website.models import STATUS_ACTIVE, STATUS_CHOICES, STATUS_INACTIVE, STATUS_CLOSED, CAUSES
+from website.models import STATUS_ACTIVE, STATUS_CHOICES, STATUS_INACTIVE, STATUS_CLOSED, CAUSES, COUNTRIES
 
 import website.base as base
 
@@ -487,6 +487,7 @@ def new_organization(request):
 
     context = base.build_base_context(request)
     user_profile = request.user.get_profile()
+    context['COUNTRIES'] = COUNTRIES
 
     if user_profile.organization_id:
 

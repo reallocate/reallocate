@@ -77,7 +77,9 @@
                             <label for="country">Country</label>
                             <select class="form-control required" id="country" name="country">
                                 <option value=''>Select country</option>
-                                <option value="United States">United States</option>
+                                {% for c in COUNTRIES %}
+                                <option value="{{ c.0 }}">{{ c.1 }}</option>
+                                {% endfor %}
                             </select>
                             <span class="help-block">Please select a country</span>
 
