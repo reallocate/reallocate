@@ -534,13 +534,3 @@ img.update-avatar {
     margin: 0px 0px 10px 0px;
     font-size: 16px;
 }
-
-/* custom responsive styles */
-@media(max-width:767px) {
-    body {
-        font-size: 80%;
-    }
-}
-
-
-
