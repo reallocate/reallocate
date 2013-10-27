@@ -60,7 +60,7 @@ def profile(request, username=None):
         user_profile.skills.add(*[rec.strip() for rec in request.POST.get("skills", "").split(",")])
         user_profile.save()
 
-        context['alert'] = 'Your changes have been saved.'
+        context['alert'] = {'type': 'success', 'message': 'Your changes have been saved.'}
     
     context['opportunities'] = Opportunity.objects.filter(engaged_by=user)
     context['followed_projects'] = Project.objects.filter(followed_by=user)
@@ -166,7 +166,7 @@ def reset_password(request):
             return HttpResponseRedirect('/')
         user = user[0]
         if not user.check_password(temp_password):
-            context['alert'] = "You have entered an incorrect temporary password."
+            context['alert'] = {'type': 'danger', 'message': "You have entered an incorrect temporary password."}
             return render_to_response('temp_password.html', context, context_instance=RequestContext(request))
         user.set_password(new_password)
         user.save()

@@ -167,10 +167,10 @@
     <div class="overlay">
         <div id="project-title" class="container">
              <div class="row">
-                <div class="col-9">
+                <div class="col-xs-9">
                     <h1>{{ project.name }}</h1>
                 </div>
-                <div class="col-3 actions">
+                <div class="col-xs-3 actions">
                     {% if is_admin %}<a href="/project/{{ project.id }}/manage" class="btn btn-primary">Manage</a>&nbsp;{% endif %}
                     <button class="btn btn-primary follow" onclick="reAllocate.followProject(this, {{ project.id }});">{% if is_following %}Unfollow{% else %}Follow{% endif %}</button>
                 </div>
@@ -183,7 +183,7 @@
 {% block content %}
 <!--
 <div class="row">
-    <div class="col-6 col-offset-6">
+    <div class="col-xs-6 col-xs-offset-6">
             <strong>Jump to</strong>:
         <a href="#"" class="jump" loc="opps">Opportunities({{ opportunities.count }})</a>
         <a href="#"" class="jump" loc="updates">Updates({{ updates.count|default:0 }})</a>
@@ -193,7 +193,7 @@
 
 <div class="container">  
     <div class="row">
-        <div class="col-6">
+        <div class="col-xs-6">
             {% if project.video %}
             <div id="video">
                 {{ project.video|safe }}
@@ -230,7 +230,7 @@
             </div>
             {% endif %}
         </div>    
-        <div class="col-6">
+        <div class="col-xs-6">
                     <!--
                     <div class="row">
                         <h4>Needs</h4>
@@ -296,7 +296,7 @@
                 <h3>Opportunities</h3>
                 <div class="row">
                     {% for opportunity in opportunities %}
-                        <div class="col-6">
+                        <div class="col-xs-6">
                             {% include "includes/opportunity-pane.html" %}
                         </div>
                     {% endfor %}                    

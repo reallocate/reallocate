@@ -41,22 +41,22 @@
             <div class="row">
 
             {% if organization %}
-                <div class="col-5 current-org">
-                    <h4>You're a member of <b>{{ organization.name }}</b></h4>
+                <div class="col-xs-5 current-org">
+                    <h4>You're a member of<br /><b>{{ organization.name }}</b></h4>
                     <form method="post">
-                        <input type="submit" value="Use this organization" name="use_users_org" class="btn btn-primary btn-large" />
+                        <input type="submit" value="Use this organization" name="use_users_org" class="btn btn-primary btn-lg" />
                     </form>
                 </div>
-                <div class="vert-or col-1">
+                <div class="vert-or col-xs-1">
                     <div></div>
                     <p>or</p>
                     <div></div>
                 </div>
             {% endif %}
 
-                <div class="col-6">
+                <div class="col-xs-6">
 
-                    <form id="new-org-form" class="form-horizontal col-12" method="post">{% csrf_token %}
+                    <form id="new-org-form" class="form-horizontal col-xs-12" method="post">{% csrf_token %}
 
                         <div class="form-group">
 
