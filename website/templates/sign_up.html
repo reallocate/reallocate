@@ -67,13 +67,13 @@
                 <div class="col-xs-4" id="social-sign-in">
 
                     <div class="form-group">
-                        <a href="{% url "socialauth_begin" "linkedin" %}" class="btn btn-primary"><i class="icon-linkedin"></i> LinkedIn</a>
+                        <a href="{% url "socialauth_begin" "linkedin" %}?next={{ next }}" class="btn btn-primary"><i class="icon-linkedin"></i> LinkedIn</a>
                     </div>
                     <div class="form-group">
-                        <a href="{% url "socialauth_begin" "google" %}" class="btn btn-primary"><i class="icon-google-plus"></i> Google</a>
+                        <a href="{% url "socialauth_begin" "google" %}?next={{ next }}" class="btn btn-primary"><i class="icon-google-plus"></i> Google</a>
                     </div>
                     <div class="form-group">
-                        <a class="btn btn-primary" href="{% url "socialauth_begin" "facebook" %}"><i class="icon-facebook"></i> Facebook</a>
+                        <a class="btn btn-primary" href="{% url "socialauth_begin" "facebook" %}?next={{ next }}"><i class="icon-facebook"></i> Facebook</a>
                     </div>
                 </div>
             </div>
