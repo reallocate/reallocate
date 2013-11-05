@@ -39,7 +39,7 @@ GOOGLE_EXTRA_DATA = [('oauth_token', 'oauth_token')]
 GOOGLE_SREG_EXTRA_DATA = [('oauth_token', 'oauth_token')]
 GOOGLE_AX_EXTRA_DATA = [('oauth_token', 'oauth_token')]
 
-FACEBOOK_EXTENDED_PERMISSIONS = ['email', 'publish_stream']
+FACEBOOK_EXTENDED_PERMISSIONS = ['email', 'publish_stream', 'first_name', 'last_name', 'locale']
 
 LINKEDIN_SCOPE = ['r_basicprofile', 'r_emailaddress']
 LINKEDIN_EXTRA_FIELD_SELECTORS = ['email-address', 'headline', 'industry']

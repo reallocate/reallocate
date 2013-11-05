@@ -561,7 +561,7 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User)
     bio = models.CharField(max_length=2000, blank=True)
     media_url = models.CharField(max_length=2000, blank=True)
-    organization = models.ForeignKey(Organization, null=True, blank=True)
+    organization = models.ForeignKey(Organization, null=True, blank=True, on_delete=models.SET_NULL)
     location = models.CharField(max_length=200, blank=True)
     occupation = models.CharField(max_length=200, blank=True)
     causes = models.CharField(max_length=100, blank=True)
