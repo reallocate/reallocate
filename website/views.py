@@ -346,12 +346,15 @@ def manage_project(request, pid=1):
         else:
 
             project_form = ProjectForm(request.POST or None, instance=project)
+            original_media_url = project.media_url
             project = project_form.save(commit=False)
 
             media_file = request.FILES.get('file')
 
             if media_file:
                 project.media_url = base.send_to_remote_storage(media_file, project.make_s3_media_url(media_file), "image/png")
+            else:
+                project.media_url = original_media_url
 
             if project_form.is_valid():
 
