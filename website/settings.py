@@ -39,11 +39,10 @@ GOOGLE_EXTRA_DATA = [('oauth_token', 'oauth_token')]
 GOOGLE_SREG_EXTRA_DATA = [('oauth_token', 'oauth_token')]
 GOOGLE_AX_EXTRA_DATA = [('oauth_token', 'oauth_token')]
 
-# Add email to requested authorizations.
+FACEBOOK_EXTENDED_PERMISSIONS = ['email', 'publish_stream']
+
 LINKEDIN_SCOPE = ['r_basicprofile', 'r_emailaddress']
-# Add the fields so they will be requested from linkedin.
 LINKEDIN_EXTRA_FIELD_SELECTORS = ['email-address', 'headline', 'industry']
-# Arrange to add the fields to UserSocialAuth.extra_data
 LINKEDIN_EXTRA_DATA = [('id', 'id'),
                        ('first-name', 'first_name'),
                        ('last-name', 'last_name'),
