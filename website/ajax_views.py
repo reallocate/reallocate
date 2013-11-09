@@ -8,6 +8,7 @@ from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render_to_response, get_object_or_404
+from django.core.serializers import serialize
 
 import website.base as base
 from website.settings import ADMIN_EMAIL
@@ -33,7 +34,6 @@ def modify_project_relation(request, *args):
     if action == 'follow':
 
         project.followed_by.add(request.user)
-        # TODO: remove admin email from this as # of follows increases
         #base.send_email([ADMIN_EMAIL, project.created_by.email],
         #    'new follower: %s for project: %s' % (request.user.email, project.name), '')
 
@@ -51,6 +51,7 @@ def modify_project_relation(request, *args):
 @csrf_exempt
 @login_required
 def engage_opportunity(request):
+
     context = base.build_base_context(request)
 
     pid = request.REQUEST.get('projectId')
@@ -215,6 +216,14 @@ def check_available(request, *args):
 
 
     return HttpResponse(json.dumps(response_data), mimetype="application/json")
+
+
+def get_orgs(request, *args):
+
+    orgs = Organization.objects.all()
+    orgs = [org.name for org in orgs]
+
+    return HttpResponse(json.dumps(orgs))
 
 
 def check_org_name(request, *args):

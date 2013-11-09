@@ -5,6 +5,10 @@ from django.db.models.signals import post_save
 from taggit.managers import TaggableManager
 from django.utils.translation import ugettext as _
 
+# handle custom Country field for South
+from south.modelsinspector import add_introspection_rules
+add_introspection_rules([], ["^website\.models\.CountryField"])
+
 # http://xml.coverpages.org/country3166.html
 COUNTRIES = (
     ('AF', _('Afghanistan')), 
@@ -610,3 +614,46 @@ class OpportunityEngagement(models.Model):
      # this will be where the opp engagements can be approved
     status = models.CharField(max_length=100, choices=STATUS_CHOICES, default=STATUS_CHOICES[1][1])
     response = models.CharField(max_length=2000, blank=True) # response to the engagement
+
+
+
+from social_auth.backends.facebook import FacebookBackend
+from social_auth.backends import google
+from social_auth.signals import pre_update
+
+def social_extra_values(sender, user, response, details, **kwargs):
+
+    result = False
+    
+    if "id" in response:
+        from apps.photo.models import Photo
+        from urllib2 import urlopen, HTTPError
+        from django.template.defaultfilters import slugify
+        from apps.account.utils import user_display
+        from django.core.files.base import ContentFile
+        
+        try:
+            url = None
+            if sender == FacebookBackend:
+                url = "http://graph.facebook.com/%s/picture?type=large" \
+                            % response["id"]
+            elif sender == google.GoogleOAuth2Backend and "picture" in response:
+                url = response["picture"]
+ 
+            if url:
+                avatar = urlopen(url)
+                    
+                photo = Photo(author = user, is_avatar = True)
+                photo.picture.save(slugify(user.username + " social") + '.jpg', 
+                        ContentFile(avatar.read()))
+            
+                photo.save()
+ 
+        except HTTPError:
+            pass
+        
+        result = True
+ 
+    return result
+ 
+pre_update.connect(social_extra_values, sender=None)
