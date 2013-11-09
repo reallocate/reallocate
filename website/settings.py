@@ -6,6 +6,11 @@
 import os, sys
 
 DEBUG = False
+if os.environ.get('SEND_EMAILS') and os.environ['SEND_EMAILS'] == 'true':
+    SEND_EMAILS = True
+else:
+    SEND_EMAILS = False
+
 ALLOWED_HOSTS = ['*']  # todo:john - dont let this go live
 
 # OAuth keys for Social Auth
@@ -39,7 +44,7 @@ GOOGLE_EXTRA_DATA = [('oauth_token', 'oauth_token')]
 GOOGLE_SREG_EXTRA_DATA = [('oauth_token', 'oauth_token')]
 GOOGLE_AX_EXTRA_DATA = [('oauth_token', 'oauth_token')]
 
-FACEBOOK_EXTENDED_PERMISSIONS = ['email', 'publish_stream', 'first_name', 'last_name', 'locale']
+FACEBOOK_EXTENDED_PERMISSIONS = ['email', 'publish_stream']
 
 LINKEDIN_SCOPE = ['r_basicprofile', 'r_emailaddress']
 LINKEDIN_EXTRA_FIELD_SELECTORS = ['email-address', 'headline', 'industry']
@@ -48,7 +53,8 @@ LINKEDIN_EXTRA_DATA = [('id', 'id'),
                        ('last-name', 'last_name'),
                        ('email-address', 'email_address'),
                        ('headline', 'headline'),
-                       ('industry', 'industry')]
+                       ('industry', 'industry'),
+                       ('picture-url', 'profile_picture')]
 
 # email settings
 EMAIL_BACKEND = 'django_ses.SESBackend'
