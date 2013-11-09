@@ -1,21 +1,104 @@
 body {
     font-family: "Lato", Helvetica, sans-serif;
-    font-weight: 300;
+    font-weight: 200;
 }
 h1, h2, h3, h4, h5 {
     color: #003A40;
     font-family: "Lato", Helvetica, sans-serif;
-    font-weight: 400;
+    font-weight: 300;
 }
 h5 {
     color: #888888;
 }
+
+/* Non-responsive overrides
+ *
+ * Utilitze the following CSS to disable the responsive-ness of the container,
+ * grid system, and navbar.
+ */
+
+/* Reset the container */
+.container {
+  max-width: none !important;
+  width: 970px;
+}
+
+.container .navbar-header,
+.container .navbar-collapse {
+  margin-right: 0;
+  margin-left: 0;
+}
+
+/* Always float the navbar header */
+.navbar-header {
+  float: left;
+}
+
+/* Undo the collapsing navbar */
+.navbar-collapse {
+  display: block !important;
+  height: auto !important;
+  padding-bottom: 0;
+  overflow: visible !important;
+}
+
+.navbar-toggle {
+  display: none;
+}
+
+.navbar-brand {
+  margin-left: -15px;
+}
+
+/* Always apply the floated nav */
+.navbar-nav {
+  float: left;
+  margin: 0;
+}
+.navbar-nav > li {
+  float: left;
+}
+.navbar-nav > li > a {
+  padding: 15px;
+}
+
+/* Redeclare since we override the float above */
+.navbar-nav.navbar-right {
+  float: right;
+}
+
+/* Undo custom dropdowns */
+.navbar .open .dropdown-menu {
+  position: absolute;
+  float: left;
+  background-color: #fff;
+  border: 1px solid #cccccc;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-width: 0 1px 1px;
+  border-radius: 0 0 4px 4px;
+  -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+          box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+}
+.navbar .open .dropdown-menu > li > a {
+  color: #333;
+}
+.navbar .open .dropdown-menu > li > a:hover,
+.navbar .open .dropdown-menu > li > a:focus,
+.navbar .open .dropdown-menu > .active > a,
+.navbar .open .dropdown-menu > .active > a:hover,
+.navbar .open .dropdown-menu > .active > a:focus {
+  color: #fff !important;
+  background-color: #428bca !important;
+}
+.navbar .open .dropdown-menu > .disabled > a,
+.navbar .open .dropdown-menu > .disabled > a:hover,
+.navbar .open .dropdown-menu > .disabled > a:focus {
+  color: #999 !important;
+  background-color: transparent !important;
+}
+
 .pre {
     white-space: pre-wrap;
-}
-.container {
-   width: 940px;
-   max-width: none !important; 
 }
 .jumbotron {
     margin-top: -20px;
@@ -58,6 +141,15 @@ h5 {
     box-shadow: 0 5px 5px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(82, 168, 236, 0.6);
     cursor: pointer;
 }
+.limit-status {
+    float: right;
+    font-size: 11px;
+    font-family: helvetica, sans-serif;
+    color: #777;
+    position: relative;
+    top: 8px;
+    right: 2px;
+}
 .opportunities {
     
 }
@@ -68,6 +160,7 @@ h5 {
     background-color: #e9e9e9;
     margin-bottom: 16px;
     min-height: 310px;
+    padding-bottom: 25px;
 }
 .opp-thumb {
     padding: 3px;

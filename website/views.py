@@ -16,7 +16,7 @@ from django.db.models import Q
 
 from website.models import OrganizationForm, Organization, ProjectForm, Project, Update, UserProfile
 from website.models import OpportunityEngagement, Opportunity, OpportunityForm
-from website.models import STATUS_ACTIVE, STATUS_CHOICES, STATUS_INACTIVE, STATUS_CLOSED, CAUSES
+from website.models import STATUS_ACTIVE, STATUS_CHOICES, STATUS_INACTIVE, STATUS_CLOSED, CAUSES, COUNTRIES
 
 import website.base as base
 
@@ -60,7 +60,7 @@ def profile(request, username=None):
         user_profile.skills.add(*[rec.strip() for rec in request.POST.get("skills", "").split(",")])
         user_profile.save()
 
-        context['alert'] = 'Your changes have been saved.'
+        context['alert'] = {'type': 'success', 'message': 'Your changes have been saved.'}
     
     context['opportunities'] = Opportunity.objects.filter(engaged_by=user)
     context['followed_projects'] = Project.objects.filter(followed_by=user)
@@ -166,7 +166,7 @@ def reset_password(request):
             return HttpResponseRedirect('/')
         user = user[0]
         if not user.check_password(temp_password):
-            context['alert'] = "You have entered an incorrect temporary password."
+            context['alert'] = {'type': 'danger', 'message': "You have entered an incorrect temporary password."}
             return render_to_response('temp_password.html', context, context_instance=RequestContext(request))
         user.set_password(new_password)
         user.save()
@@ -346,12 +346,15 @@ def manage_project(request, pid=1):
         else:
 
             project_form = ProjectForm(request.POST or None, instance=project)
+            original_media_url = project.media_url
             project = project_form.save(commit=False)
 
             media_file = request.FILES.get('file')
 
             if media_file:
                 project.media_url = base.send_to_remote_storage(media_file, project.make_s3_media_url(media_file), "image/png")
+            else:
+                project.media_url = original_media_url
 
             if project_form.is_valid():
 
@@ -487,6 +490,7 @@ def new_organization(request):
 
     context = base.build_base_context(request)
     user_profile = request.user.get_profile()
+    context['COUNTRIES'] = COUNTRIES
 
     if user_profile.organization_id:
 

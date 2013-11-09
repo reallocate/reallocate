@@ -5,15 +5,16 @@ This open source project is for the ReAllocate (reallocate.org) marketplace, whe
 PREREQUISITES
 
 - Python 2.7
-- SQLite, MySQL, or something similar
-- (OS X) XCode or CLI
+- pip (Python)
+- SQLite
+- XCode or CLI (Mac OS X)
 
 INITIAL SETUP
 
 - git clone git@github.com:reallocate/reallocate.git
 - sudo pip-2.7 install -r requirements.txt
-- create a settings_local.py file next to settings.py (you can find our private keys in our DropBox folder)
-- ./manage.py syncdb (it will offer to create a superuser; answer "no" -- you get admin / admin for free)
+- create a settings_local.py file next to settings.py
+- ./manage.py syncdb (It will ask to create a superuser; answer "yes" -- and use admin / admin for consistency)
 - ./manage.py runserver
 
 OPTIONAL SETUP
