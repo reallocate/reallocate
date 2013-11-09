@@ -4,7 +4,7 @@ from website.models import UserProfile
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
-from website.settings import FROM_EMAIL, ADMIN_EMAIL, DEPLOY_ENV
+from website.settings import FROM_EMAIL, ADMIN_EMAIL, DEPLOY_ENV, SEND_EMAILS
 
 import boto
 from boto.s3.key import Key
@@ -71,14 +71,14 @@ def send_email(recipients, subject, text_content, html_content=None, from_email=
         msg.attach_alternative(html_content, "text/html")
         msg.content_subtype = "html" # defaults to show as html, txt if html not viewable
 
-    if DEPLOY_ENV != 'local':
+    if SEND_EMAILS:
 
         msg.send()
 
 
 def send_admin_email(subject, text_content, html_content=None):
 
-    send_email([ADMIN_EMAIL], "admin: " + subject, text_content, html_content=html_content)
+    send_email([ADMIN_EMAIL],  subject, text_content, html_content=html_content)
     
 
 def send_to_remote_storage(uploaded_file, filename, mime_type):
