@@ -56,6 +56,14 @@ FROM_EMAIL = "Reallocate <noreply@reallocate.org>"
 ADMIN_EMAIL = "admin@reallocate.org"
 
 
+#############
+# DATABASES #
+#############
+# Parse database configuration from $DATABASE_URL
+import dj_database_url
+DATABASES = {'default': dj_database_url.config(default='sqlite:/data.db')}
+
+
 # Allow any settings to be defined in local_settings.py which should be
 # ignored in your version control system allowing for settings to be defined per machine.
 if 'DEPLOY_ENV' in os.environ and os.environ['DEPLOY_ENV'] != 'local':
@@ -91,13 +99,6 @@ else:
       print 'You must create a settings_local.py file!'
       print ''
       pass
-
-#############
-# DATABASES #
-#############
-# Parse database configuration from $DATABASE_URL
-import dj_database_url
-DATABASES = {'default': dj_database_url.config(default='sqlite:/data.db')}
 
 
 #########
@@ -212,14 +213,13 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # Uncomment the next line to enable the admin:
     'django.contrib.admin',
-
+    'south',
+    
     # jinja2
     # 'coffin',
     # end jinja2
     'widget_tweaks',
-
     'website',
     'taggit',
 
@@ -228,7 +228,6 @@ INSTALLED_APPS = (
     'social_auth',
     #'storages',
 
-    # 'south',  # must be at the end of app list
 )
 
 # A sample logging configuration. The only tangible logging
