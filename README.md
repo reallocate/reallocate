@@ -14,7 +14,7 @@ INITIAL SETUP
 - git clone git@github.com:reallocate/reallocate.git
 - sudo pip-2.7 install -r requirements.txt
 - create a settings_local.py file next to settings.py
-- ./manage.py syncdb (It will ask to create a superuser; answer "yes" -- and use admin / admin for consistency)
+- ./manage.py syncdb --all  (It will ask to create a superuser; answer "yes" -- and use admin / admin for consistency)
 - ./manage.py runserver
 
 OPTIONAL SETUP
