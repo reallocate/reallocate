@@ -298,6 +298,16 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',        #Django default auth
 )
 
+SOCIAL_AUTH_PIPELINE = (
+    'social_auth.backends.pipeline.social.social_auth_user',
+    'social_auth.backends.pipeline.associate.associate_by_email',
+    'social_auth.backends.pipeline.user.get_username',
+    'social_auth.backends.pipeline.user.create_user',
+    'social_auth.backends.pipeline.social.associate_user',
+    'social_auth.backends.pipeline.user.update_user_details',
+    'website.base.get_user_avatar',
+)
+
 # Redirects after login
 LOGIN_URL = '/login'
 LOGIN_REDIRECT_URL = '/'
@@ -307,7 +317,6 @@ POST_LOGIN_URL = '/search'
 
 SOCIAL_AUTH_DEFAULT_USERNAME = 'new_social_auth_user'
 SOCIAL_AUTH_UUID_LENGTH = 16
-
 
 #This is to extend the user profile to add custom fields
 AUTH_PROFILE_MODULE = 'website.UserProfile'

@@ -110,6 +110,8 @@ def home(request):
 
 def about(request):
 
+    base.send_email_template(request, 'welcome', {}, 'test subject', 'scott@reallocate.org,kyle@reallocate.org')
+
     context = base.build_base_context(request)
 
     return render_to_response('about.html', context, context_instance=RequestContext(request))
