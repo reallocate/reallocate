@@ -442,7 +442,9 @@ def view_opportunity(request, pid, oid):
     if request.user.is_authenticated():
 
         context['is_following'] = request.user in opp.project.followed_by.all()
-        context['is_engaged'] = True if request.user == opp.project.created_by else False
+        # 'is_engaged' is confusing.Really, this == 'is_owner' someone working on a project is engaged but they aren't necessarily the owner of it.
+        context['is_owner'] = True if request.user == opp.project.created_by else False
+        context['is_open'] = True if opp.status != STATUS_CLOSED else False
 
         try:
             ue = OpportunityEngagement.objects.get(opportunity=opp.id, user=request.user.id)
@@ -452,7 +454,8 @@ def view_opportunity(request, pid, oid):
         if ue:
             if ue.status == 'Unpublished' or ue.status == 'Pending':
                 context['pending'] = True
-            if ue.status == STATUS_ACTIVE: 
+            if ue.status == STATUS_ACTIVE:
+                #hmmm, ah, that's engaged vs is_engaged
                 context['engaged'] = True
             
     return render_to_response('opportunity.html', context, context_instance=RequestContext(request))    

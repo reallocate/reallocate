@@ -1,0 +1,22 @@
+<div id="close_opportunity-modal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="modal-title">{{ opportunity.name }}</h3>
+            </div>
+            <div class="modal-body">
+                <form action="/login" id="close_opportunity-form" method="post">
+                    {% if next %}
+                    <input type="hidden" name="next" value="{{ next }}" />
+                    {% endif %}
+                    <div class="form-group">
+                        <textarea class="form-control " name="message" id="close_opportunity-message" placeholder="Please tell us why you are closing the Opportunity. This comment is shared with all engaged users."></textarea>
+                    </div>
+                    <button type="button" class="btn btn-default pull-right" onclick="reAllocate.closeOpportunity($('#close_opportunity-message').attr('value'), {{ opportunity.project.id }}, {{ opportunity.id }}); $('#close_opportunity-modal').modal('hide');">Shutdown the Opportunity</button>
+                    <div class="clearfix"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

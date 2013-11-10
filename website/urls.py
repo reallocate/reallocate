@@ -30,6 +30,7 @@ urlpatterns = patterns('',
 
   url(r'^ajax/modify-project-relation', 'website.ajax_views.modify_project_relation', name='modify_project_relation'),
   url(r'^ajax/engage-opportunity', 'website.ajax_views.engage_opportunity', name='engage_opportunity'),
+  url(r'^ajax/close-opportunity', 'website.ajax_views.close_opportunity', name='close_opportunity'),
   url(r'^ajax/add-update', 'website.ajax_views.add_update', name='add_update'),
   url(r'^ajax/check-available', 'website.ajax_views.check_available'),
   url(r'^ajax/check-org-name', 'website.ajax_views.check_org_name'),
