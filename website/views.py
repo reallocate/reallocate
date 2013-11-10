@@ -109,6 +109,9 @@ def home(request):
 
 
 def about(request):
+    
+    base.send_email_template(request, 'user_project_submitted', {}, 'Welcome to ReAllocate!', 'kgstew@gmail.com')
+
 
     context = base.build_base_context(request)
 
@@ -130,7 +133,7 @@ def tos(request):
 
 
 def get_started(request):
-
+    
     context = base.build_base_context(request)
 
     if hasattr(request.user, 'email'):
@@ -237,8 +240,7 @@ def sign_up(request):
     
     email_context = {'email': email, 'user': user}
 
-    #base.send_email_template(request, "welcome", email_context, "subject", [settings.ADMIN_EMAIL, email])
-
+    base.send_email_template(request, 'welcome', email_context, 'Welcome to ReAllocate!', [settings.ADMIN_EMAIL, email])
     return HttpResponseRedirect(request.POST.get('next', '/'))
 
 
