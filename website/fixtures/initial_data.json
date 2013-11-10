@@ -67,23 +67,6 @@
         "date_joined": "2013-08-06T15:30:49Z"
     }
 }, {
-    "pk": 5,
-    "model": "auth.user",
-    "fields": {
-        "username": "DuleeshaKulasooriya",
-        "first_name": "Duleesha",
-        "last_name": "Kulasooriya",
-        "is_active": true,
-        "is_superuser": false,
-        "is_staff": false,
-        "last_login": "2013-08-09T16:47:41Z",
-        "groups": [],
-        "user_permissions": [],
-        "password": "!",
-        "email": "duleesha@gmail.com",
-        "date_joined": "2013-08-09T16:47:41Z"
-    }
-}, {
     "pk": 6,
     "model": "auth.user",
     "fields": {
@@ -97,7 +80,7 @@
         "groups": [],
         "user_permissions": [],
         "password": "!",
-        "email": "kgstew@gmail.com",
+        "email": "admin@gmail.com",
         "date_joined": "2013-08-09T21:54:04Z"
     }
 }, {
@@ -116,23 +99,6 @@
         "password": "pbkdf2_sha256$10000$G8hx5F4zXGwh$5Am3lSgyE3ta43MkAV7Rfm2MRLvRxZFGlbLwHUSGjrs=",
         "email": "bill@reallocate.org",
         "date_joined": "2013-08-12T00:52:56Z"
-    }
-}, {
-    "pk": 8,
-    "model": "auth.user",
-    "fields": {
-        "username": "rmnguni@gmail.com",
-        "first_name": "",
-        "last_name": "",
-        "is_active": true,
-        "is_superuser": false,
-        "is_staff": false,
-        "last_login": "2013-10-23T07:45:45Z",
-        "groups": [],
-        "user_permissions": [],
-        "password": "pbkdf2_sha256$10000$k4B7Cz5lAhI9$ihfiD5JTo6zZXPQOY3byv+YN1fFyDhyjnPnmf+WIrpw=",
-        "email": "rmnguni@gmail.com",
-        "date_joined": "2013-08-13T17:24:36Z"
     }
 }, {
     "pk": 9,
@@ -169,193 +135,6 @@
         "date_joined": "2013-08-14T02:45:36Z"
     }
 }, {
-    "pk": 11,
-    "model": "auth.user",
-    "fields": {
-        "username": "msilverthorne@usa.net",
-        "first_name": "",
-        "last_name": "",
-        "is_active": true,
-        "is_superuser": false,
-        "is_staff": false,
-        "last_login": "2013-10-18T06:28:31Z",
-        "groups": [],
-        "user_permissions": [],
-        "password": "pbkdf2_sha256$10000$vSMMJW6ri2XN$Ye7pX566Rx2YMb3NXjFg/uq0aeX1XNl+lx/PC9WRzes=",
-        "email": "msilverthorne@usa.net",
-        "date_joined": "2013-08-14T04:31:45Z"
-    }
-}, {
-    "pk": 12,
-    "model": "auth.user",
-    "fields": {
-        "username": "HeenalRajani",
-        "first_name": "Heenal",
-        "last_name": "Rajani",
-        "is_active": true,
-        "is_superuser": false,
-        "is_staff": false,
-        "last_login": "2013-08-20T03:06:02Z",
-        "groups": [],
-        "user_permissions": [],
-        "password": "!",
-        "email": "1heenal@gmail.com",
-        "date_joined": "2013-08-20T03:06:02Z"
-    }
-}, {
-    "pk": 13,
-    "model": "auth.user",
-    "fields": {
-        "username": "carolynmuire@mac.com",
-        "first_name": "",
-        "last_name": "",
-        "is_active": true,
-        "is_superuser": false,
-        "is_staff": false,
-        "last_login": "2013-08-22T02:44:10Z",
-        "groups": [],
-        "user_permissions": [],
-        "password": "pbkdf2_sha256$10000$VUNsFvHmupb1$gyPTm+s10vHsGmMnqKneTWPBkkCXHHXx3DFXGC5xwfw=",
-        "email": "carolynmuire@mac.com",
-        "date_joined": "2013-08-22T02:44:10Z"
-    }
-}, {
-    "pk": 14,
-    "model": "auth.user",
-    "fields": {
-        "username": "mitar.reallocate@tnode.com",
-        "first_name": "",
-        "last_name": "",
-        "is_active": true,
-        "is_superuser": false,
-        "is_staff": false,
-        "last_login": "2013-09-08T05:11:43Z",
-        "groups": [],
-        "user_permissions": [],
-        "password": "pbkdf2_sha256$10000$AwcnqEaX6iw3$nqtecbipytm1VpGp2q+bgSDJGw5/CMAGLoci8brdWd4=",
-        "email": "mitar.reallocate@tnode.com",
-        "date_joined": "2013-08-27T23:19:38Z"
-    }
-}, {
-    "pk": 15,
-    "model": "auth.user",
-    "fields": {
-        "username": "RyanKushner",
-        "first_name": "ryan",
-        "last_name": "kushner",
-        "is_active": true,
-        "is_superuser": false,
-        "is_staff": false,
-        "last_login": "2013-09-26T23:52:35Z",
-        "groups": [],
-        "user_permissions": [],
-        "password": "!",
-        "email": "ryankushner@gmail.com",
-        "date_joined": "2013-09-26T23:52:35Z"
-    }
-}, {
-    "pk": 16,
-    "model": "auth.user",
-    "fields": {
-        "username": "ScottLeonard",
-        "first_name": "Scott",
-        "last_name": "Leonard",
-        "is_active": true,
-        "is_superuser": false,
-        "is_staff": false,
-        "last_login": "2013-11-05T20:58:10Z",
-        "groups": [],
-        "user_permissions": [],
-        "password": "!",
-        "email": "scott.leonard@gmail.com",
-        "date_joined": "2013-09-30T22:42:59Z"
-    }
-}, {
-    "pk": 17,
-    "model": "auth.user",
-    "fields": {
-        "username": "KyleStewart2549085feb7d4be6",
-        "first_name": "Kyle",
-        "last_name": "Stewart",
-        "is_active": true,
-        "is_superuser": false,
-        "is_staff": false,
-        "last_login": "2013-10-15T22:20:36Z",
-        "groups": [],
-        "user_permissions": [],
-        "password": "!",
-        "email": "kgstew@gmail.com",
-        "date_joined": "2013-10-15T22:20:36Z"
-    }
-}, {
-    "pk": 18,
-    "model": "auth.user",
-    "fields": {
-        "username": "kgstew",
-        "first_name": "Kyle",
-        "last_name": "Stewart",
-        "is_active": true,
-        "is_superuser": false,
-        "is_staff": false,
-        "last_login": "2013-10-25T20:48:19Z",
-        "groups": [],
-        "user_permissions": [],
-        "password": "!",
-        "email": "",
-        "date_joined": "2013-10-15T22:27:17Z"
-    }
-}, {
-    "pk": 19,
-    "model": "auth.user",
-    "fields": {
-        "username": "paola.dececco@gmail.com",
-        "first_name": "",
-        "last_name": "",
-        "is_active": true,
-        "is_superuser": false,
-        "is_staff": false,
-        "last_login": "2013-11-03T06:55:09Z",
-        "groups": [],
-        "user_permissions": [],
-        "password": "pbkdf2_sha256$10000$KsDXUUGrqmS1$FnFMa47Zh/PG7PRLfssKLhKcqv+TDAinT1xMi4AtT4Q=",
-        "email": "paola.dececco@gmail.com",
-        "date_joined": "2013-10-15T22:30:16Z"
-    }
-}, {
-    "pk": 20,
-    "model": "auth.user",
-    "fields": {
-        "username": "arasch90@gmail.com",
-        "first_name": "",
-        "last_name": "",
-        "is_active": true,
-        "is_superuser": false,
-        "is_staff": false,
-        "last_login": "2013-10-16T02:50:38Z",
-        "groups": [],
-        "user_permissions": [],
-        "password": "pbkdf2_sha256$10000$1Sfq9keUzaXy$pGghLW+ZffNU35PJb//MoKkt2JnA7R97MNAQQvwtlbA=",
-        "email": "arasch90@gmail.com",
-        "date_joined": "2013-10-16T02:50:38Z"
-    }
-}, {
-    "pk": 21,
-    "model": "auth.user",
-    "fields": {
-        "username": "ryan_jung@haas.berkeley.edu",
-        "first_name": "",
-        "last_name": "",
-        "is_active": true,
-        "is_superuser": false,
-        "is_staff": false,
-        "last_login": "2013-10-27T16:01:09Z",
-        "groups": [],
-        "user_permissions": [],
-        "password": "pbkdf2_sha256$10000$88geTIGYlt92$VSJUi/TEwbdilWwt3OcbBo4melPgluSk5hX2Z1jDczY=",
-        "email": "ryan_jung@haas.berkeley.edu",
-        "date_joined": "2013-10-16T21:13:28Z"
-    }
-}, {
     "pk": 22,
     "model": "auth.user",
     "fields": {
@@ -371,261 +150,6 @@
         "password": "!",
         "email": "scott@reallocate.org",
         "date_joined": "2013-10-17T20:03:48Z"
-    }
-}, {
-    "pk": 23,
-    "model": "auth.user",
-    "fields": {
-        "username": "joecharbonnet@gmail.com",
-        "first_name": "",
-        "last_name": "",
-        "is_active": true,
-        "is_superuser": false,
-        "is_staff": false,
-        "last_login": "2013-11-06T22:14:12Z",
-        "groups": [],
-        "user_permissions": [],
-        "password": "pbkdf2_sha256$10000$LRF62r1wk7S9$HOH/Q3sRf+BUqn9JxCv42eYG0Q9Slr7PT1yAOCfaMbA=",
-        "email": "joecharbonnet@gmail.com",
-        "date_joined": "2013-10-19T18:20:27Z"
-    }
-}, {
-    "pk": 24,
-    "model": "auth.user",
-    "fields": {
-        "username": "ChaunLowe",
-        "first_name": "Chaun",
-        "last_name": "Lowe",
-        "is_active": true,
-        "is_superuser": false,
-        "is_staff": false,
-        "last_login": "2013-11-08T02:31:58Z",
-        "groups": [],
-        "user_permissions": [],
-        "password": "!",
-        "email": "chaun.lowe@gmail.com",
-        "date_joined": "2013-10-19T18:20:54Z"
-    }
-}, {
-    "pk": 25,
-    "model": "auth.user",
-    "fields": {
-        "username": "WillTarpeh",
-        "first_name": "Will",
-        "last_name": "Tarpeh",
-        "is_active": true,
-        "is_superuser": false,
-        "is_staff": false,
-        "last_login": "2013-11-06T01:47:08Z",
-        "groups": [],
-        "user_permissions": [],
-        "password": "!",
-        "email": "william.tarpeh@gmail.com",
-        "date_joined": "2013-10-21T00:20:53Z"
-    }
-}, {
-    "pk": 26,
-    "model": "auth.user",
-    "fields": {
-        "username": "MikeNorthc8ef177f956f4822",
-        "first_name": "Mike",
-        "last_name": "North",
-        "is_active": true,
-        "is_superuser": false,
-        "is_staff": false,
-        "last_login": "2013-10-22T02:19:47Z",
-        "groups": [],
-        "user_permissions": [],
-        "password": "!",
-        "email": "mikenorth@gmail.com",
-        "date_joined": "2013-10-22T02:19:46Z"
-    }
-}, {
-    "pk": 27,
-    "model": "auth.user",
-    "fields": {
-        "username": "nima.nimatorabi@gmail.com",
-        "first_name": "",
-        "last_name": "",
-        "is_active": true,
-        "is_superuser": false,
-        "is_staff": false,
-        "last_login": "2013-10-22T05:50:13Z",
-        "groups": [],
-        "user_permissions": [],
-        "password": "pbkdf2_sha256$10000$NlyJqHcUnBPH$BrWRDxJMPNUnjF7dvJSvrmRie6cHFosqbyVLCKn2sck=",
-        "email": "nima.nimatorabi@gmail.com",
-        "date_joined": "2013-10-22T05:50:13Z"
-    }
-}, {
-    "pk": 28,
-    "model": "auth.user",
-    "fields": {
-        "username": "brittanyrferrero@gmail.com",
-        "first_name": "",
-        "last_name": "",
-        "is_active": true,
-        "is_superuser": false,
-        "is_staff": false,
-        "last_login": "2013-10-22T06:30:26Z",
-        "groups": [],
-        "user_permissions": [],
-        "password": "pbkdf2_sha256$10000$tP7B50bN0MYa$Y4vvYpZbqKG6xkhs1QP3PoIs8K9mxuRIWAKkWnkAU5o=",
-        "email": "brittanyrferrero@gmail.com",
-        "date_joined": "2013-10-22T06:30:26Z"
-    }
-}, {
-    "pk": 32,
-    "model": "auth.user",
-    "fields": {
-        "username": "stephanie@reallocate.org",
-        "first_name": "",
-        "last_name": "",
-        "is_active": true,
-        "is_superuser": false,
-        "is_staff": false,
-        "last_login": "2013-10-24T19:29:42Z",
-        "groups": [],
-        "user_permissions": [],
-        "password": "pbkdf2_sha256$10000$viwEhbuDCwos$4vQ052djZREAqPVlVOwaqi76QoKsuFQwjlgovGGG3iQ=",
-        "email": "stephanie@reallocate.org",
-        "date_joined": "2013-10-24T19:29:41Z"
-    }
-}, {
-    "pk": 33,
-    "model": "auth.user",
-    "fields": {
-        "username": "vishwanathb01@gmail.com",
-        "first_name": "",
-        "last_name": "",
-        "is_active": true,
-        "is_superuser": false,
-        "is_staff": false,
-        "last_login": "2013-11-07T10:12:53Z",
-        "groups": [],
-        "user_permissions": [],
-        "password": "pbkdf2_sha256$10000$T0NHfmZEVhLV$2b+XfPwoNekNsVA8edvvZGgHN2g8jXQN5jAPHgo8Vto=",
-        "email": "vishwanathb01@gmail.com",
-        "date_joined": "2013-10-26T18:35:51Z"
-    }
-}, {
-    "pk": 34,
-    "model": "auth.user",
-    "fields": {
-        "username": "agclark2@berkeley.edu",
-        "first_name": "",
-        "last_name": "",
-        "is_active": true,
-        "is_superuser": false,
-        "is_staff": false,
-        "last_login": "2013-10-26T18:41:49Z",
-        "groups": [],
-        "user_permissions": [],
-        "password": "pbkdf2_sha256$10000$AdIac0NjaX1v$pn7EhRQEF8G6GyPLF01xH/h+ypNAUqWyzQpZw0rsS0o=",
-        "email": "agclark2@berkeley.edu",
-        "date_joined": "2013-10-26T18:41:49Z"
-    }
-}, {
-    "pk": 35,
-    "model": "auth.user",
-    "fields": {
-        "username": "jkavuma@gmail.com",
-        "first_name": "",
-        "last_name": "",
-        "is_active": true,
-        "is_superuser": false,
-        "is_staff": false,
-        "last_login": "2013-10-29T00:52:49Z",
-        "groups": [],
-        "user_permissions": [],
-        "password": "pbkdf2_sha256$10000$bT3h9hgsUn30$WPezYtwdrd6whg2BaWocv0hcX/aeAvgFbMpbrIu2yf0=",
-        "email": "jkavuma@gmail.com",
-        "date_joined": "2013-10-29T00:52:49Z"
-    }
-}, {
-    "pk": 36,
-    "model": "auth.user",
-    "fields": {
-        "username": "stephenmsanford",
-        "first_name": "Steve",
-        "last_name": "Sanford",
-        "is_active": true,
-        "is_superuser": false,
-        "is_staff": false,
-        "last_login": "2013-11-04T21:06:21Z",
-        "groups": [],
-        "user_permissions": [],
-        "password": "!",
-        "email": "",
-        "date_joined": "2013-11-04T21:06:21Z"
-    }
-}, {
-    "pk": 37,
-    "model": "auth.user",
-    "fields": {
-        "username": "testing@testaccount.com",
-        "first_name": "",
-        "last_name": "",
-        "is_active": true,
-        "is_superuser": false,
-        "is_staff": false,
-        "last_login": "2013-11-04T23:14:14Z",
-        "groups": [],
-        "user_permissions": [],
-        "password": "pbkdf2_sha256$10000$9RjzMOH0h7Nw$QIALpV4+3iTJ9A2DREBV9NNahQgVFc6EEgAUMph24ug=",
-        "email": "testing@testaccount.com",
-        "date_joined": "2013-11-04T23:14:14Z"
-    }
-}, {
-    "pk": 38,
-    "model": "auth.user",
-    "fields": {
-        "username": "myaccount@reallocate.org",
-        "first_name": "",
-        "last_name": "",
-        "is_active": true,
-        "is_superuser": false,
-        "is_staff": false,
-        "last_login": "2013-11-05T00:04:52Z",
-        "groups": [],
-        "user_permissions": [],
-        "password": "pbkdf2_sha256$10000$WyHl6QZ1hFJw$XXVAaoXgx2hSXWYCYvM6Yc515kMptpTHYeLvLnn44+M=",
-        "email": "myaccount@reallocate.org",
-        "date_joined": "2013-11-04T23:22:23Z"
-    }
-}, {
-    "pk": 39,
-    "model": "auth.user",
-    "fields": {
-        "username": "ScottLeonard875bedd6c47142e5",
-        "first_name": "Scott",
-        "last_name": "Leonard",
-        "is_active": true,
-        "is_superuser": false,
-        "is_staff": false,
-        "last_login": "2013-11-05T20:59:38Z",
-        "groups": [],
-        "user_permissions": [],
-        "password": "!",
-        "email": "scott.leonard@gmail.com",
-        "date_joined": "2013-11-05T20:54:41Z"
-    }
-}, {
-    "pk": 40,
-    "model": "auth.user",
-    "fields": {
-        "username": "scott.leonard",
-        "first_name": "Scott",
-        "last_name": "Leonard",
-        "is_active": true,
-        "is_superuser": false,
-        "is_staff": false,
-        "last_login": "2013-11-05T20:55:48Z",
-        "groups": [],
-        "user_permissions": [],
-        "password": "!",
-        "email": "",
-        "date_joined": "2013-11-05T20:55:48Z"
     }
 }, {
     "pk": 1,
@@ -730,7 +254,7 @@
         "country": "US",
         "org_mission": "Hoffman Solutions aims to provide the very best solutions for projects in Kenya.\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n",
         "address_two": "",
-        "created_by": ["msilverthorne@usa.net"],
+        "created_by": ["admin"],
         "year_established": "",
         "phone": "",
         "state": "",
@@ -751,7 +275,7 @@
         "country": "US",
         "org_mission": "Build a solution to provide Kenyan citizens with easy access to information about public administration and service delivery at the county and constituency levels, as well as the ability to send questions and comments to county and constituency officials responsible for resource mobilization, allocation and management.",
         "address_two": "",
-        "created_by": ["msilverthorne@usa.net"],
+        "created_by": ["admin"],
         "year_established": "",
         "phone": "",
         "state": "",
@@ -768,7 +292,7 @@
         "status": "Pending",
         "name": "Whitesands",
         "city": "",
-        "URL": "kgstew.com",
+        "URL": "admin.com",
         "country": "US",
         "org_mission": "Break things to make them better",
         "address_two": "",
@@ -793,7 +317,7 @@
         "country": "US",
         "org_mission": "We are super cool and we do awesome things. Yeh!",
         "address_two": "",
-        "created_by": ["HeenalRajani"],
+        "created_by": ["admin"],
         "year_established": "",
         "phone": "",
         "state": "",
@@ -814,7 +338,7 @@
         "country": "US",
         "org_mission": "Hometowns is a community created, community curated, community controlled social connection platform.  Think user-controlled Facebook with deeper place-based integration, promoting local sharing economy and local connection.  Self-sustaining monetization will be controlled from the bottom up (e.g., crowdsourced selection of who can advertise/sponsor), not the top down. Content and privacy will be determined by the users, not by corporate dictate.  Hometowns has a value proposition, a team assembled and relationships with large existing networks including Sierra Club, Transition Towns, etc.  Hometowns' next step is to prototype the technology platform for show and tell with investors and to release to alpha user communities for feedback and iteration.  ",
         "address_two": "",
-        "created_by": ["carolynmuire@mac.com"],
+        "created_by": ["admin"],
         "year_established": "",
         "phone": "",
         "state": "",
@@ -856,7 +380,7 @@
         "country": "US",
         "org_mission": "Our mission is to create a sustainable country-wide network of solar technicians able to manufacture, market, sell, install and support locally made solar products. ",
         "address_two": "",
-        "created_by": ["paola.dececco@gmail.com"],
+        "created_by": ["admin"],
         "year_established": "",
         "phone": "",
         "state": "",
@@ -898,7 +422,7 @@
         "country": "US",
         "org_mission": "The mission of the Alliance for CHANGE is to facilitate the healthy and safe reintegration of incarcerated men and women back into society.  We recognize that this requires an active process of re-socialization, including pre-parole and post-parole community support.  Our program incorporates core principles of social justice and community living as well as practical skills that ensure successful reintegration and lifestyle change that is beneficial to the participant as well as his or her larger community.",
         "address_two": "",
-        "created_by": ["ChaunLowe"],
+        "created_by": ["admin"],
         "year_established": "",
         "phone": "",
         "state": "",
@@ -919,7 +443,7 @@
         "country": "US",
         "org_mission": "The West Oakland Environmental Indicators Project is a resident led, community-based environmental justice organization dedicated to achieving healthy homes, healthy jobs and healthy neighborhoods for all who live, work, learn and play in West Oakland, California. Our mission is to build grassroots capacity to provide local leadership for positive change.",
         "address_two": "",
-        "created_by": ["WillTarpeh"],
+        "created_by": ["admin"],
         "year_established": "",
         "phone": "",
         "state": "",
@@ -940,7 +464,7 @@
         "country": "US",
         "org_mission": "Local Catch is a Community Supported Fishery that connects local fisherman to the community. They also provide members with fresh, sustainably caught seafood, while offering  fisherman better value for the fish they catch.",
         "address_two": "",
-        "created_by": ["agclark2@berkeley.edu"],
+        "created_by": ["admin"],
         "year_established": "",
         "phone": "",
         "state": "",
@@ -961,7 +485,7 @@
         "country": "",
         "org_mission": "",
         "address_two": "",
-        "created_by": ["kgstew"],
+        "created_by": ["admin"],
         "year_established": "",
         "phone": "",
         "state": "",
@@ -982,7 +506,7 @@
         "country": "US",
         "org_mission": "Advance to social projects",
         "address_two": "",
-        "created_by": ["myaccount@reallocate.org"],
+        "created_by": ["admin"],
         "year_established": "",
         "phone": "",
         "state": "",
@@ -1050,12 +574,12 @@
         "country": "",
         "industry": "Select",
         "followed_by": [
-            ["rmnguni@gmail.com"],
-            ["nima.nimatorabi@gmail.com"]
+            ["admin"],
+            ["admin"]
         ],
         "short_desc": "Inform and empower Kenyan citizens with access to information about public administration and service delivery.",
         "description4": "",
-        "created_by": ["msilverthorne@usa.net"],
+        "created_by": ["admin"],
         "state": "",
         "description2": "",
         "description3": "",
@@ -1076,11 +600,11 @@
         "country": "",
         "industry": "Select",
         "followed_by": [
-            ["carolynmuire@mac.com"]
+            ["admin"]
         ],
         "short_desc": "web platform to connect and support local communities and the sharing economy",
         "description4": "",
-        "created_by": ["carolynmuire@mac.com"],
+        "created_by": ["admin"],
         "state": "",
         "description2": "",
         "description3": "",
@@ -1103,7 +627,7 @@
         "followed_by": [],
         "short_desc": "The diffusion of solar technology in rural Uganda does not automatically translate into provision of effective energy solutions to the underserved population.  Walking through villages one sees plenty of panels mounted in the shade, meets plenty of people complaining about batteries that will not charge, or lights that are too faint\u2026.",
         "description4": "",
-        "created_by": ["paola.dececco@gmail.com"],
+        "created_by": ["admin"],
         "state": "",
         "description2": "",
         "description3": "",
@@ -1147,12 +671,12 @@
         "country": "",
         "industry": "",
         "followed_by": [
-            ["joecharbonnet@gmail.com"],
-            ["vishwanathb01@gmail.com"]
+            ["admin"],
+            ["admin"]
         ],
         "short_desc": "Creating a series of adventures that will help recently incarcerated men feel like they are part of society again.",
         "description4": "",
-        "created_by": ["ChaunLowe"],
+        "created_by": ["admin"],
         "state": "",
         "description2": "",
         "description3": "",
@@ -1173,11 +697,11 @@
         "country": "",
         "industry": "",
         "followed_by": [
-            ["ryan_jung@haas.berkeley.edu"]
+            ["admin"]
         ],
         "short_desc": "Creating a sustainable launchpad for informal businesses and careers into a formalizing economy",
         "description4": "",
-        "created_by": ["WillTarpeh"],
+        "created_by": ["admin"],
         "state": "",
         "description2": "",
         "description3": "",
@@ -1200,7 +724,7 @@
         "followed_by": [],
         "short_desc": "Building a community that values fresh, sustainable seafood",
         "description4": "",
-        "created_by": ["agclark2@berkeley.edu"],
+        "created_by": ["admin"],
         "state": "",
         "description2": "",
         "description3": "",
@@ -1223,7 +747,7 @@
         "followed_by": [],
         "short_desc": "Creating a platform to connect world class talent with real world problems",
         "description4": "",
-        "created_by": ["myaccount@reallocate.org"],
+        "created_by": ["admin"],
         "state": "",
         "description2": "",
         "description3": "",
