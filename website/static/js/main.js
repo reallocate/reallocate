@@ -1,4 +1,47 @@
-reAllocate = {
+// closure for namespace. Interim approach to migrate to AMD
+var RA = (function() {
+  "use strict";
+
+  var modules = {
+    mixins: {
+      serializeForm: function($form) {
+        var output = {},
+            formData = $form.serializeArray();
+
+        _.each(formData, function(data) {
+          var name = data.name,
+              val = data.value;
+
+          output[name] = val;
+        });
+
+        return output;
+      }
+    },
+    autocomplete: function($el, config) {
+
+      config = config || {};
+      $el = $el || {};
+
+      var defaults = {
+            ttl: 10000
+          };
+
+      if ($el.length === 0) {
+        return false;
+      }
+
+      $el.typeahead(_.defaults(config, defaults));
+    }
+  };
+
+
+  return modules;
+
+})();
+
+
+var reAllocate = window.reAllocate || {
 
     init: function() {
 
@@ -109,7 +152,6 @@ reAllocate = {
     },
 
     postUpdate: function(form) {
-
 
         var form = $(form);
 

@@ -27,6 +27,80 @@
     .well {
         width: 700px;
     }
+
+    .twitter-typeahead {
+      width: 100%;
+    }
+
+    .typeahead,
+    .tt-query,
+    .tt-hint {
+      width: 100%;
+      height: 34px;
+      padding: 6px 12px;
+      outline: none;
+      font-size: 14px;
+      line-height: 1.428571429;
+    }
+
+    .typeahead {
+      background-color: #fff;
+    }
+
+    .typeahead:focus {
+      border: 2px solid #0097cf;
+    }
+
+    .tt-query {
+      -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+      -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+      box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    }
+
+    .tt-header {
+      padding: 2px 10px 8px;
+      margin: 0;
+      font-size: 18px;
+    }
+
+    .tt-hint {
+      padding-left: 11px;
+      color: #ccc
+    }
+
+    .tt-dropdown-menu {
+      width: 100%;
+      margin-top: 12px;
+      padding: 8px 0;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      border: 1px solid rgba(0, 0, 0, 0.2);
+      -webkit-border-radius: 8px;
+      -moz-border-radius: 8px;
+      border-radius: 8px;
+      -webkit-box-shadow: 0 5px 10px rgba(0,0,0,.2);
+      -moz-box-shadow: 0 5px 10px rgba(0,0,0,.2);
+      box-shadow: 0 5px 10px rgba(0,0,0,.2);
+    }
+
+    .tt-suggestion {
+      padding: 3px 20px;
+      font-size: 14px;
+      line-height: 24px;
+    }
+
+    .tt-suggestion.tt-is-under-cursor {
+      color: #fff;
+      background-color: #0097cf;
+    }
+
+    .tt-suggestion p {
+      margin: 0;
+    }
+
+    .gist {
+      font-size: 14px;
+    }
 </style>
 {% endblock %}
 
@@ -37,7 +111,6 @@
         <h3>Create {% if organization %}a new{% else %}an{% endif %} organization</h4>
 
         <div class="well">
-
             <div class="row">
 
             {% if organization %}
@@ -55,38 +128,31 @@
             {% endif %}
 
                 <div class="col-xs-6">
-
-                    <form id="new-org-form" class="form-horizontal col-xs-12" method="post">{% csrf_token %}
-
+                    <form id="new-org-form" autocomplete="off" class="xs-12" method="post">{% csrf_token %}
                         <div class="form-group">
-
                             <label for="name">Organization name</label>
-                            <input class="form-control required" type="text" id="name" name="name" />
+                            <input class="form-control" type="text" id="name" name="name" />
                             <span class="help-block">Please provide a name</span>
                         </div>
 
                         <div class="form-group">
-                            
                             <label for="URL">Website</label>
                             <input class="form-control" type="text" id="URL" name="URL" />
-
                         </div>
 
                         <div class="form-group">
-                            
                             <label for="country">Country</label>
-                            <select class="form-control required" id="country" name="country">
+                            <select class="form-control" id="country" name="country">
                                 <option value=''>Select country</option>
                                 {% for c in COUNTRIES %}
-                                <option value="{{ c.0 }}">{{ c.1 }}</option>
+                                  <option value="{{ c.0 }}">{{ c.1 }}</option>
                                 {% endfor %}
                             </select>
                             <span class="help-block">Please select a country</span>
-
                         </div>
 
                         <div class="form-group">
-                            
+
                             <label for="org_mission">Mission Statement</label>
                             <textarea class="form-control" id="org_mission" name="org_mission"></textarea>
 
@@ -105,7 +171,108 @@
 
 {% block bottomscript %}
     <script>
+      (function() {
+        "use strict";
 
+        var FormModel,
+            FormView;
+
+        FormModel = Backbone.Model.extend({
+          defaults: {
+            name: "",
+            country: ""
+          },
+
+          required: ["name", "country"],
+
+          validate: function(data) {
+            var errors = false,
+                self = this;
+
+            _.each(this.required, function(requiredField) {
+              if (_.isEmpty(self.get(requiredField))) {
+                errors = "form is invalid";
+              }
+            });
+
+            return errors;
+          }
+        });
+
+        FormView = Backbone.View.extend({
+
+          el: "#new-org-form",
+
+          events: {
+            "submit": "handleSubmitEvent",
+            "click #org-submit": "handleSubmitEvent",
+            "blur textarea": "setModel",
+            "change select": "setModel",
+            "blur input": "setModel"
+          },
+
+          initialize: function() {
+
+            this.$submitButton = this.$el.find("#org-submit");
+            this.isSubmitting = false;
+
+            this.listenTo(this.model, "change", this.handleModelUpdate);
+
+            RA.autocomplete(this.$el.find("#name"), {
+              header: '<h3 class="tt-header">Organizations</h3>',
+              prefetch: "/ajax/get-orgs"
+            });
+
+          },
+
+          setModel: function() {
+            this.model.set(RA.mixins.serializeForm(this.$el));
+          },
+
+          enableSubmit: function(enable) {
+            if (enable) {
+              this.$submitButton.removeAttr("disabled");
+            } else {
+              this.$submitButton.attr("disabled", "disabled");
+            }
+          },
+
+          handleSubmitEvent: function(e) {
+
+            if (!(this.isSubmitting)) {
+              this.isSubmitting = true;
+              this.submitForm();
+            } else {
+              e.preventDefault();
+            }
+          },
+
+          submitForm: function() {
+            this.$el.submit();
+            this.isSubmitting = false;
+          },
+
+          handleModelUpdate: function(model) {
+            var canSubmit = false,
+                self = this;
+
+            _.each(model.toJSON(), function(value, id) {
+              self.$el.find("#" + id).val(value);
+            });
+
+            if (this.model.isValid()) {
+              canSubmit = true;
+            }
+
+            this.enableSubmit(canSubmit);
+          }
+
+        });
+
+        new FormView({model: new FormModel});
+      })();
+
+/*
     $('#name').on('blur', function(e) {
 
         var name = this;
@@ -123,15 +290,15 @@
                     $(name).siblings('.help-block').text('That organization already exists');
                     $(name).parents('.form-group').addClass('has-error');
                 }
-                
+
                 reAllocate.validateForm($(name).parents('form'));
             },
             error: function(res) {
                 //console.log('error in ajax request: ' + res);
             }
         });
-
     });
 
+*/
     </script>
 {% endblock %}
