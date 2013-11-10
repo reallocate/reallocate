@@ -212,6 +212,11 @@ TEMPLATE_DIRS = (
     'templates/emails',
 )
 
+TEMPLATE_PROCESSORS = (
+    "django.core.context_processors.auth",
+    "django.core.context_processors.request",
+)
+
 INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
