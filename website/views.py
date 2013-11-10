@@ -58,6 +58,7 @@ def profile(request, username=None):
         user_profile.occupation = request.POST.get("occupation")
         user_profile.location = request.POST.get("location")
         user_profile.skills.add(*[rec.strip() for rec in request.POST.get("skills", "").split(",")])
+        user_profile.user.save()
         user_profile.save()
 
         context['alert'] = {'type': 'success', 'message': 'Your changes have been saved.'}
