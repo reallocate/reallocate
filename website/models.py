@@ -488,7 +488,7 @@ class Project(models.Model):
     description3 = models.TextField(blank=True)
     description4 = models.TextField(blank=True)
     media_url = models.CharField(max_length=200, blank=True)
-    video_url = models.CharField(max_length=200, blank=True)
+    video_url = models.CharField(max_length=200, blank=True, null=True)
     created_by = models.ForeignKey(User)
     followed_by = models.ManyToManyField(User, blank=True, related_name='followed_by')
     

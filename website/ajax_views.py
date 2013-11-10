@@ -13,6 +13,7 @@ from django.core.serializers import serialize
 import website.base as base
 from website.settings import ADMIN_EMAIL
 from website.models import UserProfile, Project, ProjectForm, Update, Organization, Opportunity, OpportunityEngagement
+from website.models import STATUS_ACTIVE, STATUS_CHOICES, STATUS_INACTIVE, STATUS_CLOSED, CAUSES, COUNTRIES
 
 
 @login_required
@@ -81,6 +82,55 @@ def engage_opportunity(request):
 
         response['message'] = "No project or opportunity id."
     
+    return HttpResponse(json.dumps(response), mimetype="application/json")
+
+@csrf_exempt
+@login_required
+def close_opportunity(request):
+    pid = request.REQUEST.get('projectId')
+    oid = request.REQUEST.get('opportunityId')
+    response = {}
+
+    if pid and oid:
+        #close opportunity engagements
+        for opp_eng in OpportunityEngagement.objects.filter(opportunity__id__exact=oid):
+            opp_eng.status = STATUS_CLOSED
+            opp_eng.save()
+
+        #close Opportunity
+        opp = get_object_or_404(Opportunity, pk=oid)
+        opp.status = STATUS_CLOSED
+        opp.save()
+
+        #add final update about closing
+        message = request.REQUEST.get('message')
+        update = Update.objects.create(organization_id=opp.organization_id, project_id=pid, media_url="",
+                                   opportunity_id=oid, text=message, created_by=request.user)
+        update.save()
+
+        #now notify everyone involve about the close
+        subject = "Opportunity,  %s, closed by %s" % (opp.name, request.user.email)
+
+        #context here only used by email template(s), so add the variables that your template will need.
+        context = base.build_base_context(request)
+        context['opportunity_name'] = opp.name
+        context['project_name'] = opp.project.name
+        context['message'] = message
+
+        #email site admin
+        base.send_email_template(request, "closed_opportunity_admin", context, subject, [ADMIN_EMAIL])
+
+        #email project admin
+        base.send_email_template(request, "closed_opportunity_admin", context, subject, [opp.created_by.email])
+
+        #email engaged users
+        for engaged_user in opp.engaged_by.all():
+            context['user'] = engaged_user
+            base.send_email_template(request, "closed_opportunity_user", context, subject, [engaged_user.email])
+
+        response['message'] = "Opportunity was successfully closed."
+    else:
+        response['message'] = "Opportunity was not closed. Missing project or opportunity id."
     return HttpResponse(json.dumps(response), mimetype="application/json")
 
 

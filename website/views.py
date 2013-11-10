@@ -58,6 +58,7 @@ def profile(request, username=None):
         user_profile.occupation = request.POST.get("occupation")
         user_profile.location = request.POST.get("location")
         user_profile.skills.add(*[rec.strip() for rec in request.POST.get("skills", "").split(",")])
+        user_profile.user.save()
         user_profile.save()
 
         context['alert'] = {'type': 'success', 'message': 'Your changes have been saved.'}
@@ -200,10 +201,13 @@ def forgot_password(request):
         reset_user.save()
         
         subj = "Your password on Reallocate has been reset"
-        body = """Click this link to choose a new password.<br/><a href='%s/reset-password?temp_password=%s&email=%s'>
-            Choose a new password</a><br/><br/>Thanks,<br/>Reallocate""" % (request.get_host(), temp_password, email)
-                
-        base.send_email(email, subj, body, html_content=body)
+        recovery_url='%s/reset-password?temp_password=%s&email=%s' % (request.get_host(), temp_password, email) 
+        html_body = """Click this link to choose a new password.<br/><a href='%s'>
+            Choose a new password</a><br/><br/>Thanks,<br/>Reallocate""" % (recovery_url)
+        text_body = """Click this link to choose a new password.\n%s 
+            \n\n Thanks,\nReallocate""" % (recovery_url) 
+        base.send_email(email, subj, text_body, html_content=html_body)
+
         return HttpResponseRedirect('/forgot-password?alert=Your+password+has+been+reset.')
         
     context['email'] = request.GET.get('email', '')
@@ -441,7 +445,9 @@ def view_opportunity(request, pid, oid):
     if request.user.is_authenticated():
 
         context['is_following'] = request.user in opp.project.followed_by.all()
-        context['is_engaged'] = True if request.user == opp.project.created_by else False
+        # 'is_engaged' is confusing.Really, this == 'is_owner' someone working on a project is engaged but they aren't necessarily the owner of it.
+        context['is_owner'] = True if request.user == opp.project.created_by else False
+        context['is_open'] = True if opp.status != STATUS_CLOSED else False
 
         try:
             ue = OpportunityEngagement.objects.get(opportunity=opp.id, user=request.user.id)
@@ -451,7 +457,8 @@ def view_opportunity(request, pid, oid):
         if ue:
             if ue.status == 'Unpublished' or ue.status == 'Pending':
                 context['pending'] = True
-            if ue.status == STATUS_ACTIVE: 
+            if ue.status == STATUS_ACTIVE:
+                #hmmm, ah, that's engaged vs is_engaged
                 context['engaged'] = True
             
     return render_to_response('opportunity.html', context, context_instance=RequestContext(request))    

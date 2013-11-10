@@ -39,7 +39,7 @@ def generate_base_email_context(request):
            'facebook_url': 'https://www.facebook.com/reallocate.org',
            'twitter_url': 'https://twitter.com/reallocate'}
 
-
+# render param - If true, will return the email content *without* sending an email. If false it will send the email
 def send_email_template(request, email_type, context, subject, recipients, render=False, *kwargs):
 
     context.update(generate_base_email_context(request))
@@ -64,7 +64,7 @@ def send_email(recipients, subject, text_content, html_content=None, from_email=
     if not isinstance(recipients, list):
         recipients = recipients.split(",")
 
-    print "sending email to: %s with subject:%s and body:%s" % (", ".join(recipients), subject, text_content[:500])
+    print "sending email to: %s with subject:%s, text body:\n%s and html body:\n%s" % (", ".join(recipients), subject, text_content[:500], html_content[:500])
 
     # TODO: make sure we don't send real email to recipients if not production
     msg = EmailMultiAlternatives(subject, text_content, from_email, recipients, headers=headers)
