@@ -247,7 +247,27 @@ reAllocate = {
             }
        });
     },
-    
+
+    // closes an opportunity
+    closeOpportunity: function(message, pid, oid) {
+
+        // make sure user is logged in
+        if (!reAllocate.user) {
+            $('#login-modal').modal('show');
+            return;
+        }
+        $.ajax({
+            url : '/ajax/close-opportunity',
+            data : {'projectId': pid, 'opportunityId': oid, 'message': message},
+            success: function(res) {
+                window.location.reload();
+            },
+            error: function(res) {
+                alert("failed to close opportunity");
+            }
+       });
+    },
+
     // setup default sharing messages with overrides from calling page
     setupAddThis: function(twitter, title, description) {
         // to setup different shares on different buttons on the same page use markup explained in this article

@@ -13,6 +13,7 @@ from django.core.serializers import serialize
 import website.base as base
 from website.settings import ADMIN_EMAIL
 from website.models import UserProfile, Project, ProjectForm, Update, Organization, Opportunity, OpportunityEngagement
+from website.models import STATUS_ACTIVE, STATUS_CHOICES, STATUS_INACTIVE, STATUS_CLOSED, CAUSES, COUNTRIES
 
 
 @login_required
@@ -81,6 +82,54 @@ def engage_opportunity(request):
 
         response['message'] = "No project or opportunity id."
     
+    return HttpResponse(json.dumps(response), mimetype="application/json")
+
+@csrf_exempt
+@login_required
+def close_opportunity(request):
+    context = base.build_base_context(request)
+    pid = request.REQUEST.get('projectId')
+    oid = request.REQUEST.get('opportunityId')
+    response = {}
+
+    if pid and oid:
+        #close opportunity engagements
+        for opp_eng in OpportunityEngagement.objects.filter(opportunity__id__exact=oid):
+            opp_eng.status = STATUS_CLOSED
+            opp_eng.save()
+
+        #close Opportunity
+        opp = get_object_or_404(Opportunity, pk=oid)
+        opp.status = STATUS_CLOSED
+        opp.save()
+
+        #add final update about closing
+        message = request.REQUEST.get('message')
+        update = Update.objects.create(organization_id=opp.organization_id, project_id=pid, media_url="",
+                                   opportunity_id=oid, text=message, created_by=request.user)
+        update.save()
+
+        #TODO eoj Add admin_completed_opportunity_email.html template and user_completed_opportunity_email.html for kyle
+        #instead of doing this inline here.
+
+        #now notify everyone involve about the close
+        subject = "Opportunity,  %s, closed by %s" % (opp.name, request.user.email)
+        html_content = """%s<br/><br/>opportunity_id:%s""" % (
+            message, oid)
+
+        #email site admin
+        base.send_admin_email(subject, html_content, html_content=html_content)
+
+        #email project owner and engaged users
+        emails = []
+        emails.append(opp.created_by.email)
+        for engaged_user in opp.engaged_by.all():
+            emails.append(engaged_user.email)
+        base.send_email(emails, subject, html_content, html_content)
+
+        response['message'] = "Opportunity was successfully closed."
+    else:
+        response['message'] = "Opportunity was not closed. Missing project or opportunity id."
     return HttpResponse(json.dumps(response), mimetype="application/json")
 
 

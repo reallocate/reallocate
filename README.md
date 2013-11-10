@@ -12,7 +12,8 @@ PREREQUISITES
 INITIAL SETUP
 
 - git clone git@github.com:reallocate/reallocate.git
-- sudo pip-2.7 install -r requirements.txt
+- (OPTIONAL: use [virtualenv](http://www.virtualenv.org/) to create an isolated python environment for your ReAllocate development)
+- sudo pip-2.7 install -r requirements.txt (if using a virtualenv, omit sudo)
 - create a settings_local.py file next to settings.py
 - ./manage.py syncdb --all  (It will ask to create a superuser; answer "yes" -- and use admin / admin for consistency)
 - ./manage.py runserver
