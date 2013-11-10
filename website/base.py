@@ -61,7 +61,7 @@ def send_email(recipients, subject, text_content, html_content=None, from_email=
     if not isinstance(recipients, list):
         recipients = recipients.split(",")
 
-    print "sending email to: %s with subject:%s and body:%s" % (", ".join(recipients), subject, text_content[:500])
+    print "sending email to: %s with subject:%s, text body:\n%s and html body:\n%s" % (", ".join(recipients), subject, text_content[:500], html_content[:500])
 
     # TODO: make sure we don't send real email to recipients if not production
     msg = EmailMultiAlternatives(subject, text_content, from_email, recipients, headers=headers)

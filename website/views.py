@@ -198,10 +198,13 @@ def forgot_password(request):
         reset_user.save()
         
         subj = "Your password on Reallocate has been reset"
-        body = """Click this link to choose a new password.<br/><a href='%s/reset-password?temp_password=%s&email=%s'>
-            Choose a new password</a><br/><br/>Thanks,<br/>Reallocate""" % (request.get_host(), temp_password, email)
-                
-        base.send_email(email, subj, body, html_content=body)
+        recovery_url='%s/reset-password?temp_password=%s&email=%s' % (request.get_host(), temp_password, email) 
+        html_body = """Click this link to choose a new password.<br/><a href='%s'>
+            Choose a new password</a><br/><br/>Thanks,<br/>Reallocate""" % (recovery_url)
+        text_body = """Click this link to choose a new password.\n%s 
+            \n\n Thanks,\nReallocate""" % (recovery_url) 
+        base.send_email(email, subj, text_body, html_content=html_body)
+
         return HttpResponseRedirect('/forgot-password?alert=Your+password+has+been+reset.')
         
     context['email'] = request.GET.get('email', '')
