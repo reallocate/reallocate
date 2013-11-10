@@ -435,7 +435,8 @@ def view_opportunity(request, pid, oid):
         'resources': opp.resources.split(','),
         'other_opps': [rec for rec in Opportunity.objects.filter(project=opp.project).all() if rec.id != opp.id],
         'updates': updates,
-        'is_engaged': False
+        'is_engaged': False,
+        'is_open' : True if opp.status != STATUS_CLOSED else False,
     })
     
     for u in context['updates']:
@@ -447,7 +448,6 @@ def view_opportunity(request, pid, oid):
         context['is_following'] = request.user in opp.project.followed_by.all()
         # 'is_engaged' is confusing.Really, this == 'is_owner' someone working on a project is engaged but they aren't necessarily the owner of it.
         context['is_owner'] = True if request.user == opp.project.created_by else False
-        context['is_open'] = True if opp.status != STATUS_CLOSED else False
 
         try:
             ue = OpportunityEngagement.objects.get(opportunity=opp.id, user=request.user.id)

@@ -126,6 +126,10 @@
                 <div class="col-xs-1">
 
                     <div class="skill-icons">
+                    {% if not is_open %}
+                        <div class="give-icons"><i class="icon-circle icon-4x"></i><br/>Closed</div>
+                    {% endif %}
+
                     {% if opportunity.opp_type.lower == 'skills' %}
                         <div class="give-icons"><i class="icon-star icon-4x"></i><br/>Skills</div>
                     {% endif %}
