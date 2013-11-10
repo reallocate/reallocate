@@ -6,6 +6,9 @@ from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 from website.settings import FROM_EMAIL, ADMIN_EMAIL, DEPLOY_ENV, SEND_EMAILS
 
+from social_auth.backends.facebook import FacebookBackend
+from social_auth.backends.google import GoogleBackend
+
 import boto
 from boto.s3.key import Key
 
@@ -36,7 +39,7 @@ def generate_base_email_context(request):
            'facebook_url': 'https://www.facebook.com/reallocate.org',
            'twitter_url': 'https://twitter.com/reallocate'}
 
-
+# render param - If true, will return the email content *without* sending an email. If false it will send the email
 def send_email_template(request, email_type, context, subject, recipients, render=False, *kwargs):
 
     context.update(generate_base_email_context(request))
@@ -95,3 +98,24 @@ def send_to_remote_storage(uploaded_file, filename, mime_type):
     k.set_acl('public-read')
 
     return 'http://s3.amazonaws.com/%s/%s' % (settings.S3_BUCKET, filename)
+
+
+def get_user_avatar(backend, details, response, social_user, uid, user, *args, **kwargs):
+
+    url = None
+
+    if backend.__class__ == FacebookBackend:
+
+        url = "http://graph.facebook.com/%s/picture?type=large" % response['id']
+
+    if url:
+
+        logging.error(url)
+        #profile = user.get_profile()
+        #avatar = urlopen(url).read()
+        #fout = open(filepath, "wb") # filepath is where to save the image
+        #fout.write(avatar)
+        #fout.close()
+        #profile.photo = url_to_image # depends on where you saved it
+        #profile.save()
+

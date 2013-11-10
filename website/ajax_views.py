@@ -87,7 +87,6 @@ def engage_opportunity(request):
 @csrf_exempt
 @login_required
 def close_opportunity(request):
-    context = base.build_base_context(request)
     pid = request.REQUEST.get('projectId')
     oid = request.REQUEST.get('opportunityId')
     response = {}
@@ -109,23 +108,25 @@ def close_opportunity(request):
                                    opportunity_id=oid, text=message, created_by=request.user)
         update.save()
 
-        #TODO eoj Add admin_completed_opportunity_email.html template and user_completed_opportunity_email.html for kyle
-        #instead of doing this inline here.
-
         #now notify everyone involve about the close
         subject = "Opportunity,  %s, closed by %s" % (opp.name, request.user.email)
-        html_content = """%s<br/><br/>opportunity_id:%s""" % (
-            message, oid)
+
+        #context here only used by email template(s), so add the variables that your template will need.
+        context = base.build_base_context(request)
+        context['opportunity_name'] = opp.name
+        context['project_name'] = opp.project.name
+        context['message'] = message
 
         #email site admin
-        base.send_admin_email(subject, html_content, html_content=html_content)
+        base.send_email_template(request, "closed_opportunity_admin", context, subject, [ADMIN_EMAIL])
 
-        #email project owner and engaged users
-        emails = []
-        emails.append(opp.created_by.email)
+        #email project admin
+        base.send_email_template(request, "closed_opportunity_admin", context, subject, [opp.created_by.email])
+
+        #email engaged users
         for engaged_user in opp.engaged_by.all():
-            emails.append(engaged_user.email)
-        base.send_email(emails, subject, html_content, html_content)
+            context['user'] = engaged_user
+            base.send_email_template(request, "closed_opportunity_user", context, subject, [engaged_user.email])
 
         response['message'] = "Opportunity was successfully closed."
     else:

@@ -113,6 +113,8 @@ def about(request):
     
     base.send_email_template(request, 'welcome', {}, 'Welcome to ReAllocate!', 'kgstew@gmail.com')
 
+    base.send_email_template(request, 'welcome', {}, 'test subject', 'scott@reallocate.org,kyle@reallocate.org')
+
     context = base.build_base_context(request)
 
     return render_to_response('about.html', context, context_instance=RequestContext(request))
@@ -435,7 +437,8 @@ def view_opportunity(request, pid, oid):
         'resources': opp.resources.split(','),
         'other_opps': [rec for rec in Opportunity.objects.filter(project=opp.project).all() if rec.id != opp.id],
         'updates': updates,
-        'is_engaged': False
+        'is_engaged': False,
+        'is_open' : True if opp.status != STATUS_CLOSED else False,
     })
     
     for u in context['updates']:
@@ -445,7 +448,12 @@ def view_opportunity(request, pid, oid):
     if request.user.is_authenticated():
 
         context['is_following'] = request.user in opp.project.followed_by.all()
+<<<<<<< HEAD
         context['is_engaged'] = True if request.user == opp.project.created_by else False
+=======
+        # 'is_engaged' is confusing.Really, this == 'is_owner' someone working on a project is engaged but they aren't necessarily the owner of it.
+        context['is_owner'] = True if request.user == opp.project.created_by else False
+>>>>>>> 0e7fa69fa8f865e96d88ab4e166882792e9ca668
 
         try:
             ue = OpportunityEngagement.objects.get(opportunity=opp.id, user=request.user.id)

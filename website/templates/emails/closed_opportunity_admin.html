@@ -1,0 +1,10 @@
+{% extends 'emails/email_base.html' %}
+
+{% block content %}
+    <h2>Hi, admin user named: {{ user.first_name }} {{ user.last_name }}<br/></h2>
+    <p> We just closed an opportunity: {{ opportunity_name }}</p>
+    <p> for Project: {{ project_name }} </p>
+     <p> with comment: {{ message }} </p>
+    Thanks,<br/>
+    The Reallocate Team
+{% endblock %}
