@@ -448,12 +448,9 @@ def view_opportunity(request, pid, oid):
     if request.user.is_authenticated():
 
         context['is_following'] = request.user in opp.project.followed_by.all()
-<<<<<<< HEAD
-        context['is_engaged'] = True if request.user == opp.project.created_by else False
-=======
+        # context['is_engaged'] = True if request.user == opp.project.created_by else False
         # 'is_engaged' is confusing.Really, this == 'is_owner' someone working on a project is engaged but they aren't necessarily the owner of it.
         context['is_owner'] = True if request.user == opp.project.created_by else False
->>>>>>> 0e7fa69fa8f865e96d88ab4e166882792e9ca668
 
         try:
             ue = OpportunityEngagement.objects.get(opportunity=opp.id, user=request.user.id)
