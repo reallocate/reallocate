@@ -1,9 +1,14 @@
 {% extends 'emails/email_base.html' %}
 
 {% block content %}
-    <h2>Hi,<br/></h2>
-    <p> Thanks for signing up for Reallocate. You are now part of a growing community of reallocaters.</p>
-    <p> Add content here </p>
-    Thanks,<br/>
-    The Reallocate Team
+    <h3>Hi {{ user.first_name }},<br/></h3>
+    <p>You just joined a fast growing network of engineers, developers designers, and videographers who are using their skills for good. Welcome to ReAllocate. Together we are helping social impact organizations solve problems and get more done together. If you ever need to get in touch email <a href="mailto:info@reallocate.org">info@reallocate.org</a>.</p>
+    <p>Now you can find ways to plug-in by <a href="{{ request.get_host }}/find-opportunity">browsing opportunities.</a></p>
+    <p>When you find an opportunity that calls to you, click on the Engage Button to send a message to the project lead. Let them know why their cause is important to you and how excited you are to help out. Share your passion for what you do and how you can use your world class skills to help.</p>
+    
+    <p>You are now a part of a community of ReAllocators using their skills to make the world a better place. Lets do this together!</p>
+    
+    Cheers,<br/>
+    The Reallocate Team<br/>
+    
 {% endblock %}

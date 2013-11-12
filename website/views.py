@@ -110,6 +110,8 @@ def home(request):
 
 
 def about(request):
+    
+    base.send_email_template(request, 'welcome', {}, 'Welcome to ReAllocate!', 'kgstew@gmail.com')
 
     base.send_email_template(request, 'welcome', {}, 'test subject', 'scott@reallocate.org,kyle@reallocate.org')
 
@@ -133,7 +135,7 @@ def tos(request):
 
 
 def get_started(request):
-
+    
     context = base.build_base_context(request)
 
     if hasattr(request.user, 'email'):
@@ -201,13 +203,10 @@ def forgot_password(request):
         reset_user.save()
         
         subj = "Your password on Reallocate has been reset"
-        recovery_url='%s/reset-password?temp_password=%s&email=%s' % (request.get_host(), temp_password, email) 
-        html_body = """Click this link to choose a new password.<br/><a href='%s'>
-            Choose a new password</a><br/><br/>Thanks,<br/>Reallocate""" % (recovery_url)
-        text_body = """Click this link to choose a new password.\n%s 
-            \n\n Thanks,\nReallocate""" % (recovery_url) 
-        base.send_email(email, subj, text_body, html_content=html_body)
-
+        body = """Click this link to choose a new password.<br/><a href='%s/reset-password?temp_password=%s&email=%s'>
+            Choose a new password</a><br/><br/>Thanks,<br/>Reallocate""" % (request.get_host(), temp_password, email)
+                
+        base.send_email(email, subj, body, html_content=body)
         return HttpResponseRedirect('/forgot-password?alert=Your+password+has+been+reset.')
         
     context['email'] = request.GET.get('email', '')
@@ -243,8 +242,11 @@ def sign_up(request):
     
     email_context = {'email': email, 'user': user}
 
-    #base.send_email_template(request, "welcome", email_context, "subject", [settings.ADMIN_EMAIL, email])
-
+    base.send_email_template(request, 'welcome', email_context, 'Welcome to ReAllocate!', [settings.ADMIN_EMAIL, email])
+    
+    subject = "New user named %s %s has been created" % (user.first_name, user.last_name)
+    html_content = "A new user has been created <br/> user: %s <br/>name: %s %s <br/> email: %s <br/>" % (user.username, user.first_name, user.last_name, user.email)
+    base.send_admin_email(subject, html_content, html_content=html_content)
     return HttpResponseRedirect(request.POST.get('next', '/'))
 
 
@@ -435,7 +437,8 @@ def view_opportunity(request, pid, oid):
         'resources': opp.resources.split(','),
         'other_opps': [rec for rec in Opportunity.objects.filter(project=opp.project).all() if rec.id != opp.id],
         'updates': updates,
-        'is_engaged': False
+        'is_engaged': False,
+        'is_open' : True if opp.status != STATUS_CLOSED else False,
     })
     
     for u in context['updates']:
@@ -445,9 +448,12 @@ def view_opportunity(request, pid, oid):
     if request.user.is_authenticated():
 
         context['is_following'] = request.user in opp.project.followed_by.all()
+<<<<<<< HEAD
+        context['is_engaged'] = True if request.user == opp.project.created_by else False
+=======
         # 'is_engaged' is confusing.Really, this == 'is_owner' someone working on a project is engaged but they aren't necessarily the owner of it.
         context['is_owner'] = True if request.user == opp.project.created_by else False
-        context['is_open'] = True if opp.status != STATUS_CLOSED else False
+>>>>>>> 0e7fa69fa8f865e96d88ab4e166882792e9ca668
 
         try:
             ue = OpportunityEngagement.objects.get(opportunity=opp.id, user=request.user.id)
@@ -457,8 +463,7 @@ def view_opportunity(request, pid, oid):
         if ue:
             if ue.status == 'Unpublished' or ue.status == 'Pending':
                 context['pending'] = True
-            if ue.status == STATUS_ACTIVE:
-                #hmmm, ah, that's engaged vs is_engaged
+            if ue.status == STATUS_ACTIVE: 
                 context['engaged'] = True
             
     return render_to_response('opportunity.html', context, context_instance=RequestContext(request))    
