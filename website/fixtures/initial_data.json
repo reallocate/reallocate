@@ -3,8 +3,8 @@
     "model": "auth.user",
     "fields": {
         "username": "admin",
-        "first_name": "Firstname",
-        "last_name": "Lastname",
+        "first_name": "Ad",
+        "last_name": "Mien",
         "is_active": true,
         "is_superuser": true,
         "is_staff": true,
@@ -14,142 +14,6 @@
         "password": "pbkdf2_sha256$10000$tUp4m519rBEb$vUsACJf4wBVy1UZkj58tUJdHn/tM4jeSEVwFaE57JPc=",
         "email": "admin@reallocate.org",
         "date_joined": "2013-03-17T03:12:31Z"
-    }
-}, {
-    "pk": 2,
-    "model": "auth.user",
-    "fields": {
-        "username": "TimmyLip",
-        "first_name": "Tim",
-        "last_name": "Lipton",
-        "is_active": true,
-        "is_superuser": true,
-        "is_staff": true,
-        "last_login": "2013-03-17T03:12:54Z",
-        "groups": [],
-        "user_permissions": [],
-        "password": "pbkdf2_sha256$10000$tUp4m519rBEb$vUsACJf4wBVy1UZkj58tUJdHn/tM4jeSEVwFaE57JPc=",
-        "email": "tim@reallocate.org",
-        "date_joined": "2013-03-17T03:12:31Z"
-    }
-}, {
-    "pk": 3,
-    "model": "auth.user",
-    "fields": {
-        "username": "MikeNorth",
-        "first_name": "Mike",
-        "last_name": "North",
-        "is_active": true,
-        "is_superuser": false,
-        "is_staff": false,
-        "last_login": "2013-10-22T02:20:35Z",
-        "groups": [],
-        "user_permissions": [],
-        "password": "!",
-        "email": "north@reallocate.org",
-        "date_joined": "2013-08-06T00:45:48Z"
-    }
-}, {
-    "pk": 4,
-    "model": "auth.user",
-    "fields": {
-        "username": "colin@reallocate.org",
-        "first_name": "",
-        "last_name": "",
-        "is_active": true,
-        "is_superuser": false,
-        "is_staff": false,
-        "last_login": "2013-09-10T00:47:41Z",
-        "groups": [],
-        "user_permissions": [],
-        "password": "pbkdf2_sha256$10000$VHAnnwmDqtlH$6/5V7wwNWVpi2Qs+ADKTKSZOLAidjQnUJXhF/HESZxE=",
-        "email": "colin@reallocate.org",
-        "date_joined": "2013-08-06T15:30:49Z"
-    }
-}, {
-    "pk": 6,
-    "model": "auth.user",
-    "fields": {
-        "username": "KyleStewart",
-        "first_name": "Kyle",
-        "last_name": "Stewart",
-        "is_active": true,
-        "is_superuser": false,
-        "is_staff": false,
-        "last_login": "2013-11-05T00:01:14Z",
-        "groups": [],
-        "user_permissions": [],
-        "password": "!",
-        "email": "admin@gmail.com",
-        "date_joined": "2013-08-09T21:54:04Z"
-    }
-}, {
-    "pk": 7,
-    "model": "auth.user",
-    "fields": {
-        "username": "bill@reallocate.org",
-        "first_name": "",
-        "last_name": "",
-        "is_active": true,
-        "is_superuser": true,
-        "is_staff": false,
-        "last_login": "2013-09-16T20:08:18Z",
-        "groups": [],
-        "user_permissions": [],
-        "password": "pbkdf2_sha256$10000$G8hx5F4zXGwh$5Am3lSgyE3ta43MkAV7Rfm2MRLvRxZFGlbLwHUSGjrs=",
-        "email": "bill@reallocate.org",
-        "date_joined": "2013-08-12T00:52:56Z"
-    }
-}, {
-    "pk": 9,
-    "model": "auth.user",
-    "fields": {
-        "username": "scott@reallocate.org",
-        "first_name": "",
-        "last_name": "",
-        "is_active": true,
-        "is_superuser": false,
-        "is_staff": false,
-        "last_login": "2013-09-13T21:16:07Z",
-        "groups": [],
-        "user_permissions": [],
-        "password": "pbkdf2_sha256$10000$kDU3JBRiJ09h$N+AFx02g5Fw8jgpUX9k6HMtbIuC6IZwH5h/8LveBOdg=",
-        "email": "scott@reallocate.org",
-        "date_joined": "2013-08-13T21:19:03Z"
-    }
-}, {
-    "pk": 10,
-    "model": "auth.user",
-    "fields": {
-        "username": "JohnMills",
-        "first_name": "John",
-        "last_name": "Mills",
-        "is_active": true,
-        "is_superuser": false,
-        "is_staff": false,
-        "last_login": "2013-08-14T02:45:36Z",
-        "groups": [],
-        "user_permissions": [],
-        "password": "!",
-        "email": "john@reallocate.org",
-        "date_joined": "2013-08-14T02:45:36Z"
-    }
-}, {
-    "pk": 22,
-    "model": "auth.user",
-    "fields": {
-        "username": "ScottLeonard0471f858133c4147",
-        "first_name": "Scott",
-        "last_name": "Leonard",
-        "is_active": true,
-        "is_superuser": false,
-        "is_staff": false,
-        "last_login": "2013-10-17T20:03:48Z",
-        "groups": [],
-        "user_permissions": [],
-        "password": "!",
-        "email": "scott@reallocate.org",
-        "date_joined": "2013-10-17T20:03:48Z"
     }
 }, {
     "pk": 1,
