@@ -270,8 +270,18 @@ def check_available(request, *args):
 
 def get_orgs(request, *args):
 
-    orgs = Organization.objects.all()
-    orgs = [org.name for org in orgs]
+    orgs = []
+
+    for org in Organization.objects.all():
+
+        orgs.append({
+            'value': org.name,
+            'phone': org.phone,
+            'URL': org.URL,
+            'country': org.country,
+            'org_mission': org.org_mission
+        })
+
 
     return HttpResponse(json.dumps(orgs))
 
