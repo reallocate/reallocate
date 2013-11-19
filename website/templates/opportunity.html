@@ -167,10 +167,6 @@
                                 <a href="#engage-modal" class="engage-button btn btn-primary login-required" data-toggle="modal"{% if pending %} disabled=disabled {% endif %}>Engage</a>
                                 {% include 'includes/engage_modal.html' %}
                             {% endif %}
-                            {% if is_owner %}
-                                <a href="#close_opportunity-modal" class="engage-button btn btn-primary login-required" data-toggle="modal"{% if pending %} disabled=disabled {% endif %}>Close</a>
-                                {% include 'includes/close_opportunity_modal.html' %}
-                            {% endif %}
                         {% endif %}
                     </div>
                 </div>

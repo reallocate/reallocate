@@ -163,6 +163,7 @@ def reset_password(request):
     context = base.build_base_context(request)
     
     if request.POST:
+        
         email = request.POST.get('email')
         temp_password = request.POST.get('temp_password')
         new_password = request.POST.get('password')
@@ -483,7 +484,11 @@ def engage_opportunity(request, pid, oid=1):
         html_content = """Their response is: %s<br/>
                        <a href='%s/admin/website/opportunityengagement/%s'>approve</a>""" % (
                         response, request.get_host(), opp_eng.id)
-        # TODO: send to project/opp owner as well as admin
+
+
+        logging.error(opp.created_by)
+        logging.error(opp.project.created_by)
+        
         base.send_admin_email(subject, html_content, html_content=html_content)
         alert = 'Thanks for your engagement - a project leader will get back to you as soon as possible'
 
