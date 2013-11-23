@@ -468,39 +468,6 @@ def view_opportunity(request, pid, oid):
 
 @csrf_exempt
 @login_required
-def engage_opportunity(request, pid, oid=1):
-
-    context = base.build_base_context(request)
-
-    opp = get_object_or_404(Opportunity, pk=oid)
-    # todo - deal with money type => donations rather than a freeform response
-
-    if request.method == "POST":
-        response = request.POST.get("response", "")
-        opp_eng = OpportunityEngagement(user=request.user, opportunity=opp)
-        opp_eng.response = response
-        opp_eng.save()
-        subject = "New engagement with %s by %s" % (opp.name, request.user.email)
-        html_content = """Their response is: %s<br/>
-                       <a href='%s/admin/website/opportunityengagement/%s'>approve</a>""" % (
-                        response, request.get_host(), opp_eng.id)
-
-
-        logging.error(opp.created_by)
-        logging.error(opp.project.created_by)
-        
-        base.send_admin_email(subject, html_content, html_content=html_content)
-        alert = 'Thanks for your engagement - a project leader will get back to you as soon as possible'
-
-        return HttpResponseRedirect("/project/%s/opportunity/%s?alert=%s" % (pid, oid, alert))
-    
-    context['opportunity'] = opp
-
-    return render_to_response('engage.html', context, context_instance=RequestContext(request))
-
-
-@csrf_exempt
-@login_required
 def new_organization(request):
 
     context = base.build_base_context(request)

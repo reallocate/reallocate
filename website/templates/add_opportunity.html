@@ -46,7 +46,7 @@
                 <div class="form-group">
                     <label for="opp-type">Type</label>
                     <select class="form-control required" id="opp-type" name="opp_type">
-                        <option>Select</option>
+                        <option value=''>Select</option>
                         <option>Equipment</option>
                         <option>Knowledge</option>
                         <option>Money</option>
@@ -109,7 +109,7 @@ function add_another(e) {
     var form = $(e).parents('form')[0];
     var i = $("<input/>").attr('type', 'hidden').attr('name', 'add').attr('value', '1');
     $(form).append(i);
-    $(form).submit();
+    if (reAllocate.validateForm(form)) $(form).submit();
 }
 </script>
 {% endblock %}

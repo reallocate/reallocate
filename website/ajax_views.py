@@ -60,6 +60,7 @@ def engage_opportunity(request):
     response = {}
 
     if pid and oid:
+
         opp = get_object_or_404(Opportunity, pk=oid)
         message = request.REQUEST.get('message')
 
@@ -73,10 +74,10 @@ def engage_opportunity(request):
             <a href='%s/admin/website/opportunityengagement/%s'>approve</a>""" % (
             message, request.get_host(), opp_eng.id)
                        
-        # TODO: send to project/opp owner as well as admin
+        base.send_email(opp.project.created_by.email, subject, html_content, html_content=html_content)
         base.send_admin_email(subject, html_content, html_content=html_content)
 
-        response['message'] = "Thanks for your request. A project leader will get back to you as soon as possible."
+        response['message'] = "Thanks for your request. A project lead will get back to you as soon as possible."
 
     else:
 
@@ -84,9 +85,11 @@ def engage_opportunity(request):
     
     return HttpResponse(json.dumps(response), mimetype="application/json")
 
+
 @csrf_exempt
 @login_required
 def close_opportunity(request):
+
     pid = request.REQUEST.get('projectId')
     oid = request.REQUEST.get('opportunityId')
     response = {}

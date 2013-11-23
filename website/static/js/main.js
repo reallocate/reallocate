@@ -64,15 +64,13 @@ reAllocate = {
         });
 
         // form validation
-        $('.required').on('blur', function(e) {
+        $('.required').on('change', function(e) {
 
             if (!this.value) {
-                $(this).parents('.form-group').addClass('has-error');
+                $(this).parent('.form-group').addClass('has-error');
             } else {
-                $(this).parents('.form-group').removeClass('has-error');
+                $(this).parent('.form-group').removeClass('has-error');
             }
-
-            reAllocate.validateForm($(this).parents('form'));
         });
         $('textarea[data-word-limit]').on('keyup', function() {
             var limit = parseInt($(this).attr('data-word-limit'));
@@ -100,11 +98,18 @@ reAllocate = {
 
     validateForm: function(form) {
 
-        if ($(form).find('.form-group').hasClass('has-error') || $(form).find('.required[value=]').length) {
-            $(form).find('button[type=submit]').attr('disabled','disabled');
+        $('.required').each(function(i, e) {
+            if (!e.value) {
+                $(e).parent('.form-group').addClass('has-error');
+            }
+        });
+
+        if ($(form).find('.form-group').hasClass('has-error')) {
+            $(form).find().attr('disabled','disabled');
+            return false;
         } else {
             $(form).find('button[type=submit]').removeAttr('disabled');
-
+            return true;
         }
     },
 

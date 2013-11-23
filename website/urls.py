@@ -22,7 +22,6 @@ urlpatterns = patterns('',
 
   url(r'^organization/new/$', 'website.views.new_organization', name='new_organization'),
   url(r'^project/new/$', 'website.views.new_project', name='new_project'),
-  url(r'^project/(?P<pid>\d+)/opportunity/(?P<oid>\d+)/engage/$', 'website.views.engage_opportunity', name='engage_opportunity'),
   url(r'^project/(?P<pid>\d+)/opportunity/(?P<oid>\d+)/$', 'website.views.view_opportunity', name='view_opportunity'),
   url(r'^project/(?P<pid>\d+)/opportunity/add/$', 'website.views.add_opportunity', name='add_opportunity'),
   url(r'^project/(?P<pid>\d+)/manage/$', 'website.views.manage_project', name='manage_project'),
