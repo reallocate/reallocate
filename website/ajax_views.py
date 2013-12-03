@@ -3,6 +3,7 @@ import hashlib, time
 
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
+from django.template import RequestContext
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_exempt
@@ -246,6 +247,41 @@ def login_user(request):
     else:
 
       return HttpResponse(json.dumps({ 'success': False, 'message': 'Invalid username or password' }), content_type="application/json", status=403)
+
+
+@csrf_exempt
+def invite_users(request):
+
+    if request.REQUEST:
+
+        message = request.REQUEST.get('message')
+        emails = request.REQUEST.get('emails').split(',')
+
+        for email in emails:
+
+            salt = '1nv1t3'
+            hash = hashlib.md5(salt + email).hexdigest()
+            link = 'http://beta.reallocate.org/sign-up?invite=%s' % hash
+
+            subject = "You've been invited to join ReAllocate!"
+
+            context = base.build_base_context(request)
+            context.update({
+                'email': email,
+                'subject': subject,
+                'link': link,
+                'message': message
+            })
+
+            base.send_email_template(request, "invite-user", context, subject, email)
+
+
+        #return render_to_response('emails/invite-user.html', context, context_instance=RequestContext(request))  
+        return HttpResponse(json.dumps({ 'success': True, 'message': 'Invite(s) sent' }), content_type="application/json", status=200)
+
+    else:
+
+        return HttpResponse(json.dumps({ 'success': False, 'message': 'No data posted' }), content_type="application/json", status=403)
 
 
 def check_available(request, *args):

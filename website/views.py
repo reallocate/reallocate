@@ -106,14 +106,12 @@ def home(request):
 
     context['projects'] = Project.objects.filter(Q(status__iexact='pending')|Q(status__iexact='active'))[:36]
 
-    return render_to_response('home.html', context, context_instance=RequestContext(request))
+    response = render_to_response('home.html', context, context_instance=RequestContext(request))
+
+    return response
 
 
 def about(request):
-    
-    base.send_email_template(request, 'welcome', {}, 'Welcome to ReAllocate!', 'kgstew@gmail.com')
-
-    base.send_email_template(request, 'welcome', {}, 'test subject', 'scott@reallocate.org,kyle@reallocate.org')
 
     context = base.build_base_context(request)
 
@@ -229,25 +227,51 @@ def sign_up(request):
         context['next'] = context['referrer']
 
     if request.method == 'GET':
-        return render_to_response('sign_up.html', context, context_instance=RequestContext(request))
 
-    email = request.POST.get('email')
-    password = request.POST.get('password')
+        if request.GET.get('invite') or request.COOKIES.get('invite'):
 
-    # Create a new user and persist it to the database.
-    user = User.objects.create_user(username=email, email=email, password=password)
-    user.save()
+            response = render_to_response('sign_up.html', context, context_instance=RequestContext(request))
 
-    user = authenticate(username=email, password=password)
-    login(request, user)
-    
-    email_context = {'email': email, 'user': user}
+            if request.GET.get('invite'):
+                response.set_cookie('invite', request.GET['invite'])
 
-    base.send_email_template(request, 'welcome', email_context, 'Welcome to ReAllocate!', [settings.ADMIN_EMAIL, email])
-    
-    subject = "New user named %s %s has been created" % (user.first_name, user.last_name)
-    html_content = "A new user has been created <br/> user: %s <br/>name: %s %s <br/> email: %s <br/>" % (user.username, user.first_name, user.last_name, user.email)
-    base.send_admin_email(subject, html_content, html_content=html_content)
+            return response
+
+        else:
+
+            return render_to_response('request-invite.html', context, context_instance=RequestContext(request))
+
+
+    if request.POST.get('request-invite'):
+
+        email = request.POST.get('email')
+        name = request.POST.get('name')
+        blurb = request.POST.get('blurb')
+        subject = "Invite request from %s" % name
+        content = "Account invite request\n\n\t%s\t%s\n\n%s\n" % (name, email, blurb)
+
+        base.send_email('invite@reallocate.org', subject, content)     
+
+    else:
+
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+
+        # Create a new user and persist it to the database.
+        user = User.objects.create_user(username=email, email=email, password=password)
+        user.save()
+
+        user = authenticate(username=email, password=password)
+        login(request, user)
+        
+        email_context = {'email': email, 'user': user}
+
+        base.send_email_template(request, 'welcome', email_context, 'Welcome to ReAllocate!', [settings.ADMIN_EMAIL, email])
+        
+        subject = "New user named %s %s has been created" % (user.first_name, user.last_name)
+        html_content = "A new user has been created <br/> user: %s <br/>name: %s %s <br/> email: %s <br/>" % (user.username, user.first_name, user.last_name, user.email)
+        base.send_admin_email(subject, html_content, html_content=html_content)
+
     return HttpResponseRedirect(request.POST.get('next', '/'))
 
 

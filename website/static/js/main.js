@@ -253,6 +253,21 @@ reAllocate = {
        });
     },
 
+    // invites users to system
+    inviteUsers: function(emails, message) {
+
+        $.ajax({
+            url : '/ajax/invite-users',
+            data : {'emails': emails, 'message': message},
+            success: function(res) {
+
+            },
+            error: function(res) {
+
+            }
+       });
+    },
+
     // closes an opportunity
     closeOpportunity: function(message, pid, oid) {
 
