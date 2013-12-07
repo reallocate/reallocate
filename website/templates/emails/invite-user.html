@@ -1,0 +1,9 @@
+{% extends 'emails/email_base.html' %}
+
+{% block content %}
+    <h2>{{ subject }}</h2>
+    <p>To sign-up and start ReAllocating, visit the link below:</p>
+    <p style="margin-left: 30px;">{{ link }}</p>
+    <br />
+    <p>The Reallocate Team</p>
+{% endblock %}

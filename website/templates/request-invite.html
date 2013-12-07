@@ -1,0 +1,93 @@
+{% extends 'theme/base.html' %}
+{% load i18n %}
+
+{% trans "This is the title" as the_title %}
+
+{% block meta_description %}{{ the_title }}{% endblock %}
+{% block extra_css %}
+	<style>
+        .well {
+            padding: 30px;
+            width: 450px;
+        }
+        .vert-or {
+            margin-top: 25px;
+        }
+        .form-group .help-block {
+            display: none;
+        }
+        .form-group.has-error .help-block {
+            display: block;
+        }
+        .sign-in {
+            margin-top: 0px;
+            line-height: 0em;
+        }
+	</style>
+{% endblock extra_css%}
+
+{% block content %}
+
+    <div class="container">
+
+        <h3>Request an Invite</h3>
+        <h5>Accounts are currently by invite only.  Please use the form below to request an invite.</h5>
+
+        <div class="well">
+
+            <div class="row">
+
+        	    <form method="post" id="request-invite-form">
+                    <div class="form-group">
+                        <input class="form-control" type="text" name="name" id="name" placeholder="Full Name">
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" type="text" name="email" id="email" placeholder="Email Address">
+                        <span class="help-block error">That email is already in use</span>
+                    </div>
+                    <div class="form-group">
+                        <textarea class="form-control" name="blurb" id="blurb" placeholder="What would you like to reallocate?"></textarea>
+                    </div>
+                    <div class="form-group pull-right">
+                        <button class="btn btn-primary" type="submit" id="request-invite-submit">Request Invite</button>
+                    </div>
+                    <input type="hidden" name="request-invite" value="true" />
+                    <input type="hidden" name="next" value="{{ next }}" />
+        	    </form>
+            </div>
+        </div>
+        <h4 class="sign-in">Already have an account? <a href="{{ next }}" class="login-required">Sign In.</a></h4>
+    </div>
+
+{% endblock %}
+
+{% block bottomscript %}
+    <script>
+
+    $('#email').on('blur', function(e) {
+
+        var email = this;
+        
+        $.ajax({
+            url : '/ajax/check-available',
+            method: 'GET',
+            data : {'email': email.value},
+            success: function(available) {
+                if (available) {
+                    $(email).parents('.form-group').removeClass('has-error');
+                    $('#request-invite-submit').data('validUsername', true);
+                    $('#request-invite-submit').removeAttr('disabled');
+                } else {
+                    $(email).parents('.form-group').addClass('has-error');
+                    $('#request-invite-submit').attr('disabled', 'disabled');
+                    $('#email').addClass('has-error');
+                }
+            },
+            error: function(res) {
+                console.log('error in ajax request: ' + res);
+            }
+        });
+    });
+
+    </script>
+{% endblock %}
