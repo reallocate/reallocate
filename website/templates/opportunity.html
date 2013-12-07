@@ -152,23 +152,11 @@
                     <h1>{{ opportunity.name }}</h1> 
                 </div>
                 <div class="col-xs-4">
-                    <div class="addthis_toolbox">
-                        <a class="share addthis_button_twitter ">
-                            <i class="icon-twitter icon-2x"></i>
-                        </a>
-                        <a class="share addthis_button_facebook ">
-                            <i class="icon-facebook icon-2x"></i>
-                        </a>
-                        <a class="share addthis_button_linkedin ">
-                            <i class="icon-linkedin-sign icon-2x"></i>
-                        </a>
-                        {% if is_open %}
-                            {% if not engaged or pending %}
-                                <a href="#engage-modal" class="engage-button btn btn-primary login-required" data-toggle="modal"{% if pending %} disabled=disabled {% endif %}>Engage</a>
-                                {% include 'includes/engage_modal.html' %}
-                            {% endif %}
-                        {% endif %}
-                    </div>
+                {% if is_open %}
+                    {% if not engaged or pending %}
+                        <a href="#engage-modal" class="engage-button btn btn-primary login-required" data-toggle="modal"{% if pending %} disabled=disabled {% endif %}>Engage</a>
+                    {% endif %}
+                {% endif %}
                 </div>
                 {% if opportunity.media_url %}
                 <div class="col-xs-3">
@@ -178,6 +166,10 @@
             </div>
         </div>
 </div>
+{% endblock %}
+
+{% block modals %}
+{% include 'includes/engage_modal.html' %}
 {% endblock %}
 
 {% block content %}
@@ -220,7 +212,17 @@
             </div>
 
             <div class="col-xs-5">
-                
+                <div class="addthis_toolbox">
+                    <a class="share addthis_button_twitter ">
+                        <i class="icon-twitter icon-2x"></i>
+                    </a>
+                    <a class="share addthis_button_facebook ">
+                        <i class="icon-facebook icon-2x"></i>
+                    </a>
+                    <a class="share addthis_button_linkedin ">
+                        <i class="icon-linkedin-sign icon-2x"></i>
+                    </a>
+                </div>   
                 {% if resources.length %}
                 <h4>Resources</h4>
                 {% for r in resources %}

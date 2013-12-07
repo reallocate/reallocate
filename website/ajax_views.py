@@ -64,6 +64,10 @@ def engage_opportunity(request):
 
         opp = get_object_or_404(Opportunity, pk=oid)
         message = request.REQUEST.get('message')
+        link = request.REQUEST.get('link')
+
+        if link:
+            message += '\n\n%s' % link
 
         opp_eng = OpportunityEngagement(user=request.user, opportunity=opp, project_id=pid)
         opp_eng.response = response

@@ -4,6 +4,9 @@ reAllocate = {
         
         this.setupAddThis();
         
+        // ie9 placeholder support
+        $('input, textarea').placeholder();
+        
         $('.delegate-file-upload').click(function() {
             
             $(this).siblings('input[type="file"]').trigger('click');
@@ -231,7 +234,7 @@ reAllocate = {
     },
 
     // sends engagement request for an opportunity
-    engageOpportunity: function(message, pid, oid) {
+    engageOpportunity: function(message, link, pid, oid) {
 
         // make sure user is logged in
         if (!reAllocate.user) {
@@ -243,7 +246,7 @@ reAllocate = {
 
         $.ajax({
             url : '/ajax/engage-opportunity',
-            data : {'projectId': pid, 'opportunityId': oid, 'message': message},
+            data : {'projectId': pid, 'opportunityId': oid, 'message': message, 'link': link},
             success: function(res) {
                 window.location.reload();
             },

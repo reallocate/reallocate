@@ -11,9 +11,13 @@
                     <input type="hidden" name="next" value="{{ next }}" />
                     {% endif %}
                     <div class="form-group">
-                        <textarea class="form-control " name="message" id="engage-message" placeholder="Awesome! Tell us briefly what interests you about this opportunity and what you can contribute."></textarea>
+                        <textarea class="form-control" name="message" id="engage-message" placeholder="Awesome! Tell us briefly what interests you about this opportunity and what you can contribute."></textarea>
                     </div>
-                    <button type="button" class="btn btn-default pull-right" onclick="reAllocate.engageOpportunity($('#engage-message').attr('value'), {{ opportunity.project.id }}, {{ opportunity.id }}); $('#engage-modal').modal('hide');">Send</button>
+                    <div class="form-group">
+                        <label for="link">Add a link to your online resume or profile (optional)</label>
+                        <input type="text" id="engage-link" class="form-control" name="link" />
+                    </div>
+                    <button type="button" class="btn btn-primary pull-right" onclick="reAllocate.engageOpportunity($('#engage-message').attr('value'), $('#engage-link').attr('value'), {{ opportunity.project.id }}, {{ opportunity.id }}); $('#engage-modal').modal('hide');">Send</button>
                     <div class="clearfix"></div>
                 </form>
             </div>

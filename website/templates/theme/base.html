@@ -38,6 +38,9 @@
     {% block jumbotron %}
     {% endblock %}
 
+    {% block modals %}
+    {% endblock %}
+
     {% if alert %}
     <div class="alert alert-{{ alert.type|default:'info' }} alert-dismissable container">
         <button class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -60,6 +63,7 @@
 <script src="//code.jquery.com/jquery-migrate-1.1.1.min.js"></script>
 
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+<script src="{{ STATIC_URL }}js/jquery-placeholder.js"></script>
 <script src="{{ STATIC_URL }}js/main.js?5"></script>
 <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-51b5379c6ba6d63e"></script>
 
