@@ -443,13 +443,13 @@ class CausesTag(TagBase):
   pass
 
 class CausesTaggedItem(GenericTaggedItemBase):
-  tag = models.ForeignKey(CausesTag)
+  tag = models.ForeignKey(CausesTag, related_name="%(app_label)s_%(class)ss")
 
 class SkillsTag(TagBase):
   pass
 
 class SkillsTaggedItem(GenericTaggedItemBase):
-  tag = models.ForeignKey(SkillsTag)
+  tag = models.ForeignKey(SkillsTag, related_name="%(app_label)s_%(class)ss")
 
 
 class Organization(models.Model):
