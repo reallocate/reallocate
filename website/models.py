@@ -439,17 +439,17 @@ SKILLS = {
 }
 
 # setup tag through models
-#class CauseTag(TagBase):
-#  pass
+class CausesTag(TagBase):
+  pass
 
-#class CauseTaggedItem(GenericTaggedItemBase):
-#  tag = models.ForeignKey(CauseTag)
+class CausesTaggedItem(GenericTaggedItemBase):
+  tag = models.ForeignKey(CausesTag)
 
-#class SkillTag(TagBase):
-#  pass
+class SkillsTag(TagBase):
+  pass
 
-#class SkillTaggedItem(GenericTaggedItemBase):
-#  tag = models.ForeignKey(SkillTag)
+class SkillsTaggedItem(GenericTaggedItemBase):
+  tag = models.ForeignKey(SkillsTag)
 
 
 class Organization(models.Model):
@@ -490,7 +490,7 @@ class Project(models.Model):
 
     organization = models.ForeignKey(Organization)
     name = models.CharField(max_length=100, blank=True)
-    cause = models.CharField(max_length=200, blank=True)
+    cause = TaggableManager(through=CausesTaggedItem, blank=True)
     city = models.CharField(max_length=100, blank=True)
     state = models.CharField(max_length=100, blank=True)
     country = CountryField(blank=True)
@@ -531,7 +531,7 @@ OPP_TYPE_CHOICES = ((u'Equipment', u'Equipment'), (u'Knowledge', u'Knowledge'), 
 
 class Opportunity(models.Model):
 
-    tags = models.CharField(max_length=200, blank=True)
+    tags = TaggableManager(blank=True)
     organization = models.ForeignKey(Organization, blank=True)
     project = models.ForeignKey(Project)
     name = models.CharField(max_length=100, blank=True)
@@ -543,10 +543,7 @@ class Opportunity(models.Model):
     description = models.TextField(blank=True)
     resources = models.TextField(blank=True)
     featured = models.BooleanField(default=False, blank=True)
-
     opp_type = models.CharField(max_length=100, choices=OPP_TYPE_CHOICES, blank=True) 
-    #opp_category = models.CharField(max_length=100, blank=True)
-
     engaged_by = models.ManyToManyField(User, blank=True, through='OpportunityEngagement')
 
     # prerequisites = models.ManyToManyField(Opportunity)  - assuming that pre-reqs = other opps
@@ -586,9 +583,9 @@ class UserProfile(models.Model):
     organization = models.ForeignKey(Organization, null=True, blank=True, on_delete=models.SET_NULL)
     location = models.CharField(max_length=200, blank=True)
     occupation = models.CharField(max_length=200, blank=True)
-    causes = models.CharField(max_length=200, blank=True)
-    skills = TaggableManager()
-    
+    causes = TaggableManager(through=CausesTaggedItem, blank=True)
+    skills = TaggableManager(through=SkillsTaggedItem, blank=True)
+
     def __str__(self):
         return "%s's profile" % self.user
     
