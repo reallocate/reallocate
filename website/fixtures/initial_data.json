@@ -65,27 +65,6 @@
         "zip_code": ""
     }
 }, {
-    "pk": 4,
-    "model": "website.organization",
-    "fields": {
-        "business_type": "nonprofit",
-        "status": "Active",
-        "name": "homefrontfan",
-        "city": "",
-        "URL": "http://www.homefrontfan.com/",
-        "country": "US",
-        "org_mission": "Civic hacking veterans issues to help female veterans find jobs.",
-        "address_two": "",
-        "created_by": ["admin"],
-        "year_established": "2013",
-        "phone": "",
-        "state": "",
-        "address_one": "",
-        "date_created": "2013-08-09T22:09:20Z",
-        "media_url": "",
-        "zip_code": ""
-    }
-}, {
     "pk": 5,
     "model": "website.organization",
     "fields": {
@@ -149,48 +128,6 @@
         "zip_code": ""
     }
 }, {
-    "pk": 9,
-    "model": "website.organization",
-    "fields": {
-        "business_type": "",
-        "status": "Pending",
-        "name": "Whitesands",
-        "city": "",
-        "URL": "admin.com",
-        "country": "US",
-        "org_mission": "Break things to make them better",
-        "address_two": "",
-        "created_by": ["KyleStewart"],
-        "year_established": "",
-        "phone": "",
-        "state": "",
-        "address_one": "",
-        "date_created": "2013-08-16T18:45:48Z",
-        "media_url": "",
-        "zip_code": ""
-    }
-}, {
-    "pk": 10,
-    "model": "website.organization",
-    "fields": {
-        "business_type": "",
-        "status": "Pending",
-        "name": "Supercool Inc",
-        "city": "",
-        "URL": "supercool.com",
-        "country": "US",
-        "org_mission": "We are super cool and we do awesome things. Yeh!",
-        "address_two": "",
-        "created_by": ["admin"],
-        "year_established": "",
-        "phone": "",
-        "state": "",
-        "address_one": "",
-        "date_created": "2013-08-20T03:07:45Z",
-        "media_url": "",
-        "zip_code": ""
-    }
-}, {
     "pk": 11,
     "model": "website.organization",
     "fields": {
@@ -212,27 +149,6 @@
         "zip_code": ""
     }
 }, {
-    "pk": 13,
-    "model": "website.organization",
-    "fields": {
-        "business_type": "",
-        "status": "Pending",
-        "name": "Botfarm",
-        "city": "",
-        "URL": "botfarm.com",
-        "country": "US",
-        "org_mission": "World Domination by Robots",
-        "address_two": "",
-        "created_by": ["scott@reallocate.org"],
-        "year_established": "",
-        "phone": "",
-        "state": "",
-        "address_one": "",
-        "date_created": "2013-09-13T21:16:56Z",
-        "media_url": "",
-        "zip_code": ""
-    }
-}, {
     "pk": 14,
     "model": "website.organization",
     "fields": {
@@ -250,27 +166,6 @@
         "state": "",
         "address_one": "",
         "date_created": "2013-10-15T22:39:32Z",
-        "media_url": "",
-        "zip_code": ""
-    }
-}, {
-    "pk": 15,
-    "model": "website.organization",
-    "fields": {
-        "business_type": "",
-        "status": "Pending",
-        "name": "Enabled Outdoors",
-        "city": "",
-        "URL": "",
-        "country": "US",
-        "org_mission": "To develop a portable and easily attached apparatus which can be installed and removed easily from a standard wheel chair as used today by active and independent paraplegics.",
-        "address_two": "",
-        "created_by": ["MikeNorth"],
-        "year_established": "",
-        "phone": "",
-        "state": "",
-        "address_one": "",
-        "date_created": "2013-10-17T05:29:19Z",
         "media_url": "",
         "zip_code": ""
     }
@@ -359,88 +254,15 @@
         "zip_code": ""
     }
 }, {
-    "pk": 20,
-    "model": "website.organization",
-    "fields": {
-        "business_type": "",
-        "status": "Pending",
-        "name": "ReAllocate Inc",
-        "city": "",
-        "URL": "http://reallocate.org",
-        "country": "US",
-        "org_mission": "Advance to social projects",
-        "address_two": "",
-        "created_by": ["admin"],
-        "year_established": "",
-        "phone": "",
-        "state": "",
-        "address_one": "",
-        "date_created": "2013-11-04T23:23:06Z",
-        "media_url": "",
-        "zip_code": ""
-    }
-}, {
-    "pk": 5,
-    "model": "website.project",
-    "fields": {
-        "status": "Active",
-        "city": "San francisco",
-        "name": "The Learning Shelter SF",
-        "video_url": "",
-        "country": "US",
-        "industry": "",
-        "followed_by": [
-            ["bill@reallocate.org"]
-        ],
-        "short_desc": "Build a maker skill training center for the homeless",
-        "description4": "",
-        "created_by": ["admin"],
-        "state": "CA",
-        "description2": "",
-        "description3": "",
-        "date_created": "2013-08-09T22:45:02Z",
-        "organization": 3,
-        "media_url": "http://i.imgur.com/5CalD9j.jpg",
-        "cause": "Homeless, Job training, Education Access",
-        "description": "Marc Roths vision for a pod of shipping containers that provide a maker training facility for qualified participants from the homeless community. The Learning Shelter will provide a 90 day education program that teaches Machines skills in 3D printing, laser cutting, welding combined with soft skills training that expose participants to new technologies and opportunities for jobs."
-    }
-}, {
-    "pk": 6,
-    "model": "website.project",
-    "fields": {
-        "status": "Active",
-        "city": "San Francisco",
-        "name": "homefrontfan",
-        "video_url": null,
-        "country": "US",
-        "industry": "Technology, Software",
-        "followed_by": [],
-        "short_desc": "Connecting female veterans with resources to help them find jobs and community.",
-        "description4": "",
-        "created_by": ["admin"],
-        "state": "CA",
-        "description2": "",
-        "description3": "",
-        "date_created": "2013-08-09T22:48:32Z",
-        "organization": 4,
-        "media_url": "http://i.imgur.com/8rpzOZz.jpg",
-        "cause": "veterans affairs, unemployment",
-        "description": "Inspired by the Department of Labor's Female Veterans Data Challenge for National Day of Civic Hacking 2013, we are taking on female veterans unemployment, because despite available resources, veterans are unemployed, and our female veterans are the worst off, with 30% higher unemployment. \r\n\r\nWe launch projects to introduce new experiences to real users, our veterans, and gain insights to uncover the solution. For our first project, homefrontfan campaigns, we partnered with Crowdtilt, the Bay Area startup with the easiest way to groupfund anything, and Reallocate, the Bay Area organization that connects social good projects with collaborators. Heroes have an opportunity to go outside their network and meet homefrontfan supporters through campaigns that groupfund aspects of their job search."
-    }
-}, {
     "pk": 22,
     "model": "website.project",
     "fields": {
         "status": "Pending",
         "city": "",
         "name": "Husika Kenya!",
-        "video_url": null,
+        "video_url": "",
         "country": "",
         "industry": "Select",
-        "followed_by": [
-            ["admin"],
-            ["admin"]
-        ],
         "short_desc": "Inform and empower Kenyan citizens with access to information about public administration and service delivery.",
         "description4": "",
         "created_by": ["admin"],
@@ -452,128 +274,6 @@
         "media_url": "http://s3.amazonaws.com/production-reallocate/projects/22/Hukisa Photo.jpg",
         "cause": "",
         "description": "In March 2013 the Kenyan government began the process of devolving from a highly centralized structure that included eight provinces and 408 districts to a structure with two levels of government: national and county. Devolution and the formation of 47 semi-autonomous counties is viewed as a way to increase democratic processes and reduce corruption. Existing sources of information about public administration and service delivery focus entirely on the national level. While there are national level sources of information in Kenya, there are not similar sources of information that focus on the new counties, themselves. Picture the difficulties you would have, with very limited access to information about public administration and local service delivery in the place where you live! "
-    }
-}, {
-    "pk": 25,
-    "model": "website.project",
-    "fields": {
-        "status": "Closed",
-        "city": "",
-        "name": "HomeTowns",
-        "video_url": "",
-        "country": "",
-        "industry": "Select",
-        "followed_by": [
-            ["admin"]
-        ],
-        "short_desc": "web platform to connect and support local communities and the sharing economy",
-        "description4": "",
-        "created_by": ["admin"],
-        "state": "",
-        "description2": "",
-        "description3": "",
-        "date_created": "2013-08-22T03:00:00Z",
-        "organization": 11,
-        "media_url": "http://s3.amazonaws.com/production-reallocate/projects/25/HT.001.tiff",
-        "cause": "",
-        "description": "A group of diverse individuals who are interested in addressing the interrelated issues of climate change, social and economic justice."
-    }
-}, {
-    "pk": 35,
-    "model": "website.project",
-    "fields": {
-        "status": "Pending",
-        "city": "",
-        "name": "Energy Made in Uganda",
-        "video_url": "",
-        "country": "",
-        "industry": "",
-        "followed_by": [],
-        "short_desc": "The diffusion of solar technology in rural Uganda does not automatically translate into provision of effective energy solutions to the underserved population.  Walking through villages one sees plenty of panels mounted in the shade, meets plenty of people complaining about batteries that will not charge, or lights that are too faint\u2026.",
-        "description4": "",
-        "created_by": ["admin"],
-        "state": "",
-        "description2": "",
-        "description3": "",
-        "date_created": "2013-10-17T18:28:11Z",
-        "organization": 14,
-        "media_url": "",
-        "cause": "",
-        "description": "Building a country wide network of rural solar technicians and energy solutions  Made in Uganda"
-    }
-}, {
-    "pk": 36,
-    "model": "website.project",
-    "fields": {
-        "status": "Pending",
-        "city": "",
-        "name": "EV Wheelchair Mod",
-        "video_url": "http://youtu.be/cBgpAR1732U",
-        "country": "",
-        "industry": "",
-        "followed_by": [],
-        "short_desc": "a high performance EV module for wheelchairs",
-        "description4": "",
-        "created_by": ["MikeNorth"],
-        "state": "",
-        "description2": "",
-        "description3": "",
-        "date_created": "2013-10-17T20:04:57Z",
-        "organization": 15,
-        "media_url": "http://s3.amazonaws.com/production-reallocate/projects/36/Dave-Denniston.jpg",
-        "cause": "",
-        "description": "Project Goal: To develop a portable and easily attached apparatus which can be installed and removed easily from a standard wheel chair as used today by active and independent paraplegics. "
-    }
-}, {
-    "pk": 37,
-    "model": "website.project",
-    "fields": {
-        "status": "Pending",
-        "city": "",
-        "name": "Critical Adventures",
-        "video_url": "http://youtu.be/9rllCfJtG-A",
-        "country": "",
-        "industry": "",
-        "followed_by": [
-            ["admin"],
-            ["admin"]
-        ],
-        "short_desc": "Creating a series of adventures that will help recently incarcerated men feel like they are part of society again.",
-        "description4": "",
-        "created_by": ["admin"],
-        "state": "",
-        "description2": "",
-        "description3": "",
-        "date_created": "2013-10-19T18:28:46Z",
-        "organization": 16,
-        "media_url": "",
-        "cause": "",
-        "description": "Critical Adventures will help recently incarcerated men feel like they are part of society again by providing them with the functional and emotional resources they need to feel self sufficient."
-    }
-}, {
-    "pk": 38,
-    "model": "website.project",
-    "fields": {
-        "status": "Pending",
-        "city": "",
-        "name": "Small Business Incubator",
-        "video_url": "https://www.youtube.com/watch?v=myjrkt6Nwag",
-        "country": "",
-        "industry": "",
-        "followed_by": [
-            ["admin"]
-        ],
-        "short_desc": "Creating a sustainable launchpad for informal businesses and careers into a formalizing economy",
-        "description4": "",
-        "created_by": ["admin"],
-        "state": "",
-        "description2": "",
-        "description3": "",
-        "date_created": "2013-10-21T00:32:08Z",
-        "organization": 17,
-        "media_url": "",
-        "cause": "",
-        "description": "A West Oakland incubator will mobilize budding entrepreneurs to gain stake and build thriving businesses in a rapidly changing community. "
     }
 }, {
     "pk": 39,

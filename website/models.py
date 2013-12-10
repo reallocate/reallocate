@@ -4,8 +4,10 @@ from django.db import models
 from django.forms import ModelForm, Textarea
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
-from taggit.managers import TaggableManager
 from django.utils.translation import ugettext as _
+
+from taggit.managers import TaggableManager
+from taggit.models import GenericTaggedItemBase, TagBase
 
 # handle custom Country field for South
 from south.modelsinspector import add_introspection_rules
@@ -436,6 +438,19 @@ SKILLS = {
     ]
 }
 
+# setup tag through models
+#class CauseTag(TagBase):
+#  pass
+
+#class CauseTaggedItem(GenericTaggedItemBase):
+#  tag = models.ForeignKey(CauseTag)
+
+#class SkillTag(TagBase):
+#  pass
+
+#class SkillTaggedItem(GenericTaggedItemBase):
+#  tag = models.ForeignKey(SkillTag)
+
 
 class Organization(models.Model):
 
@@ -475,7 +490,7 @@ class Project(models.Model):
 
     organization = models.ForeignKey(Organization)
     name = models.CharField(max_length=100, blank=True)
-    cause = models.CharField(max_length=100, blank=True)
+    cause = models.CharField(max_length=200, blank=True)
     city = models.CharField(max_length=100, blank=True)
     state = models.CharField(max_length=100, blank=True)
     country = CountryField(blank=True)
@@ -516,7 +531,7 @@ OPP_TYPE_CHOICES = ((u'Equipment', u'Equipment'), (u'Knowledge', u'Knowledge'), 
 
 class Opportunity(models.Model):
 
-    tags = TaggableManager()
+    tags = models.CharField(max_length=200, blank=True)
     organization = models.ForeignKey(Organization, blank=True)
     project = models.ForeignKey(Project)
     name = models.CharField(max_length=100, blank=True)
@@ -558,7 +573,8 @@ class OpportunityForm(ModelForm):
         widgets = {
             'description': Textarea(attrs={'cols': 80, 'rows': 10}),
         }
-    
+
+
 ###########  Extend user profile
 # Docs: http://stackoverflow.com/a/965883/705945
 
@@ -570,12 +586,9 @@ class UserProfile(models.Model):
     organization = models.ForeignKey(Organization, null=True, blank=True, on_delete=models.SET_NULL)
     location = models.CharField(max_length=200, blank=True)
     occupation = models.CharField(max_length=200, blank=True)
-    causes = models.CharField(max_length=100, blank=True)
+    causes = models.CharField(max_length=200, blank=True)
     skills = TaggableManager()
     
-    # skills
-    # interests
-
     def __str__(self):
         return "%s's profile" % self.user
     

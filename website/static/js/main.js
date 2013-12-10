@@ -6,7 +6,7 @@ reAllocate = {
         
         // ie9 placeholder support
         $('input, textarea').placeholder();
-        
+
         $('.delegate-file-upload').click(function() {
             
             $(this).siblings('input[type="file"]').trigger('click');
@@ -191,7 +191,11 @@ reAllocate = {
                     reAllocate.followProject(reAllocate.follow.e, reAllocate.follow.pid);
                 }
 
-                $('#user-email').text(json.user.email);
+                if (json.user.first_name and json.user.last_name) {
+                    $('#user-email').text(json.user.first_name + ' ' + json.user.last_name);
+                } else {
+                    $('#user-email').text(json.user.email);
+                }
                 $('.user').css('display', 'block');
                 $('.anon').css('display', 'none');
 
