@@ -14,9 +14,8 @@ INITIAL SETUP
 - (OPTIONAL: use [virtualenv](http://www.virtualenv.org/) to create an isolated python environment for your ReAllocate development)
 - sudo pip-2.7 install -r requirements.txt (if using a virtualenv, omit sudo)
 - create a settings_local.py file next to settings.py
-- ./manage.py syncdb --all  (It will ask to create a superuser; answer "no")
-- ./manage.py migrateschema website --auto
-- ./manage.py migrate
+- ./manage.py syncdb (It will ask to create a superuser; answer "no")
+- ./manage.py loaddata dev_data.json
 - ./manage.py runserver
 
 OPTIONAL SETUP
