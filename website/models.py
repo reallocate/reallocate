@@ -10,8 +10,8 @@ from taggit.managers import TaggableManager
 from taggit.models import GenericTaggedItemBase, TagBase
 
 # handle custom Country field for South
-from south.modelsinspector import add_introspection_rules
-add_introspection_rules([], ["^website\.models\.CountryField"])
+#from south.modelsinspector import add_introspection_rules
+#add_introspection_rules([], ["^website\.models\.CountryField"])
 
 # http://xml.coverpages.org/country3166.html
 COUNTRIES = (
@@ -438,7 +438,7 @@ SKILLS = {
     ]
 }
 
-# setup tag through models
+# setup taggit through models
 class CausesTag(TagBase):
   pass
 
