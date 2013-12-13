@@ -246,9 +246,14 @@ def sign_up(request):
 
         email = request.POST.get('email')
         name = request.POST.get('name')
-        blurb = request.POST.get('blurb')
         subject = "Invite request from %s" % name
-        content = "Account invite request\n\n\t%s\t%s\n\n%s\n" % (name, email, blurb)
+        content = "A new account invite request has been submitted:\n\n\t- %s\n\t- %s" % (name, email)
+        if request.POST.get('blurb'):
+            content += "\n\n%s" %  request.POST.get('blurb')
+        if request.POST.get('contribute'):
+            content += "\n\nI would like to contribute my skills, knowledge and/or resources."
+        if request.POST.get('project'):
+            content += "\n\nI have a project I would like to submit."
 
         base.send_email('invite@reallocate.org', subject, content)     
 
