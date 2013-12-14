@@ -619,8 +619,9 @@ def search(request):
 
 def embed_video(update_text):
 
-    vimeo = re.search(r'(http[s]*:\/\/vimeo\.com/([0-9]+).*?)[\s|$]*', update_text)
-    youtube = re.search(r'(http[s]*:\/\/www\.youtube\.com/watch\?v=([a-z|A-Z|0-9]+).*?)[\s|$]*', update_text)
+    vimeo = re.search(r'(http[s]*:\/\/vimeo\.com/([0-9]+).*?)[\s|$]*', update_text, re.I)
+    youtube = re.search(r'(http[s]*:\/\/www\.youtube\.com/watch\?v=([a-z|A-Z|0-9]+).*?)[\s|$]*', update_text, re.I)
+    short_youtube = re.search(r'(https?://youtu[.]be/([a-z0-9]*?))[\s|$]', update_text, re.I)
 
     if youtube:
 
@@ -629,7 +630,15 @@ def embed_video(update_text):
         embed_tag = '<object data="http://www.youtube.com/v/%s" type="application/x-shockwave-flash"><param name="src" value="http://www.youtube.com/v/%s" /></object>' % (video_id, video_id)
 
         return [embed_tag, update_text.replace(youtube.group(1), '')]
-
+    
+    elif short_youtube:
+        
+        video_id = short_youtube.group(2)
+        
+        embed_tag = '<object data="http://www.youtube.com/v/%s" type="application/x-shockwave-flash"><param name="src" value="http://www.youtube.com/v/%s" /></object>' % (video_id, video_id)
+        
+        return[embed_tag, update_text.replace(short_youtube.group(1), '')]
+    
     elif vimeo:
 
         video_id = vimeo.group(2)
