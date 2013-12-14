@@ -232,7 +232,7 @@ INSTALLED_APPS = (
     # end jinja2
     'widget_tweaks',
     'website',
-    'taggit',
+    #'taggit',
 
     # Admin apps
     'django.contrib.admin',
