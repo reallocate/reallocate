@@ -55,4 +55,5 @@ urlpatterns = patterns('',
      {'document_root': settings.STATIC_ROOT, 'show_indexes': True}),
 
   url(r'^find-opportunity', 'website.views.find_opportunity', name='find_opportunity'),
+  url(r'^find-project', 'website.views.find_project', name='find_project'),
 )

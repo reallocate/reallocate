@@ -618,6 +618,25 @@ def find_opportunity(request):
     context['opportunities'] = opportunities
     return render_to_response('find_opportunity.html', context, context_instance=RequestContext(request))
 
+def find_project(request):
+
+    context = base.build_base_context(request)
+
+    if request.method == 'POST': 
+
+        search = request.POST.get("search")
+        context['search_term'] = search
+        MAX_RESULTS = 12
+        
+        projects = Project.objects.filter(Q(name__contains=search) | Q(cause__contains=search) | Q(short_desc__contains=search) | Q(description__contains=search) | Q(industry__contains=search)).distinct()[:MAX_RESULTS]
+
+    else:
+
+        projects = Project.objects.all()
+
+    context['projects'] = projects
+    return render_to_response('find_project.html', context, context_instance=RequestContext(request))
+
 
 def embed_video(update_text):
 
