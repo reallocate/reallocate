@@ -438,20 +438,6 @@ SKILLS = {
     ]
 }
 
-# setup taggit through models
-class CausesTag(TagBase):
-  pass
-
-class CausesTaggedItem(GenericTaggedItemBase):
-  tag = models.ForeignKey(CausesTag, related_name="%(app_label)s_%(class)ss")
-
-class SkillsTag(TagBase):
-  pass
-
-class SkillsTaggedItem(GenericTaggedItemBase):
-  tag = models.ForeignKey(SkillsTag, related_name="%(app_label)s_%(class)ss")
-
-
 class Organization(models.Model):
 
     name = models.CharField(max_length=100, blank=True)
@@ -490,7 +476,7 @@ class Project(models.Model):
 
     organization = models.ForeignKey(Organization)
     name = models.CharField(max_length=100, blank=True)
-    cause = TaggableManager(through=CausesTaggedItem, blank=True)
+    cause = TaggableManager(blank=True)
     city = models.CharField(max_length=100, blank=True)
     state = models.CharField(max_length=100, blank=True)
     country = CountryField(blank=True)
@@ -583,8 +569,8 @@ class UserProfile(models.Model):
     organization = models.ForeignKey(Organization, null=True, blank=True, on_delete=models.SET_NULL)
     location = models.CharField(max_length=200, blank=True)
     occupation = models.CharField(max_length=200, blank=True)
-    causes = TaggableManager(through=CausesTaggedItem, blank=True)
-    skills = TaggableManager(through=SkillsTaggedItem, blank=True)
+    causes = models.CharField(max_length=2000, blank=True)
+    skills = TaggableManager(blank=True)
 
     def __str__(self):
         return "%s's profile" % self.user
