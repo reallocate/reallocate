@@ -5,7 +5,7 @@
 	</div>
 	{% endif %}
 	<div class="opp-text">
-		<p class="opp-name"><a href="/project/{{ project.id }}/opportunity/{{ opportunity.id }}">{{ opportunity.name }}</a></p>
+		<p class="opp-name"><a href="/project/{{ opportunity.project.id }}/opportunity/{{ opportunity.id }}">{{ opportunity.name }}</a></p>
 		<p class="opp-type">{{ opportunity.opp_type|title }}</p>
 		<p class="opp-tags">
 		{% for tag in opportunity.tags.all %}
