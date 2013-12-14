@@ -191,7 +191,7 @@ reAllocate = {
                     reAllocate.followProject(reAllocate.follow.e, reAllocate.follow.pid);
                 }
 
-                if (json.user.first_name and json.user.last_name) {
+                if (json.user.first_name && json.user.last_name) {
                     $('#user-email').text(json.user.first_name + ' ' + json.user.last_name);
                 } else {
                     $('#user-email').text(json.user.email);
