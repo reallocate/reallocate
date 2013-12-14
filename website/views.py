@@ -57,7 +57,7 @@ def profile(request, username=None):
         user_profile.bio = request.POST.get("bio")
         user_profile.occupation = request.POST.get("occupation")
         user_profile.location = request.POST.get("location")
-        user_profile.skills.add(*[rec.strip() for rec in request.POST.get("skills", "").split(",")])
+        user_profile.skills = request.POST.get("skills")
         user_profile.user.save()
         user_profile.save()
 
@@ -69,7 +69,6 @@ def profile(request, username=None):
     for p in context['my_projects']:
         p.is_admin = True
     context['user_profile'] = user_profile
-    context['user_skills'] = ", ".join([rec.name for rec in user_profile.skills.all()])
     
     return render_to_response('profile.html', context, context_instance=RequestContext(request))
 

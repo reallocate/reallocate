@@ -6,9 +6,6 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.utils.translation import ugettext as _
 
-from taggit.managers import TaggableManager
-from taggit.models import GenericTaggedItemBase, TagBase
-
 # handle custom Country field for South
 #from south.modelsinspector import add_introspection_rules
 #add_introspection_rules([], ["^website\.models\.CountryField"])
@@ -476,7 +473,7 @@ class Project(models.Model):
 
     organization = models.ForeignKey(Organization)
     name = models.CharField(max_length=100, blank=True)
-    cause = TaggableManager(blank=True)
+    cause = models.CharField(max_length=200, blank=True)
     city = models.CharField(max_length=100, blank=True)
     state = models.CharField(max_length=100, blank=True)
     country = CountryField(blank=True)
@@ -517,7 +514,7 @@ OPP_TYPE_CHOICES = ((u'Equipment', u'Equipment'), (u'Knowledge', u'Knowledge'), 
 
 class Opportunity(models.Model):
 
-    tags = TaggableManager(blank=True)
+    tags = models.CharField(max_length=200, blank=True)
     organization = models.ForeignKey(Organization, blank=True)
     project = models.ForeignKey(Project)
     name = models.CharField(max_length=100, blank=True)
@@ -569,8 +566,8 @@ class UserProfile(models.Model):
     organization = models.ForeignKey(Organization, null=True, blank=True, on_delete=models.SET_NULL)
     location = models.CharField(max_length=200, blank=True)
     occupation = models.CharField(max_length=200, blank=True)
-    causes = models.CharField(max_length=2000, blank=True)
-    skills = TaggableManager(blank=True)
+    causes = models.CharField(max_length=200, blank=True)
+    skills = models.CharField(max_length=200, blank=True)
 
     def __str__(self):
         return "%s's profile" % self.user
