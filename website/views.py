@@ -591,7 +591,7 @@ def add_opportunity(request, pid=None):
         return render_to_response('add_opportunity.html', context, context_instance=RequestContext(request))
 
     
-def search(request):
+def find_opportunity(request):
 
     context = base.build_base_context(request)
 
@@ -599,22 +599,24 @@ def search(request):
 
         # search text
         search = request.POST.get("search")
-        opp_type = request.POST.get("opp_type")
+        search_filter = request.POST.get("opp_type")
+        context['search_term'] = search
+        context['search_filter'] = search_filter
+        MAX_RESULTS = 12
 
-        if opp_type == '':
-            opportunities = Opportunity.objects.filter(Q(name__contains=search) | Q(status__contains=search) | Q(short_desc__contains=search) | Q(description__contains=search) | Q(opp_type__contains=search) | Q(tags__name__in=[search])).distinct()[:12]
-        elif search == 'Search...':    
-            opportunities = Opportunity.objects.filter(opp_type=opp_type).distinct()[:12]
-        else:    
-            opportunities = Opportunity.objects.filter(Q(name__contains=search) | Q(status__contains=search) | Q(short_desc__contains=search) | Q(description__contains=search) | Q(opp_type__contains=search) | Q(tags__name__in=[search])).filter(opp_type=opp_type).distinct()[:12]
+        if search_filter == '':
+            opportunities = Opportunity.objects.filter(Q(name__contains=search) | Q(status__contains=search) | Q(short_desc__contains=search) | Q(description__contains=search) | Q(opp_type__contains=search)).distinct()[:MAX_RESULTS]
+        else:
+            if search == "":
+                context['search_term'] = "All"
+            opportunities = Opportunity.objects.filter(Q(name__contains=search) | Q(status__contains=search) | Q(short_desc__contains=search) | Q(description__contains=search) | Q(opp_type__contains=search)).filter(opp_type=search_filter).distinct()[:MAX_RESULTS]
 
     else:
 
         opportunities = Opportunity.objects.all()
 
     context['opportunities'] = opportunities
-
-    return render_to_response('search.html', context, context_instance=RequestContext(request))
+    return render_to_response('find_opportunity.html', context, context_instance=RequestContext(request))
 
 
 def embed_video(update_text):

@@ -1,0 +1,63 @@
+{% extends 'theme/base.html' %}
+{% load i18n %}
+
+{% block meta_description %}Find opportunities{% endblock %}
+
+{% block extra_css %}
+<style>
+
+</style>
+{% endblock %}
+
+{% block breadcrumb %}
+	<ul class="breadcrumb">
+		<li><a href="/">Home</a></li>
+		<li class="active">Find Opportunity</li>
+	</ul>
+{% endblock %}
+
+{% block content %}
+	<div class="container">
+		
+		<div class='row'>
+			<form method="post">{% csrf_token %}
+				<div class="col-xs-6">
+					<input type="text"  name="search" id="search" placeholder="Search..." {% if search_term and search_term != "All" %}value='{{ search_term }}'{% endif %}/>
+					<select name="opp_type" id="opp_type" style='margin-left:10px;margin-right:10px;'>
+						<option value="">Types: ALL</option>
+						<option {% if search_filter == "Skills" %}selected=selected{% endif %}value="Skills">Skill set</option>
+						<option {% if search_filter == "Knowledge" %}selected=selected{% endif %}value="Knowledge">Knowledge</option>
+						<option {% if search_filter == "Equipment" %}selected=selected{% endif %}value="Equipment">Equipment</option>
+						<option {% if search_filter == "Money" %}selected=selected{% endif %}value="Money">Money</option>
+					</select>
+					<input type="submit" class="btn btn-primary" value="Search" style="margin-top:-10px;margin-left:10px;">
+				</div>
+			</form>
+		</div>
+		
+		<div class="row">
+			<div class="col-xs-9">
+				<h3>
+					{% if search_term %}
+						Search results for {{ search_term }} {% if search_filter %} in {{ search_filter }} {% endif %}...
+					{% else %}
+						All Opportunities
+					{% endif %}
+				</h3>
+				<div class="opportunities">
+					<div class="row">
+						{% for opportunity in opportunities %}
+						<div class="col-xs-4">
+							{% include "includes/opportunity-pane.html" %}			
+						</div>	
+						{% endfor %}
+					</div>	
+				</div>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}
+
+{% block bottomscript %}
+{% endblock %}
