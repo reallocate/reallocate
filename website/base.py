@@ -1,5 +1,5 @@
 from website import settings
-import re, logging
+import re, logging, json
 from website.models import UserProfile
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.mail import EmailMultiAlternatives
@@ -29,7 +29,8 @@ def build_base_context(request):
     if request.user.is_authenticated():
         context['user'] = request.user
 
-    context['alert'] = request.GET.get('alert')
+    if request.COOKIES.get('alert'):
+        context['alert'] = json.loads(request.COOKIES['alert'])
 
     return context
 

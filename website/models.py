@@ -271,6 +271,7 @@ class CountryField(models.CharField):
     def get_internal_type(self):
         return "CharField"
     
+    
 STATUS_CHOICES = (('Pending', 'Pending'), ('Active', 'Active'), ('Closed', 'Closed'))
 STATUS_INACTIVE = STATUS_CHOICES[0][0]
 STATUS_ACTIVE = STATUS_CHOICES[1][0]

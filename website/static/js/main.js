@@ -7,6 +7,9 @@ reAllocate = {
         // ie9 placeholder support
         $('input, textarea').placeholder();
 
+        // show alert modal if it exists
+        if ($('#alert-modal')) $('#alert-modal').modal('show');
+
         $('.delegate-file-upload').click(function() {
             
             $(this).siblings('input[type="file"]').trigger('click');
