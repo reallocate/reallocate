@@ -1,5 +1,6 @@
 from website import settings
 import re, logging
+
 from website.models import UserProfile
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.mail import EmailMultiAlternatives
@@ -98,23 +99,20 @@ def send_to_remote_storage(uploaded_file, filename, mime_type):
 
     return 'http://s3.amazonaws.com/%s/%s' % (settings.S3_BUCKET, filename)
 
-
-def get_user_avatar(backend, details, response, social_user, uid, user, *args, **kwargs):
-
-    url = None
-
-    if backend.__class__ == FacebookBackend:
-
-        url = "http://graph.facebook.com/%s/picture?type=large" % response['id']
-
-    if url:
-
-        logging.error(url)
-        #profile = user.get_profile()
-        #avatar = urlopen(url).read()
-        #fout = open(filepath, "wb") # filepath is where to save the image
-        #fout.write(avatar)
-        #fout.close()
-        #profile.photo = url_to_image # depends on where you saved it
-        #profile.save()
-
+def associate_new_user_profile(request, user, *args, **kwargs):
+    if not kwargs.get('is_new'):
+        # TODO: should this run the full auto-update on every o-auth login?
+        logging.error("IS NEW")
+    
+    extra_data = kwargs.get('response', {})
+    logging.error(extra_data)
+    profile, unused = UserProfile.objects.get_or_create(user=user)
+    if kwargs.get('linkedin'):
+        pass
+    elif kwargs.get('google'):
+        pass
+    elif kwargs.get('facebook'):
+        url = "http://graph.facebook.com/%s/picture?type=large" % kwargs.get('response', {}).get('id', '')
+        profile.media_url = url
+        profile.occupation = extra_data.get('work', [{}])[0].get('position', {}).get('name', '')
+    profile.save()
