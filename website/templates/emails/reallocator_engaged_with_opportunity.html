@@ -1,0 +1,12 @@
+{% extends 'emails/email_base.html' %}
+
+{% block content %}
+    <h3>Hi,<br/></h3>
+   <p>Thank you for getting involved! We just received your request to engage with <a href="{{request.get_host}}/project/{{project.opportunity.id}}/opportunity/{{opportunity.id}}">{{ opportunity.name }}</a> and we will be in touch shortly to setup a two-way interview with the project leads.</p>
+   
+   <p>Thank you for joining ReAllocate and jumping in to help! Looking forward to getting to know more about you and working together to build a better world.</p>
+<br/>   
+    Cheers,<br/>
+    The Reallocate Team<br/>
+    
+{% endblock %}

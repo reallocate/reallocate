@@ -3,6 +3,7 @@ import boto
 import re
 from boto.s3.key import Key
 from website import settings
+import json
 
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render_to_response, get_object_or_404
@@ -103,7 +104,7 @@ def home(request):
 
     context = base.build_base_context(request)
 
-    context['projects'] = Project.objects.filter(Q(status__iexact='pending')|Q(status__iexact='active'))[:36]
+    context['projects'] = Project.objects.filter(Q(status__iexact='active'))[:36]
 
     response = render_to_response('home.html', context, context_instance=RequestContext(request))
 
@@ -205,7 +206,12 @@ def forgot_password(request):
             Choose a new password</a><br/><br/>Thanks,<br/>Reallocate""" % (request.get_host(), temp_password, email)
                 
         base.send_email(email, subj, body, html_content=body)
-        return HttpResponseRedirect('/forgot-password?alert=Your+password+has+been+reset.')
+
+        response = HttpResponseRedirect('/forgot-password')
+        alert = {'type': 'success', 'message': 'Your password has been reset'}
+        response.set_cookie('alert', json.dumps({}), max_age=2)
+
+        return response
         
     context['email'] = request.GET.get('email', '')
 
@@ -232,7 +238,7 @@ def sign_up(request):
             response = render_to_response('sign_up.html', context, context_instance=RequestContext(request))
 
             if request.GET.get('invite'):
-                response.set_cookie('invite', request.GET['invite'])
+                response.set_cookie('invite', request.GET['invite'], max_age=2)
 
             return response
 
@@ -240,6 +246,7 @@ def sign_up(request):
 
             return render_to_response('request-invite.html', context, context_instance=RequestContext(request))
 
+    response = HttpResponseRedirect(request.POST.get('next', '/'))
 
     if request.POST.get('request-invite'):
 
@@ -254,7 +261,11 @@ def sign_up(request):
         if request.POST.get('project'):
             content += "\n\nI have a project I would like to submit."
 
-        base.send_email('invite@reallocate.org', subject, content)     
+        base.send_email('invite@reallocate.org', subject, content)
+
+        alert = {'type': 'modal', 'message': 'Thank you for your interest in Reallocate.  Your invite request has been received.'} 
+
+        response.set_cookie('alert', json.dumps(alert), max_age=2)
 
     else:
 
@@ -276,7 +287,7 @@ def sign_up(request):
         html_content = "A new user has been created <br/> user: %s <br/>name: %s %s <br/> email: %s <br/>" % (user.username, user.first_name, user.last_name, user.email)
         base.send_admin_email(subject, html_content, html_content=html_content)
 
-    return HttpResponseRedirect(request.POST.get('next', '/'))
+    return response
 
 
 @csrf_exempt
@@ -434,13 +445,16 @@ def new_project(request):
                 project.save()
             
             # send admin email with link adminpanel to change project status
-            subj = "new project %s added by %s" % (project.name, request.user.email)
-            body = """Go here to and change status to active:<br/>
-                <a href='%s/admin/website/project/%s'>approve</a>
-                For now: remember to email the above email after their project is live""" % (
-                request.get_host(), project.id)
+            created_by = project.created_by.first_name + ' ' + project.created_by.last_name
+            subj = "[ReAllocate] A new project has been submited"
+            body = """
+                A new project has been has been submited by %s:<br /><br />
+                <b>%s</b><br /><br />
+                %s<br /><br />
+                <a href='%s/admin/website/project/%s'>Approve</a><br />
+                """ % (created_by, project.name, project.short_desc, request.get_host(), project.id)
 
-            #base.send_admin_email(subj, body, html_content=body)
+            base.send_admin_email(subj, body, html_content=body)
 
             return HttpResponseRedirect('/project/%s/opportunity/add' % project.id)
 
