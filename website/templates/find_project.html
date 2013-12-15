@@ -1,0 +1,58 @@
+{% extends 'theme/base.html' %}
+{% load i18n %}
+
+{% block meta_description %}Find projects{% endblock %}
+
+{% block extra_css %}
+<style>
+
+</style>
+{% endblock %}
+
+{% block breadcrumb %}
+	<ul class="breadcrumb">
+		<li><a href="/">Home</a></li>
+		<li class="active">Find Projects</li>
+	</ul>
+{% endblock %}
+
+{% block content %}
+	<div class="container">
+		
+		<div class='row'>
+			<div class="col-xs-6">
+				<form method="post" class='form-inline'>{% csrf_token %}
+					<div class="form-group">
+						<input type="text" class='form-control' name="search" id="search" placeholder="Search..." {% if search_term and search_term != "All" %}value='{{ search_term }}'{% endif %}/>
+					</div>
+					<input type="submit" class="btn btn-primary" value="Search" style='margin-left:10px;'>
+				</form>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-xs-9">
+				<h3>
+					{% if search_term %}
+						Search results for {{ search_term }} {% if search_filter %} in {{ search_filter }} {% endif %}...
+					{% else %}
+						All Projects
+					{% endif %}
+				</h3>
+				<div class="opportunities">
+					<div class="row">
+						{% for project in projects %}
+						<div class="col-xs-4">
+							{% include "includes/project-pane.html" %}			
+						</div>	
+						{% endfor %}
+					</div>	
+				</div>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}
+
+{% block bottomscript %}
+{% endblock %}

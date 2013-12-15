@@ -605,7 +605,7 @@ def add_opportunity(request, pid=None):
         return render_to_response('add_opportunity.html', context, context_instance=RequestContext(request))
 
     
-def search(request):
+def find_opportunity(request):
 
     context = base.build_base_context(request)
 
@@ -613,28 +613,50 @@ def search(request):
 
         # search text
         search = request.POST.get("search")
-        opp_type = request.POST.get("opp_type")
+        search_filter = request.POST.get("opp_type")
+        context['search_term'] = search
+        context['search_filter'] = search_filter
+        MAX_RESULTS = 12
 
-        if opp_type == '':
-            opportunities = Opportunity.objects.filter(Q(name__contains=search) | Q(status__contains=search) | Q(short_desc__contains=search) | Q(description__contains=search) | Q(opp_type__contains=search) | Q(tags__name__in=[search])).distinct()[:12]
-        elif search == 'Search...':    
-            opportunities = Opportunity.objects.filter(opp_type=opp_type).distinct()[:12]
-        else:    
-            opportunities = Opportunity.objects.filter(Q(name__contains=search) | Q(status__contains=search) | Q(short_desc__contains=search) | Q(description__contains=search) | Q(opp_type__contains=search) | Q(tags__name__in=[search])).filter(opp_type=opp_type).distinct()[:12]
+        if search_filter == '':
+            opportunities = Opportunity.objects.filter(Q(name__contains=search) | Q(status__contains=search) | Q(short_desc__contains=search) | Q(description__contains=search) | Q(opp_type__contains=search)).distinct()[:MAX_RESULTS]
+        else:
+            if search == "":
+                context['search_term'] = "All"
+            opportunities = Opportunity.objects.filter(Q(name__contains=search) | Q(status__contains=search) | Q(short_desc__contains=search) | Q(description__contains=search) | Q(opp_type__contains=search)).filter(opp_type=search_filter).distinct()[:MAX_RESULTS]
 
     else:
 
         opportunities = Opportunity.objects.all()
 
     context['opportunities'] = opportunities
+    return render_to_response('find_opportunity.html', context, context_instance=RequestContext(request))
 
-    return render_to_response('search.html', context, context_instance=RequestContext(request))
+def find_project(request):
+
+    context = base.build_base_context(request)
+
+    if request.method == 'POST': 
+
+        search = request.POST.get("search")
+        context['search_term'] = search
+        MAX_RESULTS = 12
+        
+        projects = Project.objects.filter(Q(name__contains=search) | Q(cause__contains=search) | Q(short_desc__contains=search) | Q(description__contains=search) | Q(industry__contains=search)).distinct()[:MAX_RESULTS]
+
+    else:
+
+        projects = Project.objects.all()
+
+    context['projects'] = projects
+    return render_to_response('find_project.html', context, context_instance=RequestContext(request))
 
 
 def embed_video(update_text):
 
-    vimeo = re.search(r'(http[s]*:\/\/vimeo\.com/([0-9]+).*?)[\s|$]*', update_text)
-    youtube = re.search(r'(http[s]*:\/\/www\.youtube\.com/watch\?v=([a-z|A-Z|0-9]+).*?)[\s|$]*', update_text)
+    vimeo = re.search(r'(http[s]*:\/\/vimeo\.com/([0-9]+).*?)[\s|$]*', update_text, re.I)
+    youtube = re.search(r'(http[s]*:\/\/www\.youtube\.com/watch\?v=([a-z|A-Z|0-9]+).*?)[\s|$]*', update_text, re.I)
+    short_youtube = re.search(r'(https?://youtu[.]be/([a-z0-9]*?))[\s|$]', update_text, re.I)
 
     if youtube:
 
@@ -643,7 +665,15 @@ def embed_video(update_text):
         embed_tag = '<object data="http://www.youtube.com/v/%s" type="application/x-shockwave-flash"><param name="src" value="http://www.youtube.com/v/%s" /></object>' % (video_id, video_id)
 
         return [embed_tag, update_text.replace(youtube.group(1), '')]
-
+    
+    elif short_youtube:
+        
+        video_id = short_youtube.group(2)
+        
+        embed_tag = '<object data="http://www.youtube.com/v/%s" type="application/x-shockwave-flash"><param name="src" value="http://www.youtube.com/v/%s" /></object>' % (video_id, video_id)
+        
+        return[embed_tag, update_text.replace(short_youtube.group(1), '')]
+    
     elif vimeo:
 
         video_id = vimeo.group(2)
