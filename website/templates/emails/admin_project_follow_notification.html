@@ -1,0 +1,19 @@
+{% extends 'emails/email_base.html' %}
+
+{% block content %}
+    <h3>Hi,<br/></h3>
+    <p>{{ user.firstname}} {{user.lastname}} has just followed your project {{project.name}}!</p>
+    
+    <p>You can learn more about this ReAllocator here:</p>
+    <table>
+    <tr><td>ReAllocate Profile:</td><td>{{ request.get_host }}/profile/{{user.id}}</td></tr>
+    <tr><td>Linked In Profile:</td><td>{{ request.get_host }}/profile/{{user.id}}</td></tr>
+    <tr><td>Linked In Profile:</td><td>{{ request.get_host }}/profile/{{user.id}}</td></tr>
+    </table>
+    <br/>
+
+    <p>Keep up the good work and update your followers on your progress to find more ReAllocators!</p>    
+    Cheers,<br/>
+    The Reallocate Team<br/>
+    
+{% endblock %}
