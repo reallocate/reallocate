@@ -491,7 +491,6 @@ def view_opportunity(request, pid, oid):
     if request.user.is_authenticated():
 
         context['is_following'] = request.user in opp.project.followed_by.all()
-        context['is_engaged'] = True if request.user == opp.project.created_by else False
         context['is_owner'] = True if request.user == opp.project.created_by else False
 
         try:

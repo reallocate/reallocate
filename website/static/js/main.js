@@ -1,7 +1,50 @@
-reAllocate = {
+// closure for namespace. Interim approach to migrate to AMD
+var RA = (function() {
+  "use strict";
+
+  var modules = {
+    mixins: {
+      serializeForm: function($form) {
+        var output = {},
+            formData = $form.serializeArray();
+
+        _.each(formData, function(data) {
+          var name = data.name,
+              val = data.value;
+
+          output[name] = val;
+        });
+
+        return output;
+      }
+    },
+    autocomplete: function($el, config) {
+
+      config = config || {};
+      $el = $el || {};
+
+      var defaults = {
+            ttl: 10000
+          };
+
+      if ($el.length === 0) {
+        return false;
+      }
+
+      $el.typeahead(_.defaults(config, defaults));
+    }
+  };
+
+
+  return modules;
+
+})();
+
+
+var reAllocate = window.reAllocate || {
 
     init: function() {
-        
+
         this.setupAddThis();
         
         // ie9 placeholder support
@@ -11,28 +54,28 @@ reAllocate = {
         if ($('#alert-modal')) $('#alert-modal').modal('show');
 
         $('.delegate-file-upload').click(function() {
-            
+
             $(this).siblings('input[type="file"]').trigger('click');
             return false;
-        
+
         });
-        
+
         $('input[type="file"]').on('change', function() {
             // show check mark next to file upload box after file is attached
-            
+
             upload_ok = $(this).parent().find(".file-upload-ok");
             if (upload_ok){
                 upload_ok.show();
             }
         });
-        
+
         $(".login-required").click(function(e) {
 
             if (!reAllocate.user) {
 
                 e.preventDefault();
                 $('#login-modal').modal('show');
-                
+
                 return false;
             }
         });
@@ -100,7 +143,7 @@ reAllocate = {
             }
             reAllocate.validateForm($(this).parents('form'));
         });
-    },   
+    },
 
     validateForm: function(form) {
 
@@ -121,31 +164,30 @@ reAllocate = {
 
     postUpdate: function(form) {
 
-
         var form = $(form);
 
         if (form.find('textarea').val().length == 0) {
             alert('Please enter an update');
             return false;
         }
-    
+
         form.find('button[type=submit]').attr('disabled', 'disabled');
 
         var submit_button = form.find('input[type="submit"]');
         var file = form.find('input[type="file"]').get(0).files[0];
         var xhr = new XMLHttpRequest();
-    
+
         //xhr.ontimeout = function() {
         //  this.abort();
         //  submission_error_cb();
         //  return;
         //}
         //xhr.onerror = submission_error_cb;
-        
+
         xhr.onreadystatechange = function(e) {
 
             if (this.readyState != 4) { return; }
-        
+
             if (this.status == 200 || this.status == 204) {
 
                 //var response = JSON.parse(this.responseText);
@@ -157,7 +199,7 @@ reAllocate = {
                     window.location.assign('#updates');
                     window.location.reload();
                 }
-    
+
             } else if (this.status == 500 || this.status == 503) {
 
                 alert('An error occurred uploading file');
@@ -170,7 +212,7 @@ reAllocate = {
         if (file) xhr.setRequestHeader("X-Mime-Type", file.type);
 
         xhr.send(file);
-    
+
         return false;
     },
 
@@ -307,11 +349,11 @@ reAllocate = {
         var default_twitter_msg = "Check out the work going on @reallocate http://reallocate.org";
         var default_title = "Reallocate";
         var default_description = "Check out the work going on @reallocate. http://reallocate.org";
-        
+
         var final_title = (title) ? title: default_title;
         var final_description = (description) ? description: default_description;
         var twitter_msg = (twitter) ? twitter: default_twitter_msg;
-    
+
         // sets global settings for included addthis_js
         addthis_share = {
             title: final_title,
@@ -319,7 +361,7 @@ reAllocate = {
             templates: {
                 twitter: twitter_msg,
             }
-        } 
+        }
     }
 };
 
