@@ -46,8 +46,9 @@ GOOGLE_AX_EXTRA_DATA = [('oauth_token', 'oauth_token')]
 
 FACEBOOK_EXTENDED_PERMISSIONS = ['email', 'publish_stream']
 
+# https://developer.linkedin.com/documents/profile-fields
 LINKEDIN_SCOPE = ['r_basicprofile', 'r_emailaddress']
-LINKEDIN_EXTRA_FIELD_SELECTORS = ['email-address', 'headline', 'industry']
+LINKEDIN_EXTRA_FIELD_SELECTORS = ['email-address', 'headline', 'industry', 'picture-url', 'first-name', 'last-name']
 LINKEDIN_EXTRA_DATA = [('id', 'id'),
                        ('first-name', 'first_name'),
                        ('last-name', 'last_name'),
@@ -310,7 +311,7 @@ SOCIAL_AUTH_PIPELINE = (
     'social_auth.backends.pipeline.user.create_user',
     'social_auth.backends.pipeline.social.associate_user',
     'social_auth.backends.pipeline.user.update_user_details',
-    'website.base.get_user_avatar',
+    'website.base.associate_new_user_profile'
 )
 
 # Redirects after login
@@ -322,10 +323,6 @@ POST_LOGIN_URL = '/search'
 
 SOCIAL_AUTH_DEFAULT_USERNAME = 'new_social_auth_user'
 SOCIAL_AUTH_UUID_LENGTH = 16
-
-#This is to extend the user profile to add custom fields
-AUTH_PROFILE_MODULE = 'website.UserProfile'
-# END - Social Auth Settings
 
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
