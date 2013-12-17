@@ -609,46 +609,49 @@ def find_opportunity(request):
 
     context = base.build_base_context(request)
 
+    opportunities = Opportunity.objects.filter(status__exact='Active')
+
     if request.method == 'POST': 
 
-        # search text
         search = request.POST.get("search")
-        search_filter = request.POST.get("opp_type")
+        opp_type = request.POST.get("opp_type")
         context['search_term'] = search
-        context['search_filter'] = search_filter
-        MAX_RESULTS = 12
+        context['type'] = opp_type
 
-        if search_filter == '':
-            opportunities = Opportunity.objects.filter(Q(name__contains=search) | Q(status__contains=search) | Q(short_desc__contains=search) | Q(description__contains=search) | Q(opp_type__contains=search)).distinct()[:MAX_RESULTS]
-        else:
-            if search == "":
-                context['search_term'] = "All"
-            opportunities = Opportunity.objects.filter(Q(name__contains=search) | Q(status__contains=search) | Q(short_desc__contains=search) | Q(description__contains=search) | Q(opp_type__contains=search)).filter(opp_type=search_filter).distinct()[:MAX_RESULTS]
+        MAX_RESULTS = 50
 
-    else:
+        if search:
 
-        opportunities = Opportunity.objects.all()
+            opportunities = opportunities.filter(Q(name__contains=search) | Q(short_desc__contains=search) | Q(description__contains=search)).distinct()
+
+        if opp_type:
+
+            opportunities = opportunities.filter(opp_type=opp_type)
 
     context['opportunities'] = opportunities
+
     return render_to_response('find_opportunity.html', context, context_instance=RequestContext(request))
+
 
 def find_project(request):
 
     context = base.build_base_context(request)
 
+    projects = Project.objects.filter(status__exact='Active')
+
     if request.method == 'POST': 
 
         search = request.POST.get("search")
         context['search_term'] = search
-        MAX_RESULTS = 12
-        
-        projects = Project.objects.filter(Q(name__contains=search) | Q(cause__contains=search) | Q(short_desc__contains=search) | Q(description__contains=search) | Q(industry__contains=search)).distinct()[:MAX_RESULTS]
 
-    else:
+        MAX_RESULTS = 50
 
-        projects = Project.objects.all()
+        if search:
+
+            projects = projects.filter(Q(name__contains=search) | Q(short_desc__contains=search) | Q(description__contains=search)).distinct()
 
     context['projects'] = projects
+
     return render_to_response('find_project.html', context, context_instance=RequestContext(request))
 
 

@@ -39,6 +39,10 @@
         text-align: center;
         margin: 0px auto 20px auto;
     }
+    .browse-projects {
+        text-align: center;
+        margin: 0px auto 0px auto;
+    }
 </style>
 {% endblock %}
 
@@ -55,7 +59,6 @@
                 </div>
                 <div class="clearfix"></div>
                 <h1 style="text-align:center;">Real World Solutions</h1>
-
             </div>
         </div> 
     </div>
@@ -63,20 +66,6 @@
 
 {% block content %}
     <div class="container">
-        <!-- <div class="row home-search">
-            <form action="" method="post">{% csrf_token %}
-                    <input type="text"  name="search" id="search" value="Search..."onclick="if(this.value=='Search...'){this.value=''}"
-                    onblur="if(this.value==''){this.value='Search...'}">
-                    <select name="opp_type" id="opp_type">
-                    <option value="">Search By:</option>
-                    <option value="Skills">Skill set</option>
-                    <option value="Knowledge">Knowledge</option>
-                    <option value="Equipment">Equipment</option>
-                    <option value="Money">Money</option>
-                    </select>
-                    <input type="submit" class="btn btn-primary" value="Search">
-            </form>
-        </div> -->
         
         <h2>Projects that need your help</h2>
         
@@ -87,6 +76,8 @@
             </div>
             {% endfor %}
         </div>
+
+        <h4 class="browse-projects"><a href="/find-projects">Browse all projects</a></h4>
     </div>
 {% endblock %}
 
