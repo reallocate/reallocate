@@ -11,9 +11,9 @@
                     <input type="hidden" name="next" value="{{ next }}" />
                     {% endif %}
                     <div class="form-group">
-                        <textarea class="form-control " name="message" id="close_opportunity-message" placeholder="Please tell us why you are closing the Opportunity. This comment is shared with all engaged users."></textarea>
+                        <textarea class="form-control " name="message" id="close_opportunity-message" placeholder="Please tell us why you are closing this opportunity. This comment is shared with all engaged users."></textarea>
                     </div>
-                    <button type="button" class="btn btn-default pull-right" onclick="reAllocate.closeOpportunity($('#close_opportunity-message').attr('value'), {{ opportunity.project.id }}, {{ opportunity.id }}); $('#close_opportunity-modal').modal('hide');">Shutdown the Opportunity</button>
+                    <button type="button" class="btn btn-default pull-right" onclick="reAllocate.closeOpportunity($('#close_opportunity-message').attr('value'), {{ opportunity.project.id }}, {{ opportunity.id }}); $('#close_opportunity-modal').modal('hide');">Close it</button>
                     <div class="clearfix"></div>
                 </form>
             </div>

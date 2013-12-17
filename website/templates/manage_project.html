@@ -35,10 +35,17 @@
             color: #333;
         }
         p.edit {
-            margin: -10px 8px 0 8px;
+            margin: -18px 0px 0 0px;
         }
         p.edit a {
             font-size: 12px;
+            display: inline-block;
+            padding: 8px 6px 2px 6px;
+            background-color: #eee;
+            margin-right: 8px;
+        }
+        p.edit a:last-child {
+            margin-right: 0px;
         }
         p.edit span {
             float: right;
@@ -162,7 +169,6 @@
             <h4>Opportunity Engagement</h4>
             {% for opportunity in opportunities %}
                 {% include "includes/opportunity-pane-small.html" %}
-                <a href="#close_opportunity-modal" data-toggle="modal">Close</a>
                 {% include 'includes/close-opportunity-modal.html' %}
                 <ul>
                 {% for engagement in engagements %}
@@ -229,7 +235,7 @@
                         </div>
                     </div>
                 </div>
-                <p class="edit"><a href="#opportunity{{ opportunity.id }}-modal" role="button" data-toggle="modal">edit details</a><span><a href="#delete-opportunity{{ opportunity.id }}-modal" data-toggle="modal" role="button">delete</a></span></p>
+                <p class="edit"><a href="#opportunity{{ opportunity.id }}-modal" role="button" data-toggle="modal">edit details</a><a href="#close_opportunity-modal" data-toggle="modal">close</a><span><a href="#delete-opportunity{{ opportunity.id }}-modal" data-toggle="modal" role="button">delete</a></span></p>
                 <div id="delete-opportunity{{ opportunity.id }}-modal" class="modal fade">
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -261,7 +267,7 @@
 {% block bottomscript %}
 
 <script>
-function deleteOpportunity(id) {
+function deleteOpportunity(confirmed, id) {
 
 
     $.ajax({

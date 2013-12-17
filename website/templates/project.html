@@ -171,8 +171,10 @@
                     <h1>{{ project.name }}</h1>
                 </div>
                 <div class="col-xs-3 actions">
-                    {% if is_admin %}<a href="/project/{{ project.id }}/manage" class="btn btn-primary">Manage</a>&nbsp;{% endif %}
+                    {% if is_admin %}<a href="/project/{{ project.id }}/manage" class="btn btn-primary">Manage</a>
+                    {% else %}
                     <button class="btn btn-primary follow" onclick="reAllocate.followProject(this, {{ project.id }});">{% if is_following %}Unfollow{% else %}Follow{% endif %}</button>
+                    {% endif %}
                 </div>
             </div>
         </div>
