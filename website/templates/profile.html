@@ -116,12 +116,14 @@
 
                 <div class="profile-info">
 
+                    {% if user %}
                     <div class="form-group">
                         <label class="control-label col-xs-2 profile-info-header {% if edit %}profile-header-edit{% endif %}">Email</label>
                         <div class="col-xs-8">
                             <input class="form-control" readonly="readonly" type="text" id="email" name="email" value="{{ user_profile.user.email }}" placeholder="Contact Email" />
                         </div>
                     </div>
+                    {% endif %}
                     <div class="form-group">
                         <label class="control-label col-xs-2 profile-info-header {% if edit %}profile-header-edit{% endif %}">Location</label>
                         <div class="col-xs-8">
