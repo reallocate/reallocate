@@ -314,6 +314,8 @@ SOCIAL_AUTH_PIPELINE = (
     'website.base.associate_new_user_profile'
 )
 
+AUTH_PROFILE_MODULE = 'website.UserProfile'
+
 # Redirects after login
 LOGIN_URL = '/login'
 LOGIN_REDIRECT_URL = '/'
