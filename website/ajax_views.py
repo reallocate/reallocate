@@ -146,12 +146,27 @@ def close_opportunity(request):
 @csrf_exempt
 def add_update(request, *args):
 
-    orgid = request.REQUEST.get('orgid')
-    pid = request.REQUEST.get('pid')
-    oid = request.REQUEST.get('oid')
+    if request.REQUEST.get('id'):
+
+        update = Update.objects.get(id=request.REQUEST['id'])
+        orgid = update.organization.id if update.organization else None
+        pid = update.project.id if update.project else None
+        oid = update.opportunity.id if update.opportunity else None
+
+    else:
+
+        update = None
+        orgid = request.REQUEST.get('orgid')
+        pid = request.REQUEST.get('pid')
+        oid = request.REQUEST.get('oid')
+
     text = request.REQUEST.get('text')
     url = None
+    response = {"success": "true"}
 
+    project = Project.objects.get(id=pid)
+
+    # handle file upload
     if request.body:
 
         mime_type = request.META.get('HTTP_X_MIME_TYPE')
@@ -165,11 +180,33 @@ def add_update(request, *args):
         
         url = base.send_to_remote_storage(request.body, 'project/%s/%s.%s' % (pid, filename, ext), mime_type)
 
-    # TODO:  error checking.  i.e. does user have permission?
-    update = Update.objects.create(organization_id=orgid, project_id=pid, media_url=url,
-                                   opportunity_id=oid, text=text, created_by=request.user)
+    # edit previous post
+    if update:
 
-    return HttpResponse(json.dumps({ "success": "true" }), mimetype="application/json")
+        if update.created_by == request.user or project.created_by == request.user:
+
+            if text:
+                update.text = text
+            if url:
+                update.media_url = url
+
+            update.save()
+
+        else:
+
+            response.update({'success':False, 'message': "You don't have permission to edit this post."})
+
+    # create new post
+    elif (oid and OpportunityEngagement.objects.get(opportunity_id=oid, user=request.user)) or project.created_by == request.user:
+
+        Update.objects.create(organization_id=orgid, opportunity_id=oid, project_id=pid, text=text, created_by=request.user, media_url=url)
+        
+    else:
+
+        response.update({'success': False, 'message': 'Not a valid project id'})
+
+
+    return HttpResponse(json.dumps(response), mimetype="application/json")
 
 
 @login_required
@@ -229,28 +266,31 @@ def delete_opportunity(request, *args):
 @csrf_exempt
 def login_user(request):
 
-    username = request.REQUEST.get('username')
+    email = request.REQUEST.get('email')
     password = request.REQUEST.get('password')
 
-    user = authenticate(username=username, password=password)
+    user = authenticate(username=email, password=password)
     
     if user is not None:
 
-      if user.is_active:
+        if user.is_active:
 
             login(request, user)
 
             response = { 'success': True, 'user': {'email': user.email, 'firstName': user.first_name, 'lastName': user.last_name} }
+
             if request.POST.get('next'):
+
                 response['next'] = request.POST.get('next')
 
             return HttpResponse(json.dumps(response), content_type="application/json")
 
-      else:
+        else:
+
             return HttpResponse(json.dumps({ 'success': False, 'message': 'Your account has been disabled' }), content_type="application/json", status=403)
     else:
 
-      return HttpResponse(json.dumps({ 'success': False, 'message': 'Invalid username or password' }), content_type="application/json", status=403)
+        return HttpResponse(json.dumps({ 'success': False, 'message': 'Invalid username or password' }), content_type="application/json", status=403)
 
 
 @csrf_exempt

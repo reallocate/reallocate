@@ -165,24 +165,32 @@ def reset_password(request):
         email = request.POST.get('email')
         temp_password = request.POST.get('temp_password')
         new_password = request.POST.get('password')
-        user = User.objects.filter(email=email)
+        user = User.objects.get(username=email)
+
         if not user:
+
             return HttpResponseRedirect('/')
-        user = user[0]
+ 
         if not user.check_password(temp_password):
-            context['alert'] = {'type': 'danger', 'message': "You have entered an incorrect temporary password."}
-            return render_to_response('temp_password.html', context, context_instance=RequestContext(request))
+
+            context['alert'] = {'type': 'danger', 'message': "This reset request is no longer valid."}
+
+            return render_to_response('reset_password.html', context, context_instance=RequestContext(request))
+
         user.set_password(new_password)
         user.save()
-        
+
         user = authenticate(username=email, password=new_password)
         login(request, user)
     
         return HttpResponseRedirect("/")
+
+    else:
     
-    context['temp_password'] = request.GET.get("temp_password", "")
-    context['email'] = request.GET.get("email", "")
-    return render_to_response('reset_password.html', context, context_instance=RequestContext(request))
+        context['temp_password'] = request.GET.get("t")
+        context['email'] = request.GET.get("e")
+
+        return render_to_response('reset_password.html', context, context_instance=RequestContext(request))
     
 
 @csrf_exempt
@@ -191,27 +199,31 @@ def forgot_password(request):
     context = base.build_base_context(request)
     
     if request.POST:
+
         email = request.POST.get('email')
-        reset_user = User.objects.filter(email=email)
+        reset_user = User.objects.get(username=email)
+
         if not reset_user:
-            return HttpResponseRedirect('/')
-        
-        temp_password = hashlib.md5(str(random.randint(0, 10000000))).hexdigest()[0:7]
-        reset_user = reset_user[0]
-        reset_user.set_password(temp_password)
-        reset_user.save()
-        
-        subj = "Your password on Reallocate has been reset"
-        body = """Click this link to choose a new password.<br/><a href='%s/reset-password?temp_password=%s&email=%s'>
-            Choose a new password</a><br/><br/>Thanks,<br/>Reallocate""" % (request.get_host(), temp_password, email)
-                
-        base.send_email(email, subj, body, html_content=body)
 
-        response = HttpResponseRedirect('/forgot-password')
-        alert = {'type': 'success', 'message': 'Your password has been reset'}
-        response.set_cookie('alert', json.dumps({}), max_age=2)
+            context['invalid_email'] = True
 
-        return response
+        else:
+
+            temp_password = hashlib.md5(str(random.randint(0, 10000000))).hexdigest()[0:7]
+            reset_user.set_password(temp_password)
+            reset_user.save()
+
+            subj = "Your password on Reallocate has been reset"
+            body = """By request, we've reset your password. <a href='%s/reset-password?t=%s&e=%s'>
+                Choose a new password</a><br/><br/>Thanks,<br/>Reallocate""" % (request.get_host(), temp_password, email)
+                    
+            base.send_email(email, subj, body, html_content=body)
+
+            response = HttpResponseRedirect('/')
+            alert = {'type': 'success', 'message': 'Your password has been reset'}
+            response.set_cookie('alert', json.dumps(alert), max_age=2)
+
+            return response
         
     context['email'] = request.GET.get('email', '')
 

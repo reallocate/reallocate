@@ -37,10 +37,12 @@ def build_base_context(request):
 
 
 def generate_base_email_context(request):
+
     # add email template variables needed among all emails
     return {'server_url': request.get_host(),
            'facebook_url': 'https://www.facebook.com/reallocate.org',
            'twitter_url': 'https://twitter.com/reallocate'}
+
 
 # render param - If true, will return the email content *without* sending an email. If false it will send the email
 def send_email_template(request, email_type, context, subject, recipients, render=False, *kwargs):

@@ -96,16 +96,6 @@ var reAllocate = window.reAllocate || {
 
         });
 
-        // init all post update forms
-        $('.post-update form').each(function(i, form) {
-
-            $(form).on('submit', function(event) {
-
-                event.preventDefault();
-                reAllocate.postUpdate(form);
-            });
-        });
-
         $('.post-update-button').tooltip({
             'html': true,
             'delay': {'show': 600, 'hide': 100},
@@ -192,13 +182,10 @@ var reAllocate = window.reAllocate || {
 
                 //var response = JSON.parse(this.responseText);
 
-                // hide modal if used/exists else reload page
-                if ($('#post-update-modal').length) {
-                    $('#post-update-modal').modal('hide');
-                } else {
-                    window.location.assign('#updates');
-                    window.location.reload();
-                }
+                $('.modal').modal('hide');
+
+                window.location.assign('#updates');
+                window.location.reload();
 
             } else if (this.status == 500 || this.status == 503) {
 
@@ -216,12 +203,33 @@ var reAllocate = window.reAllocate || {
         return false;
     },
 
-    loginUser: function(username, password) {
+    editUpdate: function(id) {
+
+        var editForm = $('#edit-update');
+        var idField = $('<input/>').attr('type', 'hidden').attr('name', 'id').attr('value', id);
+        editForm.append(idField);
+        var updateText = $('#update-'+id+' .update-text').text();
+        var mediaUrl = $('#update-'+id+' .update-media img').attr('src');
+
+        if (mediaUrl) {
+            editForm.find('img').attr('src', mediaUrl).css({'display': 'block'});
+            editForm.find('button.delegate-file-upload').text('Change Image');
+        }
+        editForm.find('textarea').attr('value', updateText);
+
+        $('#edit-update-modal').modal('show');
+    },
+
+    deleteUpdate: function(id) {
+
+    },
+
+    loginUser: function(email, password) {
 
         $.ajax({
             url: '/ajax/login',
             method: 'POST',
-            data : {'username': username, 'password': password},
+            data : {'email': email, 'password': password},
             success: function(json) {
 
                 reAllocate.user = json.user;

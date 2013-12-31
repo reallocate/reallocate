@@ -1,6 +1,6 @@
 <div class="post-update">
 
-    <form enctype="multipart/form-data" method="post">
+    <form enctype="multipart/form-data" method="post" onsubmit="reAllocate.postUpdate(this); return false;">
 
         {% if opportunity %}
         <input type="hidden" name="oid" value="{{ opportunity.id }}" />
