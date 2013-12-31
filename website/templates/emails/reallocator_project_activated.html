@@ -1,0 +1,15 @@
+{% extends 'emails/email_base.html' %}
+
+{% block content %}
+    <h3>Hi,<br/></h3>
+    <p>Congratulations, your project was just activated at <a href="{{ request.get_host }}/project/{{project.id}}/manage">{{ request.get_host }}/project/{{project.id}}!</a></p>
+    
+    <p>Start recruiting ReAllocators by sharing your project on Facebook, Twitter and emailing your friends.</p>
+    
+    <p>You can always edit your project information from the <a href="{{ request.get_host }}/project/{{project.id}}/manage">project management page.</a> Use the management page to create new opportunities, manage your ReAllocators and share your project to invite people to the community.</p>
+    
+    <p>If you have any questions please email us at <a href="info@reallocate.org">info@reallocate.org</a></p>
+    Cheers,<br/>
+    The Reallocate Team<br/>
+    
+{% endblock %}
