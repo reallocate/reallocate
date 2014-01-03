@@ -2,22 +2,22 @@
 
 {% block content %}
     <h3>Hi,<br/></h3>
-    <p>{{ user.firstname}} {{user.lastname}} just asked to engage with the opportunity {{opportunity.name}} for your project {{project.name}}!</p>
+    <p>{{ user.firstname }} {{ user.lastname }} just asked to engage with the opportunity {{ opportunity.name }} for your project {{ project.name }}!</p>
     
-    <p>Message:</p>
+    <p>Message</p>
     <p>{{ Engage.message }}</p>
     
-    <p>View Opportunity:</p>
-    <p><a href="{{ request.get_host }}/project/{{opportunity.project.id}}/opportunity/{{opportunity.id}}">{{opportunity.name}}</a></p>
+    <p>View Opportunity</p>
+    <p><a href="{{ host_base }}/project/{{ opportunity.project.id }}/opportunity/{{ opportunity.id }}">{{opportunity.name}}</a></p>
     
-    <p>You can learn more about this ReAllocator here:</p>
+    <p>You can learn more about this ReAllocator below</p>
     <table>
-    <tr><td>ReAllocate Profile:</td><td>{{ request.get_host }}/profile/{{user.id}}</td></tr>
-    <tr><td>Linked In Profile:</td><td>{{ request.get_host }}/profile/{{user.id}}</td></tr>
-    <tr><td>Linked In Profile:</td><td>{{ request.get_host }}/profile/{{user.id}}</td></tr>
+    <tr><td>ReAllocate Profile</td><td>{{ host_base }}/profile/{{ user.id }}</td></tr>
+    <tr><td>Linked In Profile</td><td>{{ host_base }}/profile/{{ user.id }}</td></tr>
+    <tr><td>Linked In Profile</td><td>{{ host_base }}/profile/{{ user.id }}</td></tr>
     </table>
     <br/>
-    <p>To help get the relationship off to the right start, we will be in touch shortly to set you up with a two way interview with {{user.firstname}}. In the meantime, please review the ReAllocator profile above and let us know if you have any questions by emailing <a href="mailto:info@reallocate.org">info@reallocte.org</a></p>
+    <p>To help get the relationship off to the right start, we will be in touch shortly to set you up with a two way interview with {{ user.firstname }}. In the meantime, please review the ReAllocator profile above and let us know if you have any questions by emailing <a href="mailto:info@reallocate.org">info@reallocte.org</a></p>
     
     Cheers,<br/>
     The Reallocate Team<br/>

@@ -39,9 +39,14 @@ def build_base_context(request):
 def generate_base_email_context(request):
 
     # add email template variables needed among all emails
-    return {'server_url': request.get_host(),
-           'facebook_url': 'https://www.facebook.com/reallocate.org',
-           'twitter_url': 'https://twitter.com/reallocate'}
+    context = {
+        'request': request,
+        'host_base': 'http://'+request.get_host(),
+        'facebook_url': 'https://www.facebook.com/reallocate.org',
+        'twitter_url': 'https://twitter.com/reallocate'
+    }
+
+    return context
 
 
 # render param - If true, will return the email content *without* sending an email. If false it will send the email
@@ -73,6 +78,8 @@ def send_email(recipients, subject, text_content, html_content=None, from_email=
     msg = EmailMultiAlternatives(subject, text_content, from_email, recipients, headers=headers)
 
     if html_content:
+
+        logging.error(html_content)
 
         msg.attach_alternative(html_content, "text/html")
         msg.content_subtype = "html" # defaults to show as html, txt if html not viewable
