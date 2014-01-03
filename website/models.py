@@ -577,6 +577,14 @@ class UserProfile(models.Model):
     def make_s3_media_url(self, uploaded_file):
         return 'users/%s/%s' % (self.user.email, uploaded_file.name)
 
+def create_user_profile(sender, instance, created, **kwargs):
+ 
+    if created:
+        profile, created = UserProfile.objects.get_or_create(user=instance)
+ 
+post_save.connect(create_user_profile, sender=User)
+
+
 class Update(models.Model):
 
     organization = models.ForeignKey(Organization)
