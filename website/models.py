@@ -1,5 +1,7 @@
 import logging
 
+from datetime import datetime
+
 from django.db import models
 from django.forms import ModelForm, Textarea
 from django.contrib.auth.models import User
@@ -596,7 +598,7 @@ class Update(models.Model):
     created_by = models.ForeignKey(User)
     
     def __unicode__(self):
-        return "Update: %s" % "Coming soon!"
+        return "%s / %s / %s" % (self.project.name, self.opportunity, datetime.strftime(self.date_created, "%c"))
 
 
 class OpportunityEngagement(models.Model):

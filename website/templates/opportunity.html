@@ -11,7 +11,6 @@
         position: relative;
         height: 100%;
     }
-{# TODO edwardotis. rename as opportunity-button? #}
     #opp-title .engage-button {
         margin-left: 10px;
     }
@@ -80,10 +79,10 @@
     .jumbotron {
         padding: 0px;
         /*background-image: url('{% if opportunity.media_url %}{{ opportunity.media_url }}{% else %}{{ project.media_url }}{% endif %}');*/
-        height: 150px;
+        height: 92px;
     }
-    .jumbotron .opportunity-media img {
-        width: 175px;
+    .opportunity-media img {
+        width: 300px;
     }
     .skill-icons {
         text-align: center;
@@ -124,24 +123,19 @@
         <div id="opp-title" class="container">
             <div class="row">
                 <div class="col-xs-1">
-
                     <div class="skill-icons">
                     {% if not is_open %}
                         <div class="give-icons"><i class="icon-circle icon-4x"></i><br/>Closed</div>
                     {% endif %}
-
                     {% if opportunity.opp_type.lower == 'skills' %}
                         <div class="give-icons"><i class="icon-star icon-4x"></i><br/>Skills</div>
                     {% endif %}
-                    
                     {% if opportunity.opp_type.lower == 'knowledge' %}
                         <div class="give-icons"><i class="icon-book icon-4x"></i><br/>Knowledge</div>
                     {% endif %}
-                
                     {% if opportunity.opp_type.lower == 'equipment' %}
                         <div class="give-icons"><i class="icon-cogs icon-4x"></i><br/>Equipment</div>
                     {% endif %}
-                
                     {% if opportunity.opp_type.lower == 'money' %}
                         <div class="give-icons"><i class="icon-money icon-4x"></i><br/>Money</div>
                     {% endif %}
@@ -158,11 +152,6 @@
                     {% endif %}
                 {% endif %}
                 </div>
-                {% if opportunity.media_url %}
-                <div class="col-xs-3">
-                    <div class="opportunity-media"><img src="{{ opportunity.media_url }}"></div>
-                </div>
-                {% endif %}
             </div>
         </div>
 </div>
@@ -179,7 +168,6 @@
         <div class="row">
         
             <div class="col-xs-7">
-                
                 <h3>Overview</h3>
                 <p class="opp-description pre">{{ opportunity.description }}</p>
             
@@ -212,6 +200,9 @@
             </div>
 
             <div class="col-xs-5">
+                {% if opportunity.media_url %}
+                <div class="opportunity-media"><img src="{{ opportunity.media_url }}"></div>
+                {% endif %}
                 <div class="addthis_toolbox">
                     <a class="share addthis_button_twitter ">
                         <i class="icon-twitter icon-2x"></i>

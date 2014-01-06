@@ -102,6 +102,16 @@
 
     $('#email').on('blur', function(e) {
 
+        var fg = $(this).parents('.form-group');
+
+        if (!this.value.match(/.+?@.+?\..+?/)) {
+
+            fg.find('.help-block').text('Invalid email');
+            fg.addClass('has-error');
+
+            return false;
+        }
+
         var email = this;
         
         $.ajax({
@@ -116,9 +126,9 @@
                         $('#sign-up-submit').removeAttr('disabled');
                     }
                 } else {
-                    $(email).parents('.form-group').addClass('has-error');
+                    fg.addClass('has-error');
                     $('#sign-up-submit').attr('disabled', 'disabled');
-                    $('#email').addClass('has-error');
+                    fg.find('.help-block').text('That email is already in use');
                 }
             },
             error: function(res) {
