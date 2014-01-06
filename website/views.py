@@ -125,11 +125,11 @@ def privacy(request):
     return render_to_response('privacy.html', context, context_instance=RequestContext(request))
 
 
-def tos(request):
+def tou(request):
 
     context = base.build_base_context(request)
 
-    return render_to_response('tos.html', context, context_instance=RequestContext(request))
+    return render_to_response('tou.html', context, context_instance=RequestContext(request))
 
 
 def get_started(request):
