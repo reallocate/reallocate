@@ -211,6 +211,31 @@ def add_update(request, *args):
 
 @login_required
 @csrf_exempt
+def delete_update(request, *args):
+
+    if request.POST:
+
+        update = Update.objects.get(id=request.POST.get('updateId'))
+
+        if update:
+
+            update.delete()
+    
+            response_data = { "success": "true" }
+
+        else:
+
+            response_data = { "success": "false" } 
+
+    else:
+
+        response_data = { "sucess": "false" }
+
+    return HttpResponse(json.dumps(response_data), mimetype="application/json")
+
+
+@login_required
+@csrf_exempt
 def update_project(request, *args):
 
     if request.POST:

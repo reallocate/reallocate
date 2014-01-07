@@ -189,15 +189,6 @@
 {% endblock %}
 
 {% block content %}
-<!--
-<div class="row">
-    <div class="col-xs-6 col-xs-offset-6">
-            <strong>Jump to</strong>:
-        <a href="#"" class="jump" loc="opps">Opportunities({{ opportunities.count }})</a>
-        <a href="#"" class="jump" loc="updates">Updates({{ updates.count|default:0 }})</a>
-    </div>
-</div>
--->
 
 <div class="container">  
     <div class="row">
@@ -226,6 +217,7 @@
                     {% endif %}
                     <p class="update-date">{{ update.date_created.date }}</p>
                     <p class="update-text pre">{{ update.text }}</p>
+                    <p class="original-update-text hide">{{ update.original_text }}</p>
                     {% if update.created_by.get_profile.media_url %}                    
                     <img class="update-avatar" src="{{ update.created_by.get_profile.media_url }}" />
                     {% endif %}
@@ -270,41 +262,6 @@
             </div>
             {% endif %}
             <div class="clearfix"></div>
-            <!--
-            <div>
-                {% include 'paypal-donate.inc' %}
-                <div>
-                    <div class="pie">46,54</div>
-                    <div class="pie-progress">
-                        46%
-                        <br>
-                        <span>Complete</span>
-                    </div>
-                </div>
-                <div class="chart">
-                    <h5>Money</h5>
-                    <div class="progress">
-                        <div class="bar-progress">50%</div>
-                        <div class="bar"></div>
-                    </div>
-                    <h5>Knowledge</h5>
-                    <div class="progress">
-                        <div class="bar-progress">75%</div>
-                        <div class="bar"></div>
-                    </div>
-                    <h5>Skills</h5>
-                    <div class="progress">
-                        <div class="bar-progress">40%</div>
-                        <div class="bar"></div>
-                    </div>
-                    <h5>Equipment</h5>
-                    <div class="progress">
-                        <div class="bar-progress">20%</div>
-                        <div class="bar"></div>
-                    </div>
-                </div>
-            </div>
-            -->
             <div class="opportunities">
                 <h3>Opportunities</h3>
                 <div class="row">

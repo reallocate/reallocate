@@ -90,7 +90,7 @@
     "model": "website.organization",
     "fields": {
         "business_type": "",
-        "status": "Pending",
+        "status": "Active",
         "name": "Hoffman Solutions",
         "city": "",
         "URL": "www.tbd.com",
@@ -111,7 +111,7 @@
     "model": "website.organization",
     "fields": {
         "business_type": "",
-        "status": "Pending",
+        "status": "Active",
         "name": "Kenya Solutions",
         "city": "",
         "URL": "www.tbd.com",
@@ -132,7 +132,7 @@
     "model": "website.organization",
     "fields": {
         "business_type": "",
-        "status": "Pending",
+        "status": "Active",
         "name": "Cool Planet Labs",
         "city": "",
         "URL": "www.home-towns.com",
@@ -153,7 +153,7 @@
     "model": "website.organization",
     "fields": {
         "business_type": "",
-        "status": "Pending",
+        "status": "Active",
         "name": "Nsamizi",
         "city": "",
         "URL": "http://emiu.org/",
@@ -174,7 +174,7 @@
     "model": "website.organization",
     "fields": {
         "business_type": "",
-        "status": "Pending",
+        "status": "Active",
         "name": "Alliance for Change",
         "city": "",
         "URL": "http://www.alliance4change.org/",
@@ -195,7 +195,7 @@
     "model": "website.organization",
     "fields": {
         "business_type": "",
-        "status": "Pending",
+        "status": "Active",
         "name": "West Oakland Environmental Indicators Project",
         "city": "",
         "URL": "http://www.woeip.org/",
@@ -216,7 +216,7 @@
     "model": "website.organization",
     "fields": {
         "business_type": "",
-        "status": "Pending",
+        "status": "Active",
         "name": "Local Catch",
         "city": "",
         "URL": "http://www.localcatchmontereybay.com/",
@@ -237,7 +237,7 @@
     "model": "website.organization",
     "fields": {
         "business_type": "nonprofit",
-        "status": "Pending",
+        "status": "Active",
         "name": "ReAllocate",
         "city": "",
         "URL": "",
@@ -257,7 +257,7 @@
     "pk": 22,
     "model": "website.project",
     "fields": {
-        "status": "Pending",
+        "status": "Active",
         "city": "",
         "name": "Husika Kenya!",
         "video_url": "",
@@ -279,7 +279,7 @@
     "pk": 39,
     "model": "website.project",
     "fields": {
-        "status": "Pending",
+        "status": "Active",
         "city": "",
         "name": "Local Catch: A Community Supported Fishery",
         "video_url": "",
@@ -302,7 +302,7 @@
     "pk": 40,
     "model": "website.project",
     "fields": {
-        "status": "Pending",
+        "status": "Active",
         "city": "",
         "name": "ReAllocate Online Platform",
         "video_url": "",

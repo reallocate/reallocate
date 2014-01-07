@@ -214,7 +214,7 @@ def forgot_password(request):
             reset_user.save()
 
             subj = "Your password on Reallocate has been reset"
-            body = """By request, we've reset your password. <a href='http://%s/reset-password?t=%s&e=%s'>
+            body = """By request, we've reset your password. <a href='http://p%s/reset-password?t=%s&e=%s'>
                 Choose a new password</a><br/><br/>Thanks,<br/>Reallocate""" % (request.get_host(), temp_password, email)
                     
             base.send_email(email, subj, body, html_content=body)
@@ -353,6 +353,7 @@ def view_project(request, pid=1):
 
     for u in context['updates']:
 
+        u.original_text = u.text
         (u.video, u.text) = embed_video(u.text)
 
     if request.user.is_authenticated():

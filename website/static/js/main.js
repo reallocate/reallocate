@@ -208,7 +208,7 @@ var reAllocate = window.reAllocate || {
         var editForm = $('#edit-update');
         var idField = $('<input/>').attr('type', 'hidden').attr('name', 'id').attr('value', id);
         editForm.append(idField);
-        var updateText = $('#update-'+id+' .update-text').text();
+        var updateText = $('#update-'+id+' .original-update-text').text();
         var mediaUrl = $('#update-'+id+' .update-media img').attr('src');
 
         if (mediaUrl) {
@@ -222,6 +222,18 @@ var reAllocate = window.reAllocate || {
 
     deleteUpdate: function(id) {
 
+        if (confirm('Delete update?')) {
+
+            $.ajax({
+                url: '/ajax/delete-update',
+                method: 'POST',
+                data : {'updateId': id},
+                success: function(json) {
+
+                    window.location.reload();
+                }
+            });
+        }
     },
 
     loginUser: function(email, password) {
