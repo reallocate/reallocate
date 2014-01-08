@@ -14,6 +14,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_exempt, csrf_protect
 from django.db.models import Q
+from django.utils.http import urlquote
 
 from website.models import OrganizationForm, Organization, ProjectForm, Project, Update, UserProfile
 from website.models import OpportunityEngagement, Opportunity, OpportunityForm
@@ -215,7 +216,7 @@ def forgot_password(request):
 
             subj = "Your password on Reallocate has been reset"
             body = """By request, we've reset your password. <a href='http://%s/reset-password?t=%s&e=%s'>
-                Choose a new password</a><br/><br/>Thanks,<br/>Reallocate""" % (request.get_host(), temp_password, email)
+                Choose a new password</a><br/><br/>Thanks,<br/>Reallocate""" % (request.get_host(), temp_password, urlquote(email))
                     
             base.send_email(email, subj, body, html_content=body)
 
