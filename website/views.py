@@ -201,7 +201,10 @@ def forgot_password(request):
     if request.POST:
 
         email = request.POST.get('email')
-        reset_user = User.objects.get(username=email)
+        try:
+            reset_user = User.objects.get(username=email)
+        except User.DoesNotExist:
+            reset_user = None
 
         if not reset_user:
 
