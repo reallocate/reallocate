@@ -297,7 +297,7 @@ def sign_up(request):
         
         email_context = {'email': email, 'user': user}
 
-        base.send_email_template(request, 'welcome', email_context, 'Welcome to ReAllocate!', [settings.ADMIN_EMAIL, email])
+        base.send_email_template(request, 'welcome', email_context, 'Welcome to ReAllocate!', [settings.ADMIN_EMAIL, email], from_email=email)
         
         subject = "New user named %s %s has been created" % (user.first_name, user.last_name)
         html_content = "A new user has been created <br/> user: %s <br/>name: %s %s <br/> email: %s <br/>" % (user.username, user.first_name, user.last_name, user.email)
