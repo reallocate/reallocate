@@ -2,32 +2,6 @@
 
 {% block extra_css %}
     <style>
-        #updates {
-        }
-        .update, .post-update {
-            padding: 0px 0px 10px 0px;
-            border-bottom: 1px solid #ededed;
-            margin-bottom: 15px;
-        }
-        .update:last-child {
-            border: none;
-        }
-        .update object, .update iframe {
-            width: 534px;
-            height: 297px;
-        }
-        .update-username {
-            color: black;
-        }
-        .update-opp-name {
-            color: #808080;
-        }
-        .update-text {
-            color: #808080;
-        }
-        .update-media img {
-            width: 100%;
-        }
         #image img {
             width: 288px;
         }
@@ -143,35 +117,12 @@
     </div>
 
     <div class="row wall">
-
-        <div class="col-xs-7">
-            <div id="updates">
-                <h4>Updates</h4>
-                {% include 'includes/post-update.html' %}
-                {% for update in updates %}
-                <div class="update">
-                    {% if update.media_url %}
-                    <div class="update-media"><img src="{{ update.media_url }}"></div>
-                    {% elif update.video %}
-                    <div class="update-media">{{ update.video|safe }}</div>
-                    {% endif %}
-                    <p class="update-date">{{ update.date_created.date }}</p>
-                    <p class="update-text pre">{{ update.text }}</p>
-                    {% if update.created_by.get_profile.media_url %}                    
-                    <img class="update-avatar" src="{{ update.created_by.get_profile.media_url }}" />
-                    {% endif %}
-                    <a class="update-username" href="/profile/{{ update.created_by.id }}">
-                    {{ update.created_by.first_name }} {{ update.created_by.last_name }}
-                    </a>
-                </div>
-                {% endfor %}
-            </div>
-        </div>
-
-        <div class="col-xs-offset-1 col-xs-4">
-
+        <div class="col-xs-12">
             <h4>Opportunities</h4>
+        </div>
+            {% if opportunities %}
             {% for opportunity in opportunities %}
+            <div class="col-xs-4">
                 {% include "includes/opportunity-pane-small.html" %}
                 {% include 'includes/close-opportunity-modal.html' %}
                 <ul>
@@ -256,13 +207,15 @@
                         </div>
                     </div>
                 </div>
+            </div>
             {% endfor %}
-            {% if not opportunities %}
-            <p>There are no opportunities added to this project</p>
+            {% else %}
+            <div class="col-xs-12"><p>There are no opportunities added to this project</p></div>
             {% endif %}
-            <a href="/project/{{ project.id }}/opportunity/add"><i class="fa fa-plus-square"></i>&nbsp;&nbsp;add opportunity</a>
+            <div class="col-xs-12">
+                <a href="/project/{{ project.id }}/opportunity/add"><i class="fa fa-plus-square"></i>&nbsp;&nbsp;add opportunity</a>
+            </div>
 
-        </div>
 
     </div>
 
