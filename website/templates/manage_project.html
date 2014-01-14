@@ -36,16 +36,20 @@
         }
         p.edit {
             margin: -18px 0px 0 0px;
+            background-color: #ededed;
+            border-radius: 5px;
         }
         p.edit a {
             font-size: 12px;
             display: inline-block;
-            padding: 8px 6px 2px 6px;
-            background-color: #eee;
+            padding: 6px 6px 3px 6px;
             margin-right: 8px;
         }
         p.edit a:last-child {
             margin-right: 0px;
+            color: #fff;
+            background-color: rgb(217,83,79);
+            border-bottom-right-radius: 5px;
         }
         p.edit span {
             float: right;
@@ -166,7 +170,7 @@
 
         <div class="col-xs-offset-1 col-xs-4">
 
-            <h4>Opportunity Engagement</h4>
+            <h4>Opportunities</h4>
             {% for opportunity in opportunities %}
                 {% include "includes/opportunity-pane-small.html" %}
                 {% include 'includes/close-opportunity-modal.html' %}
@@ -235,7 +239,9 @@
                         </div>
                     </div>
                 </div>
-                <p class="edit"><a href="#opportunity{{ opportunity.id }}-modal" role="button" data-toggle="modal">edit details</a><a href="#close_opportunity-modal" data-toggle="modal">close</a><span><a href="#delete-opportunity{{ opportunity.id }}-modal" data-toggle="modal" role="button">delete</a></span></p>
+
+                <p class="edit"><a href="#opportunity{{ opportunity.id }}-modal" role="button" data-toggle="modal">edit details</a><a href="#close_opportunity-modal" data-toggle="modal">close</a><span><a href="#delete-opportunity{{ opportunity.id }}-modal" data-toggle="modal" role="button"><i class="fa fa-trash-o"></i>&nbsp;&nbsp;delete</a></span></p>
+
                 <div id="delete-opportunity{{ opportunity.id }}-modal" class="modal fade">
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -251,8 +257,10 @@
                     </div>
                 </div>
             {% endfor %}
-            <br />
-            <a href="/project/{{ project.id }}/opportunity/add">add opportunity</a>
+            {% if not opportunities %}
+            <p>There are no opportunities added to this project</p>
+            {% endif %}
+            <a href="/project/{{ project.id }}/opportunity/add"><i class="fa fa-plus-square"></i>&nbsp;&nbsp;add opportunity</a>
 
         </div>
 
@@ -267,8 +275,7 @@
 {% block bottomscript %}
 
 <script>
-function deleteOpportunity(confirmed, id) {
-
+function deleteOpportunity(id) {
 
     $.ajax({
         url : '/ajax/delete-opportunity',
