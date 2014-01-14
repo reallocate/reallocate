@@ -79,8 +79,8 @@ def engage_opportunity(request):
             <a href='%s/admin/website/opportunityengagement/%s'>approve</a>""" % (
             message, request.get_host(), opp_eng.id)
                        
-        base.send_email(opp.project.created_by.email, subject, html_content, html_content=html_content)
-        base.send_admin_email(subject, html_content, html_content=html_content)
+        base.send_email(opp.project.created_by.email, subject, html_content, html_content=html_content, from_email=request.user.email)
+        base.send_admin_email(subject, html_content, html_content=html_content, from_email=request.user.email)
 
         response['message'] = "Thanks for your request. A project lead will get back to you as soon as possible."
 
@@ -126,7 +126,7 @@ def close_opportunity(request):
         context['message'] = message
 
         #email site admin
-        base.send_email_template(request, "closed_opportunity_admin", context, subject, [ADMIN_EMAIL])
+        base.send_email_template(request, "closed_opportunity_admin", context, subject, [ADMIN_EMAIL], from_email=opp.created_by.email)
 
         #email project admin
         base.send_email_template(request, "closed_opportunity_admin", context, subject, [opp.created_by.email])
@@ -139,6 +139,7 @@ def close_opportunity(request):
         response['message'] = "Opportunity was successfully closed."
     else:
         response['message'] = "Opportunity was not closed. Missing project or opportunity id."
+        
     return HttpResponse(json.dumps(response), mimetype="application/json")
 
 

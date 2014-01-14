@@ -74,6 +74,9 @@ def send_email(recipients, subject, text_content, html_content=None, from_email=
     if not isinstance(recipients, list):
         recipients = recipients.split(",")
 
+    logging.error(from_email)
+
+
     # TODO: make sure we don't send real email to recipients if not production
     msg = EmailMultiAlternatives(subject, text_content, from_email, recipients, headers=headers)
 
@@ -89,7 +92,9 @@ def send_email(recipients, subject, text_content, html_content=None, from_email=
         msg.send()
 
 
-def send_admin_email(subject, text_content, html_content=None):
+def send_admin_email(subject, text_content, html_content=None, headers=None):
+
+    logging.error(from_email)
 
     send_email([ADMIN_EMAIL], subject, text_content, html_content=html_content)
     
