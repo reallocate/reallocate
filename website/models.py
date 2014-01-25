@@ -547,6 +547,10 @@ class Opportunity(models.Model):
     def make_s3_media_url(self, uploaded_file):
         return 'opportunities/%s/%s' % (self.id, uploaded_file.name)
 
+    def get_followers(self):
+
+        followers = UsersProfile.objects.filter()
+
 
 class OpportunityForm(ModelForm):
 

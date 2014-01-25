@@ -24,7 +24,6 @@ import website.base as base
 
 
 @login_required
-@csrf_exempt
 def profile(request, username=None):
     """ for displaying and editing a users profile """
     
@@ -156,7 +155,6 @@ def test_email(request):
     return HttpResponse(content=html_content)
 
 
-@csrf_exempt
 def reset_password(request):
 
     context = base.build_base_context(request)
@@ -194,7 +192,6 @@ def reset_password(request):
         return render_to_response('reset_password.html', context, context_instance=RequestContext(request))
     
 
-@csrf_exempt
 def forgot_password(request):
 
     context = base.build_base_context(request)
@@ -234,7 +231,6 @@ def forgot_password(request):
     return render_to_response('forgot_password.html', context, context_instance=RequestContext(request))
 
 
-@csrf_exempt
 def sign_up(request):
 
     context = base.build_base_context(request)
@@ -306,7 +302,6 @@ def sign_up(request):
     return response
 
 
-@csrf_exempt
 def login_user(request):
 
     context = base.build_base_context(request)
@@ -432,7 +427,6 @@ def manage_project(request, pid=1):
     return render_to_response('manage_project.html', context, context_instance=RequestContext(request))
 
 
-@csrf_exempt
 @login_required
 def new_project(request):
 
@@ -484,7 +478,6 @@ def new_project(request):
         return render_to_response('new_project.html', context, context_instance=RequestContext(request))
 
 
-@csrf_exempt
 def view_opportunity(request, pid, oid):
 
     opp = get_object_or_404(Opportunity, pk=oid)
@@ -524,7 +517,6 @@ def view_opportunity(request, pid, oid):
     return render_to_response('opportunity.html', context, context_instance=RequestContext(request))    
 
 
-@csrf_exempt
 @login_required
 def new_organization(request):
 
@@ -572,7 +564,6 @@ def new_organization(request):
     return render_to_response('new_organization.html', context, context_instance=RequestContext(request))
         
 
-@csrf_exempt
 @login_required
 def add_opportunity(request, pid=None):
 

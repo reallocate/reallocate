@@ -8,28 +8,29 @@
         #project-name a {
             color: #333;
         }
-        p.edit {
-            margin: -18px 0px 0 0px;
-            background-color: #ededed;
-            border-radius: 5px;
-        }
-        p.edit a {
-            font-size: 12px;
-            display: inline-block;
-            padding: 6px 6px 3px 6px;
-            margin-right: 8px;
-        }
-        p.edit a:last-child {
-            margin-right: 0px;
-            color: #fff;
-            background-color: rgb(217,83,79);
-            border-bottom-right-radius: 5px;
-        }
-        p.edit span {
-            float: right;
-        }
         .opportunity-small {
             margin-top: 0px;
+        }
+        ul {
+            list-style: none;
+        }
+        table.opportunities {
+            font-size: 16px;
+        }
+        table.opportunities tr p.edit {
+            visibility: hidden;
+        }
+        table.opportunities tr:hover p.edit {
+            visibility: visible;
+        }
+        table.opportunities td:last-child {
+            text-align: right;
+        }
+        table.opportunities td:last-child .btn {
+            margin-left: 8px;
+        }
+        table.opportunities .engagement {
+            font-size: 12px;
         }
     </style>
 {% endblock %}
@@ -44,6 +45,9 @@
     
             <p id="project-name"><a href="/project/{{ project.id }}">{{ project.name }}</a></p>
             <p id="project-short-desc">{{ project.short_desc|safe }}</p>
+            {% if project.followed_by|length %}
+            <p id="project-followers">{{ project.followed_by|length }} followers</p>
+            {% endif %}
 
             <div id="desc-modal" class="modal fade">
                 <div class="modal-dialog">
@@ -126,18 +130,27 @@
     </div>
     <div class="row">
             {% if opportunities %}
+            <div class="col-xs-12">
+            <table class="table table-striped opportunities">
             {% for opportunity in opportunities %}
-            <div class="col-xs-4">
-                {% include "includes/opportunity-pane-small.html" %}
+                
+                <tr>
+                    <td>{{ opportunity.name }}{% if new_engagements %}&nbsp;&nbsp;<span class="badge">{{ new_engagements|length }}</span>{% endif %}</td>
+                    <td class="engagement">
+                        <ul>
+                        {% for ue in opportunity.opportunityengagement_set.all %}
+                            <li>{{ ue.user.first_name }} {{ ue.user.last_name }}</li>
+                        {% endfor %}
+                        </ul
+                    </td>
+                    <td>
+                        <p class="edit"><a href="#opportunity{{ opportunity.id }}-modal" class="btn btn-default btn-xs" role="button" data-toggle="modal"><i class="fa fa-pencil"></i>&nbsp;&nbsp;edit</a><a href="#close_opportunity-modal" class="btn btn-default btn-xs" data-toggle="modal"><i class="fa fa-times"></i>&nbsp;&nbsp;close</a><a href="#delete-opportunity{{ opportunity.id }}-modal" data-toggle="modal" class="btn btn-danger btn-xs" role="button"><i class="fa fa-trash-o"></i>&nbsp;&nbsp;delete</a></p>
+                    </td>
+                </tr>
+
+
                 {% include 'includes/close-opportunity-modal.html' %}
-                <ul>
-                {% for engagement in engagements %}
-                    {% ifequal opportunity engagement.opportunity %}
-                    <li><a href="/profile/{{ engagement.user.id }}">{{ engagement.user.first_name }} {{ engagement.user.last_name }}</a>
-                    {% if engagement.status == "Pending" %} (Pending){% endif %}</li>
-                    {% endifequal %}
-                {% endfor %}
-                </ul>
+
                 <div id="opportunity{{ opportunity.id }}-modal" class="modal fade">
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -196,8 +209,6 @@
                     </div>
                 </div>
 
-                <p class="edit"><a href="#opportunity{{ opportunity.id }}-modal" role="button" data-toggle="modal">edit details</a><a href="#close_opportunity-modal" data-toggle="modal">close</a><span><a href="#delete-opportunity{{ opportunity.id }}-modal" data-toggle="modal" role="button"><i class="fa fa-trash-o"></i>&nbsp;&nbsp;delete</a></span></p>
-
                 <div id="delete-opportunity{{ opportunity.id }}-modal" class="modal fade">
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -212,18 +223,21 @@
                         </div>
                     </div>
                 </div>
-            </div>
+
             {% endfor %}
+            </table>
             {% else %}
             <div class="col-xs-12"><p>There are no opportunities added to this project</p></div>
             {% endif %}
-    </div>
-    <div class="row">
-        <br />
-        <div class="col-xs-12">
-            <a href="/project/{{ project.id }}/opportunity/add"><i class="fa fa-plus-square"></i>&nbsp;&nbsp;add opportunity</a>
-        </div>
-    </div>
+
+
+
+            <div class="row">
+                <br />
+                <div class="col-xs-12">
+                    <a href="/project/{{ project.id }}/opportunity/add" class="btn btn-default"><i class="fa fa-plus-square"></i>&nbsp;&nbsp;add opportunity</a>
+                </div>
+            </div>
 
 
     </div>

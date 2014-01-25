@@ -20,6 +20,7 @@ from website.models import STATUS_ACTIVE, STATUS_CHOICES, STATUS_INACTIVE, STATU
 @login_required
 # this won't crash w/ login_required but redirect doesn't work on ajax call - TODO: fix rather than these hide links
 
+@csrf_exempt
 def modify_project_relation(request, *args):
 
     # action = [follow, unfollow]
@@ -69,20 +70,26 @@ def engage_opportunity(request):
         if link:
             message += '\n\n%s' % link
 
-        opp_eng = OpportunityEngagement(user=request.user, opportunity=opp, project_id=pid)
-        opp_eng.response = response
+        if OpportunityEngagement.objects.filter(user=request.user, opportunity=opp, project_id=pid):
 
-        opp_eng.save()
+            response['message'] = "You are already engaged with this opportunity."
 
-        subject = "New engagement with %s by %s" % (opp.name, request.user.email)
-        html_content = """%s<br/><br/>
-            <a href='%s/admin/website/opportunityengagement/%s'>approve</a>""" % (
-            message, request.get_host(), opp_eng.id)
-                       
-        base.send_email(opp.project.created_by.email, subject, html_content, html_content=html_content, from_email=request.user.email)
-        base.send_admin_email(subject, html_content, html_content=html_content, from_email=request.user.email)
+        else:
 
-        response['message'] = "Thanks for your request. A project lead will get back to you as soon as possible."
+            opp_eng = OpportunityEngagement(user=request.user, opportunity=opp, project_id=pid)
+            opp_eng.response = response
+
+            opp_eng.save()
+
+            subject = "New engagement with %s by %s" % (opp.name, request.user.email)
+            html_content = """%s<br/><br/>
+                <a href='%s/admin/website/opportunityengagement/%s'>approve</a>""" % (
+                message, request.get_host(), opp_eng.id)
+                           
+            base.send_email(opp.project.created_by.email, subject, html_content, html_content=html_content)
+            base.send_admin_email(subject, html_content, html_content=html_content)
+
+            response['message'] = "Thanks for your request. A project lead will get back to you as soon as possible."
 
     else:
 
@@ -126,7 +133,7 @@ def close_opportunity(request):
         context['message'] = message
 
         #email site admin
-        base.send_email_template(request, "closed_opportunity_admin", context, subject, [ADMIN_EMAIL], from_email=opp.created_by.email)
+        base.send_email_template(request, "closed_opportunity_admin", context, subject, [ADMIN_EMAIL])
 
         #email project admin
         base.send_email_template(request, "closed_opportunity_admin", context, subject, [opp.created_by.email])
@@ -139,7 +146,7 @@ def close_opportunity(request):
         response['message'] = "Opportunity was successfully closed."
     else:
         response['message'] = "Opportunity was not closed. Missing project or opportunity id."
-        
+
     return HttpResponse(json.dumps(response), mimetype="application/json")
 
 
@@ -264,8 +271,8 @@ def update_project(request, *args):
     return HttpResponse(json.dumps(response_data), mimetype="application/json")
 
 
-@login_required
 @csrf_exempt
+@login_required
 def delete_opportunity(request, *args):
 
     if request.POST:
@@ -319,7 +326,6 @@ def login_user(request):
         return HttpResponse(json.dumps({ 'success': False, 'message': 'Invalid username or password' }), content_type="application/json", status=403)
 
 
-@csrf_exempt
 def invite_users(request):
 
     if request.REQUEST:

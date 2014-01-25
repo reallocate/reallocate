@@ -21,7 +21,8 @@
 
         <div class="well">
 
-            <form method="post" enctype="multipart/form-data">
+            <form method="post" enctype="multipart/form-data">{% csrf_token %}
+                
                 <div class="form-group">
                     <label for="name">Project Title</label>
                     <input class="form-control required" type="text" id="name" name="name">

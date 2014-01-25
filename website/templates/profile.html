@@ -86,7 +86,7 @@
 
     <div class="row" id="user-details">
 
-        <form id="update-profile" class="form-horizontal" method="post" enctype="multipart/form-data">
+        <form id="update-profile" class="form-horizontal" method="post" enctype="multipart/form-data">{% csrf_token %}
 
             <div class="col-xs-3" id="user-image">
                 <img src="{{ user_profile.media_url|default:'/static/images/no-profile-image.png' }}" alt="Avatar for {{ profile.user|escape }}" />

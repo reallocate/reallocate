@@ -94,8 +94,6 @@ def send_email(recipients, subject, text_content, html_content=None, from_email=
 
 def send_admin_email(subject, text_content, html_content=None, headers=None):
 
-    logging.error(from_email)
-
     send_email([ADMIN_EMAIL], subject, text_content, html_content=html_content)
     
 

@@ -37,7 +37,8 @@
 
             <div class="row">
 
-        	    <form method="post" id="request-invite-form">
+        	    <form method="post" id="request-invite-form">{% csrf_token %}
+                    
                     <div class="form-group">
                         <input class="form-control" type="text" name="name" id="name" placeholder="Full Name">
                     </div>
