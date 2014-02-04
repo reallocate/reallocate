@@ -5,26 +5,7 @@
 
 {% block meta_description %}{{ the_title }}{% endblock %}
 
-
 {% block extra_css %}
-    <style>
-    #add-opportunity {
-        border-right: 1px solid #ddd;
-    }
-    .opportunity {
-        height: auto;
-        min-height: 10px;
-        padding: 5px;
-        font-size: 12px;
-        clear: both;
-    }
-    .opportunity img {
-        width: 125px;
-        height: 125px;
-        float: left;
-        margin: 0 10px 10px 0;
-    }
-    </style>
 {% endblock %}
 
 {% block content %}
@@ -35,7 +16,7 @@
 
         <div class="row">
 
-            <div class="col-xs-7" id="add-opportunity">
+            <div class="col-xs-7 section">
 
                 <form method="post" enctype="multipart/form-data">{% csrf_token %}
                 <div class="form-group">

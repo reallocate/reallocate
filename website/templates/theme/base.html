@@ -30,12 +30,9 @@
     {% endblock %}
 
 </head>
-<body>
+<body id="{{ url_name }}">
 
-    {% include "theme/top_nav.html" %}
-    {% include "theme/login_modal.html" %}
-    {% include "includes/invite-users-modal.html" %}
-    {% block extra_modals %}{% endblock %}   
+    {% include "theme/top_nav.html" %} 
 
     {% if alert %}
     {% ifequal alert.type 'modal' %}
@@ -72,9 +69,6 @@
     {% block jumbotron %}
     {% endblock %}
 
-    {% block modals %}
-    {% endblock %}
-
     <div id="{{ page_name }}">
     {% block content %}
     {% endblock %}
@@ -84,7 +78,11 @@
         <p>&copy; 2014 ReAllocate, 501c3. <a href="/privacy">Privacy</a> &middot; <a href="/tou">Terms of Use</a></p>
     </footer>
 
-</div>
+    {% include "theme/login_modal.html" %}
+    {% include "includes/confirmation-modal.html" %}
+    {% include "includes/invite-users-modal.html" %}
+    {% block modals %}{% endblock %}  
+
 
 <script src="//code.jquery.com/jquery-1.9.1.min.js"></script>
 <script src="//code.jquery.com/jquery-migrate-1.1.1.min.js"></script>

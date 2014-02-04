@@ -1,81 +1,6 @@
 {% extends 'theme/base.html' %}
 
 {% block extra_css %}
-    <style>
-        .project-name {
-            font-size: 16px;
-            font-weight: 800;
-        }
-        .profile-info {
-            margin-bottom: 15px;   
-        }        
-        .profile-info-header {
-        }
-        .profile-header-edit {
-        }
-        .profile-numbers {
-            width: 100%;
-            margin-top: 20px;
-            background-color: #1c6845;
-            background-image: url(/static/images/bgtexture2.png);
-            color: #FFF;
-        }
-        .bottom-profile-header {
-            text-align: center;
-        }
-        .username {
-            margin-bottom: 32px;
-            margin-top: 13px;
-
-        }
-        .username p {
-            letter-spacing: 2px;
-            font-size: 36px;
-            font-weight: bold;
-            color: #555;
-        }
-        #user-details {
-            border-bottom: 1px solid #dedede;
-            margin-bottom: 10px;
-            padding-bottom: 20px;
-        }
-        #user-image {
-            margin-top: 20px;
-        }
-        #user-image .file-upload-ok {
-            font-size: 18px;
-        }
-        #user-image img {
-            width: 100%;
-            margin-bottom: 10px;
-            box-shadow: 4px 4px 4px #444;
-            -moz-box-shadow: 4px 4px 4px #444;
-            -webkit-box-shadow: 4px 4px 4px #444;
-
-        }
-        #update-profile .form-control[readonly="readonly"], #update-profile #bio div {
-            border: none;
-            background-color: transparent;
-            box-shadow: none;
-            -webkit-box-shadow: none;
-        }
-        #update-profile #bio div {
-            white-space: pre-wrap;
-            height: auto;
-        }
-        #update-profile textarea.form-control[readonly="readonly"] {
-            display: none;
-        }
-        #update-profile div.form-control[readonly="readonly"] {
-            display: block;
-        }
-        #update-profile div.form-control {
-            display: none;
-        }
-        .form-group {
-            margin-bottom: 4px;
-        }
-    </style>
 {% endblock %}
 
 {% block content %}
@@ -88,12 +13,14 @@
 
         <form id="update-profile" class="form-horizontal" method="post" enctype="multipart/form-data">{% csrf_token %}
 
-            <div class="col-xs-3" id="user-image">
+            <div class="col-xs-3" id="user-image">\
+
                 <img src="{{ user_profile.media_url|default:'/static/images/no-profile-image.png' }}" alt="Avatar for {{ profile.user|escape }}" />
                 {% if edit %}
                 <button class="delegate-file-upload btn btn-default btn-block" style="display: none;">Change profile picture<i class="fa fa-ok fa-2x file-upload-ok" style="display: none;"></i></button>
                 <input type="file" name="file" id="file" value="Upload a new photo" style="display: none;">
                 {% endif %}
+                
             </div>
         
             <div class="col-xs-8 col-xs-offset-1">

@@ -22,18 +22,15 @@ h5 {
   max-width: none !important;
   width: 970px;
 }
-
 .container .navbar-header,
 .container .navbar-collapse {
   margin-right: 0;
   margin-left: 0;
 }
-
 /* Always float the navbar header */
 .navbar-header {
   float: left;
 }
-
 /* Undo the collapsing navbar */
 .navbar-collapse {
   display: block !important;
@@ -97,6 +94,8 @@ h5 {
   background-color: transparent !important;
 }
 
+/* end non-responsive overrides */
+
 .pre {
     white-space: pre-wrap;
 }
@@ -117,7 +116,7 @@ h5 {
     text-decoration: none;
 }
 .share {
-    margin:3px;
+    margin: 3px;
 }
 .navbar .navbar-brand img {
     width: 177px;
@@ -150,9 +149,7 @@ h5 {
     top: 8px;
     right: 2px;
 }
-.opportunities {
-    
-}
+
 .opportunity {
     position: relative;
     border: 1px solid #ededed;
@@ -230,15 +227,15 @@ h5 {
     text-align: center;
 }
 .opp-browse {
-        background-color: #fff;
-        padding: 30px;
-        -webkit-border-radius: 5px;
-        -moz-border-radius: 5px;
-        border-radius: 5px;
-        margin-top: 10px;
-        margin-bottom: 10px;
-        font-family: 'Raleway', sans-serif;
-        float: left;
+    background-color: #fff;
+    padding: 30px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-family: 'Raleway', sans-serif;
+    float: left;
 }
 .opp-small {
     background-color: #eee;
@@ -282,6 +279,652 @@ h5 {
     left: -6px;
     letter-spacing: 2px;
 }
+
+/* home */
+
+#home .jumbotron {
+    background-image: url('/static/images/flickr_volunteer.jpg');
+    background-size: cover;
+}
+#home #feature-unit {
+    padding: 10px 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    opacity: 0.8;
+    margin: 0px auto 0px auto;
+    width: 469px;
+}
+#home #feature-unit h1 {
+    font-size: 30px;
+    width: 369px;
+    margin: 20px auto 28px auto;
+}
+#home #feature-unit #give-icons {
+    margin: 0px auto 0px auto;
+    width: 366px;
+}
+#home #feature-unit .give-icon {
+    font-size: 13px;
+    float: left;
+    width: 91px;
+    text-align: center; 
+}
+#home h2 {
+    text-align: center;
+    margin: 0px auto 20px auto;
+}
+#home .browse-projects {
+    text-align: center;
+    margin: 0px auto 0px auto;
+}
+
+
+/* project */
+
+#project. jumbotron .overlay {
+    height: 100%;
+    width: 100%;
+    background: -webkit-gradient(linear, 0 0, 0 100%, from(rgba(0,0,0,0)), to(rgba(0,0,0,0.65)));
+    background: -webkit-linear-gradient(rgba(0,0,0,0) 0%, rgba(0,0,0,0.65) 100%);
+    background: -moz-linear-gradient(rgba(0,0,0,0) 0%, rgba(0,0,0,0.65) 100%);
+    background: -o-linear-gradient(rgba(0,0,0,0) 0%, rgba(0,0,0,0.65) 100%);
+    background: linear-gradient(rgba(0,0,0,0) 0%, rgba(0,0,0,0.65) 100%); /* FF3.6+ */ /* Chrome,Safari4+ */ /* Chrome10+,Safari5.1+ */ /* Opera 11.10+ */ /* IE10+ */ /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#a6000000',GradientType=0 ); /* IE6-9 */
+}
+#project .jumbotron {
+    padding: 0px;
+    background-image: url('{{ project.media_url }}');
+    background-size: cover;
+    height: 270px;
+}
+#project .jumbotron #project-title {
+    position: relative;
+    height: 100%;
+}
+#project .jumbotron #project-title h1 {
+    color: #fdfdfd;
+    font-size: 38px;
+    letter-spacing: 1px;
+    font-weight: normal;
+}
+#project .jumbotron #project-title .row {
+    width: 100%;
+    position: absolute;
+    bottom: 12px;
+}
+#project #about {
+    margin-bottom: 30px;
+}
+#project #about p {
+    font-size: 15px;
+}
+#project #video iframe {
+    width: 100%;
+    height: 256px;
+}
+#project .section-title {
+    height: 50px;
+    font-size: 2em;
+    font-weight: 100;
+}
+#project .project-image img {
+    width: 640px;
+    height: 480px;
+}
+#project .social-links {
+    margin-top: 25px;
+}
+#project .update, 
+#project .post-update {
+    padding: 0px 0px 10px 0px;
+    border-bottom: 1px solid #ededed;
+    margin-bottom: 15px;
+}
+#project .update:last-child {
+    border: none;
+}
+#project .update object, 
+#project .update iframe {
+    width: 455px;
+    height: 252px;
+}
+#project .update-username {
+    color: black;
+}
+#project .update-opp-name {
+    color: #808080;
+}
+#project .update-text {
+    color: #808080;
+}
+#project .update-media img {
+    width: 100%;
+}
+#project .chart {
+    background-image: url(/static/images/chart_sprite.png);
+    background-repeat: no-repeat;
+    background-position: 0px 25px;
+    background-size: 35px;
+    padding-left: 45px;
+}
+#project .chart h5 {
+    margin-bottom: 2px;
+}
+#project .progress {
+    position: relative;
+    height: 40px;
+    background: #EDEDED;
+    -webkit-border-radius: 0;
+       -moz-border-radius: 0;
+            border-radius: 0;
+    margin-bottom: 18px;
+}
+#project .progress .bar {
+    background: #F2736A;
+}
+#project .bar-progress,
+#project .pie-progress {
+    position: absolute;
+    color: #000;
+}
+#project .bar-progress {
+    top: 0;
+    left: 0;
+    font-size: 24px;
+    line-height: 40px;
+    padding-left: 5px;
+}
+#project .peity {
+    position: relative;
+}
+#project .pie-progress {
+    top: 50%;
+    left: 18px;
+    width: 150px;
+    margin-top: -28px;
+    font-size: 28px;
+    line-height: 28px;
+    text-align: center;
+    vertical-align: middle;
+}
+#project .follower-thumbnail{
+    width:25px;
+    height:25px;
+    margin-right:10px;
+    margin-bottom:10px;
+}
+#project .addthis_toolbox .share i {
+    font-size: 31px;
+    line-height: 0.3em;
+}
+#project .follow {
+    width: 90px;
+    margin-left: 5px;
+}
+#project .follow-share {
+    margin-top: 12px;
+}
+#project .actions .btn {
+    margin-top: 17px;
+}
+
+/* opportunity */
+
+#opportunity .jumbotron .overlay {
+    height: 100%;
+    width: 100%;
+    background: -webkit-gradient(linear, 0 0, 0 100%, from(rgba(0,0,0,0.6)), to(rgba(0,0,0,0.9)));
+    background: -webkit-linear-gradient(rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.9) 100%);
+    background: -moz-linear-gradient(rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.9) 100%);
+    background: -o-linear-gradient(rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.9) 100%);
+    background: linear-gradient(rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.9) 100%); /* FF3.6+ */ /* Chrome,Safari4+ */ /* Chrome10+,Safari5.1+ */ /* Opera 11.10+ */ /* IE10+ */ /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#a6000000',GradientType=0 ); /* IE6-9 */
+    background-size: cover;
+}
+
+#opportunity .jumbotron {
+    padding: 0px;
+    /*background-image: url('{% if opportunity.media_url %}{{ opportunity.media_url }}{% else %}{{ project.media_url }}{% endif %}');*/
+    height: 92px;
+}
+#opportunity .jumbotron #opp-title {
+    position: relative;
+    height: 100%;
+}
+#opportunity .jumbotron #opp-title .engage-button {
+    margin-left: 10px;
+}
+#opportunity .jumbotron #opp-title h1 {
+    color: #333;
+    font-size: 26px;
+    letter-spacing: 1px;
+    font-weight: normal;
+    margin-top: 0px;
+}
+#opportunity .jumbotron #opp-title h4 {
+    margin-top: 8px;
+    margin-bottom: 5px;
+}
+#opportunity .jumbotron #opp-title .row {
+    width: 100%;
+    position: absolute;
+    bottom: 12px;
+}
+#opportunity .opp-image {
+    height: 161px;
+}
+#opportunity .opp-overview {
+    margin-bottom: 20px;
+}
+#opportunity .opp-description {
+    font-size: 18px;
+    padding-bottom: 10px;
+    margin-bottom: 25px;
+}
+#opportunity .update,
+#opportunity .post-update {
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ededed;
+    margin-bottom: 15px;
+}
+#opportunity .update:last-child {
+    border: none;
+}
+#opportunity .update-username {
+    color: black;
+}
+#opportunity .update-opp-name {
+    color: #808080;
+}
+#opportunity .update-text {
+    color: #808080;
+}
+#opportunity .update-media img {
+    width: 100%;
+}
+#opportunity .update object, #opportunity .update iframe {
+    width: 534px;
+    height: 297px;
+}
+#opportunity .opportunity-media img {
+    width: 300px;
+}
+#opportunity .skill-icons {
+    text-align: center;
+    font-weight: bold;
+    color: #333;
+    margin: 0 auto;
+    font-size: 13px;
+}
+#opportunity .give-icons {
+    text-align: center;
+    line-height: 1.2em;
+}
+#opportunity .give-icons i {
+    font-size: 3.2em;
+}
+#opportunity .addthis_toolbox {
+    font-size: 15px;
+    margin-top: 20px;
+}
+#opportunity .addthis_toolbox .share i {
+    line-height: 0.2em;
+}
+
+/* manage project */
+
+#manage-project input[readonly=readonly] {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 3px;
+}
+#manage-project #project-name {
+    font-size: 24px;
+}
+#manage-project #project-short-desc {
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+#manage-project .wall {
+    border-top: 1px solid #ddd;
+    margin-top: 20px;
+}
+#manage-project #edit-project p {
+    position: relative;
+}
+#manage-project #edit-project p i {
+    display: none;
+    position: absolute;
+    left: -18px;
+    top: 6px;
+}
+#manage-project #edit-project #project-short-desc i {
+    top: 4px;
+}
+#manage-project #edit-project p:hover i {
+    display: inline;
+}
+
+#manage-project #image img {
+    width: 288px;
+}
+#manage-project #project-name a {
+    color: #333;
+}
+#manage-project .opportunity-small {
+    margin-top: 0px;
+}
+#manage-project ul {
+    list-style: none;
+}
+#manage-project table.opportunities {
+    font-size: 16px;
+}
+#manage-project table.opportunities tr p.edit {
+    visibility: hidden;
+}
+#manage-project table.opportunities tr:hover p.edit {
+    visibility: visible;
+}
+#manage-project table.opportunities td:last-child {
+    text-align: right;
+}
+#manage-project table.opportunities td:last-child .btn {
+    margin-left: 8px;
+}
+#manage-project table.opportunities .engagement {
+    font-size: 12px;
+}
+#manage-project .engagement li a.remove {
+    visibility: hidden;
+    margin-left: 5px;
+}
+#manage-project .engagement li:hover a.remove {
+    visibility: visible;
+}
+
+/* profile */
+
+#profile .project-name {
+    font-size: 16px;
+    font-weight: 800;
+}
+#profile .profile-info {
+    margin-bottom: 15px;   
+}        
+#profile .profile-info-header {
+}
+#profile .profile-header-edit {
+}
+#profile .profile-numbers {
+    width: 100%;
+    margin-top: 20px;
+    background-color: #1c6845;
+    background-image: url(/static/images/bgtexture2.png);
+    color: #FFF;
+}
+#profile .bottom-profile-header {
+    text-align: center;
+}
+#profile .username {
+    margin-bottom: 32px;
+    margin-top: 13px;
+
+}
+#profile .username p {
+    letter-spacing: 2px;
+    font-size: 36px;
+    font-weight: bold;
+    color: #555;
+}
+#profile #user-details {
+    border-bottom: 1px solid #dedede;
+    margin-bottom: 10px;
+    padding-bottom: 20px;
+}
+#profile #user-image {
+    margin-top: 20px;
+}
+#profile #user-image .file-upload-ok {
+    font-size: 18px;
+}
+#profile #user-image img {
+    width: 100%;
+    margin-bottom: 10px;
+    box-shadow: 4px 4px 4px #444;
+    -moz-box-shadow: 4px 4px 4px #444;
+    -webkit-box-shadow: 4px 4px 4px #444;
+
+}
+#profile #update-profile .form-control[readonly="readonly"],
+#update-profile #bio div {
+    border: none;
+    background-color: transparent;
+    box-shadow: none;
+    -webkit-box-shadow: none;
+}
+#profile #update-profile #bio div {
+    white-space: pre-wrap;
+    height: auto;
+}
+#profile #update-profile textarea.form-control[readonly="readonly"] {
+    display: none;
+}
+#profile #update-profile div.form-control[readonly="readonly"] {
+    display: block;
+}
+#profile #update-profile div.form-control {
+    display: none;
+}
+#profile .form-group {
+    margin-bottom: 4px;
+}
+
+/* get-started */
+
+#get-started .get-started-header h3 {
+    border-right: 2px solid #727272;
+}    
+#get-started .get-started-header h4 {
+    line-height: 1.6em;
+}
+#get-started .get-started-icons {
+    margin-bottom: 45px; text-align: center;
+}
+#get-started .get-started-icons img {
+    width: 100px;
+}
+#get-started .get-started-steps {
+    margin-bottom: 65px; font-size: 1.2em; line-height: 1.4em;
+}
+#get-started .get-started-create-project {
+    text-align: center;
+    margin-bottom: 30px;
+}
+#get-started .get-started-create-project h3{
+    margin-bottom: 45px;
+}
+#get-started .get-started-create-project a {
+    padding: 20px; font-size: 1.5em;
+}
+
+/* new-organization */
+
+#new-organization .vert-or {
+    font-size: 20px;
+    margin-top: 48px;
+}
+#new-organization .vert-or div {
+    height: 100px;
+}
+#new-organization .vert-or p {
+    top: 1px;
+    left: -10px;
+}
+#new-organization .current-org {
+    text-align: right;
+}
+#new-organization .current-org h4 {
+    margin-top: 118px;
+}
+#new-organization .well {
+    width: 700px;
+}
+#new-organization .twitter-typeahead {
+  width: 100%;
+}
+#new-organization .typeahead,
+#new-organization .tt-query,
+#new-organization .tt-hint {
+  width: 100%;
+  height: 34px;
+  padding: 6px 12px;
+  outline: none;
+  font-size: 14px;
+  line-height: 1.428571429;
+}
+#new-organization .typeahead {
+  background-color: #fff;
+}
+#new-organization .typeahead:focus {
+  border: 2px solid #0097cf;
+}
+#new-organization .tt-query {
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+}
+#new-organization .tt-header {
+  padding: 2px 10px 8px;
+  margin: 0;
+  font-size: 18px;
+}
+#new-organization .tt-hint {
+  padding-left: 11px;
+  color: #ccc
+}
+#new-organization .tt-dropdown-menu {
+  width: 100%;
+  margin-top: 12px;
+  padding: 8px 0;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  border-radius: 8px;
+  -webkit-box-shadow: 0 5px 10px rgba(0,0,0,.2);
+  -moz-box-shadow: 0 5px 10px rgba(0,0,0,.2);
+  box-shadow: 0 5px 10px rgba(0,0,0,.2);
+}
+#new-organization .tt-suggestion {
+  padding: 3px 20px;
+  font-size: 14px;
+  line-height: 24px;
+}
+#new-organization .tt-suggestion.tt-is-under-cursor {
+  color: #fff;
+  background-color: #0097cf;
+}
+#new-organization .tt-suggestion p {
+  margin: 0;
+}
+#new-organization .gist {
+  font-size: 14px;
+}
+
+/* new-project */
+
+#new-project .well {
+    width: 550px;
+}
+
+/* add-opportunity */
+
+#add-opportunity .section {
+    border-right: 1px solid #ddd;
+}
+#add-opportunity .opportunity {
+    height: auto;
+    min-height: 10px;
+    padding: 5px;
+    font-size: 12px;
+    clear: both;
+}
+#add-opportunity .opportunity img {
+    width: 125px;
+    height: 125px;
+    float: left;
+    margin: 0 10px 10px 0;
+}
+
+/* about */
+
+#about .jumbotron .overlay {
+    height: 100%;
+    width: 100%;
+    background: -webkit-gradient(linear, 0 0, 0 100%, from(rgba(0,0,0,0)), to(rgba(0,0,0,0.65)));
+    background: -webkit-linear-gradient(rgba(0,0,0,0) 0%, rgba(0,0,0,0.65) 100%);
+    background: -moz-linear-gradient(rgba(0,0,0,0) 0%, rgba(0,0,0,0.65) 100%);
+    background: -o-linear-gradient(rgba(0,0,0,0) 0%, rgba(0,0,0,0.65) 100%);
+    background: linear-gradient(rgba(0,0,0,0) 0%, rgba(0,0,0,0.65) 100%); /* FF3.6+ */ /* Chrome,Safari4+ */ /* Chrome10+,Safari5.1+ */ /* Opera 11.10+ */ /* IE10+ */ /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#a6000000',GradientType=0 ); /* IE6-9 */
+}
+#about .jumbotron {
+    padding: 0px;
+    background-image: url('/static/images/flickr_sunset.jpg');
+    background-size: cover;
+    background-position: 0px -340px;
+    height: 270px;
+}
+#about #about-sections .give-icon {
+    font-size: 13px;
+    float: left;
+    width: 91px;
+    text-align: center;
+}
+
+/* sign-up */
+
+#sign-up .well {
+    padding-top: 43px;
+    width: 502px;
+}
+#sign-up .vert-or {
+    margin-top: 25px;
+}
+#sign-up .form-group .help-block {
+    display: none;
+}
+#sign-up .form-group.has-error .help-block {
+    display: block;
+}
+#sign-up .sign-in {
+    margin-top: 0px;
+    line-height: 0em;
+}
+
+/* privacy */
+
+#privacy .c4 {
+    text-decoration: underline;
+}
+#privacy .c1 {
+    font-weight: bold;
+}
+
+/* tou */
+    
+#tou .c0 {
+    font-weight: bold;
+}
+#tou .c7 {
+    text-decoration: underline;
+}
+
+/* modals */
+
 #login-modal .vert-or {
     margin-top: 27px;
 }
@@ -311,7 +954,8 @@ h5 {
 #login-modal form {
     margin-bottom: 0px;
 }
-#login-modal form input[type=text], #login-modal form input[type=password] {
+#login-modal form input[type=text],
+#login-modal form input[type=password] {
 }
 .form-group .help-block.error {
     display: none;
@@ -325,50 +969,12 @@ h5 {
     margin-top: 15px;
     font-size: 11px;
 }
-#manage-project input {
-}
 #edit-project textarea {
     height: 180px;
-}
-#manage-project input[readonly=readonly] {
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    padding: 3px;
-}
-#manage-project #project-name {
-    font-size: 24px;
-}
-#manage-project #project-short-desc {
-    font-size: 16px;
-    margin-bottom: 20px;
-}
-#manage-project .wall {
-    border-top: 1px solid #ddd;
-    margin-top: 20px;
-}
-#manage-project #edit-project p {
-    position: relative;
-}
-
-#manage-project #edit-project p i {
-    display: none;
-    position: absolute;
-    left: -18px;
-    top: 6px;
-}
-#manage-project #edit-project #project-short-desc i {
-    top: 4px;
-}
-#manage-project #edit-project p:hover i {
-    display: inline;
 }
 
 /* post update */
 
-.post-update {
-  
-}
 .post-update .post-update-buttons {
     position: relative;
 }
@@ -388,6 +994,7 @@ h5 {
 }
 
 /* project panes */
+ 
 .project {
     position: relative;
     margin-bottom: 30px;
@@ -447,7 +1054,6 @@ h5 {
 .project-status needs {
     margin-left: 10px;
 }
-
 .project-location {
     position: absolute;
     font-weight: bold;
@@ -468,7 +1074,6 @@ footer {
     padding-left: 10px;
     color: green;
 }
-
 img.update-avatar {
     width: 50px;
     height: 50px;
@@ -526,10 +1131,12 @@ img.update-avatar {
 .post-update-button a {
     color: #428bca;
 }
-.opportunity-small:hover .post-update-button, .project-small:hover .post-update-button {
+.opportunity-small:hover .post-update-button,
+.project-small:hover .post-update-button {
     display: block;
 }
-.opportunity-small:hover .manage-project-button, .project-small:hover .manage-project-button {
+.opportunity-small:hover .manage-project-button,
+.project-small:hover .manage-project-button {
     display: block;
 }
 .project-small {

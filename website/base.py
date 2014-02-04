@@ -5,6 +5,8 @@ from website.models import UserProfile
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
+from django.core.urlresolvers import resolve
+
 from website.settings import FROM_EMAIL, ADMIN_EMAIL, DEPLOY_ENV, SEND_EMAILS
 
 from social_auth.backends.facebook import FacebookBackend
@@ -26,7 +28,7 @@ def get_current_userprofile(request):
 
 def build_base_context(request):
 
-    context = {}
+    context = {'url_name': resolve(request.path).url_name }
     if request.user.is_authenticated():
         context['user'] = request.user
 

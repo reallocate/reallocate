@@ -4,26 +4,8 @@
 {% trans "This is the title" as the_title %}
 
 {% block meta_description %}{{ the_title }}{% endblock %}
+
 {% block extra_css %}
-	<style>
-        .well {
-            padding-top: 43px;
-            width: 502px;
-        }
-        .vert-or {
-            margin-top: 25px;
-        }
-        .form-group .help-block {
-            display: none;
-        }
-        .form-group.has-error .help-block {
-            display: block;
-        }
-        .sign-in {
-            margin-top: 0px;
-            line-height: 0em;
-        }
-	</style>
 {% endblock extra_css%}
 
 {% block content %}

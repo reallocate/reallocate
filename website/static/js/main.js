@@ -111,7 +111,9 @@ var reAllocate = window.reAllocate || {
                 $(this).parent('.form-group').removeClass('has-error');
             }
         });
+
         $('textarea[data-word-limit]').on('keyup', function() {
+
             var limit = parseInt($(this).attr('data-word-limit'));
             var words = this.value.split(' ').length;
             if (words > limit) {
@@ -121,7 +123,9 @@ var reAllocate = window.reAllocate || {
             }
             reAllocate.validateForm($(this).parents('form'));
         });
+
         $('input[data-char-limit]').on('keyup', function() {
+
             var limit = parseInt($(this).attr('data-char-limit'));
             var chars = this.value.length;
             var display = chars + ' / ' + limit;
@@ -203,6 +207,28 @@ var reAllocate = window.reAllocate || {
         return false;
     },
 
+    confirmationModal: function(options) {
+
+        options = options || {};
+
+        var message = options.message || "Confirm?";
+        var onConfirm = options.onConfirm || function() { console.log('confirmed') };
+        var onCancel = options.onCancel || function() { console.log('canceled') };
+
+        $('#confirmation-modal .message').html(message);
+        $('#confirmation-modal .confirm').on('click', onConfirm);
+        $('#confirmation-modal .cancel').on('click', onCancel);
+
+        $('#confirmation-modal').modal('show');
+
+        // clear values on hide
+        $('#myModal').on('hidden.bs.modal', function (e) {
+            $('#confirmation-modal .message').empty();
+            $('#confirmation-modal .confirm').empty();
+            $('#confirmation-modal .cancel').empty();
+        })
+    },
+
     editUpdate: function(id) {
 
         var editForm = $('#edit-update');
@@ -256,8 +282,8 @@ var reAllocate = window.reAllocate || {
                     reAllocate.followProject(reAllocate.follow.e, reAllocate.follow.pid);
                 }
 
-                if (json.user.first_name && json.user.last_name) {
-                    $('#user-email').text(json.user.first_name + ' ' + json.user.last_name);
+                if (json.user.firstName && json.user.lastName) {
+                    $('#user-email').text(json.user.firstName + ' ' + json.user.lastName);
                 } else {
                     $('#user-email').text(json.user.email);
                 }

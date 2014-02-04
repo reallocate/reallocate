@@ -1,43 +1,11 @@
 {% extends 'theme/base.html' %}
 
 {% block extra_css %}
-    <style>
-        #image img {
-            width: 288px;
-        }
-        #project-name a {
-            color: #333;
-        }
-        .opportunity-small {
-            margin-top: 0px;
-        }
-        ul {
-            list-style: none;
-        }
-        table.opportunities {
-            font-size: 16px;
-        }
-        table.opportunities tr p.edit {
-            visibility: hidden;
-        }
-        table.opportunities tr:hover p.edit {
-            visibility: visible;
-        }
-        table.opportunities td:last-child {
-            text-align: right;
-        }
-        table.opportunities td:last-child .btn {
-            margin-left: 8px;
-        }
-        table.opportunities .engagement {
-            font-size: 12px;
-        }
-    </style>
 {% endblock %}
 
 {% block content %}
     
-<div class="container" id="manage-project">
+<div class="container">
 
     <div class="row">
 
@@ -139,7 +107,10 @@
                     <td class="engagement">
                         <ul>
                         {% for ue in opportunity.opportunityengagement_set.all %}
-                            <li>{{ ue.user.first_name }} {{ ue.user.last_name }}</li>
+                            <li>
+                                <a href="/profile/{{ ue.user.id }}">{{ ue.user.first_name }} {{ ue.user.last_name }}</a>
+                                <a href="#" class="remove"><i class="fa fa-times"></i></a>
+                            </li>
                         {% endfor %}
                         </ul
                     </td>
@@ -238,7 +209,6 @@
                     <a href="/project/{{ project.id }}/opportunity/add" class="btn btn-default"><i class="fa fa-plus-square"></i>&nbsp;&nbsp;add opportunity</a>
                 </div>
             </div>
-
 
     </div>
 

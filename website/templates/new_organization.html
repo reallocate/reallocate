@@ -6,102 +6,6 @@
 {% block meta_description %}{{ the_title }}{% endblock %}
 
 {% block extra_css %}
-<style>
-    .vert-or {
-        font-size: 20px;
-        margin-top: 48px;
-    }
-    .vert-or div {
-        height: 100px;
-    }
-    .vert-or p {
-        top: 1px;
-        left: -10px;
-    }
-    .current-org {
-        text-align: right;
-    }
-    .current-org h4 {
-        margin-top: 118px;
-    }
-    .well {
-        width: 700px;
-    }
-
-    .twitter-typeahead {
-      width: 100%;
-    }
-
-    .typeahead,
-    .tt-query,
-    .tt-hint {
-      width: 100%;
-      height: 34px;
-      padding: 6px 12px;
-      outline: none;
-      font-size: 14px;
-      line-height: 1.428571429;
-    }
-
-    .typeahead {
-      background-color: #fff;
-    }
-
-    .typeahead:focus {
-      border: 2px solid #0097cf;
-    }
-
-    .tt-query {
-      -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-      -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-      box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-    }
-
-    .tt-header {
-      padding: 2px 10px 8px;
-      margin: 0;
-      font-size: 18px;
-    }
-
-    .tt-hint {
-      padding-left: 11px;
-      color: #ccc
-    }
-
-    .tt-dropdown-menu {
-      width: 100%;
-      margin-top: 12px;
-      padding: 8px 0;
-      background-color: #fff;
-      border: 1px solid #ccc;
-      border: 1px solid rgba(0, 0, 0, 0.2);
-      -webkit-border-radius: 8px;
-      -moz-border-radius: 8px;
-      border-radius: 8px;
-      -webkit-box-shadow: 0 5px 10px rgba(0,0,0,.2);
-      -moz-box-shadow: 0 5px 10px rgba(0,0,0,.2);
-      box-shadow: 0 5px 10px rgba(0,0,0,.2);
-    }
-
-    .tt-suggestion {
-      padding: 3px 20px;
-      font-size: 14px;
-      line-height: 24px;
-    }
-
-    .tt-suggestion.tt-is-under-cursor {
-      color: #fff;
-      background-color: #0097cf;
-    }
-
-    .tt-suggestion p {
-      margin: 0;
-    }
-
-    .gist {
-      font-size: 14px;
-    }
-</style>
 {% endblock %}
 
 {% block content %}
@@ -116,7 +20,7 @@
             {% if organization %}
                 <div class="col-xs-5 current-org">
                     <h4>You're a member of<br /><b>{{ organization.name }}</b></h4>
-                    <form method="post">
+                    <form method="post">{% csrf_token %}
                         <input type="submit" value="Use this organization" name="use_users_org" class="btn btn-primary btn-lg" />
                     </form>
                 </div>
