@@ -27,7 +27,7 @@ COUNTRIES = (
     ('AG', _('Antigua and Barbuda')), 
     ('AR', _('Argentina')), 
     ('AM', _('Armenia')), 
-    ('AW', _('Aruba')), 
+    ('AW', _('Aruba')),  
     ('AU', _('Australia')), 
     ('AT', _('Austria')), 
     ('AZ', _('Azerbaijan')), 
@@ -515,7 +515,6 @@ class ProjectForm(ModelForm):
 
 OPP_TYPE_CHOICES = ((u'Equipment', u'Equipment'), (u'Knowledge', u'Knowledge'), (u'Money', u'Money'), (u'Skills', u'Skills'),)
 
-
 class Opportunity(models.Model):
 
     tags = models.CharField(max_length=200, blank=True)
@@ -525,10 +524,13 @@ class Opportunity(models.Model):
     media_url = models.CharField(max_length=200, blank=True)
     status = models.CharField(max_length=100, choices=STATUS_CHOICES, default='Active')
     date_created = models.DateTimeField(auto_now_add=True)
+    date_closed = models.DateField(blank=True)
+    complete_by = models.DateField(blank=True)
     created_by = models.ForeignKey(User, related_name="created_by_related")
     short_desc = models.TextField(blank=True)
     description = models.TextField(blank=True)
     resources = models.TextField(blank=True)
+    time_estimate =  models.TextField(blank=True)
     featured = models.BooleanField(default=False, blank=True)
     opp_type = models.CharField(max_length=100, choices=OPP_TYPE_CHOICES, blank=True) 
     engaged_by = models.ManyToManyField(User, blank=True, through='OpportunityEngagement')
@@ -613,6 +615,7 @@ class OpportunityEngagement(models.Model):
     opportunity = models.ForeignKey(Opportunity)
     project = models.ForeignKey(Project)
     date_created = models.DateField(auto_now_add=True)
+    date_ended = models.DateField()
      # this will be where the opp engagements can be approved
     status = models.CharField(max_length=100, choices=STATUS_CHOICES, default=STATUS_CHOICES[1][1])
     response = models.CharField(max_length=2000, blank=True) # response to the engagement
