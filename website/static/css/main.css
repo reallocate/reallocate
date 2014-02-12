@@ -321,7 +321,7 @@ h5 {
 
 /* project */
 
-#project. jumbotron .overlay {
+#project .jumbotron .overlay {
     height: 100%;
     width: 100%;
     background: -webkit-gradient(linear, 0 0, 0 100%, from(rgba(0,0,0,0)), to(rgba(0,0,0,0.65)));
@@ -333,7 +333,6 @@ h5 {
 }
 #project .jumbotron {
     padding: 0px;
-    background-image: url('{{ project.media_url }}');
     background-size: cover;
     height: 270px;
 }
