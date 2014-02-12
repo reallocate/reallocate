@@ -283,7 +283,7 @@ h5 {
 /* home */
 
 #home .jumbotron {
-    background-image: url('/static/images/flickr_volunteer.jpg');
+    background-image: url('http://s3.amazonaws.com/production-reallocate/splash/home_splash.jpg');
     background-size: cover;
 }
 #home #feature-unit {
@@ -873,7 +873,7 @@ h5 {
 }
 #about .jumbotron {
     padding: 0px;
-    background-image: url('/static/images/flickr_sunset.jpg');
+    background-image: url('http://s3.amazonaws.com/production-reallocate/splash/about_splash.jpg');
     background-size: cover;
     background-position: 0px -340px;
     height: 270px;
@@ -1004,6 +1004,7 @@ h5 {
     box-shadow: 5px 5px 5px #808080;
     -moz-box-shadow: 5px 5px 5px #808080;
     -webkit-box-shadow: 5px 5px 5px #808080;
+    overflow: hidden;
 }
 .project a:hover {
     text-decoration: none;
@@ -1031,7 +1032,6 @@ h5 {
 .project-text {
     padding: 8px;
     width: 100%;
-    height: 100%;
     margin-bottom: 35px;
 }
 .project-text a {
