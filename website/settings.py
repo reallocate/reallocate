@@ -82,7 +82,7 @@ if 'DEPLOY_ENV' in os.environ and os.environ['DEPLOY_ENV'] != 'local':
 
     AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
     AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
-    
+
     FACEBOOK_APP_ID = os.environ.get('FACEBOOK_APP_ID')
     FACEBOOK_API_SECRET = os.environ.get('FACEBOOK_API_SECRET')
 
@@ -227,12 +227,13 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.admin',
     'south',
-    
+
     # jinja2
     # 'coffin',
     # end jinja2
     'widget_tweaks',
     'website',
+    'reallocate_tastypie',
     #'taggit',
 
     # Admin apps
