@@ -53,13 +53,8 @@ var reAllocate = window.reAllocate || {
         // show alert modal if it exists
         if ($('#alert-modal')) $('#alert-modal').modal('show');
 
-        // clear confirmation modal values on hide
-        $('#confirmation-modal').on('hidden.bs.modal', function (e) {
-
-            $('#confirmation-modal .message').empty();
-            $('#confirmation-modal .confirm').empty();
-            $('#confirmation-modal .cancel').empty();
-        })
+        // init popover confirmations
+        $('[data-toggle="confirmation"]').confirmation();
 
         $('.delegate-file-upload').click(function() {
 

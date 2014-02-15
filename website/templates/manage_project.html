@@ -97,11 +97,10 @@
         </div>
     </div>
     <div class="row">
-            {% if opportunities %}
         <div class="col-xs-12">
+            {% if opportunities %}
             <table class="table table-striped opportunities">
             {% for opportunity in opportunities %}
-                
                 <tr>
                     <td>{{ opportunity.name }}{% if new_engagements %}&nbsp;&nbsp;<span class="badge">{{ new_engagements|length }}</span>{% endif %}</td>
                     <td class="engagement">
@@ -112,7 +111,7 @@
                                 <a href="#" class="remove"><i class="fa fa-times"></i></a>
                             </li>
                         {% endfor %}
-                        </ul
+                        </ul>
                     </td>
                     <td>
                         <p class="edit">
@@ -180,20 +179,14 @@
                         </div>
                     </div>
                 </div>
-            </div>
-
             {% endfor %}
             </table>
             {% else %}
-            <div class="col-xs-12"><p>There are no opportunities added to this project</p></div>
+            <p>There are no opportunities added to this project</p>
             {% endif %}
-            <div class="col-xs-12">
-                <a href="/project/{{ project.id }}/opportunity/add" class="btn btn-default"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add opportunity</a>
-            </div>
-
+            <a href="/project/{{ project.id }}/opportunity/add" class="btn btn-default"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add opportunity</a>
+        </div>
     </div>
-
-
 </div>
 
 
