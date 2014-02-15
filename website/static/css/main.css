@@ -628,7 +628,7 @@ h5 {
 #manage-project table.opportunities td:last-child {
     text-align: right;
 }
-#manage-project table.opportunities td:last-child .btn {
+#manage-project table.opportunities td:last-child .edit button {
     margin-left: 8px;
 }
 #manage-project table.opportunities .engagement {
@@ -1151,4 +1151,11 @@ img.update-avatar {
 }
 .edit-update-link {
     margin-left: 8px;
+}
+
+#confirmation-modal .modal-dialog {
+    width: 300px;
+}
+#confirmation-modal .modal-content {
+    padding: 10px;
 }

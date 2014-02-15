@@ -38,11 +38,9 @@
     {% ifequal alert.type 'modal' %}
     <div id="alert-modal" class="modal fade">
         <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-body clearfix">
-                     <h4>{{ alert.message|safe }}</h4>
-                     <button class="btn btn-default pull-right" data-dismiss="modal">Awesome!</button>
-                </div>
+            <div class="modal-content clearfix">
+                 <h4>{{ alert.message|safe }}</h4>
+                 <button class="btn btn-default pull-right" data-dismiss="modal">Awesome!</button>
             </div>
         </div>
     </div>
@@ -53,18 +51,6 @@
     </div>
     {% endifequal %}
     {% endif %}
-
-    <div id="dialog-modal" class="modal fade">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-body clearfix">
-                    <h4></h4>
-                    <button class="btn btn-default pull-right confirm" data-dismiss="modal"></button>
-                    <button class="btn btn-default pull-right deny" data-dismiss="modal"></button>
-                </div>
-            </div>
-        </div>
-    </div>
 
     {% block jumbotron %}
     {% endblock %}
@@ -91,6 +77,7 @@
 <script src="{{ STATIC_URL }}js/libs/backbone.min.js?r=1"></script>
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 <script src="{{ STATIC_URL }}js/jquery-placeholder.js"></script>
+<script src="{{ STATIC_URL }}js/bootstrap-confirmation.js"></script>
 <script src="{{ STATIC_URL }}js/main.js?5"></script>
 <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-51b5379c6ba6d63e"></script>
 

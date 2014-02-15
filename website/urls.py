@@ -10,6 +10,7 @@ urlpatterns = patterns('',
 
   url(r'', include('social_auth.urls')),
   url(r'^api/', include('reallocate_tastypie.urls')),
+
   url(r'^$', 'website.views.home', name='home'),
   url(r'^about$', 'website.views.about', name='about'),
   url(r'^privacy$', 'website.views.privacy', name='privacy'),

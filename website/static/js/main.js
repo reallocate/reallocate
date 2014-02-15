@@ -53,6 +53,14 @@ var reAllocate = window.reAllocate || {
         // show alert modal if it exists
         if ($('#alert-modal')) $('#alert-modal').modal('show');
 
+        // clear confirmation modal values on hide
+        $('#confirmation-modal').on('hidden.bs.modal', function (e) {
+
+            $('#confirmation-modal .message').empty();
+            $('#confirmation-modal .confirm').empty();
+            $('#confirmation-modal .cancel').empty();
+        })
+
         $('.delegate-file-upload').click(function() {
 
             $(this).siblings('input[type="file"]').trigger('click');
@@ -205,28 +213,6 @@ var reAllocate = window.reAllocate || {
         xhr.send(file);
 
         return false;
-    },
-
-    confirmationModal: function(options) {
-
-        options = options || {};
-
-        var message = options.message || "Confirm?";
-        var onConfirm = options.onConfirm || function() { console.log('confirmed') };
-        var onCancel = options.onCancel || function() { console.log('canceled') };
-
-        $('#confirmation-modal .message').html(message);
-        $('#confirmation-modal .confirm').on('click', onConfirm);
-        $('#confirmation-modal .cancel').on('click', onCancel);
-
-        $('#confirmation-modal').modal('show');
-
-        // clear values on hide
-        $('#myModal').on('hidden.bs.modal', function (e) {
-            $('#confirmation-modal .message').empty();
-            $('#confirmation-modal .confirm').empty();
-            $('#confirmation-modal .cancel').empty();
-        })
     },
 
     editUpdate: function(id) {
