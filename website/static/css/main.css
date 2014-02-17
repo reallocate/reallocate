@@ -588,22 +588,25 @@ h5 {
     border-top: 1px solid #ddd;
     margin-top: 20px;
 }
-#manage-project #edit-project p {
+#manage-project .edit-project p {
     position: relative;
 }
-#manage-project #edit-project p i {
+#manage-project .edit-project p i {
     display: none;
     position: absolute;
     left: -18px;
     top: 6px;
 }
-#manage-project #edit-project #project-short-desc i {
+#manage-project .edit-project #project-short-desc i {
     top: 4px;
 }
-#manage-project #edit-project p:hover i {
+#manage-project .edit-project p:hover i {
     display: inline;
 }
-
+#manage-project .edit-project,
+#manage-project .edit-opportunity {
+    font-size: 13px;
+}
 #manage-project #image img {
     width: 288px;
 }

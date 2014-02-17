@@ -25,16 +25,16 @@
                             <h4 id="desc-modal-label" class="modal-title">Project details</h4>
                         </div>
                         <div class="modal-body">
-                            <form method="post" id="edit-project" enctype="multipart/form-data">{% csrf_token %}
+                            <form method="post" class="edit-project" enctype="multipart/form-data">{% csrf_token %}
                                 <input type="hidden" name="id" value="{{ project.id }}" />
                                 <input type="hidden" name="organization_id" value="{{ project.organization.id }}" />
                                 <div class="form-group">
                                     <label for="name">Project Title</label>
-                                    <input class="form-control required" type="text" id="name" name="name" value="{{ project.name }}">
+                                    <input class="form-control input-sm required" type="text" id="name" name="name" value="{{ project.name }}">
                                 </div>
                                 <div class="form-group">
                                     <label for="cause">Cause</label>
-                                    <select class="form-control required" id="cause" name="cause">
+                                    <select class="form-control input-sm required" id="cause" name="cause">
                                         <option>None</option>
                                         {% for cause in causes %}
                                         <option value="{{ cause }}">{{ cause }}</option>
@@ -43,27 +43,27 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="short-desc">Short Description</label><span class="limit-status"></span>
-                                    <input class="form-control required" data-char-limit="110" length="115" type="text" id="short-desc" name="short_desc" value="{{ project.short_desc }}">
+                                    <input class="form-control input-sm required" data-char-limit="110" length="115" type="text" id="short-desc" name="short_desc" value="{{ project.short_desc }}">
                                     <span class="help-block">110 characters or less</span>
                                 </div>
                                 <div class="form-group">
                                     <label for="description">Full project description</label>
-                                    <textarea class="form-control required" id="description" name="description" data-word-limit="50">{{ project.description }}</textarea>
+                                    <textarea class="form-control input-sm required" id="description" name="description" data-word-limit="50">{{ project.description }}</textarea>
                                     <span class="help-block">50 words or less</span>
                                 </div>
                                 <div class="form-group">
                                     <label for="name">Add a Video URL</label>
-                                    <input class="form-control" type="text" id="video-url" name="video_url" value="{{ project.video_url }}">
+                                    <input class="form-control input-sm" type="text" id="video-url" name="video_url" value="{{ project.video_url }}">
                                     <span class="help-block">YouTube and Vimeo URLs supported</span>
                                 </div>
                                 <div class="form-group">
                                     <label for="name">Upload new photo</label><br />
-                                    <button class="delegate-file-upload btn btn-default">Select Image</button>
+                                    <button class="delegate-file-upload btn btn-default btn-sm">Select Image</button>
                                     <i class="fa fa-ok fa-2x file-upload-ok" style="display: none;"></i>
                                     <input type="file" name="file" value="Upload new photo" style="display: none;">
                                 </div>
                                 <div class="pull-right modal-buttons">
-                                    <button class="btn btn-default" data-dismiss="modal">Close</button>
+                                    <button class="btn btn-default btn-sm" data-dismiss="modal">Close</button>
                                     <input class="btn btn-primary" type="submit" value="Save Changes" />
                                 </div>
                             </form>
@@ -102,7 +102,7 @@
             <table class="table table-striped opportunities">
             {% for opportunity in opportunities %}
                 <tr>
-                    <td>{{ opportunity.name }}{% if new_engagements %}&nbsp;&nbsp;<span class="badge">{{ new_engagements|length }}</span>{% endif %}</td>
+                    <td><a href="/project/{{ project.id }}/opportunity/{{ opportunity.id }}">{{ opportunity.name }}</a>{% if new_engagements %}&nbsp;&nbsp;<span class="badge">{{ new_engagements|length }}</span>{% endif %}</td>
                     <td class="engagement">
                         <ul>
                         {% for ue in opportunity.opportunityengagement_set.all %}
@@ -130,26 +130,26 @@
                                 <h4 id="desc-modal-label" class="modal-title">Edit Opportunity</h4>
                             </div>
                             <div class="modal-body">
-                                <form method="post" enctype="multipart/form-data">{% csrf_token %}
+                                <form method="post" class="edit-opportunity" enctype="multipart/form-data">{% csrf_token %}
                                     <input type="hidden" name="id" value="{{ opportunity.id }}" />
                                     <input type="hidden" name="type" value="opportunity" />
                                     <div class="form-group">
                                         <label for="name">Opportunity Title</label>
-                                        <input class="form-control required" type="text" name="name" value="{{ opportunity.name }}">
+                                        <input class="form-control required input-sm" type="text" name="name" value="{{ opportunity.name }}">
                                     </div>
                                     <div class="form-group">
                                         <label for="short-desc">Short Description</label>
-                                        <input class="form-control required" length="109" type="text" name="short_desc" value="{{ opportunity.short_desc }}">
+                                        <input class="form-control required input-sm" length="109" type="text" name="short_desc" value="{{ opportunity.short_desc }}">
                                         <span class="help-block">110 characters or less</span>
                                     </div>
                                     <div class="form-group">
                                         <label for="description">Description</label>
-                                        <textarea class="form-control required" name="description" data-word-limit="100">{{ opportunity.description }}</textarea>
+                                        <textarea class="form-control required input-sm" name="description" data-word-limit="100">{{ opportunity.description }}</textarea>
                                         <span class="help-block">100 words or less</span>
                                     </div>
                                     <div class="form-group">
                                         <label for="opp-type">Type</label>
-                                        <select class="form-control required" name="opp_type">
+                                        <select class="form-control required input-sm" name="opp_type">
                                             <option>Select</option>
                                             <option{% ifequal opportunity.opp_type 'Equipment' %} selected{% endifequal %}>Equipment</option>
                                             <option{% ifequal opportunity.opp_type 'Knowledge' %} selected{% endifequal %}>Knowledge</option>
@@ -160,18 +160,18 @@
                                     </div>                
                                     <div class="form-group">
                                         <label for="resources">Resources</label>
-                                        <textarea class="form-control" name="resources"></textarea>
+                                        <textarea class="form-control input-sm" name="resources"></textarea>
                                         <span class="help-block" style="display: true;">comma separated list of URLs</span>
                                     </div>
                                     <div class="form-group">
                                             <label for="name">Upload new photo</label><br/>
-                                            <button class="delegate-file-upload btn btn-default">Select Image</button>
+                                            <button class="delegate-file-upload btn btn-default btn-sm">Select Image</button>
                                             <i class="fa fa-ok fa-2x file-upload-ok" style="display: none;"></i>
                                             <input type="file" name="file" value="Upload new photo" style="display: none;">
                                     </div>
                                     <div class="pull-right modal-buttons">
                                         <button class="btn btn-default" data-dismiss="modal">Close</button>
-                                        <input class="btn btn-primary" type="submit" value="Save Changes" />
+                                        <input class="btn btn-primary btn-sm" type="submit" value="Save Changes" />
                                     </div>
                                 </form>
                                 <div class="clearfix"></div>
