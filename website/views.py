@@ -338,7 +338,7 @@ def view_project(request, pid=1):
 
     project = get_object_or_404(Project, pk=pid)
     opps = Opportunity.objects.filter(project=project)
-    engagement = OpportunityEngagement.objects.filter(project=project)
+    engagement = OpportunityEngagement.objects.filter(project=project).filter(user__id__gt=1).distinct()
     context = base.build_base_context(request)
 
     context.update({
@@ -358,6 +358,8 @@ def view_project(request, pid=1):
     if request.user.is_authenticated():
         context['is_following'] = request.user in project.followed_by.all()
         context['is_admin'] = True if request.user == project.created_by else False
+
+
 
     return render_to_response('project.html', context, context_instance=RequestContext(request))
 
