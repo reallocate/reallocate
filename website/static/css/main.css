@@ -96,6 +96,8 @@ h5 {
 
 /* end non-responsive overrides */
 
+
+
 .pre {
     white-space: pre-wrap;
 }
@@ -109,9 +111,6 @@ h5 {
     background-color: #fff;
     border-bottom: 1px solid #ededed;
 }
-.navbar-nav {
-    margin-top: 10px;
-}
 .share:hover {
     text-decoration: none;
 }
@@ -119,10 +118,9 @@ h5 {
     margin: 3px;
 }
 .navbar .navbar-brand img {
-    width: 177px;
-}
-.navbar #auth {
-
+    width: 140px;
+    position: relative;
+    top: -7px;
 }
 .push-little {
     margin-top: 25px;
@@ -334,6 +332,7 @@ h5 {
     padding: 0px;
     background-size: cover;
     height: 270px;
+    background-position: 33%;
 }
 #project .jumbotron #project-title {
     position: relative;
@@ -453,10 +452,12 @@ h5 {
 }
 #project .addthis_toolbox {
     margin-top: 12px;
+    margin-bottom: 15px;
 }
 #opportunity .actions,
 #project .actions {
     margin-top: 17px;
+    margin-bottom: 20px;
 }
 
 /* opportunity */
