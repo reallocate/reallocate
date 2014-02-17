@@ -45,13 +45,6 @@
                     <h4><a href="/project/{{ opportunity.project.id }}">{{ project.name }}</a></h4>
                     <h1>{{ opportunity.name }}</h1> 
                 </div>
-                <div class="col-xs-4">
-                {% if is_open %}
-                    {% if not engaged or pending %}
-                        <a href="#engage-modal" class="engage-button btn btn-primary login-required" data-toggle="modal"{% if pending %} disabled=disabled {% endif %}>Engage</a>
-                    {% endif %}
-                {% endif %}
-                </div>
             </div>
         </div>
 </div>
@@ -100,6 +93,13 @@
             </div>
 
             <div class="col-xs-5">
+                <div class="actions">
+                {% if is_open %}
+                    {% if not engaged or pending %}
+                        <a href="#engage-modal" class="engage-button btn btn-primary login-required" data-toggle="modal"{% if pending %} disabled=disabled {% endif %}>Engage this opportunity</a>
+                    {% endif %}
+                {% endif %}
+                </div>
                 {% if opportunity.media_url %}
                 <div class="opportunity-media"><img src="{{ opportunity.media_url }}"></div>
                 {% endif %}

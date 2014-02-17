@@ -451,18 +451,11 @@ h5 {
     margin-right:10px;
     margin-bottom:10px;
 }
-#project .addthis_toolbox .share i {
-    font-size: 31px;
-    line-height: 0.3em;
-}
-#project .follow {
-    width: 90px;
-    margin-left: 5px;
-}
-#project .follow-share {
+#project .addthis_toolbox {
     margin-top: 12px;
 }
-#project .actions .btn {
+#opportunity .actions,
+#project .actions {
     margin-top: 17px;
 }
 
@@ -551,7 +544,7 @@ h5 {
     text-align: center;
     font-weight: bold;
     color: #333;
-    margin: 0 auto;
+    margin: 8px auto 0 auto;
     font-size: 13px;
 }
 #opportunity .give-icons {
