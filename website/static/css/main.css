@@ -391,8 +391,13 @@ h5 {
 #project .update-opp-name {
     color: #808080;
 }
-#project .update-text {
-    color: #808080;
+#project .update-text,
+#opportunity .update-text {
+    color: #333;
+    margin-top: 10px;
+    font-size: 16px;
+    border-left: 2px solid #bbb;
+    padding-left: 8px;
 }
 #project .update-media img {
     width: 100%;
@@ -526,9 +531,6 @@ h5 {
     color: black;
 }
 #opportunity .update-opp-name {
-    color: #808080;
-}
-#opportunity .update-text {
     color: #808080;
 }
 #opportunity .update-media img {

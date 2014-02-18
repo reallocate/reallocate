@@ -229,18 +229,14 @@ var reAllocate = window.reAllocate || {
 
     deleteUpdate: function(id) {
 
-        if (confirm('Delete update?')) {
-
-            $.ajax({
-                url: '/ajax/delete-update',
-                method: 'POST',
-                data : {'updateId': id},
-                success: function(json) {
-
-                    window.location.reload();
-                }
-            });
-        }
+        $.ajax({
+            url: '/ajax/delete-update',
+            method: 'POST',
+            data : {'updateId': id},
+            success: function(json) {
+                window.location.reload();
+            }
+        });
     },
 
     loginUser: function(email, password) {

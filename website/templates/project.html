@@ -55,12 +55,12 @@
                 <h3>Recent Updates</h3>
                 {% for update in updates %}
                 <div class="update" id="update-{{ update.id }}">
+                    <p class="update-date">{{ update.date_created.date }}</p>
                     {% if update.media_url %}
                     <div class="update-media"><img src="{{ update.media_url }}"></div>
                     {% elif update.video %}
                     <div class="update-media">{{ update.video|safe }}</div>
                     {% endif %}
-                    <p class="update-date">{{ update.date_created.date }}</p>
                     <p class="update-text pre">{{ update.text }}</p>
                     <p class="original-update-text hide">{{ update.original_text }}</p>
                     {% if update.created_by.get_profile.media_url %}                    
@@ -70,8 +70,9 @@
                     {{ update.created_by.first_name }} {{ update.created_by.last_name }}
                     </a>
                     {% if update.created_by == user %}
-                    <a class="edit-update-link pull-right" href="javascript:reAllocate.deleteUpdate({{ update.id }})">delete</a>  
-                    <a class="edit-update-link pull-right" href="javascript:reAllocate.editUpdate({{ update.id }})">edit</a>        
+                    <a class="edit-update-link pull-right" data-toggle="confirmation" data-placement="left" data-href="javascript:reAllocate.deleteUpdate({{ update.id }})">delete</a>  
+                    <a class="edit-update-link pull-right" href="javascript:reAllocate.editUpdate({{ update.id }})">edit</a>
+
                     {% endif %}
                 </div>
                 {% endfor %}

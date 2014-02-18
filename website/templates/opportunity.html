@@ -60,7 +60,7 @@
 
         <div class="row">
         
-            <div class="col-xs-7">
+            <div class="col-xs-6">
                 <h3>Overview</h3>
                 <p class="opp-description pre">{{ opportunity.description }}</p>
             
@@ -73,12 +73,12 @@
                 <div id="updates">
                     {% for update in updates %}
                     <div class="update">
+                        <p class="update-date">{{ update.date_created.date }}</p>
                         {% if update.media_url %}
                         <div class="update-media"><img src="{{ update.media_url }}"></div>
                         {% elif update.video %}
                         <div class="update-media">{{ update.video|safe }}</div>
                         {% endif %}
-                        <p class="update-date">{{ update.date_created.date }}</p>
                         <p class="update-text pre">{{ update.text }}</p>
                         {% if update.created_by.get_profile.media_url %}                    
                         <img class="update-avatar" src="{{ update.created_by.get_profile.media_url }}" />
@@ -92,7 +92,7 @@
                 {% endif %}
             </div>
 
-            <div class="col-xs-5">
+            <div class="col-xs-6">
                 <div class="actions">
                 {% if is_open %}
                     {% if not engaged or pending %}
