@@ -498,6 +498,7 @@ def view_opportunity(request, pid, oid):
     
     for u in context['updates']:
 
+        u.original_text = u.text
         (u.video, u.text) = embed_video(u.text)
 
     if request.user.is_authenticated():

@@ -221,6 +221,9 @@ var reAllocate = window.reAllocate || {
         if (mediaUrl) {
             editForm.find('img').attr('src', mediaUrl).css({'display': 'block'});
             editForm.find('button.delegate-file-upload').text('Change Image');
+        } else {
+            editForm.find('img').attr('src', '').css({'display': 'none'});
+            editForm.find('button.delegate-file-upload').text('Add Image');           
         }
         editForm.find('textarea').attr('value', updateText);
 
