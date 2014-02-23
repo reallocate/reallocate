@@ -1,15 +1,15 @@
 <div class="project">
     {% if project.media_url %}
     <div class="project-image">
-        <a href="/project/{{ project.id }}"><img src="{{ project.media_url }}"></a>
+        <a href="/project/{{ project.id }}"><img onload="if(this.width>this.height){this.className=this.className+' landscape'}" src="{{ project.media_url }}"></a>
     </div>
     {% endif %}
     <div class="project-text"><a href="/project/{{ project.id }}">
         <div class="project-name">{{ project.name }}</div>
         {% if not project.media_url %}
-        <div class="description">{{ project.description|truncatechars:560 }}</div>
+        <div class="project-description">{{ project.description|truncatechars:200 }}</div>
         {% else %}
-        <div class="short-desc">{{ project.short_desc|truncatechars:130 }}</div>
+        <div class="project-short-desc">{{ project.short_desc|truncatechars:110 }}</div>
         {% endif %}
         <!--
         <div class="row project-status">
@@ -25,8 +25,10 @@
             </div>
         </div>
         -->
-        {% if project.city and project.state %}
-        <div class="project-location">Location: {{ project.city }}, {{ project.state }}</div>
-        {% endif %}
     </a></div>
+    {% if project.city and project.state %}
+    <div class="project-footer fadethrough-light">
+        <p class="project-location"><i class="fa fa-map-marker"></i>&nbsp;&nbsp;{{ project.city }}, {{ project.state }}</p>
+    </div>
+    {% endif %}
 </div>

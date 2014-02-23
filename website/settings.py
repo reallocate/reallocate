@@ -3,7 +3,7 @@
 #
 # all should be overwritten in settings_local.py
 ##################
-import os, sys
+import os, sys, socket
 
 DEBUG = False
 if os.environ.get('SEND_EMAILS') and os.environ['SEND_EMAILS'] == 'true':
@@ -12,6 +12,11 @@ else:
     SEND_EMAILS = False
 
 ALLOWED_HOSTS = ['*']  # todo:john - dont let this go live
+
+try:
+    HOSTNAME = socket.gethostname()
+except:
+    HOSTNAME = 'localhost'
 
 # OAuth keys for Social Auth
 TWITTER_CONSUMER_KEY = ''

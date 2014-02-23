@@ -67,7 +67,7 @@ var reAllocate = window.reAllocate || {
         $('input[type="file"]').on('change', function() {
             
             upload_ok = $(this).parent().find(".file-upload-ok");
-            
+
             if (upload_ok) upload_ok.show();
         });
 
@@ -139,6 +139,21 @@ var reAllocate = window.reAllocate || {
             }
             reAllocate.validateForm($(this).parents('form'));
         });
+
+        // reveal project pane text
+        $('.project-text').mouseenter(function(event) {
+            var t = $(this);
+            var i = t.prev();
+            var p = t.parent();
+            var d = p.height() - i.height();
+            if (t.height() > d) {
+                t.animate({'margin-top': '-'+d+'px'}, 120);
+            }
+        })
+        $('.project-text').mouseleave(function(event) {
+            var t = $(this);
+            t.animate({'margin-top': '0px'}, 100);
+        })
 
         // stripe payment form
         $('#stripe-form').submit(function(event) {

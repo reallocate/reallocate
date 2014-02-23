@@ -215,9 +215,9 @@ def forgot_password(request):
             reset_user.set_password(temp_password)
             reset_user.save()
 
-            subj = "Your password on Reallocate has been reset"
+            subj = "[%s] Your password has been reset" % request.get_host()
             body = """By request, we've reset your password. <a href='http://%s/reset-password?t=%s&e=%s'>
-                Choose a new password</a><br/><br/>Thanks,<br/>Reallocate""" % (request.get_host(), temp_password, urlquote(email))
+                Choose a new password</a><br/><br/>Always happy to help,<br/>Reallocate""" % (request.get_host(), temp_password, urlquote(email))
                     
             base.send_email(email, subj, body, html_content=body)
 
@@ -296,8 +296,8 @@ def sign_up(request):
 
         base.send_email_template(request, 'welcome', email_context, 'Welcome to ReAllocate!', [email])
         
-        subject = "New user named %s %s has been created" % (user.first_name, user.last_name)
-        html_content = "A new user has been created <br/> user: %s <br/>name: %s %s <br/> email: %s <br/>" % (user.username, user.first_name, user.last_name, user.email)
+        subject = "[%s] %s %s has joined ReAllocate" % (request.get_host(), user.first_name, user.last_name)
+        html_content = "Username: %s <br /><br />Name: %s %s<br /><br />Email: %s <br /><br />" % (user.username, user.first_name, user.last_name, user.email)
         base.send_admin_email(subject, html_content, html_content=html_content)
 
     return response
@@ -468,12 +468,12 @@ def new_project(request):
             
             # send admin email with link adminpanel to change project status
             created_by = project.created_by.first_name + ' ' + project.created_by.last_name
-            subj = "[ReAllocate] A new project has been submited"
+            subj = "[%s] A new project submission" % request.get_host()
             body = """
-                A new project has been has been submited by %s:<br /><br />
+                A new project has been submitted by %s:<br /><br />
                 <b>%s</b><br /><br />
                 %s<br /><br />
-                <a href='%s/admin/website/project/%s'>Approve</a><br />
+                <a href='%s/admin/website/project/%s'>Approve this project</a><br />
                 """ % (created_by, project.name, project.short_desc, request.get_host(), project.id)
 
             base.send_admin_email(subj, body, html_content=body)
@@ -557,13 +557,13 @@ def new_organization(request):
                 user_profile.save()
                 
                 # send admin email with link adminpanel to change project status
-                subj = "[ReAlloBot] New organization %s added by %s" % (org.name, request.user.username)
-                body = """Go here to and change status to active:<br/>
-                          <a href='%s/admin/organization/%s'>approve</a>
-                          For now: remember to email the above email after their organization is approved""" % (
-                          request.get_host(), org.id)
+                subj = "[%s] New organization: %s" % (request.get_host(), org.name)
+                body = "A new organization was added by %s:<br /><br /><b>%s</b><br /><br />" % (org.created_by, org.name)
+                if org.URL:
+                    body = body + "<a href='%s'>%s</a><br /><br />" % (org.URL, org.URL)
+                body = body + "Country: %s<br /><br />Mission Statement:<br /><br />\"%s\"<br /><br />" % (org.country, org.org_mission)
 
-                #base.send_admin_email(subj, body, html_content=body)
+                base.send_admin_email(subj, body, html_content=body)
                           
             else:
 

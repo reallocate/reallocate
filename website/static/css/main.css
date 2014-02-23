@@ -125,7 +125,7 @@ h5 {
 .push-little {
     margin-top: 25px;
 }
-.thumnail-container {
+.thumbnail-container {
     background: #fff;
     margin-bottom: 30px;
     height: 360px;
@@ -133,7 +133,7 @@ h5 {
     -moz-box-shadow: 1px 2px 3px #808080;
     -webkit-box-shadow: 1px 2px 3px #808080;
 }
-.thumnail-container:hover {
+.thumbnail-container:hover {
     border-color: rgba(82, 168, 236, 0.8);
     box-shadow: 0 5px 5px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(82, 168, 236, 0.6);
     cursor: pointer;
@@ -147,24 +147,24 @@ h5 {
     top: 8px;
     right: 2px;
 }
-.thumnail-container .name {
+.thumbnail-container .name {
     font-family: 'Raleway', sans-serif;
     font-weight: bold;
 }
-.thumnail-container .location a {
+.thumbnail-container .location a {
     margin-left: 5px;
 }
 .username {
     font-weight: bold;
 }
-.thumnail-container .project-name a {
+.thumbnail-container .project-name a {
     margin-left: 5px
 }
 .project-wrap {
     background: #fff;
     border-radius: 4px;
 }
-.project-wrap .project-title{
+.project-wrap .project-title {
     height: 70px;    
 }
 .project-wrap .backstory {
@@ -239,14 +239,31 @@ h5 {
 .overlay {
     height: 100%;
     width: 100%;
-    background: -webkit-gradient(linear, 0 0, 0 100%, from(rgba(0,0,0,0)), to(rgba(0,0,0,0.65)));
-    background: -webkit-linear-gradient(rgba(0,0,0,0) 0%, rgba(0,0,0,0.65) 100%);
-    background: -moz-linear-gradient(rgba(0,0,0,0) 0%, rgba(0,0,0,0.65) 100%);
-    background: -o-linear-gradient(rgba(0,0,0,0) 0%, rgba(0,0,0,0.65) 100%);
-    background: linear-gradient(rgba(0,0,0,0) 0%, rgba(0,0,0,0.65) 100%); /* FF3.6+ */ /* Chrome,Safari4+ */ /* Chrome10+,Safari5.1+ */ /* Opera 11.10+ */ /* IE10+ */ /* W3C */
+    background: -webkit-gradient(linear, 0 0, 0 70%, from(rgba(0,0,0,0)), to(rgba(0,0,0,0.65)));
+    background: -webkit-linear-gradient(rgba(0,0,0,0) 0%, rgba(0,0,0,0.65) 70%);
+    background: -moz-linear-gradient(rgba(0,0,0,0) 0%, rgba(0,0,0,0.65) 70%);
+    background: -o-linear-gradient(rgba(0,0,0,0) 0%, rgba(0,0,0,0.65) 70%);
+    background: linear-gradient(rgba(0,0,0,0) 0%, rgba(0,0,0,0.65) 70%); /* FF3.6+ */ /* Chrome,Safari4+ */ /* Chrome10+,Safari5.1+ */ /* Opera 11.10+ */ /* IE10+ */ /* W3C */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#a6000000',GradientType=0 ); /* IE6-9 */
 }
-
+.overlay-light {
+    height: 100%;
+    width: 100%;
+    background: -webkit-gradient(linear, 0 0, 0 80%, from(rgba(0,0,0,0.6)), to(rgba(233,233,233,1)));
+    background: -webkit-linear-gradient(rgba(0,0,0,0.6) 0%, rgba(233,233,233,1) 80%);
+    background: -moz-linear-gradient(rgba(0,0,0,0.6) 0%, rgba(233,233,233,1) 80%);
+    background: -o-linear-gradient(rgba(0,0,0,0.6) 0%, rgba(233,233,233,1) 80%);
+    background: linear-gradient(rgba(0,0,0,0.6) 0%, rgba(233,233,233,1) 80%); /* FF3.6+ */ /* Chrome,Safari4+ */ /* Chrome10+,Safari5.1+ */ /* Opera 11.10+ */ /* IE10+ */ /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00f9f9f9', endColorstr='#fff9f9f9',GradientType=0 ); /* IE6-9 */
+}
+.fadethough-light {
+    background: -webkit-gradient(linear, 0 0, 0 70%, from(rgba(249,249,249,0)), to(rgba(249,249,249,1)));
+    background: -webkit-linear-gradient(rgba(249,249,249,0) 0%, rgba(249,249,249,1) 70%);
+    background: -moz-linear-gradient(rgba(249,249,249,0) 0%, rgba(249,249,249,1) 70%);
+    background: -o-linear-gradient(rgba(249,249,249,0) 0%, rgba(249,249,249,1) 70%);
+    background: linear-gradient(rgba(249,249,249,0) 0%, rgba(249,249,249,1) 70%); /* FF3.6+ */ /* Chrome,Safari4+ */ /* Chrome10+,Safari5.1+ */ /* Opera 11.10+ */ /* IE10+ */ /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00f9f9f9', endColorstr='#fff9f9f9',GradientType=0 ); /* IE6-9 */
+}
 /* home */
 
 #home .jumbotron {
@@ -756,6 +773,22 @@ h5 {
     overflow-y: hidden;
 }
 
+/* find-project */
+
+#find-project .project {
+    height: 290px;
+}
+#find-project .project-image {
+    height: 120px;
+}
+#find-project .project-name {
+    font-size: 18px
+}
+#find-project .project-short-desc {
+    font-size: 14px;
+}
+
+
 /* about */
 
 #about .jumbotron .overlay {
@@ -911,13 +944,17 @@ h5 {
     cursor: pointer;
 }
 .project-image {
-    height: 168px;
+    height: 160px;
     overflow: hidden;        
     position: relative;
 }
 .project-image img {
-    height: 168px;
-    width: 294px;
+    width: auto;
+    height: 101%;
+}
+.project-image img.landscape {
+    width: 101%;
+    height: auto;
 }
 .project-cause {
     margin: 10px 0px 0px 5px;
@@ -927,39 +964,42 @@ h5 {
      color: #4E7284;
 }
 .project-text {
-    padding: 8px;
+    background-color: #f9f9f9;
+    padding: 10px;
     width: 100%;
     margin-bottom: 35px;
+    position: relative;
+    opacity: 0.95;
+    color: #000;
 }
 .project-text a {
     color: #0C3645; 
 }
 .project-name {
     font-family: 'Raleway', sans-serif;
-    font-size: 25px;
-    line-height: 1em;
-    margin-bottom: 10px;
-    margin-top: 5px;
+    font-size: 22px;
+    line-height: 1.2em;
+    margin-bottom: 5px;
+    margin-top: 2px;
 }  
-.project-status {
-    margin-top: 10px;
-}
-.project-status .pie-chart {
-    margin-left: 5px;
-    max-width: 100px;   
-}
-.project-status needs {
-    margin-left: 10px;
+.project-short-desc {
+    font-size: 17px;
 }
 .project-location {
-    position: absolute;
-    font-weight: bold;
-    bottom: 5px;
+    font-weight: 400;
+    color: #4E7284;
+    margin: 0px;
 }
 .project-location a {
     color: #4E7284; 
 }
-
+.project-footer {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    width: 100%;
+    padding: 25px 11px 5px 11px;
+}
 
 .project-small {
     position: relative;
