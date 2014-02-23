@@ -1,0 +1,28 @@
+<div class="opportunity">
+	{% if opportunity.media_url %}
+	<div class="opp-image" style="background-image: url('{{ opportunity.media_url }}');">
+		<div class="overlay"></div>
+	</div>
+	{% endif %}
+	<div class="opp-text{% if opportunity.media_url %} has-image{% endif %}">
+		<p class="opp-name">
+		{% if opportunity.sponsorship %}
+			<a href="#sponsor-project-modal" data-toggle="modal">{{ opportunity.name }}</a>
+		{% else %}
+			<a href="/project/{{ opportunity.project.id }}/opportunity/{{ opportunity.id }}">{{ opportunity.name }}</a>
+		{% endif %}
+		</p>
+		<p class="opp-short-desc">{{ opportunity.short_desc|truncatechars:140 }}</p>
+		{% if opportunity.sponsorship %}
+		<button type="button" class="btn btn-primary login-required" data-toggle="modal" data-target="#sponsor-project-modal">Become a Sponsor!</button>
+		{% endif %}
+		<p class="opp-project-name">
+			<a href="/project/{{ opportunity.project.id }}">{{ opportunity.project.name }}</a>
+		</p>
+		{% if not opportunity.sponsorship %}
+		<p class="opp-location">
+			<i class="fa fa-map-marker"></i>&nbsp;&nbsp;San Francisco, CA
+		</p>
+		{% endif %}
+	</div>
+</div>

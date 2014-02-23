@@ -490,12 +490,29 @@ class Project(models.Model):
     video_url = models.CharField(max_length=200, blank=True, null=True)
     created_by = models.ForeignKey(User)
     followed_by = models.ManyToManyField(User, blank=True, related_name='followed_by')
+    featured = models.BooleanField(default=False, blank=True)
     
     def __unicode__(self):
         return "Name: %s" % self.name
     
     def make_s3_media_url(self, uploaded_file):
         return 'projects/%s/%s' % (self.id, uploaded_file.name)
+
+    def create_sponsorship(self):
+
+        sponsorship = Opportunity()
+
+        sponsorship.name = 'Sponsorship'
+        sponsorship.short_desc = "Sponsor this project by donating annually to it's cause."
+        sponsorship.opp_type = 'Money'
+        sponsorship.sponsorship = True
+        sponsorship.project = self
+        sponsorship.organization = self.organization
+        sponsorship.created_by = self.created_by
+
+        sponsorship.save()
+
+        return sponsorship
 
 
 class ProjectForm(ModelForm):
@@ -521,16 +538,17 @@ class Opportunity(models.Model):
     media_url = models.CharField(max_length=200, blank=True)
     status = models.CharField(max_length=100, choices=STATUS_CHOICES, default='Active')
     date_created = models.DateTimeField(auto_now_add=True)
-    #date_closed = models.DateField(blank=True, null=True)
-    #complete_by = models.DateField(blank=True, null=True)
+    date_closed = models.DateField(blank=True, null=True)
+    complete_by = models.DateField(blank=True, null=True)
     created_by = models.ForeignKey(User, related_name="created_by_related")
     short_desc = models.TextField(blank=True)
     description = models.TextField(blank=True)
     resources = models.TextField(blank=True)
-    #time_estimate =  models.TextField(blank=True)
-    featured = models.BooleanField(default=False, blank=True)
+    time_estimate =  models.TextField(blank=True)
     opp_type = models.CharField(max_length=100, choices=OPP_TYPE_CHOICES, blank=True) 
     engaged_by = models.ManyToManyField(User, blank=True, through='OpportunityEngagement')
+    featured = models.BooleanField(default=False, blank=True)
+    sponsorship = models.BooleanField(default=False, blank=True)
 
     # prerequisites = models.ManyToManyField(Opportunity)  - assuming that pre-reqs = other opps
     # time estimate - TODO: See v2 Feature Doc https://docs.google.com/a/reallocate.org/document/d/1AY-2h9pa028USr3ofwUQjjoZ2kKGnRQZ0xoIQYk-urs/edit
@@ -606,14 +624,13 @@ class Update(models.Model):
 
 class OpportunityEngagement(models.Model):
 
-    # to keep the project + reallocate in the loop, reallocate will approve the engagements
-    # and stay in each conversation
     user = models.ForeignKey(User)
     opportunity = models.ForeignKey(Opportunity)
     project = models.ForeignKey(Project)
+    contrib_amount = models.DecimalField(max_digits=12, decimal_places=2, null=True)
     date_created = models.DateField(auto_now_add=True)
-    #date_ended = models.DateField(blank=True, null=True)
-     # this will be where the opp engagements can be approved
+    date_ended = models.DateField(blank=True, null=True)
+    # this will be where the opp engagements can be approved
     status = models.CharField(max_length=100, choices=STATUS_CHOICES, default=STATUS_CHOICES[1][1])
     response = models.CharField(max_length=2000, blank=True)  # response to the engagement
 

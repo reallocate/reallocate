@@ -29,6 +29,8 @@ def get_current_userprofile(request):
 def build_base_context(request):
 
     context = {'url_name': resolve(request.path).url_name }
+    context['stripe_pub_key'] = settings.STRIPE_TEST_KEY_PUB
+
     if request.user.is_authenticated():
         context['user'] = request.user
 
@@ -131,3 +133,38 @@ def associate_new_user_profile(request, user, *args, **kwargs):
         profile.media_url = url
         profile.occupation = extra_data.get('work', [{}])[0].get('position', {}).get('name', '')
     profile.save()
+
+
+def embed_video(update_text):
+
+    vimeo = re.search(r'(http[s]*:\/\/vimeo\.com/([0-9]+).*?)[\s|$]*', update_text, re.I)
+    youtube = re.search(r'(http[s]*:\/\/www\.youtube\.com/watch\?v=([a-z|A-Z|0-9]+).*?)[\s|$]*', update_text, re.I)
+    short_youtube = re.search(r'(https?://youtu[.]be/([a-z0-9]*?))[\s|$]', update_text, re.I)
+
+    if youtube:
+
+        video_id = youtube.group(2)
+
+        embed_tag = '<object data="http://www.youtube.com/v/%s" type="application/x-shockwave-flash"><param name="src" value="http://www.youtube.com/v/%s" /></object>' % (video_id, video_id)
+
+        return [embed_tag, update_text.replace(youtube.group(1), '')]
+    
+    elif short_youtube:
+        
+        video_id = short_youtube.group(2)
+        
+        embed_tag = '<object data="http://www.youtube.com/v/%s" type="application/x-shockwave-flash"><param name="src" value="http://www.youtube.com/v/%s" /></object>' % (video_id, video_id)
+        
+        return[embed_tag, update_text.replace(short_youtube.group(1), '')]
+    
+    elif vimeo:
+
+        video_id = vimeo.group(2)
+
+        embed_tag = '<iframe src="http://player.vimeo.com/video/%s" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>' % video_id
+
+        return [embed_tag, update_text.replace(vimeo.group(1), '')]
+
+    else:
+
+        return [None, update_text]

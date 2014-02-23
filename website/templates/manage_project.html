@@ -9,7 +9,15 @@
 
     <div class="row">
 
-        <div class="col-xs-7">
+        {% if project.media_url %}
+        <div class="col-xs-4" id="image">
+            <img src="{{ project.media_url }}" />
+        </div>
+
+        <div class="col-xs-8">
+        {% else %}
+        <div class="col-xs-12">
+        {% endif %}
     
             <p id="project-name"><a href="/project/{{ project.id }}">{{ project.name }}</a></p>
             <p id="project-short-desc">{{ project.short_desc|safe }}</p>
@@ -75,10 +83,6 @@
 
             <p><a href="#desc-modal" role="button" class="btn btn-default" data-toggle="modal">Edit details</a></p>      
 
-        </div>
-
-        <div class="col-xs-offset-1 col-xs-4" id="image">
-            <img src="{{ project.media_url }}" />
         </div>
 <!--
         <div class="col-xs-offset-1 col-xs-4" id="org">
@@ -184,7 +188,10 @@
             {% else %}
             <p>There are no opportunities added to this project</p>
             {% endif %}
-            <a href="/project/{{ project.id }}/opportunity/add" class="btn btn-default"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add opportunity</a>
+            <a href="/project/{{ project.id }}/opportunity/add" class="btn btn-default btn-sm"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add opportunity</a>
+            {% if no_sponsorship %}
+            <a href="/project/{{ project.id }}/opportunity/add/sponsorship" class="btn btn-default btn-sm"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add sponsorship</a>
+            {% endif %}
         </div>
     </div>
 </div>

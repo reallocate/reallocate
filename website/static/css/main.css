@@ -147,47 +147,6 @@ h5 {
     top: 8px;
     right: 2px;
 }
-
-.opportunity {
-    position: relative;
-    border: 1px solid #ededed;
-    border-radius: 5px;
-    background-color: #e9e9e9;
-    margin-bottom: 16px;
-    min-height: 310px;
-    padding-bottom: 25px;
-}
-.opp-thumb {
-    padding: 3px;
-    max-height: 142px;
-    overflow: hidden;
-}
-.opp-thumb img {
-    width: 204px;
-    height: auto;
-
-}
-.opp-text {
-    padding: 3px 8px;
-}
-.opp-name {
-    margin-top: 5px;
-    font-size: 15px;
-    font-family: 'Raleway', sans-serif;
-    line-height: 1.2em;
-}
-.opp-type {
-    font-size: 12px;
-    font-style: italic;
-}
-.opp-short-desc {
-    font-size: 13px;
-}
-.opp-project-name {
-    font-size: 13px;
-    position: absolute;
-    bottom: 0px;
-}
 .thumnail-container .name {
     font-family: 'Raleway', sans-serif;
     font-weight: bold;
@@ -277,6 +236,16 @@ h5 {
     left: -6px;
     letter-spacing: 2px;
 }
+.overlay {
+    height: 100%;
+    width: 100%;
+    background: -webkit-gradient(linear, 0 0, 0 100%, from(rgba(0,0,0,0)), to(rgba(0,0,0,0.65)));
+    background: -webkit-linear-gradient(rgba(0,0,0,0) 0%, rgba(0,0,0,0.65) 100%);
+    background: -moz-linear-gradient(rgba(0,0,0,0) 0%, rgba(0,0,0,0.65) 100%);
+    background: -o-linear-gradient(rgba(0,0,0,0) 0%, rgba(0,0,0,0.65) 100%);
+    background: linear-gradient(rgba(0,0,0,0) 0%, rgba(0,0,0,0.65) 100%); /* FF3.6+ */ /* Chrome,Safari4+ */ /* Chrome10+,Safari5.1+ */ /* Opera 11.10+ */ /* IE10+ */ /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#a6000000',GradientType=0 ); /* IE6-9 */
+}
 
 /* home */
 
@@ -318,16 +287,6 @@ h5 {
 
 /* project */
 
-#project .jumbotron .overlay {
-    height: 100%;
-    width: 100%;
-    background: -webkit-gradient(linear, 0 0, 0 100%, from(rgba(0,0,0,0)), to(rgba(0,0,0,0.65)));
-    background: -webkit-linear-gradient(rgba(0,0,0,0) 0%, rgba(0,0,0,0.65) 100%);
-    background: -moz-linear-gradient(rgba(0,0,0,0) 0%, rgba(0,0,0,0.65) 100%);
-    background: -o-linear-gradient(rgba(0,0,0,0) 0%, rgba(0,0,0,0.65) 100%);
-    background: linear-gradient(rgba(0,0,0,0) 0%, rgba(0,0,0,0.65) 100%); /* FF3.6+ */ /* Chrome,Safari4+ */ /* Chrome10+,Safari5.1+ */ /* Opera 11.10+ */ /* IE10+ */ /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#a6000000',GradientType=0 ); /* IE6-9 */
-}
 #project .jumbotron {
     padding: 0px;
     background-size: cover;
@@ -364,13 +323,6 @@ h5 {
     font-size: 2em;
     font-weight: 100;
 }
-#project .project-image img {
-    width: 640px;
-    height: 480px;
-}
-#project .social-links {
-    margin-top: 25px;
-}
 #project .update, 
 #project .post-update {
     padding: 0px 0px 10px 0px;
@@ -402,52 +354,9 @@ h5 {
 #project .update-media img {
     width: 100%;
 }
-#project .chart {
-    background-image: url(/static/images/chart_sprite.png);
-    background-repeat: no-repeat;
-    background-position: 0px 25px;
-    background-size: 35px;
-    padding-left: 45px;
-}
-#project .chart h5 {
-    margin-bottom: 2px;
-}
-#project .progress {
-    position: relative;
-    height: 40px;
-    background: #EDEDED;
-    -webkit-border-radius: 0;
-       -moz-border-radius: 0;
-            border-radius: 0;
-    margin-bottom: 18px;
-}
-#project .progress .bar {
-    background: #F2736A;
-}
-#project .bar-progress,
-#project .pie-progress {
-    position: absolute;
-    color: #000;
-}
-#project .bar-progress {
-    top: 0;
-    left: 0;
-    font-size: 24px;
-    line-height: 40px;
-    padding-left: 5px;
-}
-#project .peity {
-    position: relative;
-}
-#project .pie-progress {
-    top: 50%;
-    left: 18px;
-    width: 150px;
-    margin-top: -28px;
-    font-size: 28px;
-    line-height: 28px;
-    text-align: center;
-    vertical-align: middle;
+
+#project .follower {
+    margin-bottom: 3px;
 }
 #project .follower-thumbnail{
     width:25px;
@@ -455,14 +364,21 @@ h5 {
     margin-right:10px;
     margin-bottom:10px;
 }
-#project .addthis_toolbox {
-    margin-top: 12px;
-    margin-bottom: 15px;
+#project .opp-project-name {
+    display: none;
 }
+
+
 #opportunity .actions,
 #project .actions {
     margin-top: 17px;
     margin-bottom: 20px;
+}
+#opportunity .addthis_toolbox,
+#project .addthis_toolbox {
+    float: left;
+    margin-top: 5px;
+    margin-right: 10px;
 }
 
 /* opportunity */
@@ -481,34 +397,23 @@ h5 {
 
 #opportunity .jumbotron {
     padding: 0px;
-    /*background-image: url('{% if opportunity.media_url %}{{ opportunity.media_url }}{% else %}{{ project.media_url }}{% endif %}');*/
-    height: 92px;
+    background-size: cover;
+    background-position: 33%;
+    height: 100px;
 }
 #opportunity .jumbotron #opp-title {
     position: relative;
-    height: 100%;
-}
-#opportunity .jumbotron #opp-title .engage-button {
-    margin-left: 10px;
+    top: 62px;
 }
 #opportunity .jumbotron #opp-title h1 {
-    color: #333;
     font-size: 26px;
     letter-spacing: 1px;
     font-weight: normal;
     margin-top: 0px;
+    color: #eee;
 }
 #opportunity .jumbotron #opp-title h4 {
-    margin-top: 8px;
-    margin-bottom: 5px;
-}
-#opportunity .jumbotron #opp-title .row {
-    width: 100%;
-    position: absolute;
-    bottom: 12px;
-}
-#opportunity .opp-image {
-    height: 161px;
+    margin-top: 18px;
 }
 #opportunity .opp-overview {
     margin-bottom: 20px;
@@ -556,13 +461,6 @@ h5 {
 }
 #opportunity .give-icons i {
     font-size: 3.2em;
-}
-#opportunity .addthis_toolbox {
-    font-size: 15px;
-    margin-top: 20px;
-}
-#opportunity .addthis_toolbox .share i {
-    line-height: 0.2em;
 }
 
 /* manage project */
@@ -842,18 +740,20 @@ h5 {
 #add-opportunity .section {
     border-right: 1px solid #ddd;
 }
-#add-opportunity .opportunity {
-    height: auto;
-    min-height: 10px;
-    padding: 5px;
-    font-size: 12px;
-    clear: both;
+#add-opportunity .opportunity button,
+#add-opportunity .opportunity .opp-project-name,
+#add-opportunity .opportunity .opp-location {
+    display: none;
 }
-#add-opportunity .opportunity img {
-    width: 125px;
-    height: 125px;
-    float: left;
-    margin: 0 10px 10px 0;
+
+/* find-opportunity */
+
+#find-opportunity .opportunity {
+    height: 206px;
+}
+#find-opportunity .opportunity .opp-short-desc {
+    height: 61px;
+    overflow-y: hidden;
 }
 
 /* about */
@@ -875,11 +775,11 @@ h5 {
     background-position: 0px -340px;
     height: 270px;
 }
-#about #about-sections .give-icon {
-    font-size: 13px;
-    float: left;
-    width: 91px;
-    text-align: center;
+#about h2 {
+    margin-bottom: 25px;
+}
+#about p {
+    font-size: 18px;
 }
 
 /* sign-up */
@@ -1059,24 +959,22 @@ h5 {
 .project-location a {
     color: #4E7284; 
 }
-.modal-buttons {
-    margin-top: 18px;
+
+
+.project-small {
+    position: relative;
+    margin: 15px 0px 15px 0px;
 }
-footer {
-    margin-top: 25px;
-    text-align: center;
+.project-small a {
+    text-decoration: none;
 }
-.file-upload-ok {
-    line-height: 0.4em !important;
-    padding-left: 10px;
-    color: green;
+.project-small h4 {
+    font-family: 'Raleway', sans-serif;
+    margin: 0px 0px 10px 0px;
+    font-size: 16px;
 }
-img.update-avatar {
-    width: 50px;
-    height: 50px;
-    border-radius: 5px;
-    vertical-align: top;
-}
+
+
 .opportunity-small {
     position: relative;
     background-color: #ededed;
@@ -1096,12 +994,73 @@ img.update-avatar {
     line-height: 1.5em;
 
 }
+
+
+.opportunity {
+    position: relative;
+    border: 1px solid #ededed;
+    border-radius: 5px;
+    background-color: #e9e9e9;
+    margin-bottom: 16px;
+    height: auto;
+    font-size: 12px;
+}
+.opportunity .opp-image {
+    height: 80px;
+    border-radius: 5px;
+    background-size: cover;
+    background-position: 30% 30%;
+}
+.opportunity .opp-text {
+    padding: 3px 8px 10px 8px;
+}
+.opportunity .opp-text.has-image {
+    margin-top: -32px;
+}
+.opportunity .opp-name {
+    margin-top: 5px;
+    font-size: 16px;
+    font-family: 'Raleway', sans-serif;
+    line-height: 1.2em;
+}
+.opportunity .opp-text.has-image .opp-name {
+    margin-bottom: 15px;
+}
+.opportunity .opp-text.has-image .opp-name a {
+    color: #eee;
+}
+.opportunity .opp-type {
+    font-size: 12px;
+    font-style: italic;
+}
+.opportunity .opp-short-desc, 
+.opportunity .opp-desc {
+    font-size: 14px;
+}
+.opportunity .opp-project-name {
+    font-size: 13px;
+    margin-bottom: 2px;
+}
+.opportunity .opp-location {
+    font-size: 12px;
+}
 .opportunity-small .project-name {
     font-size: 12px;
 }
 .opportunity-small .opp-type {
     float: right;
 }
+.opportunity-small:hover .post-update-button,
+.project-small:hover .post-update-button {
+    display: block;
+}
+.opportunity-small:hover .manage-project-button,
+.project-small:hover .manage-project-button {
+    display: block;
+}
+
+
+
 .post-update-button {
     text-transform: uppercase;
     font-size: 12px;
@@ -1128,33 +1087,44 @@ img.update-avatar {
 .post-update-button a {
     color: #428bca;
 }
-.opportunity-small:hover .post-update-button,
-.project-small:hover .post-update-button {
-    display: block;
-}
-.opportunity-small:hover .manage-project-button,
-.project-small:hover .manage-project-button {
-    display: block;
-}
-.project-small {
-    position: relative;
-    margin: 15px 0px 15px 0px;
-}
-.project-small a {
-    text-decoration: none;
-}
-.project-small h4 {
-    font-family: 'Raleway', sans-serif;
-    margin: 0px 0px 10px 0px;
-    font-size: 16px;
-}
+
 .edit-update-link {
     margin-left: 8px;
 }
+
+.modal-buttons {
+    margin-top: 18px;
+}
+footer {
+    margin-top: 25px;
+    text-align: center;
+}
+
+img.update-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 5px;
+    vertical-align: top;
+}
+
+.file-upload-ok {
+    line-height: 0.4em !important;
+    padding-left: 5px;
+    position: relative;
+    top: 5px;
+    color: green;
+}
+
+
 
 #confirmation-modal .modal-dialog {
     width: 300px;
 }
 #confirmation-modal .modal-content {
     padding: 10px;
+}
+
+.payment-errors {
+    clear: both;
+    color: red;
 }

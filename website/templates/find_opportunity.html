@@ -17,24 +17,6 @@
 	<div class="container">
 		
 		<div class="row">
-			<div class="col-xs-9">
-				<h3>
-					{% if search_term %}
-						Results for {{ search_term }} {% if search_filter %} in {{ search_filter }} {% endif %}...
-					{% else %}
-						All Opportunities
-					{% endif %}
-				</h3>
-				<div class="opportunities">
-					<div class="row">
-						{% for opportunity in opportunities %}
-						<div class="col-xs-4">
-							{% include "includes/opportunity-pane.html" %}			
-						</div>	
-						{% endfor %}
-					</div>	
-				</div>
-			</div>
 			<div class="col-xs-3">
 				<form method="post" role="form">{% csrf_token %}
 					<div class="form-group">
@@ -51,6 +33,24 @@
 					</div>
 					<button type="submit" class="btn btn-primary">Search</button>
 				</form>
+			</div>
+			<div class="col-xs-9">
+				<h3>
+					{% if search_term %}
+						Results for {{ search_term }} {% if search_filter %} in {{ search_filter }} {% endif %}...
+					{% else %}
+						All Opportunities
+					{% endif %}
+				</h3>
+				<div class="opportunities">
+					<div class="row">
+						{% for opportunity in opportunities %}
+						<div class="col-xs-6">
+							{% include "includes/opportunity_pane.html" %}			
+						</div>	
+						{% endfor %}
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>

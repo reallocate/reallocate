@@ -56,20 +56,19 @@ var reAllocate = window.reAllocate || {
         // init popover confirmations
         $('[data-toggle="confirmation"]').confirmation();
 
+
         $('.delegate-file-upload').click(function() {
 
             $(this).siblings('input[type="file"]').trigger('click');
             return false;
-
         });
 
+        // show confirmation next to file upload box after file is attached
         $('input[type="file"]').on('change', function() {
-            // show check mark next to file upload box after file is attached
-
+            
             upload_ok = $(this).parent().find(".file-upload-ok");
-            if (upload_ok){
-                upload_ok.show();
-            }
+            
+            if (upload_ok) upload_ok.show();
         });
 
         $(".login-required").click(function(e) {
@@ -139,6 +138,21 @@ var reAllocate = window.reAllocate || {
                 $(this).parents('.form-group').removeClass('has-error');
             }
             reAllocate.validateForm($(this).parents('form'));
+        });
+
+        // stripe payment form
+        $('#stripe-form').submit(function(event) {
+
+            var $form = $(this);
+
+            if ($form.find('input[name=stripeToken]').length) return true;
+
+            // disable the submit button to prevent repeated clicks
+            $form.find('button').prop('disabled', true);
+
+            Stripe.card.createToken($form, reAllocate.stripeResponseHandler);
+
+            return false;
         });
     },
 
@@ -283,15 +297,6 @@ var reAllocate = window.reAllocate || {
 
         var action = $(e).text().toLowerCase();
 
-        // make sure user is logged in
-        if (!reAllocate.user) {
-
-            reAllocate.follow = {'e': e, 'pid': pid};
-            $('#login-modal').modal('show');
-
-            return;
-        }
-
         $.ajax({
             url : '/ajax/modify-project-relation',
             data : {'project_id': pid, 'action': action},
@@ -307,6 +312,21 @@ var reAllocate = window.reAllocate || {
             }
        });
     },
+
+    stripeResponseHandler: function(status, response) {
+
+        var $form = $('#stripe-form');
+
+        if (response.error) {
+            $form.find('.payment-errors').text(response.error.message);
+            $form.find('button').prop('disabled', false);
+        } else {
+            var token = response.id;
+            $form.append($('<input type="hidden" name="stripeToken" />').val(token));
+            $form.get(0).submit();
+        }
+    },
+
 
     // sends engagement request for an opportunity
     engageOpportunity: function(message, link, pid, oid) {

@@ -28,7 +28,7 @@ urlpatterns = patterns('',
   url(r'^organization/new/$', 'website.views.new_organization', name='new-organization'),
   url(r'^project/new/$', 'website.views.new_project', name='new-project'),
   url(r'^project/(?P<pid>\d+)/opportunity/(?P<oid>\d+)/$', 'website.views.view_opportunity', name='opportunity'),
-  url(r'^project/(?P<pid>\d+)/opportunity/add/$', 'website.views.add_opportunity', name='add-opportunity'),
+  url(r'^project/(?P<pid>\d+)/opportunity/add/(?P<sponsorship>\w*)$', 'website.views.add_opportunity', name='add-opportunity'),
   url(r'^project/(?P<pid>\d+)/manage/$', 'website.views.manage_project', name='manage-project'),
   url(r'^project/(?P<pid>\d+)/$', 'website.views.view_project', name='project'),
 
@@ -49,6 +49,9 @@ urlpatterns = patterns('',
 
   # pay-pal receiver
   url(r'^paypal', 'website.paypal.receive_paypal'),
+
+  # stripe handlers
+  url(r'^stripe-subscription', 'website.views.stripe_subscription'),
 
   # test urls
   url(r'^test_email', 'website.views.test_email'),

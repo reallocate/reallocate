@@ -1,5 +1,6 @@
 import logging, hashlib, random
 import boto
+import stripe
 import re
 from boto.s3.key import Key
 from website import settings
@@ -348,12 +349,12 @@ def view_project(request, pid=1):
         "updates": Update.objects.filter(project=project).order_by('-date_created')})
     
     if project.video_url:
-        (project.video, foo) = embed_video(project.video_url)
+        (project.video, foo) = base.embed_video(project.video_url)
 
     for u in context['updates']:
 
         u.original_text = u.text
-        (u.video, u.text) = embed_video(u.text)
+        (u.video, u.text) = base.embed_video(u.text)
 
     if request.user.is_authenticated():
         context['is_following'] = request.user in project.followed_by.all()
@@ -372,7 +373,9 @@ def manage_project(request, pid=1):
         return HttpResponseRedirect('/')
 
     opps = Opportunity.objects.filter(project=project)
+
     context = base.build_base_context(request)
+    context['no_sponsorship'] = False if opps.filter(sponsorship = True) else True
     engagements = OpportunityEngagement.objects.filter(project_id=pid)
     context.update({
         "project": project,
@@ -383,7 +386,7 @@ def manage_project(request, pid=1):
     
     for u in context['updates']:
 
-        (u.video, u.text) = embed_video(u.text)
+        (u.video, u.text) = base.embed_video(u.text)
 
     if request.user.is_authenticated():
         context['is_following'] = request.user in project.followed_by.all()
@@ -436,6 +439,8 @@ def new_project(request):
     context = base.build_base_context(request)
     context['causes'] = CAUSES
 
+    allow_sponsorship = True
+
     if request.GET.get('org'):
         org = Organization.objects.get(id=request.GET.get('org'))
         context['organization'] = org
@@ -450,6 +455,10 @@ def new_project(request):
             project.organization = request.user.get_profile().organization
             project.created_by = request.user
             project.save()
+
+            if allow_sponsorship:
+
+                project.create_sponsorship()
             
             # this has to occur after initial save b/c we use pk id as part of the s3 filepath
             media_file = request.FILES.get('file')
@@ -499,7 +508,7 @@ def view_opportunity(request, pid, oid):
     for u in context['updates']:
 
         u.original_text = u.text
-        (u.video, u.text) = embed_video(u.text)
+        (u.video, u.text) = base.embed_video(u.text)
 
     if request.user.is_authenticated():
 
@@ -568,7 +577,7 @@ def new_organization(request):
         
 
 @login_required
-def add_opportunity(request, pid=None):
+def add_opportunity(request, pid=None, sponsorship=False):
 
     context = base.build_base_context(request)
     project = get_object_or_404(Project, pk=pid)
@@ -610,6 +619,12 @@ def add_opportunity(request, pid=None):
 
             return HttpResponse("error")
 
+    elif sponsorship:
+
+        project.create_sponsorship()
+
+        return HttpResponseRedirect(request.META['referer'])
+
     else:
 
         return render_to_response('add_opportunity.html', context, context_instance=RequestContext(request))
@@ -638,6 +653,8 @@ def find_opportunity(request):
 
             opportunities = opportunities.filter(opp_type=opp_type)
 
+    opportunities = opportunities.filter(Q(sponsorship__isnull = True)|Q(sponsorship = False))
+
     context['opportunities'] = opportunities
 
     return render_to_response('find_opportunity.html', context, context_instance=RequestContext(request))
@@ -665,37 +682,47 @@ def find_project(request):
     return render_to_response('find_project.html', context, context_instance=RequestContext(request))
 
 
-def embed_video(update_text):
+def stripe_subscription(request):
 
-    vimeo = re.search(r'(http[s]*:\/\/vimeo\.com/([0-9]+).*?)[\s|$]*', update_text, re.I)
-    youtube = re.search(r'(http[s]*:\/\/www\.youtube\.com/watch\?v=([a-z|A-Z|0-9]+).*?)[\s|$]*', update_text, re.I)
-    short_youtube = re.search(r'(https?://youtu[.]be/([a-z0-9]*?))[\s|$]', update_text, re.I)
+    context = base.build_base_context(request)
 
-    if youtube:
+    next = "/"
 
-        video_id = youtube.group(2)
+    if request.method == 'POST': 
 
-        embed_tag = '<object data="http://www.youtube.com/v/%s" type="application/x-shockwave-flash"><param name="src" value="http://www.youtube.com/v/%s" /></object>' % (video_id, video_id)
+        stripe.api_key = settings.STRIPE_TEST_KEY_SECRET
 
-        return [embed_tag, update_text.replace(youtube.group(1), '')]
-    
-    elif short_youtube:
-        
-        video_id = short_youtube.group(2)
-        
-        embed_tag = '<object data="http://www.youtube.com/v/%s" type="application/x-shockwave-flash"><param name="src" value="http://www.youtube.com/v/%s" /></object>' % (video_id, video_id)
-        
-        return[embed_tag, update_text.replace(short_youtube.group(1), '')]
-    
-    elif vimeo:
+        next = request.POST.get('next', '/')
+        amount = request.POST.get('amount')
+        pid = request.POST.get('pid', '1')
+        token = request.POST['stripeToken']
+        plan_id = 'p%s-y%s' % (pid, amount)
 
-        video_id = vimeo.group(2)
+        try:
 
-        embed_tag = '<iframe src="http://player.vimeo.com/video/%s" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>' % video_id
+            plan = stripe.Plan.retrieve(plan_id)
 
-        return [embed_tag, update_text.replace(vimeo.group(1), '')]
+        except stripe.error.InvalidRequestError, e:
 
-    else:
+            plan = stripe.Plan.create(
+                amount=amount,
+                interval='year',
+                name='Testing Project Sponsorship / project %s / amount %s' % (pid, amount),
+                currency='usd',
+                id=plan_id
+            )
 
-        return [None, update_text]
+        customer = stripe.Customer.create(
+            card=token,
+            plan=plan_id,
+            email=request.user.email
+        )
 
+        logging.error(customer)
+
+        sub = customer.subscriptions.create(plan=plan_id)
+
+        logging.error(sub)
+
+
+    return HttpResponseRedirect(next)

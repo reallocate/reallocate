@@ -19,11 +19,25 @@
 {% endblock %}
 
 {% block jumbotron %}
-<div class="jumbotron">
+<div class="jumbotron" style="background-image: url('{{ opportunity.media_url }}');">
+    <div class="overlay">
         <div id="opp-title" class="container">
-            <div class="row">
-                <div class="col-xs-1">
-                    <div class="skill-icons">
+            <h1>{{ opportunity.name }}</h1> 
+            <h4><a href="/project/{{ opportunity.project.id }}">{{ project.name }}</a></h4>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+
+        <div class="row">
+        
+            <div class="col-xs-7">
+                <!--
+                <div class="skill-icons">
                     {% if not is_open %}
                         <div class="give-icons"><i class="fa fa-circle fa-4x"></i><br/>Closed</div>
                     {% endif %}
@@ -40,33 +54,12 @@
                         <div class="give-icons"><i class="fa fa-money fa-4x"></i><br/>Money</div>
                     {% endif %}
                     </div>
-                </div>
-                <div class="col-xs-11">
-                    <h4><a href="/project/{{ opportunity.project.id }}">{{ project.name }}</a></h4>
-                    <h1>{{ opportunity.name }}</h1> 
-                </div>
-            </div>
-        </div>
-</div>
-{% endblock %}
-
-{% block modals %}
-{% include 'includes/engage_modal.html' %}
-{% if user %}{% include "includes/edit-update.html" %}{% endif %}
-{% endblock %}
-
-{% block content %}
-
-    <div class="container">
-
-        <div class="row">
-        
-            <div class="col-xs-6">
+                -->
                 <h3>Overview</h3>
                 <p class="opp-description pre">{{ opportunity.description }}</p>
             
                 {% if engaged %}
-                {% include "includes/post-update.html" %}
+                {% include "includes/post_update.html" %}
                 {% endif %}
                 {% if updates %}
                 <h3>Recent Updates</h3>
@@ -98,28 +91,23 @@
                 {% endif %}
             </div>
 
-            <div class="col-xs-6">
+            <div class="col-xs-5">
                 <div class="actions">
-                {% if is_open %}
-                    {% if not engaged or pending %}
+                    <div class="addthis_toolbox">
+                        <a class="share addthis_button_twitter ">
+                            <i class="fa fa-twitter fa-2x"></i>
+                        </a>
+                        <a class="share addthis_button_facebook ">
+                            <i class="fa fa-facebook fa-2x"></i>
+                        </a>
+                        <a class="share addthis_button_linkedin ">
+                            <i class="fa fa-linkedin-sign fa-2x"></i>
+                        </a>
+                    </div>     
+                    {% if is_open %}{% if not engaged or pending %}
                         <a href="#engage-modal" class="engage-button btn btn-primary login-required" data-toggle="modal"{% if pending %} disabled=disabled {% endif %}>Engage this opportunity</a>
-                    {% endif %}
-                {% endif %}
-                </div>
-                {% if opportunity.media_url %}
-                <div class="opportunity-media"><img src="{{ opportunity.media_url }}"></div>
-                {% endif %}
-                <div class="addthis_toolbox">
-                    <a class="share addthis_button_twitter ">
-                        <i class="fa fa-twitter fa-2x"></i>
-                    </a>
-                    <a class="share addthis_button_facebook ">
-                        <i class="fa fa-facebook fa-2x"></i>
-                    </a>
-                    <a class="share addthis_button_linkedin ">
-                        <i class="fa fa-linkedin-sign fa-2x"></i>
-                    </a>
-                </div>   
+                    {% endif %}{% endif %}
+                </div> 
                 {% if resources.length %}
                 <h4>Resources</h4>
                 {% for r in resources %}
@@ -146,5 +134,10 @@
         reAllocate.setupAddThis(twitter=twitter_share_msg, title=title, description=description);
     });
 </script>
+
+{% block modals %}
+{% include 'includes/engage_modal.html' %}
+{% if user %}{% include "includes/edit_update_modal.html" %}{% endif %}
+{% endblock %}
 
 {% endblock %}

@@ -80,8 +80,12 @@
 <script src="{{ STATIC_URL }}js/bootstrap-confirmation.js"></script>
 <script src="{{ STATIC_URL }}js/main.js?5"></script>
 <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-51b5379c6ba6d63e"></script>
+<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
 
 <script>
+// set stripe api key
+Stripe.setPublishableKey('{{ stripe_pub_key }}');
+
 {% if user %}reAllocate.user = "{{ user.username }}";{% endif %}
 
 {#    {% if not request.user.is_staff %}#}
