@@ -690,7 +690,7 @@ def stripe_subscription(request):
 
     if request.method == 'POST': 
 
-        stripe.api_key = settings.STRIPE_TEST_KEY_SECRET
+        stripe.api_key = settings.STRIPE_KEY_SECRET
 
         next = request.POST.get('next', '/')
         amount = request.POST.get('amount')

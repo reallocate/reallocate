@@ -83,6 +83,12 @@ if 'DEPLOY_ENV' in os.environ and os.environ['DEPLOY_ENV'] != 'local':
     AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
     AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
 
+    STRIPE_KEY_PUB = os.environ.get('STRIPE_KEY_PUB')
+    STRIPE_KEY_SECRET = os.environ.get('STRIPE_KEY_SECRET')
+
+    FACEBOOK_APP_ID = os.environ.get('FACEBOOK_APP_ID')
+    FACEBOOK_API_SECRET = os.environ.get('FACEBOOK_API_SECRET')
+
     FACEBOOK_APP_ID = os.environ.get('FACEBOOK_APP_ID')
     FACEBOOK_API_SECRET = os.environ.get('FACEBOOK_API_SECRET')
 

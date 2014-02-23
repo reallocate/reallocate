@@ -29,7 +29,7 @@ def get_current_userprofile(request):
 def build_base_context(request):
 
     context = {'url_name': resolve(request.path).url_name }
-    context['stripe_pub_key'] = settings.STRIPE_TEST_KEY_PUB
+    context['stripe_pub_key'] = settings.STRIPE_KEY_PUB
 
     if request.user.is_authenticated():
         context['user'] = request.user
