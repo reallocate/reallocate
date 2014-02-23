@@ -623,7 +623,7 @@ def add_opportunity(request, pid=None, sponsorship=False):
 
         project.create_sponsorship()
 
-        return HttpResponseRedirect(request.META['referer'])
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
     else:
 
