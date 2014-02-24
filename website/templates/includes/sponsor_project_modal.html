@@ -1,9 +1,13 @@
 <div id="sponsor-project-modal" class="modal fade">
-    <div class="modal-dialog modal-sm">
+    <div class="modal-dialog">
         <div class="modal-content">
+            <div class="modal-header">
+                <h3>{{ project.name }}<h3>
+                <h4>Sponsorship</p>
+            </div>
             <div class="modal-body clearfix">
                 <form action="/stripe-subscription" class="form-horizontal" method="POST" id="stripe-form">{% csrf_token %}
-                    <h4>Select level of sponsorship</h4>
+                    <h4>Select level of annual support</h4>
                     <div class="btn-group btn-group-justified">
                         <div class="btn-group">
                             <button type="button" onclick="$(this).parents('form').find('input[name=amount]').attr('value', '25')" class="btn btn-default">$25</button>
@@ -17,26 +21,35 @@
                     </div>
                     <input type="hidden" name="amount" />
                     <h4>Enter payment details</h4>
-                    <div class="form-group">
-                        <div class="col-xs-8">
-                            <input type="text" class="form-control" placeholder="Account number" data-stripe="number"/>
-                        </div>
-                        <div class="col-xs-4">
-                            <input class="form-control" type="text" placeholder="CVC" data-stripe="cvc"/>
-                        </div>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
+                        <input type="text" class="form-control" placeholder="Account" data-stripe="number" />
                     </div>
-                    <div class="form-group">
-                        <label class="col-xs-3 control-label">Expiration</label>
-                        <div class="col-xs-4">
-                            <input class="form-control" type="text" size="2" placeholder="MM" data-stripe="exp-month"/>
-                        </div>
-                        <div class="col-xs-4">
-                            <input class="form-control" type="text" size="4" placeholder="YYYY" data-stripe="exp-year"/>       
-                        </div>
-                    </div>
-                    <button type="submit" class="btn btn-primary pull-right">Sponsor it!</button>
+                    <div class="input-group security-fields">
+                        <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+                        <input class="form-control cvc" type="text" maxlength="4" placeholder="CVC" data-stripe="cvc" />
+                        <span class="input-group-addon calendar"><i class="fa fa-calendar"></i></span>
+                        <input class="form-control exp-month" type="text" onkeyup="parseCardExp(this);" maxlength="9" placeholder="MM / YYYY" id="exp" />
+                    </div>    
+                    <button type="submit" class="btn btn-primary btn-block">Sponsor!</button>
+                    <input type="hidden" id="exp-month" data-stripe="exp-month" />
+                    <input type="hidden" id="exp-year" data-stripe="exp-year" />
                     <span class="payment-errors"></span>
                 </form>
+                <script>
+                function parseCardExp(field) {
+                    var v = field.value;
+                    if (v.match(/^\d\d$/)) {
+                        field.value = v+' / ';
+                        $('#exp-month').attr('value', v);
+                    }
+                    if (v.match(/^\d\d\s\/\s\d\d\d\d$/)) {
+                        var e = v.split(' / ');
+                        $('#exp-year').attr('value', e[1]);
+                    }
+
+                };
+                </script>
             </div>
         </div>
     </div>

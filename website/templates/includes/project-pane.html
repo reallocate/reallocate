@@ -1,8 +1,7 @@
 <div class="project">
     {% if project.media_url %}
-    <div class="project-image">
-        <a href="/project/{{ project.id }}"><img onload="if(this.width>this.height){this.className=this.className+' landscape'}" src="{{ project.media_url }}"></a>
-    </div>
+    <a class="project-image" href="/project/{{ project.id }}" style="background-image: url('{{ project.media_url }}')">
+    </a>
     {% endif %}
     <div class="project-text"><a href="/project/{{ project.id }}">
         <div class="project-name">{{ project.name }}</div>

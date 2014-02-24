@@ -947,14 +947,8 @@ h5 {
     height: 160px;
     overflow: hidden;        
     position: relative;
-}
-.project-image img {
-    width: auto;
-    height: 101%;
-}
-.project-image img.landscape {
-    width: 101%;
-    height: auto;
+    background-size: cover;
+    display: block;
 }
 .project-cause {
     margin: 10px 0px 0px 5px;
@@ -1164,7 +1158,44 @@ img.update-avatar {
     padding: 10px;
 }
 
-.payment-errors {
+#sponsor-project-modal .modal-dialog {
+    width: 300px;
+}
+#sponsor-project-modal h3 {
+    font-size: 20px;
+    margin-top: 5px;
+}
+#sponsor-project-modal h4 {
+    font-size: 16px;
+}
+#sponsor-project-modal .modal-header {
+    padding: 12px 20px 6px 20px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    background-color: rgb(250,250,250);
+}
+#sponsor-project-modal .modal-body {
+    padding: 12px 32px 32px 32px;
+
+}
+#sponsor-project-modal .cvc {
+    width: 60px;
+}
+#sponsor-project-modal .calendar {
+    border-left: none;
+    border-right: none;
+}
+#sponsor-project-modal .input-group {
+    margin-bottom: 8px;
+}
+#sponsor-project-modal button[type=submit] {
+    margin-top: 20px;
+}
+#sponsor-project-modal .payment-errors {
     clear: both;
-    color: red;
+    color: rgb(197, 32, 32);
+    font-weight: bold;
+    margin-top: 14px;
+    margin-bottom: -18px;
+    display: block;
 }
