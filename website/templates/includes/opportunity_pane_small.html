@@ -1,0 +1,25 @@
+
+<div class="opportunity-small clearfix">
+	<a href="/project/{{ opportunity.project.id }}/opportunity/{{ opportunity.id }}">
+		<div class="opp-image" style="background-image: url('{{ opportunity.media_url }}')">
+		</div>
+		<p class="opp-name">
+		{% if opportunity.opp_type == 'skills' %}
+		<i class="fa fa-star fa-1x"></i>
+		{% endif %}
+		{% if opportunity.opp_type == 'knowledge' %}
+		<i class="fa fa-book fa-1x"></i>
+		{% endif %}
+		{% if opportunity.opp_type == 'equipment' %}
+		<i class="fa fa-cogs fa-1x"></i>
+		{% endif %}
+		{% if opportunity.opp_type == 'money' %}
+		<i class="fa fa-money fa-1x"></i>
+		{% endif %}
+		{{ opportunity.name }}</p>
+		<p class="project-name">{{ opportunity.project.name }}</p>
+		{% if opportunity.project.city and opportunity.project.state %}
+	    <p class="project-location"><i class="fa fa-map-marker"></i>&nbsp;&nbsp;{{ opportunity.project.city }}, {{ opportunity.project.state }}</p>
+	    {% endif %}
+ 	</a>
+</div>

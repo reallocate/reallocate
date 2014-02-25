@@ -6,7 +6,7 @@
     <div class="project-text"><a href="/project/{{ project.id }}">
         <div class="project-name">{{ project.name }}</div>
         {% if not project.media_url %}
-        <div class="project-description">{{ project.description|truncatechars:200 }}</div>
+        <div class="project-description">{{ project.description|truncatechars:300 }}</div>
         {% else %}
         <div class="project-short-desc">{{ project.short_desc|truncatechars:110 }}</div>
         {% endif %}

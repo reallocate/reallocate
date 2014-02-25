@@ -35,11 +35,11 @@
     <div class="row">
         <div class="col-xs-7">
             {% if project.video %}
-            <div id="video">
+            <div class="video">
                 {{ project.video|safe }}
             </div>
             {% endif %}
-            <div id="about">
+            <div class="about">
                 <h3>About the Project</h3>
                 <p class="pre">{{ project.description }}</p>
             </div>
@@ -47,11 +47,17 @@
             {% include 'includes/post_update.html' %}
             {% endif %}
             {% if updates %}
-            <div id="updates">
+            <div class="updates">
                 <h3>Recent Updates</h3>
                 {% for update in updates %}
-                <div class="update" id="update-{{ update.id }}">
+                <div class="update clearfix" id="update-{{ update.id }}">
                     <p class="update-date">{{ update.date_created.date }}</p>
+                    {% if update.created_by == user %}
+                    <p class="edit-update">
+                        <a class="pull-right" data-toggle="confirmation" data-placement="left" data-href="javascript:reAllocate.deleteUpdate({{ update.id }})">delete</a>  
+                        <a class="pull-right" href="javascript:reAllocate.editUpdate({{ update.id }})">edit</a>
+                    </p>
+                    {% endif %}
                     {% if update.media_url %}
                     <div class="update-media"><img src="{{ update.media_url }}"></div>
                     {% elif update.video %}
@@ -60,15 +66,11 @@
                     <p class="update-text pre">{{ update.text }}</p>
                     <p class="original-update-text hide">{{ update.original_text }}</p>
                     {% if update.created_by.get_profile.media_url %}                  
-                    <img class="update-avatar" src="{{ update.created_by.get_profile.media_url }}" />
+                    <img class="update-avatar" class="img-circle" src="{{ update.created_by.get_profile.media_url }}" />
                     {% endif %}
-                    <a class="update-username" href="/profile/{{ update.created_by.id }}">
+                    <p class="update-username"><a href="/profile/{{ update.created_by.id }}">
                     {{ update.created_by.first_name }} {{ update.created_by.last_name }}
-                    </a>
-                    {% if update.created_by == user %}
-                    <a class="edit-update-link pull-right" data-toggle="confirmation" data-placement="left" data-href="javascript:reAllocate.deleteUpdate({{ update.id }})">delete</a>  
-                    <a class="edit-update-link pull-right" href="javascript:reAllocate.editUpdate({{ update.id }})">edit</a>
-                    {% endif %}
+                    </a></p>
                 </div>
                 {% endfor %}
             </div>

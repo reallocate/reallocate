@@ -63,10 +63,10 @@
                 {% endif %}
                 {% if updates %}
                 <h3>Recent Updates</h3>
-                <a name="updates"></a>
-                <div id="updates">
+                <a class="updates"></a>
+                <div class="updates">
                     {% for update in updates %}
-                    <div class="update" id="update-{{ update.id }}">
+                    <div class="update clearfix" id="update-{{ update.id }}">
                         <p class="update-date">{{ update.date_created.date }}</p>
                         {% if update.media_url %}
                         <div class="update-media"><img src="{{ update.media_url }}"></div>

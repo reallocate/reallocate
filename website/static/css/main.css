@@ -202,21 +202,7 @@ h5 {
     padding:7px;
     margin:5px;
 }
-.project-small {
-    background-color: #eee;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
-    padding:7px;
-    margin:5px;
-}
-.project-img-small {
-    padding:7px;
-    height:100px;
-    border-radius: 5px;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-}
+
 
 .vert-or {
     margin: 10px auto;
@@ -325,53 +311,17 @@ h5 {
     position: absolute;
     bottom: 12px;
 }
-#project #about {
+#project .about {
     margin-bottom: 30px;
 }
-#project #about p {
-    font-size: 15px;
-}
-#project #video iframe {
-    width: 100%;
-    height: 256px;
+#project .about p {
+    font-size: 16px;
 }
 #project .section-title {
     height: 50px;
     font-size: 2em;
     font-weight: 100;
 }
-#project .update, 
-#project .post-update {
-    padding: 0px 0px 10px 0px;
-    border-bottom: 1px solid #ededed;
-    margin-bottom: 15px;
-}
-#project .update:last-child {
-    border: none;
-}
-#project .update object, 
-#project .update iframe {
-    width: 455px;
-    height: 252px;
-}
-#project .update-username {
-    color: black;
-}
-#project .update-opp-name {
-    color: #808080;
-}
-#project .update-text,
-#opportunity .update-text {
-    color: #333;
-    margin-top: 10px;
-    font-size: 16px;
-    border-left: 2px solid #bbb;
-    padding-left: 8px;
-}
-#project .update-media img {
-    width: 100%;
-}
-
 #project .follower {
     margin-bottom: 3px;
 }
@@ -381,10 +331,12 @@ h5 {
     margin-right:10px;
     margin-bottom:10px;
 }
-#project .opp-project-name {
+#project .opportunity .opp-project-name {
     display: none;
 }
-
+#project .opportunity .opp-location {
+    display: none;
+}
 
 #opportunity .actions,
 #project .actions {
@@ -396,6 +348,62 @@ h5 {
     float: left;
     margin-top: 5px;
     margin-right: 10px;
+}
+
+/* updates */
+
+.updates .update, 
+.post-update {
+    padding: 0px 0px 10px 0px;
+    border-bottom: 1px solid #ededed;
+    margin-bottom: 15px;
+    position: relative;
+}
+.updates .update:last-child {
+    border: none;
+}
+.updates .video iframe,
+.updates .video object,
+.updates .update object, 
+.updates .update iframe,
+#project .video iframe,
+#project .video object {
+    width: 100%;
+    height: 328px;
+}
+.updates .update-username {
+    clear: both;
+    margin: 0px 0px 0px 0px;
+}
+.updates .update-username a {
+    color: #333;
+}
+.updates .update-opp-name {
+    color: #808080;
+}
+.updates .update-text {
+    color: #333;
+    margin-top: 10px;
+    font-size: 16px;
+    border-left: 2px solid #bbb;
+    padding-left: 8px;
+}
+.updates .update-media {
+    float: left;
+    width: 40%;
+    margin-right: 12px;
+    margin-bottom: 10px;
+}
+.updates .update-media img {
+    width: 100%;
+}
+.updates .edit-update {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+}
+.updates .edit-update a {
+    margin-left: 6px;
 }
 
 /* opportunity */
@@ -431,6 +439,7 @@ h5 {
 }
 #opportunity .jumbotron #opp-title h4 {
     margin-top: 18px;
+    font-size: 15px;
 }
 #opportunity .opp-overview {
     margin-bottom: 20px;
@@ -439,31 +448,6 @@ h5 {
     font-size: 18px;
     padding-bottom: 10px;
     margin-bottom: 25px;
-}
-#opportunity .update,
-#opportunity .post-update {
-    padding-bottom: 10px;
-    border-bottom: 1px solid #ededed;
-    margin-bottom: 15px;
-}
-#opportunity .update:last-child {
-    border: none;
-}
-#opportunity .update-username {
-    color: black;
-}
-#opportunity .update-opp-name {
-    color: #808080;
-}
-#opportunity .update-media img {
-    width: 100%;
-}
-#opportunity .update object, #opportunity .update iframe {
-    width: 534px;
-    height: 297px;
-}
-#opportunity .opportunity-media img {
-    width: 300px;
 }
 #opportunity .skill-icons {
     text-align: center;
@@ -558,9 +542,13 @@ h5 {
 
 /* profile */
 
-#profile .project-name {
-    font-size: 16px;
-    font-weight: 800;
+#profile .racing-stripe {
+    position: absolute; 
+    background-color: rgb(80,113,140); 
+    width: 100%; 
+    height: 76px; 
+    z-index: -1;
+    top: 52px;
 }
 #profile .profile-info {
     margin-bottom: 15px;   
@@ -584,50 +572,61 @@ h5 {
     margin-top: 13px;
 
 }
-#profile .username p {
+#profile h2 {
     letter-spacing: 2px;
-    font-size: 36px;
-    font-weight: bold;
-    color: #555;
+    font-size: 28px;
+    color: #eee;
 }
-#profile #user-details {
+#profile h3 {
+    font-size: 20px;
+}
+#profile .user-details {
     border-bottom: 1px solid #dedede;
     margin-bottom: 10px;
-    padding-bottom: 20px;
+    padding-bottom: 16px;
+    position: relative;
 }
-#profile #user-image {
+#profile .user-details p {
+    text-align: right;
+    font-size: 16px;
+}
+#profile .user-details .edit-details {
+    position: absolute;
+    bottom: -34px;
+    right: 0px;
+    font-size: 14px;
+}
+#profile .user-image {
     margin-top: 20px;
+    margin-bottom: 22px;
+    position: relative;
 }
-#profile #user-image .file-upload-ok {
-    font-size: 18px;
+#profile .user-image .file-upload-ok {
+    font-size: 14px;
+    position: relative;
+    top: 1px;
 }
-#profile #user-image img {
+#profile .user-image .delegate-file-upload {
+    background-color: #333;
+    color: #fff;
+    opacity: 0.6;
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    display: none;
+}
+#profile .user-image:hover .delegate-file-upload {
+    display: inline-block;
+}
+#profile .user-image img {
     width: 100%;
     margin-bottom: 10px;
     box-shadow: 4px 4px 4px #444;
     -moz-box-shadow: 4px 4px 4px #444;
     -webkit-box-shadow: 4px 4px 4px #444;
-
 }
-#profile #update-profile .form-control[readonly="readonly"],
-#update-profile #bio div {
-    border: none;
-    background-color: transparent;
-    box-shadow: none;
-    -webkit-box-shadow: none;
-}
-#profile #update-profile #bio div {
-    white-space: pre-wrap;
-    height: auto;
-}
-#profile #update-profile textarea.form-control[readonly="readonly"] {
-    display: none;
-}
-#profile #update-profile div.form-control[readonly="readonly"] {
-    display: block;
-}
-#profile #update-profile div.form-control {
-    display: none;
+#profile .bio {
+    margin-top: 25px;
 }
 #profile .form-group {
     margin-bottom: 4px;
@@ -930,7 +929,7 @@ h5 {
     margin-bottom: 30px;
     padding-bottom: 1px;
     height: 330px;
-    background-color: #f9f9f9;
+    background-color: #f3f3f3;
     box-shadow: 5px 5px 5px #808080;
     -moz-box-shadow: 5px 5px 5px #808080;
     -webkit-box-shadow: 5px 5px 5px #808080;
@@ -943,21 +942,21 @@ h5 {
     border-color: rgba(82, 168, 236, 0.8);
     cursor: pointer;
 }
-.project-image {
+.project .project-image {
     height: 160px;
     overflow: hidden;        
     position: relative;
     background-size: cover;
     display: block;
 }
-.project-cause {
+.project .project-cause {
     margin: 10px 0px 0px 5px;
     font-weight: bold;
 }
-.project-text .project-cause a {
+.project .project-text .project-cause a {
      color: #4E7284;
 }
-.project-text {
+.project .project-text {
     background-color: #f9f9f9;
     padding: 10px;
     width: 100%;
@@ -966,28 +965,29 @@ h5 {
     opacity: 0.95;
     color: #000;
 }
-.project-text a {
+.project .project-text a {
     color: #0C3645; 
 }
-.project-name {
+.project .project-name {
     font-family: 'Raleway', sans-serif;
     font-size: 22px;
     line-height: 1.2em;
     margin-bottom: 5px;
     margin-top: 2px;
 }  
-.project-short-desc {
+.project .project-short-desc,
+.project .project-description {
     font-size: 17px;
 }
-.project-location {
+.project .project-location {
     font-weight: 400;
     color: #4E7284;
     margin: 0px;
 }
-.project-location a {
+.project .project-location a {
     color: #4E7284; 
 }
-.project-footer {
+.project .project-footer {
     position: absolute;
     bottom: 0px;
     left: 0px;
@@ -997,44 +997,46 @@ h5 {
 
 .project-small {
     position: relative;
+    background-color: #f3f3f3;
+    box-shadow: 5px 5px 5px #808080;
+    -moz-box-shadow: 5px 5px 5px #808080;
+    -webkit-box-shadow: 5px 5px 5px #808080;
     margin: 15px 0px 15px 0px;
+    height: 92px;
 }
 .project-small a {
+    color: #333;
     text-decoration: none;
 }
 .project-small h4 {
-    font-family: 'Raleway', sans-serif;
     margin: 0px 0px 10px 0px;
     font-size: 16px;
 }
-
-
-.opportunity-small {
-    position: relative;
-    background-color: #ededed;
-    border-radius: 5px;
-    padding: 5px;
-    margin: 15px 0px 15px 0px;
-    height: 57px;
-    color: #333;
+.project-small .project-image {
+    width: 92px;
+    height: 92px;
+    background-size: cover;
+    float: left;
+    margin-right: 8px;
 }
-.opportunity-small a {
-    color: #333;
-    text-decoration: none;
+.project-small .project-text {
+    padding: 6px 8px;
 }
-.opportunity-small .opp-name {
-    font-size: 16px;
-    margin-top: 0px;
-    line-height: 1.5em;
-
+.project-small .project-location {
+    font-size: 12px;
+    text-align: right;
+    position: absolute;
+    bottom: 4px;
+    right: 6px;
+    margin: 0px;
 }
 
 
 .opportunity {
     position: relative;
-    border: 1px solid #ededed;
+    border: 1px solid #ddd;
     border-radius: 5px;
-    background-color: #e9e9e9;
+    background-color: #f3f3f3;
     margin-bottom: 16px;
     height: auto;
     font-size: 12px;
@@ -1054,7 +1056,6 @@ h5 {
 .opportunity .opp-name {
     margin-top: 5px;
     font-size: 16px;
-    font-family: 'Raleway', sans-serif;
     line-height: 1.2em;
 }
 .opportunity .opp-text.has-image .opp-name {
@@ -1077,6 +1078,40 @@ h5 {
 }
 .opportunity .opp-location {
     font-size: 12px;
+    text-align: right;
+    position: absolute;
+    bottom: 4px;
+    right: 6px;
+    margin: 0px;
+}
+
+
+.opportunity-small {
+    position: relative;
+    background-color: #f3f3f3;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 5px;
+    margin: 15px 0px 15px 0px;
+    color: #333;
+}
+.opportunity-small a {
+    color: #333;
+    text-decoration: none;
+}
+.opportunity-small .opp-name {
+    font-size: 16px;
+    margin-top: 0px;
+    margin-bottom: 5px;
+    line-height: 1.1em;
+
+}
+.opportunity-small .opp-image {
+    width: 80px;
+    height: 80px;
+    background-size: cover;
+    float: left;
+    margin-right: 10px;
 }
 .opportunity-small .project-name {
     font-size: 12px;
@@ -1084,13 +1119,13 @@ h5 {
 .opportunity-small .opp-type {
     float: right;
 }
-.opportunity-small:hover .post-update-button,
-.project-small:hover .post-update-button {
-    display: block;
-}
-.opportunity-small:hover .manage-project-button,
-.project-small:hover .manage-project-button {
-    display: block;
+.opportunity-small .project-location {
+    font-size: 12px;
+    text-align: right;
+    position: absolute;
+    bottom: 4px;
+    right: 6px;
+    margin: 0px;
 }
 
 
@@ -1120,10 +1155,6 @@ h5 {
 }
 .post-update-button a {
     color: #428bca;
-}
-
-.edit-update-link {
-    margin-left: 8px;
 }
 
 .modal-buttons {

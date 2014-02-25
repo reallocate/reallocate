@@ -35,7 +35,7 @@ def profile(request, username=None):
     # this is a person viewing their own profile page, make it editable
     if not username: 
         user = context['user']
-        context['edit'] = True
+        context['self'] = True
     elif re.match(r'^\d+', username):
         user = User.objects.filter(id=username)
     else:
@@ -376,6 +376,8 @@ def manage_project(request, pid=1):
 
     context = base.build_base_context(request)
     context['no_sponsorship'] = False if opps.filter(sponsorship = True) else True
+    context['COUNTRIES'] = COUNTRIES
+
     engagements = OpportunityEngagement.objects.filter(project_id=pid)
     context.update({
         "project": project,
@@ -473,7 +475,7 @@ def new_project(request):
                 A new project has been submitted by %s:<br /><br />
                 <b>%s</b><br /><br />
                 %s<br /><br />
-                <a href='%s/admin/website/project/%s'>Approve this project</a><br />
+                <a href='http://%s/admin/website/project/%s'>Approve this project</a><br />
                 """ % (created_by, project.name, project.short_desc, request.get_host(), project.id)
 
             base.send_admin_email(subj, body, html_content=body)
@@ -556,11 +558,13 @@ def new_organization(request):
                 user_profile.organization_id = org.id
                 user_profile.save()
                 
+                org_url = org.URL if org.URL.match('http://') else "http://" + org.URL
+
                 # send admin email with link adminpanel to change project status
                 subj = "[%s] New organization: %s" % (request.get_host(), org.name)
                 body = "A new organization was added by %s:<br /><br /><b>%s</b><br /><br />" % (org.created_by, org.name)
                 if org.URL:
-                    body = body + "<a href='%s'>%s</a><br /><br />" % (org.URL, org.URL)
+                    body = body + "<a href='%s'>%s</a><br /><br />" % (org_url, org.URL)
                 body = body + "Country: %s<br /><br />Mission Statement:<br /><br />\"%s\"<br /><br />" % (org.country, org.org_mission)
 
                 base.send_admin_email(subj, body, html_content=body)

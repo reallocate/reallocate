@@ -1,0 +1,14 @@
+<div class="project-small clearfix">
+    <a href="/project/{{ project.id }}">
+    	{% if project.media_url %}
+        <div class="project-image" style="background-image:url('{{ project.media_url }}');"></div>
+       	{% endif %}
+       	<div class="project-text">
+	        <h4>{{ project.name }}</h4>
+
+	        {% if project.city and project.state %}
+		    <p class="project-location"><i class="fa fa-map-marker"></i>&nbsp;&nbsp;{{ project.city }}, {{ project.state }}</p>
+		    {% endif %}
+		</div>
+    </a>
+</div>

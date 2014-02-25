@@ -5,143 +5,109 @@
 
 {% block content %}
 
-<!--<div style='position:absolute; background-color: rgb(80,113,140); width:100%; height:80px; z-index:-1;'></div>-->
+<div class="racing-stripe"></div>
 
 <div class="container">
 
-    <div class="row" id="user-details">
-
-        <form id="update-profile" class="form-horizontal" method="post" enctype="multipart/form-data">{% csrf_token %}
-
-            <div class="col-xs-3" id="user-image">\
-
-                <img src="{{ user_profile.media_url|default:'/static/images/no-profile-image.png' }}" alt="Avatar for {{ profile.user|escape }}" />
-                {% if edit %}
-                <button class="delegate-file-upload btn btn-default btn-block" style="display: none;">Change profile picture<i class="fa fa-ok fa-2x file-upload-ok" style="display: none;"></i></button>
+    <div class="row">
+                        
+        <div class="col-xs-3 user-details"> 
+            <div class="user-image">
+                <img src="{{ user_profile.media_url|default:'/static/images/no-profile-image.png' }}" class="img-circle" alt="Avatar for {{ profile.user|escape }}" />
+                {% if self %}
+                <button class="delegate-file-upload btn btn-default btn-block btn-sm">Change profile picture<i class="fa fa-check fa-2x file-upload-ok" style="display: none;"></i></button>
                 <input type="file" name="file" id="file" value="Upload a new photo" style="display: none;">
                 {% endif %}
-                
             </div>
-        
-            <div class="col-xs-8 col-xs-offset-1">
-
-                <div class="username">
-                    <p>{{ user_profile.user.first_name }} {{ user_profile.user.last_name }}<p>
-                    <div class="form-group">
-                        <label class="control-label col-xs-2">First name</label>
-                        <div class="col-xs-8">
-                            <input class="form-control" readonly="readonly" type="text" name="first_name" value="{{ user_profile.user.first_name }}" placeholder="First name" />
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label col-xs-2">Last name</label>
-                        <div class="col-xs-8">
-                            <input class="form-control" readonly="readonly" type="text" name="last_name" placeholder="Last name" value="{{ user_profile.user.last_name }}" />
-                        </div>
-                    </div>
-                </div>
-
-                <div class="profile-info">
-
-                    {% if edit %}
-                    <div class="form-group">
-                        <label class="control-label col-xs-2 profile-info-header {% if edit %}profile-header-edit{% endif %}">Email</label>
-                        <div class="col-xs-8">
-                            <input class="form-control" readonly="readonly" type="text" id="email" name="email" value="{{ user_profile.user.email }}" placeholder="Contact Email" />
-                        </div>
-                    </div>
-                    {% endif %}
-                    <div class="form-group">
-                        <label class="control-label col-xs-2 profile-info-header {% if edit %}profile-header-edit{% endif %}">Location</label>
-                        <div class="col-xs-8">
-                            <input class="form-control" readonly="readonly" type="text" name="location" placeholder="Location" value="{{ user_profile.location }}" />
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label col-xs-2 profile-info-header {% if edit %}profile-header-edit{% endif %}">Occupation</label>
-                        <div class="col-xs-8">
-                            <input class="form-control" readonly="readonly" type="text" name="occupation" placeholder="Occupation" value="{{ user_profile.occupation }}" />
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label col-xs-2 profile-info-header {% if edit %}profile-header-edit{% endif %}">Skills</label>
-                        <div class="col-xs-8">
-                            <input class="form-control" readonly="readonly" type="text" name="skills" placeholder="Comma separated skills" value="{{ user_profile.skills }}" />
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label col-xs-2 profile-info-header {% if edit %}profile-header-edit{% endif %}">Bio</label>
-                        <div class="col-xs-8" id="bio">
-                            <textarea class="form-control" readonly="readonly" name="bio">{{ user_profile.bio }}</textarea>
-                            <div class="form-control" readonly="readonly">{{ user_profile.bio }}</div>
-                        </div>
-                    </div>
-                </div>
-                {% if edit %}
-                <div class="row">
-                    <div class="col-xs-8 col-xs-offset-2">
-                        <button type="button" onclick="editProfile()" class="btn btn-default btn-block">Edit your profile</button>
-                        <button type="submit" style="display: none;"  class="btn btn-primary btn-block">Save your profile</button>
-                    </div>
-                </div>
-                {% endif %}
-            </div>
-        </form>
-    </div>
-
-    {% comment %}
-    <!-- Top Line Numbers on Profile -->
-    <div class="profile-numbers row">
-        <div class="col-xs-8 col-xs-offset-3">
-            <div class="col-xs-3">
-                <p>{{ projects|length }}</p>
-                <p>Projects</p>
-            </div>
-            <div class="col-xs-3">
-                <p>{{ opps|length }}</p>
-                <p>Opportunities</p>
-            </div>
-            <div class="col-xs-3">
-                <p>{{ profile.following|length|default:'2' }}</p>
-                <p>Following</p>
-            </div>
+            <p>{{ user_profile.location }}<p>
+            <p>{{ user_profile.occupation }}<p>
+            <p>{{ user_profile.skills }}<p>
+            {% if self %}
+            <p class="edit-details"><a href="#edit-profile-modal" data-toggle="modal"><i class="fa fa-pencil"></i>&nbsp;&nbsp;edit details</a></p>
+            {% endif %}
         </div>
-    </div>
-    {% endcomment %}
+
+        <div class="col-xs-8">
+            <h2>{{ user_profile.user.first_name }} {{ user_profile.user.last_name }}</h2>
+            <p class="bio">{{ user_profile.bio }}<p>
+        </div>
 
     <!-- Updates, Opps, and Projects -->
     <div class="row">
-        <div class="col-xs-4 opportunities">
-            <h3>Engaged Opportunities</h3>
+        <div class="col-xs-4 user-opportunities">
+            <h3>Opportunities ({{ opportunities|length }})</h3>
             {% for opportunity in opportunities %}
-            {% include 'includes/opportunity-pane-small.html' %}
+            {% include 'includes/opportunity_pane_small.html' %}
             {% endfor %}
         </div>
-        <div class="col-xs-4 user-projects-followed">
-            <h3>Projects</h3>
+        <div class="col-xs-4 user-projects">
+            <h3>Projects ({{ my_projects|length }})</h3>
             {% for project in my_projects %}
-            {% include 'includes/project-pane-small.html' %}
-            {% endfor %}
-        </div>
-        <div class="col-xs-4 user-projects-followed">
-            <h3>Following</h3>
-            {% for project in followed_projects %}
-            {% include 'includes/project-pane-small.html' %}
+            {% include 'includes/project_pane_small.html' %}
             {% endfor %}
         </div>
     </div>
 </div>
 {% endblock %}
 
+{% block modals %}
+{% if self %}
+<div id="edit-profile-modal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body clearfix">
+                <form id="update-profile" class="form-horizontal" method="post" enctype="multipart/form-data">{% csrf_token %}
+                    <div class="form-group">
+                        <label class="control-label col-xs-2">First name</label>
+                        <div class="col-xs-10">
+                            <input class="form-control"type="text" name="first_name" value="{{ user_profile.user.first_name }}" placeholder="First name" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-2">Last name</label>
+                        <div class="col-xs-10">
+                            <input class="form-control" type="text" name="last_name" placeholder="Last name" value="{{ user_profile.user.last_name }}" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-xs-2">Email</label>
+                        <div class="col-xs-10">
+                            <input class="form-control" type="text" id="email" name="email" value="{{ user_profile.user.email }}" placeholder="Contact Email" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-2">Location</label>
+                        <div class="col-xs-10">
+                            <input class="form-control" type="text" name="location" placeholder="Location" value="{{ user_profile.location }}" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-2">Occupation</label>
+                        <div class="col-xs-10">
+                            <input class="form-control" type="text" name="occupation" placeholder="Occupation" value="{{ user_profile.occupation }}" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-2">Skills</label>
+                        <div class="col-xs-10">
+                            <input class="form-control" type="text" name="skills" placeholder="Comma separated skills" value="{{ user_profile.skills }}" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-2">Bio</label>
+                        <div class="col-xs-10" id="bio">
+                            <textarea class="form-control" name="bio">{{ user_profile.bio }}</textarea>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock %}
+
 {% block bottomscript %}
-<script>
-function editProfile() {
-    $(".form-control[readonly]").removeAttr('readonly');
-    $(".username .hide").removeClass('hide');
-    $(".username p").addClass('hide');
-    $("button[type='submit']").css('display', 'block');
-    $("button[type='button']").css('display', 'none');
-    $("button.delegate-file-upload").css('display', 'block');
-}
-</script>
 {% endblock %}

@@ -20,9 +20,9 @@
 			<a href="/project/{{ opportunity.project.id }}">{{ opportunity.project.name }}</a>
 		</p>
 		{% if not opportunity.sponsorship %}
-		{% if project.city and project.state %}
+		{% if opportunity.project.city and opportunity.project.state %}
 		<p class="opp-location">
-			<i class="fa fa-map-marker"></i>&nbsp;&nbsp;{{ project.city }}, {{ project.state }}
+			<i class="fa fa-map-marker"></i>&nbsp;&nbsp;{{ opportunity.project.city }}, {{ opportunity.project.state }}
 		</p>
 		{% endif %}
 		{% endif %}

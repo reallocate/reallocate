@@ -342,12 +342,6 @@ var reAllocate = window.reAllocate || {
         }
     },
 
-    parseCardExp: function(field) {
-
-        console.log(field.value);
-    },
-
-
     // sends engagement request for an opportunity
     engageOpportunity: function(message, link, pid, oid) {
 

@@ -12,11 +12,10 @@
 
 <div class="container">
     <h3>Add Opportunity for {{ project.name }}</h3>
-    <div class="well">
 
         <div class="row">
 
-            <div class="col-xs-7 section">
+            <div class="col-xs-7 well">
 
                 <form method="post" enctype="multipart/form-data">{% csrf_token %}
                 <div class="form-group">
@@ -78,7 +77,6 @@
                 {% endif %}
             </div>
         </div>
-    </div>
 </div>
 
 {% endblock %}
