@@ -52,24 +52,24 @@ def profile(request, username=None):
         avatar = request.FILES.get('file')
         if avatar:
             user_profile.media_url = base.send_to_remote_storage(avatar, user_profile.make_s3_media_url(avatar), "image/png")
-        
-        user_profile.user.first_name = request.POST.get("first_name")
-        user_profile.user.last_name = request.POST.get("last_name")
-        user_profile.user.email = request.POST.get("email")
-        user_profile.bio = request.POST.get("bio")
-        user_profile.occupation = request.POST.get("occupation")
-        user_profile.location = request.POST.get("location")
-        user_profile.skills = request.POST.get("skills")
-        user_profile.user.save()
-        user_profile.save()
+            user_profile.save()
+        else:
+            user_profile.user.first_name = request.POST.get("first_name")
+            user_profile.user.last_name = request.POST.get("last_name")
+            user_profile.user.email = request.POST.get("email")
+            user_profile.bio = request.POST.get("bio")
+            user_profile.occupation = request.POST.get("occupation")
+            user_profile.location = request.POST.get("location")
+            user_profile.skills = request.POST.get("skills")
+            user_profile.user.save()
+            user_profile.save()
 
-        context['alert'] = {'type': 'success', 'message': 'Your changes have been saved.'}
+            context['alert'] = {'type': 'success', 'message': 'Your changes have been saved.'}
     
     context['opportunities'] = Opportunity.objects.filter(engaged_by=user)
     context['followed_projects'] = Project.objects.filter(followed_by=user)
     context['my_projects'] = Project.objects.filter(created_by=user)
-    for p in context['my_projects']:
-        p.is_admin = True
+
     context['user_profile'] = user_profile
     
     return render_to_response('profile.html', context, context_instance=RequestContext(request))

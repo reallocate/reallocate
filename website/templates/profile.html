@@ -12,39 +12,47 @@
     <div class="row">
                         
         <div class="col-xs-3 user-details"> 
-            <div class="user-image">
-                <img src="{{ user_profile.media_url|default:'/static/images/no-profile-image.png' }}" class="img-circle" alt="Avatar for {{ profile.user|escape }}" />
+            <div class="user-image img-circle" style="background-image: url('{{ user_profile.media_url|default:'/static/images/no-profile-image.png' }}')">
                 {% if self %}
-                <button class="delegate-file-upload btn btn-default btn-block btn-sm">Change profile picture<i class="fa fa-check fa-2x file-upload-ok" style="display: none;"></i></button>
-                <input type="file" name="file" id="file" value="Upload a new photo" style="display: none;">
+                <form id="update-profile-pic" onchange="this.submit()" class="form-horizontal" method="post" enctype="multipart/form-data">{% csrf_token %}
+                    <button class="delegate-file-upload btn btn-default btn-block btn-sm">Change profile picture<i class="fa fa-check fa-2x file-upload-ok" style="display: none;"></i></button>
+                    <input type="file" name="file" id="file" value="Upload a new photo" style="display: none;">
+                </form>
                 {% endif %}
             </div>
             <p>{{ user_profile.location }}<p>
             <p>{{ user_profile.occupation }}<p>
+            {% if user_profile.skills %}
             <p>{{ user_profile.skills }}<p>
+            {% endif %}
             {% if self %}
             <p class="edit-details"><a href="#edit-profile-modal" data-toggle="modal"><i class="fa fa-pencil"></i>&nbsp;&nbsp;edit details</a></p>
             {% endif %}
         </div>
 
         <div class="col-xs-8">
+            {% if user_profile.user.first_name or user_profile.user.last_name %}
             <h2>{{ user_profile.user.first_name }} {{ user_profile.user.last_name }}</h2>
+            {% else %}
+            <h2></h2>
+            {% endif %}
             <p class="bio">{{ user_profile.bio }}<p>
-        </div>
 
-    <!-- Updates, Opps, and Projects -->
-    <div class="row">
-        <div class="col-xs-4 user-opportunities">
-            <h3>Opportunities ({{ opportunities|length }})</h3>
-            {% for opportunity in opportunities %}
-            {% include 'includes/opportunity_pane_small.html' %}
-            {% endfor %}
-        </div>
-        <div class="col-xs-4 user-projects">
-            <h3>Projects ({{ my_projects|length }})</h3>
-            {% for project in my_projects %}
-            {% include 'includes/project_pane_small.html' %}
-            {% endfor %}
+            <div class="col-xs-6 user-opportunities">
+                <h3>Opportunities ({{ opportunities|length }})</h3>
+                {% for opportunity in opportunities %}
+                {% include 'includes/opportunity_pane_small.html' %}
+                {% endfor %}
+            </div>
+            <div class="col-xs-6 user-projects">
+                <h3>Projects ({{ my_projects|length }})</h3>
+                {% for project in my_projects %}
+                {% include 'includes/project_pane_small.html' %}
+                {% endfor %}
+                {% for project in followed_projects %}
+                {% include 'includes/project_pane_small.html' %}
+                {% endfor %}
+            </div>
         </div>
     </div>
 </div>

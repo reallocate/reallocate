@@ -21,7 +21,7 @@
     <link rel="apple-touch-icon-precomposed" href="{{ STATIC_URL }}theme/ico/apple-touch-icon-57-precomposed.png">
     <link rel="shortcut icon" href="{{ STATIC_URL }}theme/ico/favicon.png">
 
-    <link rel="stylesheet" href="{{ STATIC_URL }}css/main.css?10">
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/main.css?11">
     <link href="//fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet" type="text/css">
 
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.min.css">
@@ -45,7 +45,7 @@
         </div>
     </div>
     {% else %}
-    <div class="alert alert-{{ alert.type|default:'info' }} alert-dismissable container">
+    <div class="alert fade in alert-{{ alert.type|default:'info' }} alert-dismissable">
         <button class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
     {{ alert.message|safe }}
     </div>

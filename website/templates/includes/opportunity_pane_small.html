@@ -1,8 +1,9 @@
 
 <div class="opportunity-small clearfix">
 	<a href="/project/{{ opportunity.project.id }}/opportunity/{{ opportunity.id }}">
-		<div class="opp-image" style="background-image: url('{{ opportunity.media_url }}')">
-		</div>
+		{% if opportunity.media_url %}
+		<div class="opp-image" style="background-image: url('{{ opportunity.media_url }}')"></div>
+		{% endif %}
 		<p class="opp-name">
 		{% if opportunity.opp_type == 'skills' %}
 		<i class="fa fa-star fa-1x"></i>

@@ -75,12 +75,10 @@
                         {% endif %}
                         <p class="update-text pre">{{ update.text }}</p>
                         <p class="original-update-text hide">{{ update.original_text }}</p>
-                        {% if update.created_by.get_profile.media_url %}                    
-                        <img class="update-avatar" src="{{ update.created_by.get_profile.media_url }}" />
-                        {% endif %}
-                        <a class="update-username" href="/profile/{{ update.created_by.id }}">
-                            {{ update.created_by.first_name }} {{ update.created_by.last_name }}
-                        </a>
+                        <p class="update-username"><a href="/profile/{{ update.created_by.id }}">            
+                            <div class="update-avatar img-circle" style="background-image: url('{{ update.created_by.get_profile.media_url|default:'/static/images/no-profile-image.png' }}')"></div>  
+                            {{ update.created_by.first_name }} {{ update.created_by.last_name }}</a>
+                        </p>
                         {% if update.created_by == user %}
                         <a class="edit-update-link pull-right" data-toggle="confirmation" data-placement="left" data-href="javascript:reAllocate.deleteUpdate({{ update.id }})">delete</a>  
                         <a class="edit-update-link pull-right" href="javascript:reAllocate.editUpdate({{ update.id }})">edit</a>

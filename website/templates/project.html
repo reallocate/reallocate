@@ -65,12 +65,10 @@
                     {% endif %}
                     <p class="update-text pre">{{ update.text }}</p>
                     <p class="original-update-text hide">{{ update.original_text }}</p>
-                    {% if update.created_by.get_profile.media_url %}                  
-                    <img class="update-avatar" class="img-circle" src="{{ update.created_by.get_profile.media_url }}" />
-                    {% endif %}
-                    <p class="update-username"><a href="/profile/{{ update.created_by.id }}">
-                    {{ update.created_by.first_name }} {{ update.created_by.last_name }}
-                    </a></p>
+                    <p class="update-username"><a href="/profile/{{ update.created_by.id }}">            
+                        <div class="update-avatar img-circle" style="background-image: url('{{ update.created_by.get_profile.media_url|default:'/static/images/no-profile-image.png' }}')"></div>  
+                        {{ update.created_by.first_name }} {{ update.created_by.last_name }}</a>
+                    </p>
                 </div>
                 {% endfor %}
             </div>
