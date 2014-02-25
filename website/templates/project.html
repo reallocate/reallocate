@@ -84,7 +84,11 @@
                 {% if is_admin %}
                 <a href="/project/{{ project.id }}/manage" class="btn btn-primary">Manage this Project</a>
                 {% else %}
-                <button class="btn btn-primary follow login-required" onclick="reAllocate.followProject(this, {{ project.id }});">{% if is_following %}Stop following{% else %}Follow this project{% endif %}</button>
+                {% if is_following %}
+                <button class="btn btn-primary follow login-required" data-action="unfollow" onclick="reAllocate.followProject(this, {{ project.id }});">Stop following</button>
+                {% else %}
+                <button class="btn btn-primary follow login-required" data-action="follow" onclick="reAllocate.followProject(this, {{ project.id }});">Follow this project</button>
+                {% endif %}
                 {% if not_sponsor %}&nbsp;&nbsp;<button class="btn btn-primary login-required" onclick="reAllocate.sponsorProject(this, {{ project.id }});">Be a sponsor</button>{% endif %}
                 {% endif %}
             </div>

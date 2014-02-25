@@ -310,16 +310,18 @@ var reAllocate = window.reAllocate || {
     // toggles follow/unfollow
     followProject: function(e, pid) {
 
-        var action = $(e).text().toLowerCase();
+        var action = $(e).attr('data-action');
 
         $.ajax({
             url : '/ajax/modify-project-relation',
             data : {'project_id': pid, 'action': action},
             success: function(res) {
                 if (action == 'follow') {
-                    $(e).text('Unfollow');
+                    $(e).text('Stop following');
+                    $(e).attr('data-action', 'unfollow');
                 } else if (action == 'unfollow') {
-                    $(e).text('Follow');
+                    $(e).text('Follow this project');
+                    $(e).attr('data-action', 'follow');
                 }
             },
             error: function(res) {

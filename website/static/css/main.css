@@ -411,8 +411,8 @@ body>.alert {
 }
 .update .update-avatar {
     background-size: cover;
-    width: 30px;
-    height: 30px;
+    width: 20px;
+    height: 20px;
     vertical-align: middle;
     float: left;
     margin-right: 5px;
@@ -1105,6 +1105,7 @@ body>.alert {
     padding: 5px;
     margin: 15px 0px 15px 0px;
     color: #333;
+    height: 92px;
 }
 .opportunity-small a {
     color: #333;

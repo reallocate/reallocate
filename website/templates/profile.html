@@ -37,21 +37,19 @@
             <h2></h2>
             {% endif %}
             <p class="bio">{{ user_profile.bio }}<p>
-
-            <div class="col-xs-6 user-opportunities">
-                <h3>Opportunities ({{ opportunities|length }})</h3>
-                {% for opportunity in opportunities %}
-                {% include 'includes/opportunity_pane_small.html' %}
-                {% endfor %}
-            </div>
-            <div class="col-xs-6 user-projects">
-                <h3>Projects ({{ my_projects|length }})</h3>
-                {% for project in my_projects %}
-                {% include 'includes/project_pane_small.html' %}
-                {% endfor %}
-                {% for project in followed_projects %}
-                {% include 'includes/project_pane_small.html' %}
-                {% endfor %}
+            <div class="row">
+                <div class="col-xs-6 user-opportunities">
+                    <h3>Opportunities ({{ opportunities|length }})</h3>
+                    {% for opportunity in opportunities %}
+                    {% include 'includes/opportunity_pane_small.html' %}
+                    {% endfor %}
+                </div>
+                <div class="col-xs-6 user-projects">
+                    <h3>Projects ({{ my_projects|length }})</h3>
+                    {% for project in my_projects %}
+                    {% include 'includes/project_pane_small.html' %}
+                    {% endfor %}
+                </div>
             </div>
         </div>
     </div>

@@ -67,8 +67,7 @@ def profile(request, username=None):
             context['alert'] = {'type': 'success', 'message': 'Your changes have been saved.'}
     
     context['opportunities'] = Opportunity.objects.filter(engaged_by=user)
-    context['followed_projects'] = Project.objects.filter(followed_by=user)
-    context['my_projects'] = Project.objects.filter(created_by=user)
+    context['my_projects'] = Project.objects.filter(Q(created_by=user)|Q(followed_by=user))
 
     context['user_profile'] = user_profile
     
@@ -700,7 +699,7 @@ def stripe_subscription(request):
         amount = request.POST.get('amount')
         pid = request.POST.get('pid', '1')
         token = request.POST['stripeToken']
-        plan_id = 'p%s-y%s' % (pid, amount)
+        plan_id = 'p%s-m%s' % (pid, amount)
 
         try:
 
@@ -710,7 +709,7 @@ def stripe_subscription(request):
 
             plan = stripe.Plan.create(
                 amount=amount,
-                interval='year',
+                interval='month',
                 name='Testing Project Sponsorship / project %s / amount %s' % (pid, amount),
                 currency='usd',
                 id=plan_id
