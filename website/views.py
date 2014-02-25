@@ -337,7 +337,7 @@ def login_user(request):
 def view_project(request, pid=1):
 
     project = get_object_or_404(Project, pk=pid)
-    opps = Opportunity.objects.filter(project=project)
+    opps = Opportunity.objects.filter(project=project).order_by('-sponsorship')
     engagement = OpportunityEngagement.objects.filter(project=project).filter(user__id__gt=1).distinct()
     context = base.build_base_context(request)
 
