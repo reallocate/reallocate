@@ -61,7 +61,7 @@
                     {% if update.media_url %}
                     <div class="update-media"><img src="{{ update.media_url }}"></div>
                     {% elif update.video %}
-                    <div class="update-media">{{ update.video|safe }}</div>
+                    <div class="video">{{ update.video|safe }}</div>
                     {% endif %}
                     <p class="update-text pre">{{ update.text }}</p>
                     <p class="original-update-text hide">{{ update.original_text }}</p>
