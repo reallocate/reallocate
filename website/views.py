@@ -96,6 +96,8 @@ def public_profile(request, username=None):
 def login_page(request):
 
     context = base.build_base_context(request)
+
+    foo = "testing"
     
     return render_to_response('login.html', context, context_instance=RequestContext(request))
 
