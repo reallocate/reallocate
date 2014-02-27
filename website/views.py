@@ -361,7 +361,7 @@ def view_project(request, pid=1):
         context['is_following'] = request.user in project.followed_by.all()
         context['is_admin'] = True if request.user == project.created_by else False
 
-
+    context['is_live'] = True if re.match(r'^beta', request.get_host()) else False
 
     return render_to_response('project.html', context, context_instance=RequestContext(request))
 

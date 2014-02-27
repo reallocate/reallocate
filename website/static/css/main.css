@@ -298,7 +298,7 @@ body>.alert {
     padding: 0px;
     background-size: cover;
     height: 270px;
-    background-position: 33%;
+    background-position: 0% 15%;
 }
 #project .jumbotron #project-title {
     position: relative;
@@ -795,7 +795,8 @@ body>.alert {
 #find-project .project-name {
     font-size: 18px
 }
-#find-project .project-short-desc {
+#find-project .project-short-desc,
+#find-project .project-description {
     font-size: 14px;
 }
 

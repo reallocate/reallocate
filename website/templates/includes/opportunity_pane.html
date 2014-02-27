@@ -14,7 +14,11 @@
 		</p>
 		<p class="opp-short-desc">{{ opportunity.short_desc|truncatechars:140 }}</p>
 		{% if opportunity.sponsorship %}
+		{% if is_live %}
+		<h4>COMING SOON!</h4>
+		{% else %}
 		<button type="button" class="btn btn-primary login-required" data-toggle="modal" data-target="#sponsor-project-modal">Become a Sponsor!</button>
+		{% endif %}
 		{% endif %}
 		<p class="opp-project-name">
 			<a href="/project/{{ opportunity.project.id }}">{{ opportunity.project.name }}</a>
