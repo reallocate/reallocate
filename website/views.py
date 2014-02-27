@@ -559,7 +559,7 @@ def new_organization(request):
                 user_profile.organization_id = org.id
                 user_profile.save()
                 
-                org_url = org.URL if org.URL.match('http://') else "http://" + org.URL
+                org_url = org.URL if re.match(r'^http://', org.URL) else "http://" + org.URL
 
                 # send admin email with link adminpanel to change project status
                 subj = "[%s] New organization: %s" % (request.get_host(), org.name)
