@@ -68,7 +68,7 @@ def engage_opportunity(request):
         link = request.REQUEST.get('link')
 
         if link:
-            message += '\n\n%s' % link
+            message += '<br /></br />%s' % link
 
         if OpportunityEngagement.objects.filter(user=request.user, opportunity=opp, project_id=pid):
 
@@ -82,9 +82,9 @@ def engage_opportunity(request):
             opp_eng.save()
 
             subject = "New engagement with %s by %s" % (opp.name, request.user.email)
-            html_content = """%s<br/><br/>
-                <a href='%s/admin/website/opportunityengagement/%s'>approve</a>""" % (
-                message, request.get_host(), opp_eng.id)
+            html_content = "&quotl%s&quot;<br/><br/>%s" % (message, opp.project.name)
+            html_content = html_content + " / <a href='http://%s/project/%s/opportunity/%s'>%s</a><br /><br />" % (request.get_host(), opp.project.id, opp.id, opp.name)
+            html_content = html_content + "<a href='http://%s/admin/website/opportunityengagement/%s'>approve</a>""" % (request.get_host(), opp_eng.id)
                            
             base.send_email(opp.project.created_by.email, subject, html_content, html_content=html_content)
             base.send_admin_email(subject, html_content, html_content=html_content)
