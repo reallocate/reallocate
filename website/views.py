@@ -240,7 +240,6 @@ def sign_up(request):
     context['referrer'] = request.META.get('HTTP_REFERER', '/')
 
     if re.search(r'\/get-started', context['referrer']): 
-        logging.error('get-started') 
         context['next'] = '/organization/new'
     else:
         context['next'] = context['referrer']
