@@ -19,7 +19,7 @@
 {% if is_pending %}
 <div class="admin-actions"><div class="container"><span>This project is pending approval.<span>{% if is_admin %}<button class="btn btn-default btn-sm" onclick="reAllocate.approveProject({{ project.id }})">Approve</button>{% endif %}</div></div>
 {% endif %}
-<div class="jumbotron" style="background-image: url('{{ project.media_url }}');">
+<div class="jumbotron" {% if project.media_url %}style="background-image: url('{{ project.media_url }}');"{% else %}style="background-color: rgb(122, 166, 213);height: 125px;"{% endif %}>
     <div class="overlay">
         <div id="project-title" class="container">
              <div class="row">
