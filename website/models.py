@@ -1,4 +1,5 @@
 import logging
+import settings
 
 from datetime import datetime
 
@@ -495,7 +496,14 @@ class Project(models.Model):
     def __unicode__(self):
         return "Name: %s" % self.name
     
+    def get_url(self, request):
+
+        url = 'http://' + request.get_host() + '/project/' + str(self.id)
+
+        return url
+
     def make_s3_media_url(self, uploaded_file):
+
         return 'projects/%s/%s' % (self.id, uploaded_file.name)
 
     def create_sponsorship(self):

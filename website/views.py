@@ -358,8 +358,12 @@ def view_project(request, pid=1):
 
     if request.user.is_authenticated():
         context['is_following'] = request.user in project.followed_by.all()
-        context['is_admin'] = True if request.user == project.created_by else False
+        context['is_owner'] = True if request.user == project.created_by else False
+        context['is_admin'] = True if request.user.username == 'admin' else False
 
+    context['is_pending'] = True if project.status == 'Pending' else False
+
+    # temp var for testing stripe payments
     context['is_live'] = True if re.match(r'^beta', request.get_host()) else False
 
     return render_to_response('project.html', context, context_instance=RequestContext(request))
@@ -475,8 +479,8 @@ def new_project(request):
                 A new project has been submitted by %s:<br /><br />
                 <b>%s</b><br /><br />
                 %s<br /><br />
-                <a href='http://%s/admin/website/project/%s'>Approve this project</a><br />
-                """ % (created_by, project.name, project.short_desc, request.get_host(), project.id)
+                <a href='%s'>View this project</a><br />
+                """ % (created_by, project.name, project.short_desc, project.get_url(request))
 
             base.send_admin_email(subj, body, html_content=body)
 

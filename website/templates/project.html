@@ -16,6 +16,9 @@
 {% endblock %}
 
 {% block jumbotron %}
+{% if is_pending %}
+<div class="admin-actions"><div class="container"><span>This project is pending approval.<span>{% if is_admin %}<button class="btn btn-default btn-sm" onclick="reAllocate.approveProject({{ project.id }})">Approve</button>{% endif %}</div></div>
+{% endif %}
 <div class="jumbotron" style="background-image: url('{{ project.media_url }}');">
     <div class="overlay">
         <div id="project-title" class="container">
@@ -43,7 +46,7 @@
                 <h3>About the Project</h3>
                 <p class="pre">{{ project.description }}</p>
             </div>
-            {% if is_admin %}
+            {% if is_owner or is_admin %}
             {% include 'includes/post_update.html' %}
             {% endif %}
             {% if updates %}
@@ -81,7 +84,7 @@
                     <a class="share addthis_button_twitter"><i class="fa fa-twitter fa-2x"></i></a>
                     <a class="share addthis_button_facebook"><i class="fa fa-facebook fa-2x"></i></a>
                 </div>
-                {% if is_admin %}
+                {% if is_owner or is_admin %}
                 <a href="/project/{{ project.id }}/manage" class="btn btn-primary">Manage this Project</a>
                 {% else %}
                 {% if is_following %}

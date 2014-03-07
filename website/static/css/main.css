@@ -106,7 +106,6 @@ body>.alert {
     white-space: pre-wrap;
 }
 .jumbotron {
-    margin-top: -20px;
     width: 100%;
     border-radius: 0px;
 }
@@ -114,6 +113,7 @@ body>.alert {
     font-size: 14px;
     background-color: #fff;
     border-bottom: 1px solid #ededed;
+    margin-bottom: 0px;
 }
 .share:hover {
     text-decoration: none;
@@ -225,6 +225,21 @@ body>.alert {
     top: 4px;
     left: -6px;
     letter-spacing: 2px;
+}
+.admin-actions {
+    background-color: rgb(255, 248, 163);
+    height: 47px;
+    padding: 11px 0px;
+    font-size: 16px;
+    border-bottom: 1px solid #D8D8D8;
+}
+.admin-actions span {
+    font-weight: 400;
+}
+.admin-actions button {
+    float: right;
+    position: relative;
+    top: -3px;
 }
 .overlay {
     height: 100%;

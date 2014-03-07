@@ -42,6 +42,7 @@ urlpatterns = patterns('',
   url(r'^ajax/get-orgs', 'website.ajax_views.get_orgs'),
   url(r'^ajax/login', 'website.ajax_views.login_user'),
   url(r'^ajax/update-project', 'website.ajax_views.update_project'),
+  url(r'^ajax/approve-project', 'website.ajax_views.approve_project'),
   url(r'^ajax/delete-opportunity', 'website.ajax_views.delete_opportunity'),
   url(r'^ajax/invite-users', 'website.ajax_views.invite_users'),
 

@@ -325,7 +325,21 @@ var reAllocate = window.reAllocate || {
                 }
             },
             error: function(res) {
-                console.log("failure to follow/unfollow");
+                console.log("failed to follow/unfollow");
+            }
+       });
+    },
+
+    approveProject: function(pid) {
+
+        $.ajax({
+            url : '/ajax/approve-project',
+            data : {'project_id': pid},
+            success: function(res) {
+                window.location.reload();
+            },
+            error: function(res) {
+                console.log("failed to approve project");
             }
        });
     },
