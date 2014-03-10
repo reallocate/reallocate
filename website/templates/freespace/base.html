@@ -15,24 +15,25 @@
       <script src="{{ STATIC_URL }}theme/js/html5shiv.js"></script>
     <![endif]-->
 
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ STATIC_URL }}theme/ico/apple-touch-icon-144-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ STATIC_URL }}theme/ico/apple-touch-icon-114-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ STATIC_URL }}theme/ico/apple-touch-icon-72-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" href="{{ STATIC_URL }}theme/ico/apple-touch-icon-57-precomposed.png">
-    <link rel="shortcut icon" href="{{ STATIC_URL }}theme/ico/favicon.png">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ STATIC_URL }}{{ BRAND }}/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ STATIC_URL }}{{ BRAND }}/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ STATIC_URL }}{{ BRAND }}/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="{{ STATIC_URL }}{{ BRAND }}/ico/apple-touch-icon-57-precomposed.png">
+    <link rel="shortcut icon" href="{{ STATIC_URL }}{{ BRAND }}/ico/favicon.png">
 
     <link rel="stylesheet" href="{{ STATIC_URL }}css/main.css?14">
-    <link href="//fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet" type="text/css">
-
+    <link rel="stylesheet" href="{{ STATIC_URL }}{{ BRAND }}/css/main.css?1">
+    <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,Pathway+Gothic+One" rel="stylesheet" type="text/css">
+    
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.min.css">
       
     {% block extra_css %}
     {% endblock %}
 
 </head>
-<body id="{{ url_name }}">
+<body id="{{ URL_NAME }}">
 
-    {% include "theme/top_nav.html" %} 
+    {% include TOP_NAV %} 
 
     {% if alert %}
     {% ifequal alert.type 'modal' %}
@@ -55,7 +56,7 @@
     {% block jumbotron %}
     {% endblock %}
 
-    <div id="{{ page_name }}">
+    <div class="page">
     {% block content %}
     {% endblock %}
     </div>
@@ -64,7 +65,7 @@
         <p>&copy; 2014 ReAllocate, 501c3. <a href="/privacy">Privacy</a> &middot; <a href="/tou">Terms of Use</a></p>
     </footer>
 
-    {% include "theme/login_modal.html" %}
+    {% include "includes/login_modal.html" %}
     {% include "includes/confirmation-modal.html" %}
     {% include "includes/invite-users-modal.html" %}
     {% block modals %}{% endblock %}  
@@ -84,11 +85,11 @@
 
 <script>
 // set stripe api key
-Stripe.setPublishableKey('{{ stripe_pub_key }}');
+Stripe.setPublishableKey('{{ STRIPE_PUB_KEY }}');
 
 {% if user %}reAllocate.user = "{{ user.username }}";{% endif %}
 
-{#    {% if not request.user.is_staff %}#}
+{# {% if not request.user.is_staff %} #}
     var _gaq = _gaq || [];
     _gaq.push(['_setAccount', 'UA-38925689-1']);
     _gaq.push(['_trackPageview']);
@@ -98,7 +99,7 @@ Stripe.setPublishableKey('{{ stripe_pub_key }}');
         ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
     })();
-{#    {% endif %}#}
+{# {% endif %} #}
 </script>
 
 {% block bottomscript %}

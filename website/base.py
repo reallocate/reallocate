@@ -28,8 +28,11 @@ def get_current_userprofile(request):
 
 def build_base_context(request):
 
-    context = {'url_name': resolve(request.path).url_name }
-    context['stripe_pub_key'] = settings.STRIPE_KEY_PUB
+    context = {'URL_NAME': resolve(request.path).url_name }
+    context['STRIPE_PUB_KEY'] = settings.STRIPE_KEY_PUB
+    context['BRAND'] = settings.BRAND
+    context['BASE_TEMPLATE'] = settings.BRAND + '/base.html'
+    context['TOP_NAV'] = settings.BRAND + '/top_nav.html'
 
     if request.user.is_authenticated():
         context['user'] = request.user

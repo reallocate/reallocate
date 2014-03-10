@@ -108,12 +108,14 @@ body>.alert {
 .jumbotron {
     width: 100%;
     border-radius: 0px;
+    margin-bottom: 0px;
 }
 .navbar {
     font-size: 14px;
     background-color: #fff;
     border-bottom: 1px solid #ededed;
     margin-bottom: 0px;
+    border-radius: 0px;
 }
 .share:hover {
     text-decoration: none;
@@ -141,6 +143,9 @@ body>.alert {
     border-color: rgba(82, 168, 236, 0.8);
     box-shadow: 0 5px 5px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(82, 168, 236, 0.6);
     cursor: pointer;
+}
+.page {
+    margin-top: 35px;
 }
 .limit-status {
     float: right;
@@ -791,6 +796,9 @@ body>.alert {
 
 /* find-opportunity */
 
+#find-opportunity h3 {
+    margin-top: 0px;
+}
 #find-opportunity .opportunity {
     height: 206px;
 }
@@ -801,6 +809,9 @@ body>.alert {
 
 /* find-project */
 
+#find-project h3 {
+    margin-top: 0px;
+}
 #find-project .project {
     height: 290px;
 }

@@ -1,0 +1,56 @@
+<nav class="navbar navbar-default" role="navigation">
+
+    <div class="container">
+
+        <div class="navbar-header">
+            
+            <a class="navbar-brand" href="/"><span>[</span>freespace<span>]</span></a>
+
+        </div>
+
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+
+            <ul class="nav navbar-nav">
+                <li><a href="/about"><strong>About</strong><span> Freespace</span></a></li>
+                <li><a href="/get-started"><strong>Submit</strong><span> a Project</span></a></li>
+                <li><a href="/find-opportunity"><strong>Find</strong><span> an Opportunity</span></a></li>
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right" id="auth">
+                <li class="dropdown user">
+                    <a href="#" data-toggle="dropdown" class="dropdown-toggle">
+                        {% if user.first_name and user.last_name %}
+                        <span id="user-email">{{ user.first_name }} {{ user.last_name }}</span>
+                        {% else %}
+                        <span id="user-email">{{ user.email }}</span>
+                        {% endif %}
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/profile">Profile</a></li>
+                        <li class="divider"></li>
+                        <li><a href="/logout">Sign Out</a></li>
+                    </ul>
+                </li> 
+                <li class="anon">
+                    <a href="#login-modal" role="button" data-toggle="modal">Sign In</a>
+                </li>
+                <li class="anon">
+                    <a href="/sign-up">Sign Up</a>
+                </li>
+            </ul>
+
+        </div>
+        <style>
+        {% if user.is_authenticated %}
+            .navbar .user { display: block; }
+            .navbar .anon { display: none; }
+        {% else %}
+            .navbar .user { display: none; }
+            .navbar .anon { display: block; }
+        {% endif %}
+        </style>
+    </div>
+</nav>
+
+

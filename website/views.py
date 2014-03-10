@@ -106,9 +106,15 @@ def home(request):
 
     context = base.build_base_context(request)
 
-    context['projects'] = Project.objects.filter(Q(status__iexact='active'))[:36]
+    projects = Project.objects.filter(Q(status__iexact='active'))
 
-    response = render_to_response('home.html', context, context_instance=RequestContext(request))
+    # limit to cobranded projects if appropriate
+    if settings.BRAND != 'reallocate':
+        projects = projects.filter(tags__contains=settings.BRAND)
+
+    context['projects'] = projects[:6]
+
+    response = render_to_response(settings.BRAND + '/home.html', context, context_instance=RequestContext(request))
 
     return response
 
@@ -117,7 +123,7 @@ def about(request):
 
     context = base.build_base_context(request)
 
-    return render_to_response('about.html', context, context_instance=RequestContext(request))
+    return render_to_response(settings.BRAND + '/about.html', context, context_instance=RequestContext(request))
 
 
 def privacy(request):
@@ -460,6 +466,16 @@ def new_project(request):
 
             project.organization = request.user.get_profile().organization
             project.created_by = request.user
+
+            # append cobranding tag if appropriate
+            if settings.BRAND != 'reallocate':
+                if project.tags:
+                    t = project.tags.split(',')
+                    t.append(settings.BRAND)
+                    project.tags = t
+                else:
+                    project.tags = settings.BRAND
+
             project.save()
 
             if allow_sponsorship:
@@ -606,6 +622,16 @@ def add_opportunity(request, pid=None, sponsorship=False):
             opp.project = project
             opp.organization = project.organization
             opp.created_by = request.user
+
+            # append cobranding tag if appropriate
+            if settings.BRAND != 'reallocate':
+                if opp.tags:
+                    t = opp.tags.split(',')
+                    t.append(settings.BRAND)
+                    opp.tags = t
+                else:
+                    opp.tags = settings.BRAND
+
             opp.save()
         
             # this has to occur after initial save b/c we use pk id as part of the s3 filepath
@@ -642,7 +668,11 @@ def find_opportunity(request):
 
     context = base.build_base_context(request)
 
-    opportunities = Opportunity.objects.filter(status__exact='Active')
+    opportunities = Opportunity.objects.filter(status__iexact='Active')
+
+    # limit to cobranded projects if appropriate
+    if settings.BRAND != 'reallocate':
+        opportunities = opportunities.filter(tags__contains=settings.BRAND)
 
     if request.method == 'POST': 
 
@@ -672,7 +702,11 @@ def find_project(request):
 
     context = base.build_base_context(request)
 
-    projects = Project.objects.filter(status__exact='Active')
+    projects = Project.objects.filter(status__iexact='Active')
+
+    # limit to cobranded projects if appropriate
+    if settings.BRAND != 'reallocate':
+        projects = projects.filter(tags__contains=settings.BRAND)
 
     if request.method == 'POST': 
 

@@ -3,7 +3,7 @@
 #
 # all should be overwritten in settings_local.py
 ##################
-import os, sys, socket
+import os, sys, socket, re
 
 DEBUG = False
 if os.environ.get('SEND_EMAILS') and os.environ['SEND_EMAILS'] == 'true':
@@ -17,6 +17,12 @@ try:
     HOSTNAME = socket.gethostname()
 except:
     HOSTNAME = 'localhost'
+
+
+if re.search(r'freespace', HOSTNAME):
+    BRAND = 'freespace'
+else:
+    BRAND = 'reallocate'
 
 # OAuth keys for Social Auth
 TWITTER_CONSUMER_KEY = ''
@@ -209,6 +215,8 @@ MIDDLEWARE_CLASSES = (
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.locale.LocaleMiddleware',
+
+    #'website.brands.Freespace',  # TODO: refactor app to use this middleware for brand specific overrides
 )
 
 ROOT_URLCONF = 'website.urls'

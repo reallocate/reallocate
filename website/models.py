@@ -492,6 +492,7 @@ class Project(models.Model):
     created_by = models.ForeignKey(User)
     followed_by = models.ManyToManyField(User, blank=True, related_name='followed_by')
     featured = models.BooleanField(default=False, blank=True)
+    tags = models.CharField(max_length=200, blank=True)
     
     def __unicode__(self):
         return "Name: %s" % self.name
@@ -518,6 +519,10 @@ class Project(models.Model):
         sponsorship.organization = self.organization
         sponsorship.created_by = self.created_by
 
+        # add cobranding tag if appropriate
+        if settings.BRAND != 'reallocate':
+            sponsorship.tags = settings.BRAND
+
         sponsorship.save()
 
         return sponsorship
@@ -528,7 +533,7 @@ class ProjectForm(ModelForm):
     class Meta:
 
         model = Project
-        fields = ('name', 'industry', 'short_desc', 'description', 'video_url', 'media_url', 'city', 'state', 'country',)
+        fields = ('name', 'industry', 'short_desc', 'description', 'video_url', 'media_url', 'city', 'state', 'country', 'tags',)
 
         widgets = {
             'description': Textarea(attrs={'cols': 80, 'rows': 10}),
@@ -581,7 +586,7 @@ class OpportunityForm(ModelForm):
 
     class Meta:
         model = Opportunity
-        fields = ('name', 'description', 'short_desc', 'opp_type', 'resources', 'media_url')
+        fields = ('name', 'description', 'short_desc', 'opp_type', 'resources', 'media_url', 'tags',)
 
         widgets = {
             'description': Textarea(attrs={'cols': 80, 'rows': 10}),
