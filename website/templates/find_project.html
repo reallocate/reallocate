@@ -1,4 +1,4 @@
-{% extends BASE_TEMPLATE %}
+{% extends 'base.html' %}
 {% load i18n %}
 
 {% block meta_description %}Find projects{% endblock %}
@@ -29,7 +29,7 @@
 					<div class="row">
 						{% for project in projects %}
 						<div class="col-xs-4">
-							{% include "includes/project-pane.html" %}			
+							{% include "includes/project_pane.html" %}			
 						</div>	
 						{% endfor %}
 					</div>	

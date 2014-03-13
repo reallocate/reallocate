@@ -8,23 +8,19 @@
     <meta name="keywords" content="{% block meta_keywords %}{% endblock %}">
     <meta name="description" content="{% block meta_description %}{% endblock %}">
 
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
       <script src="{{ STATIC_URL }}theme/js/html5shiv.js"></script>
     <![endif]-->
 
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ STATIC_URL }}{{ BRAND }}/ico/apple-touch-icon-144-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ STATIC_URL }}{{ BRAND }}/ico/apple-touch-icon-114-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ STATIC_URL }}{{ BRAND }}/ico/apple-touch-icon-72-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" href="{{ STATIC_URL }}{{ BRAND }}/ico/apple-touch-icon-57-precomposed.png">
-    <link rel="shortcut icon" href="{{ STATIC_URL }}{{ BRAND }}/ico/favicon.png">
+    <link rel="shortcut icon" href="{{ STATIC_URL }}/ico/favicon.png">
 
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{ STATIC_URL }}css/main.css?15">
-    <link rel="stylesheet" href="{{ STATIC_URL }}{{ BRAND }}/css/main.css?1">
-    <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,Pathway+Gothic+One" rel="stylesheet" type="text/css">
-    
+    {% if cobrand %}
+    <link rel="stylesheet" href="{{ STATIC_URL }}cobrand/css/main.css">
+    {% endif %}
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,400,700,Pathway+Gothic+One">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.min.css">
       
     {% block extra_css %}
@@ -32,9 +28,7 @@
 
 </head>
 <body id="{{ URL_NAME }}">
-
-    {% include TOP_NAV %} 
-
+    {% include 'top_nav.html' %} 
     {% if alert %}
     {% ifequal alert.type 'modal' %}
     <div id="alert-modal" class="modal fade">
@@ -60,7 +54,7 @@
     {% block content %}
     {% endblock %}
     </div>
-
+{{ request }}
     <footer class="container">
         <p>&copy; 2014 ReAllocate, 501c3. <a href="/privacy">Privacy</a> &middot; <a href="/tou">Terms of Use</a></p>
     </footer>
@@ -69,7 +63,6 @@
     {% include "includes/confirmation-modal.html" %}
     {% include "includes/invite-users-modal.html" %}
     {% block modals %}{% endblock %}  
-
 
 <script src="//code.jquery.com/jquery-1.9.1.min.js"></script>
 <script src="//code.jquery.com/jquery-migrate-1.1.1.min.js"></script>

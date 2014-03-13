@@ -1203,8 +1203,9 @@ footer {
     margin-top: 25px;
     text-align: center;
 }
-
-
+footer p {
+    font-size: 16px;
+}
 .file-upload-ok {
     line-height: 0.4em !important;
     padding-left: 5px;
@@ -1212,7 +1213,6 @@ footer {
     top: 5px;
     color: green;
 }
-
 
 
 #confirmation-modal .modal-dialog {

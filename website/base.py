@@ -1,13 +1,13 @@
-from website import settings
+import settings
 import re, logging, json
 
-from website.models import UserProfile
+from models import UserProfile
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 from django.core.urlresolvers import resolve
 
-from website.settings import FROM_EMAIL, ADMIN_EMAIL, DEPLOY_ENV, SEND_EMAILS
+from settings import FROM_EMAIL, ADMIN_EMAIL, DEPLOY_ENV, SEND_EMAILS
 
 from social_auth.backends.facebook import FacebookBackend
 from social_auth.backends.google import GoogleBackend
@@ -26,19 +26,12 @@ def get_current_userprofile(request):
         return HttpResponse("error getting user profile")
 
 
-def build_base_context(request):
+def context(request):
 
     context = {'URL_NAME': resolve(request.path).url_name }
-    context['STRIPE_PUB_KEY'] = settings.STRIPE_KEY_PUB
-    context['BRAND'] = settings.BRAND
-    context['BASE_TEMPLATE'] = settings.BRAND + '/base.html'
-    context['TOP_NAV'] = settings.BRAND + '/top_nav.html'
 
-    if request.user.is_authenticated():
-        context['user'] = request.user
-
-    if request.COOKIES.get('alert'):
-        context['alert'] = json.loads(request.COOKIES['alert'])
+    context['alert'] = json.loads(request.COOKIES['alert']) if request.COOKIES.get('alert') else None
+    context['cobrand'] = request.session.get('brand')
 
     return context
 

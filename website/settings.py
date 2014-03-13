@@ -5,15 +5,7 @@
 ##################
 import os, sys, socket, re, logging
 
-DEBUG = False
-if os.environ.get('SEND_EMAILS') and os.environ['SEND_EMAILS'] == 'true':
-    SEND_EMAILS = True
-else:
-    SEND_EMAILS = False
-
-ALLOWED_HOSTS = ['*']  # todo:john - dont let this go live
-
-BRAND = 'reallocate'
+ALLOWED_HOSTS = ['.reallocate.org']
 
 # OAuth keys for Social Auth
 TWITTER_CONSUMER_KEY = ''
@@ -64,14 +56,11 @@ EMAIL_BACKEND = 'django_ses.SESBackend'
 FROM_EMAIL = "Reallocate <noreply@reallocate.org>"
 ADMIN_EMAIL = "admin@reallocate.org"
 
+SEND_EMAILS = True if os.environ.get('SEND_EMAILS') and os.environ['SEND_EMAILS'] == 'true' else False
 
-#############
-# DATABASES #
-#############
 # Parse database configuration from $DATABASE_URL
 import dj_database_url
 DATABASES = {'default': dj_database_url.config(default='sqlite:/data.db')}
-
 
 # Allow any settings to be defined in local_settings.py which should be
 # ignored in your version control system allowing for settings to be defined per machine.
@@ -107,6 +96,7 @@ if 'DEPLOY_ENV' in os.environ and os.environ['DEPLOY_ENV'] != 'local':
 else:
 
     DEPLOY_ENV = 'local'
+    DEBUG = True
     try:
         from settings_local import *
     except ImportError:
@@ -116,12 +106,8 @@ else:
       pass
 
 
-#########
-# PATHS #
-#########
-
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-APP_NAME = 'reallocate'
+APP_NAME = 'website'
 
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
@@ -168,15 +154,12 @@ MEDIA_URL = ''
 #STATIC_ROOT = os.path.join(PROJECT_ROOT, "static_root")
 #STATIC_ROOT = os.path.join(PROJECT_ROOT, STATIC_URL.strip("/"))
 
-STATIC_ROOT = os.path.join(PROJECT_ROOT, 'website', 'static')
+STATIC_ROOT = os.path.join(PROJECT_ROOT, APP_NAME, 'static_files')
 STATIC_URL = '/static/'
 
 # Additional locations of static files
 STATICFILES_DIRS = (
-    #os.path.join(APP_NAME, 'static'),
-    # Put strings here, like "/home/html/static" or "C:/www/django/static".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
+    #os.path.join(PROJECT_ROOT, APP_NAME, 'static'),
 )
 
 # List of finder classes that know how to find static files in
@@ -206,7 +189,6 @@ MIDDLEWARE_CLASSES = (
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.locale.LocaleMiddleware',
-    'website.brands.Freespace',
 )
 
 ROOT_URLCONF = 'website.urls'
@@ -218,13 +200,19 @@ TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    'templates',
-    'templates/emails',
+    #'templates',
+    #'templates/emails',
 )
 
-TEMPLATE_PROCESSORS = (
-    "django.core.context_processors.auth",
-    "django.core.context_processors.request",
+TEMPLATE_CONTEXT_PROCESSORS = (
+    "django.contrib.auth.context_processors.auth",
+    "django.core.context_processors.debug",
+    "django.core.context_processors.i18n",
+    "django.core.context_processors.media",
+    "django.core.context_processors.static",
+    "django.core.context_processors.tz",
+    "django.contrib.messages.context_processors.messages",
+    'website.base.context',
 )
 
 INSTALLED_APPS = (
@@ -236,7 +224,6 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.admin',
     'south',
-
     # jinja2
     # 'coffin',
     # end jinja2
@@ -244,8 +231,6 @@ INSTALLED_APPS = (
     'website',
     'reallocate_tastypie',
     #'taggit',
-
-    # Admin apps
     'django.contrib.admin',
     'social_auth',
     #'storages',

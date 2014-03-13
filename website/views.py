@@ -1,13 +1,13 @@
 import logging, hashlib, random
 import boto
-import stripe
-import re
-from boto.s3.key import Key
-from website import settings
+import re, sys, os
 import json
+import stripe
+
+from boto.s3.key import Key
 
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render_to_response, get_object_or_404
+from django.shortcuts import render_to_response, get_object_or_404, render
 from django.template import RequestContext
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.exceptions import ObjectDoesNotExist, PermissionDenied
@@ -17,18 +17,19 @@ from django.views.decorators.csrf import csrf_exempt, csrf_protect
 from django.db.models import Q
 from django.utils.http import urlquote
 
-from website.models import OrganizationForm, Organization, ProjectForm, Project, Update, UserProfile
-from website.models import OpportunityEngagement, Opportunity, OpportunityForm
-from website.models import STATUS_ACTIVE, STATUS_CHOICES, STATUS_INACTIVE, STATUS_CLOSED, CAUSES, COUNTRIES
+import settings
+import base
 
-import website.base as base
+from models import OrganizationForm, Organization, ProjectForm, Project, Update, UserProfile
+from models import OpportunityEngagement, Opportunity, OpportunityForm
+from models import STATUS_ACTIVE, STATUS_CHOICES, STATUS_INACTIVE, STATUS_CLOSED, CAUSES, COUNTRIES
 
 
 @login_required
 def profile(request, username=None):
     """ for displaying and editing a users profile """
     
-    context = base.build_base_context(request)
+    context = {}
     if not username and not context.get('user'):
         return HttpResponseRedirect(settings.POST_LOGIN_URL)
     
@@ -71,78 +72,78 @@ def profile(request, username=None):
 
     context['user_profile'] = user_profile
     
-    return render_to_response('profile.html', context, context_instance=RequestContext(request))
+    return render(request, 'profile.html', context)
 
 
 def public_profile(request, username=None):
 
     user = User.objects.filter(Q(email=username) | Q(username=username))
     user_profile = UserProfile.objects.filter(Q(user=user))
-    context = base.build_base_context(request)
+    context = {}
 
     if len(user_profile) < 1:
 
         context['username'] = 'name ' + username
 
-        return render_to_response('nosuchuser.html', context)
+        return render_to_response('no_such_user.html', context)
 
     context['user_profile'] = user_profile[0]
     context['opportunities'] = Opportunity.objects.filter(engaged_by=user)
     context['projects'] = Project.objects.filter(followed_by=user)
 
-    return render_to_response('public_profile.html', context, context_instance=RequestContext(request))
+    return render(request, 'public_profile.html', context)
     
 
 def login_page(request):
 
-    context = base.build_base_context(request)
+    context = {}
 
     foo = "testing"
     
-    return render_to_response('login.html', context, context_instance=RequestContext(request))
+    return render(request, 'login.html', context)
 
 
 def home(request):
 
-    context = base.build_base_context(request)
+    context = {}
 
     projects = Project.objects.filter(Q(status__iexact='active'))
 
-    # limit to cobranded projects if appropriate
-    if settings.BRAND != 'reallocate':
-        projects = projects.filter(tags__contains=settings.BRAND)
+    # cobranding
+    if request.session.get('brand'):
+        projects = projects.filter(tags__contains=request.session['brand'].get('id', ''))
 
     context['projects'] = projects[:6]
 
-    response = render_to_response(settings.BRAND + '/home.html', context, context_instance=RequestContext(request))
+    response = render(request, 'home.html', context)
 
     return response
 
 
 def about(request):
 
-    context = base.build_base_context(request)
+    context = {}
 
-    return render_to_response(settings.BRAND + '/about.html', context, context_instance=RequestContext(request))
+    return render(request, 'about.html', context)
 
 
 def privacy(request):
 
-    context = base.build_base_context(request)
+    context = {}
 
-    return render_to_response('privacy.html', context, context_instance=RequestContext(request))
+    return render(request, 'privacy.html', context)
 
 
 def tou(request):
 
-    context = base.build_base_context(request)
+    context = {}
 
-    return render_to_response('tou.html', context, context_instance=RequestContext(request))
+    return render(request, 'tou.html', context)
 
 
 def get_started(request):
     
-    context = base.build_base_context(request)
+    context = {}
 
     if hasattr(request.user, 'email'):
 
@@ -152,7 +153,7 @@ def get_started(request):
 
         context['next'] = '/sign-up'
 
-    return render_to_response('get_started.html', context, context_instance=RequestContext(request))
+    return render(request, 'get_started.html', context)
 
 
 def test_email(request):
@@ -165,7 +166,7 @@ def test_email(request):
 
 def reset_password(request):
 
-    context = base.build_base_context(request)
+    context = {}
     
     if request.POST:
         
@@ -197,12 +198,12 @@ def reset_password(request):
         context['temp_password'] = request.GET.get("t")
         context['email'] = request.GET.get("e")
 
-        return render_to_response('reset_password.html', context, context_instance=RequestContext(request))
+        return render(request, 'reset_password.html', context)
     
 
 def forgot_password(request):
 
-    context = base.build_base_context(request)
+    context = {}
     
     if request.POST:
 
@@ -236,12 +237,12 @@ def forgot_password(request):
         
     context['email'] = request.GET.get('email', '')
 
-    return render_to_response('forgot_password.html', context, context_instance=RequestContext(request))
+    return render(request, 'forgot_password.html', context)
 
 
 def sign_up(request):
 
-    context = base.build_base_context(request)
+    context = {}
 
     context['referrer'] = request.META.get('HTTP_REFERER', '/')
 
@@ -254,7 +255,7 @@ def sign_up(request):
 
         if request.GET.get('invite') or request.COOKIES.get('invite'):
 
-            response = render_to_response('sign_up.html', context, context_instance=RequestContext(request))
+            response = render(request, 'sign_up.html', context)
 
             if request.GET.get('invite'):
                 response.set_cookie('invite', request.GET['invite'], max_age=2)
@@ -263,7 +264,7 @@ def sign_up(request):
 
         else:
 
-            return render_to_response('request-invite.html', context, context_instance=RequestContext(request))
+            return render(request, 'request_invite.html', context)
 
     response = HttpResponseRedirect(request.POST.get('next', '/'))
 
@@ -311,7 +312,7 @@ def sign_up(request):
 
 def login_user(request):
 
-    context = base.build_base_context(request)
+    context = {}
 
     if request.POST:
 
@@ -338,7 +339,7 @@ def login_user(request):
         else:
             context['state'] = "Your username and/or password were incorrect."
 
-    return render_to_response('login.html', context, context_instance=RequestContext(request))
+    return render(request, 'login.html', context)
 
 
 def view_project(request, pid=1):
@@ -346,7 +347,7 @@ def view_project(request, pid=1):
     project = get_object_or_404(Project, pk=pid)
     opps = Opportunity.objects.filter(project=project).order_by('-sponsorship')
     engagement = OpportunityEngagement.objects.filter(project=project).filter(user__id__gt=1).distinct()
-    context = base.build_base_context(request)
+    context = {}
 
     context.update({
         "project": project,
@@ -372,7 +373,7 @@ def view_project(request, pid=1):
     # temp var for testing stripe payments
     context['is_live'] = True if re.match(r'^beta', request.get_host()) else False
 
-    return render_to_response('project.html', context, context_instance=RequestContext(request))
+    return render(request, 'project.html', context)
 
 
 def manage_project(request, pid=1):
@@ -384,7 +385,7 @@ def manage_project(request, pid=1):
 
     opps = Opportunity.objects.filter(project=project)
 
-    context = base.build_base_context(request)
+    context = {}
     context['no_sponsorship'] = False if opps.filter(sponsorship = True) else True
     context['COUNTRIES'] = COUNTRIES
 
@@ -441,14 +442,14 @@ def manage_project(request, pid=1):
 
                 context['error'] = "failed to update project"
 
-    return render_to_response('manage_project.html', context, context_instance=RequestContext(request))
+    return render(request, 'manage_project.html', context)
 
 
 @login_required
 def new_project(request):
 
     # Show the sign page and collect emails
-    context = base.build_base_context(request)
+    context = {}
     context['causes'] = CAUSES
 
     allow_sponsorship = True
@@ -467,14 +468,14 @@ def new_project(request):
             project.organization = request.user.get_profile().organization
             project.created_by = request.user
 
-            # append cobranding tag if appropriate
-            if settings.BRAND != 'reallocate':
+            # limit to cobranded projects if appropriate
+            if request.session.get('brand'):
                 if project.tags:
                     t = project.tags.split(',')
-                    t.append(settings.BRAND)
+                    t.append(request.session['brand'].get('id'))
                     project.tags = t
                 else:
-                    project.tags = settings.BRAND
+                    project.tags = request.session['brand'].get('id')
 
             project.save()
 
@@ -508,14 +509,14 @@ def new_project(request):
 
     else:
 
-        return render_to_response('new_project.html', context, context_instance=RequestContext(request))
+        return render(request, 'new_project.html', context)
 
 
 def view_opportunity(request, pid, oid):
 
     opp = get_object_or_404(Opportunity, pk=oid)
     updates = Update.objects.filter(opportunity=opp).order_by('-date_created')[0:10]
-    context = base.build_base_context(request)
+    context = {}
     
     context.update({
         'opportunity': opp,
@@ -548,13 +549,13 @@ def view_opportunity(request, pid, oid):
             if ue.status == STATUS_ACTIVE: 
                 context['engaged'] = True
             
-    return render_to_response('opportunity.html', context, context_instance=RequestContext(request))    
+    return render(request, 'opportunity.html', context)    
 
 
 @login_required
 def new_organization(request):
 
-    context = base.build_base_context(request)
+    context = {}
     user_profile = request.user.get_profile()
     context['COUNTRIES'] = COUNTRIES
 
@@ -597,13 +598,13 @@ def new_organization(request):
 
         return HttpResponseRedirect(next)
 
-    return render_to_response('new_organization.html', context, context_instance=RequestContext(request))
+    return render(request, 'new_organization.html', context)
         
 
 @login_required
 def add_opportunity(request, pid=None, sponsorship=False):
 
-    context = base.build_base_context(request)
+    context = {}
     project = get_object_or_404(Project, pk=pid)
 
     context['project'] = project
@@ -623,14 +624,14 @@ def add_opportunity(request, pid=None, sponsorship=False):
             opp.organization = project.organization
             opp.created_by = request.user
 
-            # append cobranding tag if appropriate
-            if settings.BRAND != 'reallocate':
+            # limit to cobranded opportunities if appropriate
+            if request.session.get('brand'):
                 if opp.tags:
                     t = opp.tags.split(',')
-                    t.append(settings.BRAND)
+                    t.append(request.session['brand'].get('id'))
                     opp.tags = t
                 else:
-                    opp.tags = settings.BRAND
+                    opp.tags = request.session['brand'].get('id')
 
             opp.save()
         
@@ -661,18 +662,17 @@ def add_opportunity(request, pid=None, sponsorship=False):
 
     else:
 
-        return render_to_response('add_opportunity.html', context, context_instance=RequestContext(request))
+        return render(request, 'add_opportunity.html', context)
 
     
 def find_opportunity(request):
 
-    context = base.build_base_context(request)
+    context = {}
 
     opportunities = Opportunity.objects.filter(status__iexact='Active')
-
-    # limit to cobranded projects if appropriate
-    if settings.BRAND != 'reallocate':
-        opportunities = opportunities.filter(tags__contains=settings.BRAND)
+    # cobranding
+    if request.session.get('brand'):
+        opportunities = opportunities.filter(tags__contains=request.session['brand'].get('id', ''))
 
     if request.method == 'POST': 
 
@@ -695,18 +695,17 @@ def find_opportunity(request):
 
     context['opportunities'] = opportunities
 
-    return render_to_response('find_opportunity.html', context, context_instance=RequestContext(request))
+    return render(request, 'find_opportunity.html', context)
 
 
 def find_project(request):
 
-    context = base.build_base_context(request)
+    context = {}
 
     projects = Project.objects.filter(status__iexact='Active')
-
-    # limit to cobranded projects if appropriate
-    if settings.BRAND != 'reallocate':
-        projects = projects.filter(tags__contains=settings.BRAND)
+    # cobranding
+    if request.session.get('brand'):
+        projects = projects.filter(tags__contains=request.session['brand'].get('id', ''))
 
     if request.method == 'POST': 
 
@@ -721,12 +720,12 @@ def find_project(request):
 
     context['projects'] = projects
 
-    return render_to_response('find_project.html', context, context_instance=RequestContext(request))
+    return render(request, 'find_project.html', context)
 
 
 def stripe_subscription(request):
 
-    context = base.build_base_context(request)
+    context = {}
 
     next = "/"
 
