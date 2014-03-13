@@ -16,7 +16,7 @@ framework.
 import os
 
 if os.environ.get('COBRAND'):
-	os.environ.setdefault("DJANGO_SETTINGS_MODULE", "cobrand." + os.environ['COBRAND'] + ".settings")
+	os.environ.setdefault("DJANGO_SETTINGS_MODULE", "cobrands." + os.environ['COBRAND'] + ".settings")
 else:
 	os.environ.setdefault("DJANGO_SETTINGS_MODULE", "website.settings")
 
