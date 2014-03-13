@@ -18,4 +18,3 @@ python-openid==2.2.5
 six==1.5.2
 wsgiref==0.1.2
 git+https://github.com/stripe/stripe-python
-mysql-python
