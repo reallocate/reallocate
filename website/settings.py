@@ -154,7 +154,7 @@ MEDIA_URL = ''
 #STATIC_ROOT = os.path.join(PROJECT_ROOT, "static_root")
 #STATIC_ROOT = os.path.join(PROJECT_ROOT, STATIC_URL.strip("/"))
 
-STATIC_ROOT = os.path.join(PROJECT_ROOT, APP_NAME, 'static_files')
+STATIC_ROOT = os.path.join(PROJECT_ROOT, APP_NAME, 'staticfiles')
 STATIC_URL = '/static/'
 
 # Additional locations of static files
