@@ -1,6 +1,7 @@
 Django==1.5
 South==0.8.4
 boto==2.25.0
+mysql-python
 dj-database-url==0.2.2
 django-ses==0.4.1
 django-social-auth==0.7.28
@@ -17,3 +18,4 @@ python-openid==2.2.5
 six==1.5.2
 wsgiref==0.1.2
 git+https://github.com/stripe/stripe-python
+mysql-python
