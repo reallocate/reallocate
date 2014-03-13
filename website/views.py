@@ -380,7 +380,7 @@ def manage_project(request, pid=1):
 
     project = get_object_or_404(Project, pk=pid)
 
-    if not request.user.is_authenticated() or project.created_by != request.user:
+    if (not request.user.is_authenticated() or project.created_by != request.user) and not request.user.is_staff:
         return HttpResponseRedirect('/')
 
     opps = Opportunity.objects.filter(project=project)
