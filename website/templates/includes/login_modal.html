@@ -9,9 +9,7 @@
                 <div class="row">
                     <div class="col-xs-7">
                         <form action="/login" id="modal-login" method="post">
-                            {% if next %}
                             <input type="hidden" name="next" value="{{ next }}" />
-                            {% endif %}
                             <div class="form-group">
                                 <input class="form-control" type="text" name="username" id="modal-username" value="{{ username }}" placeholder="email" />
                             </div>

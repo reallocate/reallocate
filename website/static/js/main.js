@@ -53,9 +53,19 @@ var reAllocate = window.reAllocate || {
         // show alert modal if it exists
         if ($('#alert-modal')) $('#alert-modal').modal('show');
 
+        // login required modal
+        if (!reAllocate.user) {
+            $('a[data-login-required]').each(function(i, a) {
+                $(a).on('click', function(e) {
+                    e.preventDefault();
+                    $('#modal-login input[name=next]').attr('value', a.href);
+                    $('#login-modal').modal('show');
+                });
+            })
+        }
+
         // init popover confirmations
         $('[data-toggle="confirmation"]').confirmation();
-
 
         $('.delegate-file-upload').click(function() {
 

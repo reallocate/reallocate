@@ -520,8 +520,8 @@ class Project(models.Model):
         sponsorship.created_by = self.created_by
 
         # add cobranding tag if appropriate
-        if settings.BRAND != 'reallocate':
-            sponsorship.tags = settings.BRAND
+        if hasattr(settings, 'BRAND'):
+            sponsorship.tags = settings.BRAND.get('id')
 
         sponsorship.save()
 
