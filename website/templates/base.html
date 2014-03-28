@@ -61,7 +61,7 @@
 
     {% include "includes/login_modal.html" %}
     {% include "includes/confirmation-modal.html" %}
-    {% include "includes/invite-users-modal.html" %}
+    {% if INVITE_ONLY %}{% include "includes/invite-users-modal.html" %}{% endif %}
     {% block modals %}{% endblock %}  
 
 <script src="//code.jquery.com/jquery-1.9.1.min.js"></script>

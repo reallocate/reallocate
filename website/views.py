@@ -251,7 +251,7 @@ def sign_up(request):
     else:
         context['next'] = context['referrer']
 
-    if request.method == 'GET':
+    if settings.INVITE_ONLY:
 
         if request.GET.get('invite') or request.COOKIES.get('invite'):
 
@@ -265,6 +265,10 @@ def sign_up(request):
         else:
 
             return render(request, 'request_invite.html', context)
+
+    else:
+
+        return render(request, 'sign_up.html', context)
 
     response = HttpResponseRedirect(request.POST.get('next', '/'))
 

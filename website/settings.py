@@ -1,8 +1,3 @@
-##################
-# LOCAL SETTINGS
-#
-# all should be overwritten in settings_local.py
-##################
 import os, sys, socket, re, logging
 
 ALLOWED_HOSTS = ['.reallocate.org']
@@ -51,6 +46,9 @@ LINKEDIN_EXTRA_DATA = [('id', 'id'),
                        ('industry', 'industry'),
                        ('picture-url', 'profile_picture')]
 
+# invite system
+INVITE_ONLY = True if 'INVITE_ONLY' in os.environ and os.environ['INVITE_ONLY'] == 'true' else False
+
 # email settings
 EMAIL_BACKEND = 'django_ses.SESBackend'
 FROM_EMAIL = "Reallocate <noreply@reallocate.org>"
@@ -67,7 +65,7 @@ DATABASES = {'default': dj_database_url.config(default='sqlite:/data.db')}
 if 'DEPLOY_ENV' in os.environ and os.environ['DEPLOY_ENV'] != 'local':
 
     DEPLOY_ENV = os.environ['DEPLOY_ENV']
-    DEBUG = True if 'DEBUG' in os.environ and os.environ['DEBUG'] == 'True' else False
+    DEBUG = True if 'DEBUG' in os.environ and os.environ['DEBUG'] == 'true' else False
     S3_BUCKET = os.environ.get('S3_BUCKET')
     AWS_STORAGE_BUCKET_NAME = S3_BUCKET
 

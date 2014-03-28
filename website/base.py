@@ -31,7 +31,8 @@ def context(request):
     context = {'URL_NAME': resolve(request.path).url_name }
 
     context['alert'] = json.loads(request.COOKIES['alert']) if request.COOKIES.get('alert') else None
-    context['cobrand'] = request.session.get('brand')
+    context['cobrand'] = settings.BRAND if hasattr(settings, 'BRAND') else {}
+    context['INVITE_ONLY'] = settings.INVITE_ONLY
 
     return context
 
