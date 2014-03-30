@@ -575,6 +575,9 @@ body>.alert {
 
 /* profile */
 
+#profile .page {
+    margin-top: 20px;
+}
 #profile .racing-stripe {
     position: absolute; 
     background-color: rgb(80,113,140); 
