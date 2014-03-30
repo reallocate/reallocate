@@ -268,7 +268,7 @@ def sign_up(request):
 
             return render(request, 'request_invite.html', context)
 
-    else:
+    elif not request.POST:
 
         return render(request, 'sign_up.html', context)
 
