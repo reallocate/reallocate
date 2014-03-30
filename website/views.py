@@ -112,8 +112,10 @@ def home(request):
     # cobranding
     if hasattr(settings, 'BRAND'):
         projects = projects.filter(tags__contains=settings.BRAND.get('id', ''))
+    else:
+        projects = projects.filter(tags__contains='hacktivation')
 
-    context['projects'] = projects[:6]
+    context['projects'] = projects[:12]
 
     response = render(request, 'home.html', context)
 
