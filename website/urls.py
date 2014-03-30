@@ -46,6 +46,7 @@ urlpatterns = patterns('',
   url(r'^ajax/delete-opportunity', 'website.ajax_views.delete_opportunity'),
   url(r'^ajax/invite-users', 'website.ajax_views.invite_users'),
 
+  url(r'^profile', 'website.views.profile', name='profile'),
   url(r'^profile/?(?P<username>[^/]+)?', 'website.views.profile', name='profile'),  # public profile view
 
   # pay-pal receiver

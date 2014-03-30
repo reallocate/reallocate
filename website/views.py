@@ -30,12 +30,12 @@ def profile(request, username=None):
     """ for displaying and editing a users profile """
     
     context = {}
-    if not username and not context.get('user'):
-        return HttpResponseRedirect(settings.POST_LOGIN_URL)
+    if not username and not request.user:
+        return HttpResponseRedirect('/')
     
     # this is a person viewing their own profile page, make it editable
     if not username: 
-        user = context['user']
+        user = request.user
         context['self'] = True
     elif re.match(r'^\d+', username):
         user = User.objects.filter(id=username)
