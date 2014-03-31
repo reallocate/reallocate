@@ -110,8 +110,8 @@ def home(request):
     projects = Project.objects.filter(Q(status__iexact='active'))
 
     # cobranding
-    if hasattr(settings, 'BRAND'):
-        projects = projects.filter(tags__contains=settings.BRAND.get('id', ''))
+    if request.session.get('brand'):
+        projects = projects.filter(tags__contains=request.session['brand'].get('id', ''))
     else:
         projects = projects.filter(tags__contains='hacktivation')
 
@@ -475,13 +475,13 @@ def new_project(request):
             project.created_by = request.user
 
             # limit to cobranded projects if appropriate
-            if hasattr(settings, 'BRAND'):
+            if request.session.get('brand'):
                 if project.tags:
                     t = project.tags.split(',')
-                    t.append(settings.BRAND.get('id'))
+                    t.append(request.session['brand'].get('id', ''))
                     project.tags = t
                 else:
-                    project.tags = settings.BRAND.get('id')
+                    project.tags = srequest.session['brand'].get('id', '')
 
             project.save()
 
@@ -631,13 +631,13 @@ def add_opportunity(request, pid=None, sponsorship=False):
             opp.created_by = request.user
 
             # limit to cobranded opportunities if appropriate
-            if hasattr(settings, 'BRAND'):
+            if request.session.get('brand'):
                 if opp.tags:
                     t = opp.tags.split(',')
-                    t.append(settings.BRAND.get('id'))
+                    t.append(request.session['brand'].get('id', ''))
                     opp.tags = t
                 else:
-                    opp.tags = settings.BRAND.get('id')
+                    opp.tags = request.session['brand'].get('id', '')
 
             opp.save()
         
@@ -677,8 +677,8 @@ def find_opportunity(request):
 
     opportunities = Opportunity.objects.filter(status__iexact='Active')
     # cobranding
-    if hasattr(settings, 'BRAND'):
-        opportunities = opportunities.filter(tags__contains=settings.BRAND.get('id', ''))
+    if request.session.get('brand'):
+        opportunities = opportunities.filter(tags__contains=request.session['brand'].get('id', ''))
 
     if request.method == 'POST': 
 
@@ -710,8 +710,8 @@ def find_project(request):
 
     projects = Project.objects.filter(status__iexact='Active')
     # cobranding
-    if hasattr(settings, 'BRAND'):
-        projects = projects.filter(tags__contains=settings.BRAND.get('id', ''))
+    if hrequest.session.get('brand'):
+        projects = projects.filter(tags__contains=request.session['brand'].get('id', ''))
 
     if request.method == 'POST': 
 
