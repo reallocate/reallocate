@@ -1,6 +1,6 @@
 import os, sys, socket, re, logging
 
-ALLOWED_HOSTS = ['.reallocate.org', '*reallocate.herokuapp.com']
+ALLOWED_HOSTS = ['.reallocate.org', '.herokuapp.com']
 
 # OAuth keys for Social Auth
 TWITTER_CONSUMER_KEY = ''
