@@ -4,6 +4,8 @@ from website.settings import *
 
 APP_NAME = 'onearmenia'
 
+ALLOWED_HOSTS += ['.onearmenia.org']
+
 ROOT_URLCONF = 'cobrands.onearmenia.urls'
 INSTALLED_APPS = ('cobrands.onearmenia',) + INSTALLED_APPS
 MIDDLEWARE_CLASSES += ('cobrands.onearmenia.Middleware',)
