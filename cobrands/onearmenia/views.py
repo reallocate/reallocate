@@ -46,15 +46,6 @@ def new_project(request):
             project.organization = request.user.get_profile().organization
             project.created_by = request.user
 
-            # limit to cobranded projects if appropriate
-            if request.session.get('brand'):
-                if project.tags:
-                    t = project.tags.split(',')
-                    t.append(request.session['brand'].get('id'))
-                    project.tags = t
-                else:
-                    project.tags = request.session['brand'].get('id')
-
             project.save()
 
             if allow_sponsorship:
