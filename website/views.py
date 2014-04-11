@@ -481,7 +481,7 @@ def new_project(request):
                     t.append(request.session['brand'].get('id', ''))
                     project.tags = t
                 else:
-                    project.tags = srequest.session['brand'].get('id', '')
+                    project.tags = request.session['brand'].get('id', '')
 
             project.save()
 
