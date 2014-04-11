@@ -1,11 +1,15 @@
 @font-face {
-    font-family: BEBAS NEUE;
+    font-family: BebasNeue;
     font-weight: bold;
     src: url("https://s3-eu-west-1.amazonaws.com/onearmenia/fonts/BebasNeue.otf") format("opentype");
 }
 body {
     font-family: 'Source Sans Pro', Helvetica, sans-serif;
-    font-size: 13px;
+    font-size: 16px;
+}
+h1, h2, h3, h4, h5 {
+    font-family: BebasNeue, Arial;
+    color: #555;
 }
 .navbar {
     font-size: 15px;
@@ -43,7 +47,7 @@ body {
     background-size: cover;
     background-color: rgb(254,173,39);
     background-position: 0px -365px;
-    height: 90;
+    height: 90px;
 }
 #about h2 {
     margin-bottom: 20px;
@@ -56,4 +60,8 @@ body {
 }
 #about footer p {
 	font-size: 16px;
+}
+#get-started .get-started {
+    text-align: right;
+    padding-top: 10px;
 }
