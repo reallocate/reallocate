@@ -45,6 +45,31 @@ var reAllocate = window.reAllocate || {
 
     init: function() {
 
+
+        $('#project .jumbotron').on('mousedown', function(e) {
+            
+            var startY = e.pageY;
+            var startX = e.pageX;
+
+            console.log($(this).css('background-position'));
+
+            $(this).on('mousemove', function(e) {
+
+                var newY = e.pageY;
+                var diff = newY - startY;
+                var newPercent = diff+'%';
+                console.log(diff);
+                $(this).css('background-position', '0% ' + newPercent);
+
+                $(this).on('mouseup', function(e) {
+                    $(this).off('mousemove');
+                })
+
+            });
+
+        })
+
+
         this.setupAddThis();
         
         // ie9 placeholder support
