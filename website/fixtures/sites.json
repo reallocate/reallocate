@@ -1,0 +1,18 @@
+[
+    {
+        "fields": {
+            "domain": "freespace.reallocate.org",
+            "name": "Freespace"
+        },
+        "model": "sites.site",
+        "pk": 1
+    },
+    {
+        "fields": {
+            "domain": "onearmenia.reallocate.org",
+            "name": "Onearemenia"
+        },
+        "model": "sites.site",
+        "pk": 2
+    }
+]
