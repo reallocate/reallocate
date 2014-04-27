@@ -5,9 +5,11 @@ from datetime import datetime
 
 from django.db import models
 from django.forms import ModelForm, Textarea
+from django.contrib.sites.models import Site
 from django.contrib.auth.models import User
 from django.contrib.auth.models import UserManager
-from django.db.models.signals import post_save
+from django.contrib.sites.managers import CurrentSiteManager
+
 from django.utils.translation import ugettext as _
 
 # handle custom Country field for South
@@ -458,6 +460,9 @@ class Organization(models.Model):
     URL = models.TextField(blank=True)
     media_url = models.CharField(max_length=200, blank=True)
     created_by = models.ForeignKey(User)
+    site = models.ForeignKey(Site)
+
+    objects = CurrentSiteManager()
     
     def __unicode__(self):
         return "Name: %s" % self.name
@@ -493,6 +498,9 @@ class Project(models.Model):
     followed_by = models.ManyToManyField(User, blank=True, related_name='followed_by')
     featured = models.BooleanField(default=False, blank=True)
     tags = models.CharField(max_length=200, blank=True)
+    site = models.ForeignKey(Site)
+
+    objects = CurrentSiteManager()
     
     def __unicode__(self):
         return "Name: %s" % self.name
@@ -514,6 +522,7 @@ class Project(models.Model):
         sponsorship.name = 'Sponsorship'
         sponsorship.short_desc = "Sponsor this project by donating annually to it's cause."
         sponsorship.opp_type = 'Money'
+        sponsorship.site = self.site
         sponsorship.sponsorship = True
         sponsorship.project = self
         sponsorship.organization = self.organization
@@ -562,6 +571,9 @@ class Opportunity(models.Model):
     engaged_by = models.ManyToManyField(User, blank=True, through='OpportunityEngagement')
     featured = models.BooleanField(default=False, blank=True)
     sponsorship = models.BooleanField(default=False, blank=True)
+    site = models.ForeignKey(Site)
+
+    objects = CurrentSiteManager()
 
     # prerequisites = models.ManyToManyField(Opportunity)  - assuming that pre-reqs = other opps
     # time estimate - TODO: See v2 Feature Doc https://docs.google.com/a/reallocate.org/document/d/1AY-2h9pa028USr3ofwUQjjoZ2kKGnRQZ0xoIQYk-urs/edit
@@ -606,6 +618,9 @@ class UserProfile(models.Model):
     occupation = models.CharField(max_length=200, blank=True)
     causes = models.CharField(max_length=200, blank=True)
     skills = models.CharField(max_length=200, blank=True)
+    site = models.ForeignKey(Site)
+
+    objects = CurrentSiteManager()
     
     def __str__(self):
         return "%s's profile" % self.user
@@ -613,16 +628,8 @@ class UserProfile(models.Model):
     def make_s3_media_url(self, uploaded_file):
         return 'users/%s/%s' % (self.user.email, uploaded_file.name)
 
-def create_user_profile(sender, instance, created, **kwargs):
- 
-    if created:
-        profile, created = UserProfile.objects.get_or_create(user=instance)
- 
-post_save.connect(create_user_profile, sender=User)
-
 
 class Update(models.Model):
-
     organization = models.ForeignKey(Organization)
     project = models.ForeignKey(Project)
     opportunity = models.ForeignKey(Opportunity, blank=True, null=True)
@@ -630,6 +637,9 @@ class Update(models.Model):
     media_url = models.CharField(max_length=1000, blank=True, null=True)
     date_created = models.DateTimeField(auto_now_add=True)
     created_by = models.ForeignKey(User)
+    site = models.ForeignKey(Site)
+
+    objects = CurrentSiteManager()
     
     def __unicode__(self):
         return "%s / %s / %s" % (self.project.name, self.opportunity, datetime.strftime(self.date_created, "%c"))
@@ -646,5 +656,8 @@ class OpportunityEngagement(models.Model):
     # this will be where the opp engagements can be approved
     status = models.CharField(max_length=100, choices=STATUS_CHOICES, default=STATUS_CHOICES[1][1])
     response = models.CharField(max_length=2000, blank=True)  # response to the engagement
+    site = models.ForeignKey(Site)
 
+    objects = CurrentSiteManager()
 
+from website.signals import *

@@ -13,6 +13,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.core.exceptions import ObjectDoesNotExist, PermissionDenied
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
+from django.contrib.sites.models import Site
 from django.views.decorators.csrf import csrf_exempt, csrf_protect
 from django.db.models import Q
 from django.utils.http import urlquote
@@ -473,6 +474,7 @@ def new_project(request):
 
             project.organization = request.user.get_profile().organization
             project.created_by = request.user
+            project.site = Site.objects.get_current()
 
             # limit to cobranded projects if appropriate
             if request.session.get('brand'):
@@ -580,6 +582,7 @@ def new_organization(request):
             if org_form.is_valid():
 
                 org.created_by = request.user
+                org.site = Site.objects.get_current()
                 org.save()
                 
                 user_profile.organization_id = org.id
@@ -629,6 +632,7 @@ def add_opportunity(request, pid=None, sponsorship=False):
             opp.project = project
             opp.organization = project.organization
             opp.created_by = request.user
+            opp.site = Site.objects.get_current()
 
             # limit to cobranded opportunities if appropriate
             if request.session.get('brand'):
