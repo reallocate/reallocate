@@ -6,6 +6,7 @@
 
     <meta name="keywords" content="{% block meta_keywords %}{% endblock %}">
     <meta name="description" content="{% block meta_description %}{% endblock %}">
+    <title>{{site.name}} - ReAllocate{% block extra_title %}{% endblock %}</title>
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
@@ -14,10 +15,10 @@
 
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{ STATIC_URL }}css/main.css?16">
+    <link rel="shortcut icon" href="{{ STATIC_URL }}/images/favicon.png">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.min.css">
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,400,700,Pathway+Gothic+One">
 
-    {% include 'includes/base_head.html' %}
-      
     {% block extra_css %}
     {% endblock %}
 
