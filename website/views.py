@@ -710,7 +710,7 @@ def find_project(request):
 
     projects = Project.objects.filter(status__iexact='Active')
     # cobranding
-    if hrequest.session.get('brand'):
+    if request.session.get('brand'):
         projects = projects.filter(tags__contains=request.session['brand'].get('id', ''))
 
     if request.method == 'POST': 

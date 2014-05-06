@@ -15,10 +15,7 @@ framework.
 """
 import os
 
-if os.environ.get('COBRAND'):
-	os.environ.setdefault("DJANGO_SETTINGS_MODULE", "cobrands." + os.environ['COBRAND'] + ".settings")
-else:
-	os.environ.setdefault("DJANGO_SETTINGS_MODULE", "website.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "website.settings")
 
 
 # This application object is used by any WSGI server configured to use this

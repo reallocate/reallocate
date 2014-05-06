@@ -107,6 +107,9 @@ else:
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 APP_NAME = 'website'
 
+SITE_IDS = str(os.environ.get('SITE_ID', 1)).split(',')
+SITE_ID = SITE_IDS[0]
+
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
 )
@@ -122,8 +125,6 @@ TIME_ZONE = 'America/Vancouver'
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
 LANGUAGE_CODE = 'en-us'
-
-SITE_ID = 1
 
 # If you set this to False, Django will make some optimizations so as not
 # to load the internationalization machinery.
@@ -198,8 +199,6 @@ TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    #'templates',
-    #'templates/emails',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -323,3 +322,16 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 TEMPLATE_DEBUG = DEBUG
 DEBUG_PROPAGATE_EXCEPTIONS = DEBUG
+
+# setup brand
+from django.contrib.sites.models import Site
+s = Site.objects.get(id=SITE_ID)
+if s:
+    brand = s.domain.replace('.', '-')
+    brand = 'freespace'
+    import importlib
+    importlib.import_module('brands.%s.settings' % brand)
+
+    STATICFILES_DIRS = (os.path.join(PROJECT_ROOT, 'brands', brand, 'static'),)
+    TEMPLATE_DIRS = (os.path.join(PROJECT_ROOT, 'brands', brand, 'templates'),)
+

@@ -7,9 +7,10 @@ from django.db import models
 from django.forms import ModelForm, Textarea
 from django.contrib.auth.models import User
 from django.contrib.auth.models import UserManager
+from django.contrib.sites.models import Site
 from django.db.models.signals import post_save
 from django.utils.translation import ugettext as _
-
+ 
 # handle custom Country field for South
 from south.modelsinspector import add_introspection_rules
 add_introspection_rules([], ["^website\.models\.CountryField"])
@@ -493,6 +494,7 @@ class Project(models.Model):
     followed_by = models.ManyToManyField(User, blank=True, related_name='followed_by')
     featured = models.BooleanField(default=False, blank=True)
     tags = models.CharField(max_length=200, blank=True)
+    sites = models.ManyToManyField(Site, default=settings.SITE_IDS)
     
     def __unicode__(self):
         return "Name: %s" % self.name
@@ -562,6 +564,7 @@ class Opportunity(models.Model):
     engaged_by = models.ManyToManyField(User, blank=True, through='OpportunityEngagement')
     featured = models.BooleanField(default=False, blank=True)
     sponsorship = models.BooleanField(default=False, blank=True)
+    sites = models.ManyToManyField(Site, default=settings.SITE_IDS)
 
     # prerequisites = models.ManyToManyField(Opportunity)  - assuming that pre-reqs = other opps
     # time estimate - TODO: See v2 Feature Doc https://docs.google.com/a/reallocate.org/document/d/1AY-2h9pa028USr3ofwUQjjoZ2kKGnRQZ0xoIQYk-urs/edit
