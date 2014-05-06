@@ -107,13 +107,7 @@ def home(request):
 
     context = {}
 
-    projects = Project.objects.filter(Q(status__iexact='active'))
-
-    # cobranding
-    if request.session.get('brand'):
-        projects = projects.filter(tags__contains=request.session['brand'].get('id', ''))
-    else:
-        projects = projects.filter(tags__contains='hacktivation')
+    projects = Project.objects.filter(status__iexact='active', sites__id=settings.SITE_ID)
 
     context['projects'] = projects[:12]
 
@@ -474,15 +468,6 @@ def new_project(request):
             project.organization = request.user.get_profile().organization
             project.created_by = request.user
 
-            # limit to cobranded projects if appropriate
-            if request.session.get('brand'):
-                if project.tags:
-                    t = project.tags.split(',')
-                    t.append(request.session['brand'].get('id', ''))
-                    project.tags = t
-                else:
-                    project.tags = request.session['brand'].get('id', '')
-
             project.save()
 
             if allow_sponsorship:
@@ -630,15 +615,6 @@ def add_opportunity(request, pid=None, sponsorship=False):
             opp.organization = project.organization
             opp.created_by = request.user
 
-            # limit to cobranded opportunities if appropriate
-            if request.session.get('brand'):
-                if opp.tags:
-                    t = opp.tags.split(',')
-                    t.append(request.session['brand'].get('id', ''))
-                    opp.tags = t
-                else:
-                    opp.tags = request.session['brand'].get('id', '')
-
             opp.save()
         
             # this has to occur after initial save b/c we use pk id as part of the s3 filepath
@@ -675,10 +651,7 @@ def find_opportunity(request):
 
     context = {}
 
-    opportunities = Opportunity.objects.filter(status__iexact='Active')
-    # cobranding
-    if request.session.get('brand'):
-        opportunities = opportunities.filter(tags__contains=request.session['brand'].get('id', ''))
+    opportunities = Opportunity.objects.filter(status__iexact='Active', sites__id=settings.SITE_ID)
 
     if request.method == 'POST': 
 
@@ -708,10 +681,7 @@ def find_project(request):
 
     context = {}
 
-    projects = Project.objects.filter(status__iexact='Active')
-    # cobranding
-    if request.session.get('brand'):
-        projects = projects.filter(tags__contains=request.session['brand'].get('id', ''))
+    projects = Project.objects.filter(status__iexact='Active', sites__id=settings.SITE_ID)
 
     if request.method == 'POST': 
 

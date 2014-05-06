@@ -330,7 +330,7 @@ if s:
     m = re.search(r'\((\w+)\)', s.name)
     if m:
         brand = m.group(1)
-        logging.error("Using brand ID '%s'" % brand)
+        logging.info("Using brand ID '%s'" % brand)
     else:
         brand = 'reallocate'
         logging.error("No valid brand ID found, using '%s'" % brand)
