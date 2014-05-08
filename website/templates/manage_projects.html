@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+
+{% block extra_css %}
+{% endblock %}
+
+{% block content %}
+    
+<div class="container">
+
+    <div class="row wall">
+        <div class="col-md-12 tabs">
+            <div class="btn-group">
+                <a href="#active" class="btn btn-sm btn-default" onclick="showProjects($(this).attr('href'))" data-toggle="projects">Active<span class="badge">{{ projects.active|length }}</span></a>
+                <a href="#pending" class="btn btn-sm btn-default" onclick="showProjects($(this).attr('href'))" data-toggle="projects">Pending<span class="badge">{{ projects.pending|length }}</span></a>
+                <a href="#closed" class="btn btn-sm btn-default" onclick="showProjects($(this).attr('href'))" data-toggle="projects">Closed<span class="badge">{{ projects.closed|length }}</span></a>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            {% if projects %}
+
+            <table class="table table-striped projects" id="active">
+            {% for project in projects.active %}
+                <tr>
+                    <td><a href="/project/{{ project.id }}/manage">{{ project.name }}</a></td>
+                    <td>{{ project.opportunities|length }} opportunities</td>
+                    <td>
+                        <div class="edit pull-right">
+                            <button class="btn btn-default btn-xs" data-toggle="confirmation" data-href="javascript:changeProject({{ project.id }}, 'close')"><i class="fa fa-times"></i>&nbsp;&nbsp;close</button>
+                            <button class="btn btn-danger btn-xs" data-toggle="confirmation" data-placement="left" data-href="javascript:changeProject({{ project.id }}, 'delete')"><i class="fa fa-trash-o"></i>&nbsp;&nbsp;delete</button>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+            </table>
+            <table class="table table-striped projects" id="pending">
+            {% for project in projects.pending %}
+                <tr>
+                    <td><a href="/project/{{ project.id }}/manage">{{ project.name }}</a></td>
+                    <td>{{ project.opportunities|length }} opportunities</td>
+                    <td>
+                        <div class="edit pull-right">
+                            <button class="btn btn-success btn-xs" data-toggle="confirmation" data-href="javascript:changeProject({{ project.id }}, 'approve')"><i class="fa fa-check"></i>&nbsp;&nbsp;approve</button>
+                            <button class="btn btn-danger btn-xs" data-toggle="confirmation" data-placement="left" data-href="javascript:changeProject({{ project.id }}, 'delete')"><i class="fa fa-trash-o"></i>&nbsp;&nbsp;delete</button>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+            </table>
+            <table class="table table-striped projects" id="closed">
+            {% for project in projects.closed %}
+                <tr>
+                    <td><a href="/project/{{ project.id }}/manage">{{ project.name }}</a></td>
+                    <td>{{ project.opportunities|length }} opportunities</td>
+                    <td>
+                        <div class="edit pull-right">
+                            <button class="btn btn-default btn-xs" data-toggle="confirmation" data-href="javascript:changeProject({{ project.id }}, 'open')">reopen</button>
+                            <button class="btn btn-danger btn-xs" data-toggle="confirmation" data-placement="left" data-href="javascript:changeProject({{ project.id }}, 'delete')"><i class="fa fa-trash-o"></i>&nbsp;&nbsp;delete</button>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+            </table>
+            {% else %}
+            <p>There are no projects</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
+
+{% block bottomscript %}
+
+<script>
+$(document).ready(function() {
+
+    var p = window.location.hash.substr(1) || 'active';
+    showProjects('#'+p);
+
+});
+
+function showProjects(id) {
+
+    $('.projects').css('display', 'none');
+    $(id).css('display', 'table');
+    $('[data-toggle=projects]').removeClass('btn-primary').addClass('btn-default');
+    $('a[href='+id+']').removeClass('btn-default').addClass('btn-primary');
+}
+
+function changeProject(id, action) {
+
+    $.ajax({
+        url : '/ajax/change-project',
+        method: 'post',
+        data : {'id': id, 'action': action},
+        success: function(res) {
+            window.location.reload();
+        },
+        error: function(res) {
+            alert("failed to "+action+" project");
+        }
+   });
+}
+</script>
+
+{% endblock %}
