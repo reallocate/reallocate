@@ -20,11 +20,16 @@ h1, h2, h3, h4, h5 {
 }
 .navbar .navbar-brand img {
     top: -1px;
+    width: 30px;
+}
+.navbar .navbar-brand img+img {
+    top: -1px;
+    width: 93px;
 }
 #home .jumbotron {
 	background-color: rgb(16,194,192);
-    background-image: url('//s3-eu-west-1.amazonaws.com/onearmenia/images/onearmenia-logo-square-200.png');
-    background-size: 200px 200px;
+    background-image: url('//s3-eu-west-1.amazonaws.com/onearmenia/images/onearmenia-logo-wide-800.png');
+    background-size: 600px 100px;
     background-repeat: no-repeat;
     background-position: center;
     height: 300px;

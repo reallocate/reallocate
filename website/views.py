@@ -97,8 +97,6 @@ def public_profile(request, username=None):
 def login_page(request):
 
     context = {}
-
-    foo = "testing"
     
     return render(request, 'login.html', context)
 
@@ -107,9 +105,10 @@ def home(request):
 
     context = {}
 
+    logging.error(settings.SITE_IDS)
     projects = Project.objects.filter(status__iexact='active', sites__id=settings.SITE_ID)
 
-    context['projects'] = projects[:12]
+    context['projects'] = projects[:50]
 
     response = render(request, 'home.html', context)
 
@@ -470,6 +469,9 @@ def new_project(request):
 
             project.save()
 
+            project.sites = settings.SITE_IDS
+            project.save()
+
             if allow_sponsorship:
 
                 project.create_sponsorship()
@@ -697,6 +699,31 @@ def find_project(request):
     context['projects'] = projects
 
     return render(request, 'find_project.html', context)
+
+
+def manage_projects(request):
+
+    if request.user and request.user.is_staff:
+
+        context = {'projects': {}}
+
+        context['projects']['active'] = Project.objects.filter(status__iexact='Active', sites__id=settings.SITE_ID)
+        context['projects']['pending'] = Project.objects.filter(status__iexact='Pending', sites__id=settings.SITE_ID)
+        context['projects']['closed'] = Project.objects.filter(status__iexact='Closed', sites__id=settings.SITE_ID)
+
+        if request.method == 'POST': 
+
+            search = request.POST.get("search")
+            context['search_term'] = search
+
+            MAX_RESULTS = 50
+
+            if search:
+
+                projects = projects.filter(Q(name__contains=search) | Q(short_desc__contains=search) | Q(description__contains=search)).distinct()
+
+        return render(request, 'manage_projects.html', context)
+
 
 
 def stripe_subscription(request):

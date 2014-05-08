@@ -107,7 +107,8 @@ else:
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 APP_NAME = 'website'
 
-SITE_IDS = str(os.environ.get('SITE_ID', 1)).split(',')
+SITE_ORG_ID = os.environ.get('SITE_ORG_ID')   # used for match site with an org model
+SITE_IDS = os.environ.get('SITE_ID', '1').split(',')
 SITE_ID = SITE_IDS[0]
 
 ADMINS = (

@@ -1266,3 +1266,12 @@ footer p {
     margin-bottom: -18px;
     display: block;
 }
+
+#manage-projects .tabs {
+    text-align: center;
+    padding-bottom: 20px;
+}
+#manage-projects .tabs .badge {
+    margin-left: 10px;
+    font-size: 9px;
+}

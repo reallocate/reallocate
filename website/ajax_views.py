@@ -52,33 +52,52 @@ def modify_project_relation(request, *args):
   
 
 @csrf_exempt
-def approve_project(request, *args):
+def change_project(request, *args):
 
-    if request.user.username != 'admin':
+    if request.user.is_staff:
+
+        project_id = request.REQUEST.get('id', '')
+
+        try:
+            project = Project.objects.get(pk=project_id)
+
+        except Exception, error:
+
+            return HttpResponse(json.dumps({'success': False, 'message': 'Invalid project ID'}), status=500)
+
+        if request.REQUEST.get('action') == 'approve' or request.REQUEST.get('action') == 'open':
+
+            project.status = 'Active'
+            project.save()
+
+            subject = "Your ReAllocate project has been approved!"
+            html_content = "Congratulations, your project &quot;%s&quot; has been reviewed and approved." % project.name
+            html_content = html_content + "<br><br>This project is now live and can be viewed at <a href='%s'>%s</a>.<br>" % (project.get_url(request), project.get_url(request))
+
+            base.send_email(project.created_by.email, subject, html_content, html_content=html_content)
+
+            response = { "success": True }
+
+        elif request.REQUEST.get('action') == 'close':
+
+            project.status = 'Closed'
+            project.save()
+
+            response = { "success": True }
+
+        elif request.REQUEST.get('action') == 'delete':
+
+            project.delete()
+
+            response = { "success": True }
+
+
+        return HttpResponse(json.dumps(response), mimetype="application/json")
+
+    else:
 
         return HttpResponse(json.dumps({'success': False, 'message': 'Insufficient priviledges'}), mimetype="application/json")
 
-    project_id = request.GET.get('project_id', '')
-
-    try:
-        project = Project.objects.get(pk=project_id)
-
-    except Exception, error:
-
-        return HttpResponse(json.dumps({'success': False, 'message': 'Invalid project ID'}), status=500)
-
-    project.status = 'Active'
-    project.save()
-
-    subject = "Your ReAllocate project has been approved!"
-    html_content = "Congratulations, your project &quot;%s&quot; has been reviewed and approved." % project.name
-    html_content = html_content + "<br><br>This project is now live and can be viewed at <a href='%s'>%s</a>.<br>" % (project.get_url(request), project.get_url(request))
-
-    base.send_email(project.created_by.email, subject, html_content, html_content=html_content)
-
-    response = { "success": True }
-
-    return HttpResponse(json.dumps(response), mimetype="application/json")
 
 
 @csrf_exempt

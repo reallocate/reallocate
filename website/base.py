@@ -33,6 +33,7 @@ def context(request):
     context['alert'] = json.loads(request.COOKIES['alert']) if request.COOKIES.get('alert') else None
     context['cobrand'] = settings.BRAND if hasattr(settings, 'BRAND') else {}
     context['INVITE_ONLY'] = settings.INVITE_ONLY
+    context['SITE_ORG_ID'] = settings.SITE_ORG_ID
 
     return context
 

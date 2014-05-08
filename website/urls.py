@@ -32,6 +32,9 @@ urlpatterns = patterns('',
   url(r'^project/(?P<pid>\d+)/manage/$', 'website.views.manage_project', name='manage-project'),
   url(r'^project/(?P<pid>\d+)/$', 'website.views.view_project', name='project'),
 
+  # staff management
+  url(r'^manage/projects$', 'website.views.manage_projects', name='manage-projects'),
+
   url(r'^ajax/modify-project-relation', 'website.ajax_views.modify_project_relation'),
   url(r'^ajax/engage-opportunity', 'website.ajax_views.engage_opportunity'),
   url(r'^ajax/close-opportunity', 'website.ajax_views.close_opportunity'),
@@ -42,7 +45,7 @@ urlpatterns = patterns('',
   url(r'^ajax/get-orgs', 'website.ajax_views.get_orgs'),
   url(r'^ajax/login', 'website.ajax_views.login_user'),
   url(r'^ajax/update-project', 'website.ajax_views.update_project'),
-  url(r'^ajax/approve-project', 'website.ajax_views.approve_project'),
+  url(r'^ajax/change-project', 'website.ajax_views.change_project'),
   url(r'^ajax/delete-opportunity', 'website.ajax_views.delete_opportunity'),
   url(r'^ajax/invite-users', 'website.ajax_views.invite_users'),
 
