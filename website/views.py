@@ -701,6 +701,7 @@ def find_project(request):
     return render(request, 'find_project.html', context)
 
 
+@login_required
 def manage_projects(request):
 
     if request.user and request.user.is_staff:
@@ -723,6 +724,10 @@ def manage_projects(request):
                 projects = projects.filter(Q(name__contains=search) | Q(short_desc__contains=search) | Q(description__contains=search)).distinct()
 
         return render(request, 'manage_projects.html', context)
+
+    else:
+
+        return HttpResponse(status=403)
 
 
 

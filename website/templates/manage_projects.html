@@ -8,12 +8,14 @@
 <div class="container">
 
     <div class="row wall">
-        <div class="col-md-12 tabs">
-            <div class="btn-group">
-                <a href="#active" class="btn btn-sm btn-default" onclick="showProjects($(this).attr('href'))" data-toggle="projects">Active<span class="badge">{{ projects.active|length }}</span></a>
-                <a href="#pending" class="btn btn-sm btn-default" onclick="showProjects($(this).attr('href'))" data-toggle="projects">Pending<span class="badge">{{ projects.pending|length }}</span></a>
-                <a href="#closed" class="btn btn-sm btn-default" onclick="showProjects($(this).attr('href'))" data-toggle="projects">Closed<span class="badge">{{ projects.closed|length }}</span></a>
-            </div>
+        <div class="col-md-12">
+            <h4>Projects
+                <div class="btn-group pull-right">
+                    <a href="#active" class="btn btn-sm btn-default" onclick="showProjects($(this).attr('href'))" data-toggle="projects">Active<span class="badge">{{ projects.active|length }}</span></a>
+                    <a href="#pending" class="btn btn-sm btn-default" onclick="showProjects($(this).attr('href'))" data-toggle="projects">Pending<span class="badge">{{ projects.pending|length }}</span></a>
+                    <a href="#closed" class="btn btn-sm btn-default" onclick="showProjects($(this).attr('href'))" data-toggle="projects">Closed<span class="badge">{{ projects.closed|length }}</span></a>
+                </div>
+            </h4>
         </div>
     </div>
     <div class="row">
@@ -24,7 +26,7 @@
             {% for project in projects.active %}
                 <tr>
                     <td><a href="/project/{{ project.id }}/manage">{{ project.name }}</a></td>
-                    <td>{{ project.opportunities|length }} opportunities</td>
+                    <td>{{ project.opportunity_set.count }} opportunit{{ project.opportunity_set.count|pluralize:"y,ies" }}</td>
                     <td>
                         <div class="edit pull-right">
                             <button class="btn btn-default btn-xs" data-toggle="confirmation" data-href="javascript:changeProject({{ project.id }}, 'close')"><i class="fa fa-times"></i>&nbsp;&nbsp;close</button>

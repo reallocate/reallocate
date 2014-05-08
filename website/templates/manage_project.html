@@ -25,85 +25,7 @@
             <p id="project-followers">{{ project.followed_by|length }} followers</p>
             {% endif %}
 
-            <div id="desc-modal" class="modal fade">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h4 id="desc-modal-label" class="modal-title">Project details</h4>
-                        </div>
-                        <div class="modal-body">
-                            <form method="post" class="edit-project" enctype="multipart/form-data">{% csrf_token %}
-                                <input type="hidden" name="id" value="{{ project.id }}" />
-                                <input type="hidden" name="organization_id" value="{{ project.organization.id }}" />
-                                <div class="form-group">
-                                    <label for="name">Project Title</label>
-                                    <input class="form-control input-sm required" type="text" id="name" name="name" value="{{ project.name }}">
-                                </div>
-                                <div class="form-group">
-                                    <label for="cause">Cause</label>
-                                    <select class="form-control input-sm required" id="cause" name="cause">
-                                        <option>None</option>
-                                        {% for cause in causes %}
-                                        <option value="{{ cause }}">{{ cause }}</option>
-                                        {% endfor %}
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label for="short-desc">Short Description</label><span class="limit-status"></span>
-                                    <input class="form-control input-sm required" data-char-limit="110" length="115" type="text" id="short-desc" name="short_desc" value="{{ project.short_desc }}">
-                                    <span class="help-block">110 characters or less</span>
-                                </div>
-                                <div class="form-group">
-                                    <label for="description">Full project description</label>
-                                    <textarea class="form-control input-sm required" id="description" name="description" data-word-limit="50">{{ project.description }}</textarea>
-                                    <span class="help-block">50 words or less</span>
-                                </div>
-                                <div class="form-group">
-                                    <label for="city">City</label>
-                                    <input class="form-control input-sm" type="text" id="city" name="city" value="{{ project.city }}">
-                                </div>
-                                <div class="form-group">
-                                    <label for="state">State</label>
-                                    <input class="form-control input-sm" type="text" id="state" name="state" value="{{ project.state }}">
-                                </div>
-                                <div class="form-group">
-                                    <label for="country">Country</label>
-                                    <select class="form-control" id="country" name="country">
-                                        <option value=''>Not specified</option>
-                                        {% for c in COUNTRIES %}
-                                          <option value="{{ c.0 }}"{% if c.0 = project.country %} selected{% endif %}>{{ c.1 }}</option>
-                                        {% endfor %}
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label for="tags">Tags</label>
-                                    <input class="form-control input-sm" type="text" id="tags" name="tags" value="{{ project.tags }}">
-                                    <span class="help-block">Comma seperated tags</span>
-                                </div>
-                                <div class="form-group">
-                                    <label for="name">Add a Video URL</label>
-                                    <input class="form-control input-sm" type="text" id="video-url" name="video_url" value="{{ project.video_url }}">
-                                    <span class="help-block">YouTube and Vimeo URLs supported</span>
-                                </div>
-                                <div class="form-group">
-                                    <label for="name">Upload new photo</label><br />
-                                    <button class="delegate-file-upload btn btn-default btn-sm">Select Image</button>
-                                    <i class="fa fa-ok fa-2x file-upload-ok" style="display: none;"></i>
-                                    <input type="file" name="file" value="Upload new photo" style="display: none;">
-                                </div>
-                                <div class="pull-right modal-buttons">
-                                    <button class="btn btn-default btn-sm" data-dismiss="modal">Close</button>
-                                    <input class="btn btn-primary" type="submit" value="Save Changes" />
-                                </div>
-                            </form>
-                            <div class="clearfix"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <p><a href="#desc-modal" role="button" class="btn btn-default" data-toggle="modal">Edit details</a></p>      
+            <p><a href="#desc-modal" role="button" class="btn btn-default btn-sm" data-toggle="modal">Edit details</a></p>      
 
         </div>
 <!--
@@ -218,7 +140,86 @@
     </div>
 </div>
 
+{% endblock %}
 
+{% block modals %}
+<div id="desc-modal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 id="desc-modal-label" class="modal-title">Project details</h4>
+            </div>
+            <div class="modal-body">
+                <form method="post" class="edit-project" enctype="multipart/form-data">{% csrf_token %}
+                    <input type="hidden" name="id" value="{{ project.id }}" />
+                    <input type="hidden" name="organization_id" value="{{ project.organization.id }}" />
+                    <div class="form-group">
+                        <label for="name">Project Title</label>
+                        <input class="form-control input-sm required" type="text" id="name" name="name" value="{{ project.name }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="cause">Cause</label>
+                        <select class="form-control input-sm required" id="cause" name="cause">
+                            <option>None</option>
+                            {% for cause in causes %}
+                            <option value="{{ cause }}">{{ cause }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="short-desc">Short Description</label><span class="limit-status"></span>
+                        <input class="form-control input-sm required" data-char-limit="110" length="115" type="text" id="short-desc" name="short_desc" value="{{ project.short_desc }}">
+                        <span class="help-block">110 characters or less</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Full project description</label>
+                        <textarea class="form-control input-sm required" id="description" name="description" data-word-limit="50">{{ project.description }}</textarea>
+                        <span class="help-block">50 words or less</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="city">City</label>
+                        <input class="form-control input-sm" type="text" id="city" name="city" value="{{ project.city }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="state">State</label>
+                        <input class="form-control input-sm" type="text" id="state" name="state" value="{{ project.state }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="country">Country</label>
+                        <select class="form-control" id="country" name="country">
+                            <option value=''>Not specified</option>
+                            {% for c in COUNTRIES %}
+                              <option value="{{ c.0 }}"{% if c.0 = project.country %} selected{% endif %}>{{ c.1 }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="tags">Tags</label>
+                        <input class="form-control input-sm" type="text" id="tags" name="tags" value="{{ project.tags }}">
+                        <span class="help-block">Comma seperated tags</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Add a Video URL</label>
+                        <input class="form-control input-sm" type="text" id="video-url" name="video_url" value="{{ project.video_url }}">
+                        <span class="help-block">YouTube and Vimeo URLs supported</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Upload new photo</label><br />
+                        <button class="delegate-file-upload btn btn-default btn-sm">Select Image</button>
+                        <i class="fa fa-ok fa-2x file-upload-ok" style="display: none;"></i>
+                        <input type="file" name="file" value="Upload new photo" style="display: none;">
+                    </div>
+                    <div class="pull-right modal-buttons">
+                        <button class="btn btn-default btn-sm" data-dismiss="modal">Close</button>
+                        <input class="btn btn-primary" type="submit" value="Save Changes" />
+                    </div>
+                </form>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
 
 {% block bottomscript %}

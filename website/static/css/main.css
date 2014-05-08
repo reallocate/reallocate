@@ -35,7 +35,7 @@ h5 {
 .navbar-collapse {
   display: block !important;
   height: auto !important;
-  padding-bottom: 0;
+  padding: 0;
   overflow: visible !important;
 }
 
@@ -1267,11 +1267,10 @@ footer p {
     display: block;
 }
 
-#manage-projects .tabs {
-    text-align: center;
-    padding-bottom: 20px;
+#manage-projects h4{
+    padding-bottom: 12px;
 }
-#manage-projects .tabs .badge {
+#manage-projects h4 .badge {
     margin-left: 10px;
     font-size: 9px;
 }
