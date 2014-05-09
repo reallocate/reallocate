@@ -1,44 +1,65 @@
 {% extends 'base.html' %}
-{% load i18n %}
 
-{% trans "This is the title" as the_title %}
-
-{% block meta_description %}{{ the_title }}{% endblock %}
-
-
-
-{% block maincontent %}
-    
-    <div class="row-fluid">
-        <div class="span4 well">
-            <h3>Login</h3>
-            {{ state }}
-            <form action="/login" method="post">{% csrf_token %}
-                Email:
-                <input type="text" name="username" value="{{ username}}" /><br />
-                Password:
-                <input type="password" name="password" value="" /><br />
-        
-                <div class="clearfix"></div>
-                <input type="submit" class="btn" value="Log In" />
-            </form>
-        </div>
-    
-        <div class="span4 offset1">
-            <h5>Login with other networks</h5>
-            <a href="{% url "socialauth_begin" 'google' %}" class="button"><i class="icon-google-plus"></i> Google</a>
-            <br/><br/>
-            <a href="{% url "socialauth_begin" 'facebook' %}" class="button"><i class="icon-facebook"></i> Facebook</a>    
-            <br/><br/>
-            <a href="{% url "socialauth_begin" 'yahoo' %}" class="button"><i class="icon-sign-blank"></i> Yahoo</a>
-			<br/><br/>
-            <a href="{% url "socialauth_begin" 'linkedin' %}" class="button"><i class="icon-linkedin"></i> LinkedIn</a>
-            <br /><br />
-        </div>
-    </div>
-
+{% block extra_css %}
 {% endblock %}
 
+{% block jumbotron %}
+<div class="jumbotron"></div>
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h3 class="panel-title">Sign in</h3>
+		</div>
+	    <div class="row panel-body">
+	    	<div class="col-xs-7">
+	            <form action="/login" id="modal-login" method="post">
+	                <input type="hidden" name="next" value="{{ next }}" />
+	                <div class="form-group">
+	                    <input class="form-control" type="text" name="username" id="modal-username" value="{{ username }}" placeholder="email" />
+	                </div>
+	                <div class="form-group">
+	                    <input class="form-control" type="password" name="password" id="modal-password" value="" placeholder="password" />
+	                    <span class="help-block error">Incorrect username or password</span>
+	                </div>
+	                <div class="form-group">
+	                    <button type="submit" class="btn btn-primary pull-right">Sign in</button>
+	                    <label class="checkbox">
+	                        <input type="checkbox"> Remember me
+	                    </label>
+	                </div>
+	                <div class="form-group">
+	                    <p class="pull-right forgot"><a href='/forgot-password' class='forgot-password'>Forgot your password?</a></p>
+	                </div>
+	            </form>
+	        </div>
+	        <div class="vert-or col-xs-1">
+	            <div></div>
+	            <p>or</p>
+	            <div></div>
+	        </div>
+	        <div class="col-xs-4" id="social-logins">
+	            <div class="form-group">
+	                <a href="{% url "socialauth_begin" "linkedin" %}" class="btn btn-primary"><i class="fa fa-linkedin"></i> LinkedIn</a>
+	            </div>
+	            <div class="form-group">
+	                <a href="{% url "socialauth_begin" "google" %}" class="btn btn-primary"><i class="fa fa-google-plus"></i> Google</a>
+	            </div>
+	            <div class="form-group">
+	                <a href="{% url "socialauth_begin" "facebook" %}" class="btn btn-primary"><i class="fa fa-facebook"></i> Facebook</a>
+	            </div>
+	        </div>
+	    </div>
+		<div class="panel-footer">
+		    Not a member? <a href="/sign-up">Sign up!</a>
+		</div>
+	</div>
+</div>
+{% endblock %}
 
 {% block bottomscript %}
 

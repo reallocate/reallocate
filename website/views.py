@@ -92,13 +92,6 @@ def public_profile(request, username=None):
     context['projects'] = Project.objects.filter(followed_by=user)
 
     return render(request, 'public_profile.html', context)
-    
-
-def login_page(request):
-
-    context = {}
-    
-    return render(request, 'login.html', context)
 
 
 def home(request):
@@ -309,7 +302,7 @@ def sign_up(request):
     return response
 
 
-def login_user(request):
+def login(request):
 
     context = {}
 

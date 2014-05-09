@@ -98,10 +98,7 @@ else:
     try:
         from settings_local import *
     except ImportError:
-      print ''
-      print 'You must create a settings_local.py file!'
-      print ''
-      pass
+        print '\nYou must create a settings_local.py file!\n'
 
 
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))

@@ -858,12 +858,9 @@ body>.alert {
 
 /* sign-up */
 
-#sign-up .well {
-    padding-top: 36px;
+#sign-up .panel {
     width: 470px;
-}
-#sign-up .vert-or {
-    margin-top: 25px;
+    margin: 20px auto 80px auto;
 }
 #sign-up .form-group .help-block {
     display: none;
@@ -874,6 +871,22 @@ body>.alert {
 #sign-up .sign-in {
     margin-top: 0px;
     line-height: 0em;
+}
+
+/* login */
+
+#login .panel {
+    width: 450px;
+    margin: 20px auto 80px auto;
+}
+#login .panel-body {
+    padding: 30px;
+}
+#login .jumbotron {
+    display: none;
+}
+#login .forgot {
+    font-size: 12px;
 }
 
 /* privacy */

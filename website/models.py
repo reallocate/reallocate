@@ -514,16 +514,12 @@ class Project(models.Model):
         sponsorship = Opportunity()
 
         sponsorship.name = 'Sponsorship'
-        sponsorship.short_desc = "Sponsor this project by donating annually to it's cause."
+        sponsorship.short_desc = "Sponsor this project by donating monthly to it's cause."
         sponsorship.opp_type = 'Money'
         sponsorship.sponsorship = True
         sponsorship.project = self
         sponsorship.organization = self.organization
         sponsorship.created_by = self.created_by
-
-        # add cobranding tag if appropriate
-        if hasattr(settings, 'BRAND'):
-            sponsorship.tags = settings.BRAND.get('id')
 
         sponsorship.save()
 
@@ -596,7 +592,7 @@ class OpportunityForm(ModelForm):
         }
 
 
-###########  Extend user profile
+# Extend user profile
 # Docs: http://stackoverflow.com/a/965883/705945
 
 class UserProfile(models.Model):
@@ -646,8 +642,5 @@ class OpportunityEngagement(models.Model):
     contrib_amount = models.DecimalField(max_digits=12, decimal_places=2, null=True)
     date_created = models.DateField(auto_now_add=True)
     date_ended = models.DateField(blank=True, null=True)
-    # this will be where the opp engagements can be approved
     status = models.CharField(max_length=100, choices=STATUS_CHOICES, default=STATUS_CHOICES[1][1])
     response = models.CharField(max_length=2000, blank=True)  # response to the engagement
-
-
