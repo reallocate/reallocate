@@ -985,10 +985,11 @@ body>.alert {
     padding-bottom: 1px;
     height: 330px;
     background-color: #f3f3f3;
-    box-shadow: 5px 5px 5px #808080;
-    -moz-box-shadow: 5px 5px 5px #808080;
-    -webkit-box-shadow: 5px 5px 5px #808080;
+    box-shadow: 2px 2px 7px #808080;
+    -moz-box-shadow: 2px 2px 7px #808080;
+    -webkit-box-shadow: 2px 2px 7px #808080;
     overflow: hidden;
+    border-radius: 5px;
 }
 .project a:hover {
     text-decoration: none;
@@ -1048,13 +1049,12 @@ body>.alert {
     width: 100%;
     padding: 25px 11px 5px 11px;
 }
-
 .project-small {
     position: relative;
     background-color: #f3f3f3;
-    box-shadow: 5px 5px 5px #808080;
-    -moz-box-shadow: 5px 5px 5px #808080;
-    -webkit-box-shadow: 5px 5px 5px #808080;
+    box-shadow: 2px 2px 7px #808080;
+    -moz-box-shadow: 2px 2px 7px #808080;
+    -webkit-box-shadow: 2px 2px 7px #808080;
     margin: 15px 0px 15px 0px;
     height: 92px;
 }
@@ -1182,9 +1182,6 @@ body>.alert {
     right: 6px;
     margin: 0px;
 }
-
-
-
 .post-update-button {
     text-transform: uppercase;
     font-size: 12px;
