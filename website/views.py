@@ -659,7 +659,7 @@ def find_opportunity(request):
 
         if search:
 
-            opportunities = opportunities.filter(Q(name__contains=search) | Q(short_desc__contains=search) | Q(description__contains=search)).distinct()
+            opportunities = opportunities.filter(Q(tags__contains=search) | Q(name__contains=search) | Q(short_desc__contains=search) | Q(description__contains=search)).distinct()
 
         if opp_type:
 
@@ -687,17 +687,11 @@ def find_project(request):
 
         if search:
 
-            projects = projects.filter(Q(name__contains=search) | Q(short_desc__contains=search) | Q(description__contains=search)).distinct()
+            projects = projects.filter(Q(tags__contains=search) | Q(name__contains=search) | Q(short_desc__contains=search) | Q(description__contains=search)).distinct()
 
     context['projects'] = projects
 
     return render(request, 'find_project.html', context)
-
-
-def projects(request):
-
-
-    return render(request, 'projects.html', {})
 
 
 @login_required

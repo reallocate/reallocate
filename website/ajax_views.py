@@ -26,13 +26,13 @@ def projects(request, *args):
 
     if request.method == 'GET': 
 
-        search = request.GET.get("search") or request.GET.get("q")
+        search = request.GET.get("q")
 
         MAX_RESULTS = 50
 
         if search:
 
-            projects = projects.filter(Q(name__contains=search) | Q(short_desc__contains=search) | Q(description__contains=search)).distinct()
+            projects = projects.filter(Q(tags__contains=search) | Q(name__contains=search) | Q(short_desc__contains=search) | Q(description__contains=search)).distinct()
 
     results = serialize('json', projects)
 

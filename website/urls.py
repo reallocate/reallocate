@@ -25,7 +25,7 @@ urlpatterns = patterns('',
   url(r'^find-opportunity$', 'website.views.find_opportunity', name='find-opportunity'),
   url(r'^find-project$', 'website.views.find_project', name='find-project'),
 
-  url(r'^projects/.*?$', TemplateView.as_view(template_name="projects.html"), name='find-project'),
+  url(r'^projects(/.*?)$', TemplateView.as_view(template_name="projects.html"), name='find-project'),
 
   url(r'^organization/new/$', 'website.views.new_organization', name='new-organization'),
   url(r'^project/new/$', 'website.views.new_project', name='new-project'),
