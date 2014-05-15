@@ -25,6 +25,8 @@ urlpatterns = patterns('',
   url(r'^find-opportunity$', 'website.views.find_opportunity', name='find-opportunity'),
   url(r'^find-project$', 'website.views.find_project', name='find-project'),
 
+  url(r'^projects/.*?$', TemplateView.as_view(template_name="projects.html"), name='find-project'),
+
   url(r'^organization/new/$', 'website.views.new_organization', name='new-organization'),
   url(r'^project/new/$', 'website.views.new_project', name='new-project'),
   url(r'^project/(?P<pid>\d+)/opportunity/(?P<oid>\d+)/$', 'website.views.view_opportunity', name='opportunity'),
@@ -35,6 +37,7 @@ urlpatterns = patterns('',
   # staff management
   url(r'^manage/projects$', 'website.views.manage_projects', name='manage-projects'),
 
+  url(r'^ajax/projects', 'website.ajax_views.projects'),
   url(r'^ajax/modify-project-relation', 'website.ajax_views.modify_project_relation'),
   url(r'^ajax/engage-opportunity', 'website.ajax_views.engage_opportunity'),
   url(r'^ajax/close-opportunity', 'website.ajax_views.close_opportunity'),

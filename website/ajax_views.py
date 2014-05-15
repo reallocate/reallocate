@@ -1,15 +1,18 @@
 import base, json, logging
 import hashlib, time
+import settings
 
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext
 from django.core.exceptions import ObjectDoesNotExist
+from django.db.models import Q
 from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render_to_response, get_object_or_404
 from django.core.serializers import serialize
+from django.core.serializers.json import DjangoJSONEncoder
 
 import website.base as base
 from website.settings import ADMIN_EMAIL
@@ -17,8 +20,24 @@ from website.models import UserProfile, Project, ProjectForm, Update, Organizati
 from website.models import STATUS_ACTIVE, STATUS_CHOICES, STATUS_INACTIVE, STATUS_CLOSED, CAUSES, COUNTRIES
 
 
-@login_required
-# this won't crash w/ login_required but redirect doesn't work on ajax call - TODO: fix rather than these hide links
+def projects(request, *args):
+
+    projects = Project.objects.filter(status__iexact='Active', sites__id=settings.SITE_ID)
+
+    if request.method == 'GET': 
+
+        search = request.GET.get("search") or request.GET.get("q")
+
+        MAX_RESULTS = 50
+
+        if search:
+
+            projects = projects.filter(Q(name__contains=search) | Q(short_desc__contains=search) | Q(description__contains=search)).distinct()
+
+    results = serialize('json', projects)
+
+    return HttpResponse(results, content_type='application/json')
+
 
 @csrf_exempt
 def modify_project_relation(request, *args):

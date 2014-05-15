@@ -814,6 +814,7 @@ body>.alert {
 
 #find-project h3 {
     margin-top: 0px;
+    text-transform: capitalize;
 }
 #find-project .project {
     height: 290px;

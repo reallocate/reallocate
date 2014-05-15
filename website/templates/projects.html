@@ -1,0 +1,211 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block meta_description %}Find projects{% endblock %}
+
+{% block extra_css %}
+{% endblock %}
+
+{% block breadcrumb %}
+	<ul class="breadcrumb">
+		<li><a href="/">Home</a></li>
+		<li class="active">Find Projects</li>
+	</ul>
+{% endblock %}
+
+{% block content %}
+	<div class="container">
+		
+		<div class="row">
+			<div class="col-xs-9">
+				<h3>
+					{% if search_term %}
+						Search results for {{ search_term }} {% if search_filter %} in {{ search_filter }} {% endif %}...
+					{% else %}
+						All Projects
+					{% endif %}
+				</h3>
+				<div class="projects">
+					<div class="row">
+						{% for project in projects %}
+						<div class="col-xs-4">
+							{% include "includes/project_pane.html" %}			
+						</div>	
+						{% endfor %}
+					</div>	
+				</div>
+			</div>
+			<div class="col-xs-3">
+				<form method="post" role="form">{% csrf_token %}
+					<div class="form-group">
+						<div class="input-group">
+      						<input class="form-control input-sm" type="search"  name="search" id="search" placeholder="Search terms" {% if search_term and search_term != "All" %}value='{{ search_term }}'{% endif %}/>
+      						<span class="input-group-btn">
+      							<button type="submit" class="btn btn-primary btn-sm">Search</button>
+      						</span>
+      					</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}
+
+{% block bottomscript %}
+<script type="text/template" id="projects-template">
+<% _.each(projects, function(project) { %>
+<div class="col-xs-4">	
+	<div class="project">
+		<% if (project.media_url) { %> 
+	    <a class="project-image" href="/project/<%= project.id %>" style="background-image: url('<%= project.media_url %>')"></a>
+	    <% }; %>
+	    <div class="project-text"><a href="/project/<%= project.id %>">
+	        <div class="project-name"><%= project.name %></div>
+	        <% if (project.media_url) { %>
+	        <div class="project-short-desc"><%= project.short_desc %></div>
+	        <% } else { %>
+	        <div class="project-description"><%= project.description %></div> 
+	        <% }; %>
+	    </a></div>
+	    <% if (project.city && project.state) { %>
+	    <div class="project-footer fadethrough-light">
+	        <p class="project-location"><i class="fa fa-map-marker"></i>&nbsp;&nbsp;<%= project.city %>, <%= project.state %></p>
+	    </div>
+	    <% }; %>
+	</div>
+</div>
+<% }); %>
+</script>
+
+<script>
+
+var Router = Backbone.Router.extend({
+
+	routes: {
+		'projects/:query': 'projects'
+	}
+});
+
+var Project = Backbone.Model.extend({ 
+
+	idAttribute: 'pk',
+
+	initialize: function() {} 
+
+});
+
+var Projects = Backbone.Collection.extend({
+	
+	model: Project,
+
+    initialize : function(models, options) {
+
+    },
+
+    url: function() {
+
+        return "/ajax/projects?q=" + this.query;
+    },
+
+    search: function(query) {
+
+    	var term = query || 'all';
+    	$('h3').html(term + ' projects');
+
+    	this.query = query;
+    	this.fetch();
+
+    	return this;
+	},
+
+});
+
+var ResultsView = Backbone.View.extend({
+	
+	tagName: 'div',
+	className: 'col-xs-4',
+	
+	template: function() { return ''; },
+
+	initialize: function(options) {
+
+		if (options.template) this.template = options.template;
+
+		this.listenTo(this.collection, 'sync', this.render);
+	},
+
+	render: function() {
+
+		results = this.collection.models.map( function(e) { return $.extend({id: e.id}, e.get('fields')) } );
+
+		if (results) {
+
+			var html = this.template({projects: results});
+			this.$el.html(html);
+
+		} else {
+
+
+		}
+
+		return this;
+	}
+
+});
+
+var SearchForm = Backbone.View.extend({
+
+	initialize: function() {
+
+		if (this.collection) {
+
+			this.listenTo(this.collection, 'sync', this.render);
+		}
+	},
+
+	render: function() {
+
+		this.$('input[type="search"]').val(this.collection.query);
+	},
+
+	events: {
+
+		submit: function(ev) {
+
+			ev.preventDefault();
+
+			var query = this.$('input[type="search"]').val();
+			this.trigger('search', query);
+		}
+	}
+})
+
+var projects = new Projects()
+
+var results = new ResultsView({
+	el: '.projects .row',
+	collection: projects,
+	template:  _.template($('#projects-template').html())
+})
+
+var router = new Router();
+
+router.on('route:projects', function(query) {
+	projects.search(query);
+});
+
+var search = new SearchForm({
+	el: 'form',
+	collection: projects
+});
+
+search.on('search', function(query) {
+	router.navigate("/projects/"+encodeURIComponent(query), { trigger:true });
+});
+
+Backbone.history.start({pushState: true});
+
+</script>
+
+{% endblock %}

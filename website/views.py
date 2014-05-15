@@ -694,6 +694,12 @@ def find_project(request):
     return render(request, 'find_project.html', context)
 
 
+def projects(request):
+
+
+    return render(request, 'projects.html', {})
+
+
 @login_required
 def manage_projects(request):
 
