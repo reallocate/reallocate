@@ -136,7 +136,7 @@ def associate_new_user_profile(request, user, *args, **kwargs):
 def embed_video(update_text):
 
     vimeo = re.search(r'(http[s]*:\/\/vimeo\.com/([0-9]+).*?)[\s|$]*', update_text, re.I)
-    youtube = re.search(r'(http[s]*:\/\/www\.youtube\.com/watch\?v=([a-z|A-Z|0-9]+).*?)[\s|$]*', update_text, re.I)
+    youtube = re.search(r'(http[s]*:\/\/www\.youtube\.com/watch\?v=([a-z|A-Z|0-9|\-\_]+).*?)[\s|$]*', update_text, re.I)
     short_youtube = re.search(r'(https?://youtu[.]be/([a-z0-9]*?))[\s|$]', update_text, re.I)
 
     if youtube:
