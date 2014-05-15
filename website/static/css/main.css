@@ -330,6 +330,10 @@ body>.alert {
     letter-spacing: 1px;
     font-weight: normal;
 }
+#project .jumbotron #project-title button,
+#project .jumbotron #project-title a {
+  margin-top: 23px;
+}
 #project .jumbotron #project-title .row {
     width: 100%;
     position: absolute;
@@ -460,19 +464,21 @@ body>.alert {
     height: 100px;
 }
 #opportunity .jumbotron #opp-title {
-    position: relative;
-    top: 62px;
+    padding-top: 20px;
 }
 #opportunity .jumbotron #opp-title h1 {
-    font-size: 26px;
+    font-size: 30px;
     letter-spacing: 1px;
     font-weight: normal;
     margin-top: 0px;
     color: #eee;
 }
 #opportunity .jumbotron #opp-title h4 {
-    margin-top: 18px;
+    margin-bottom: 5px;
     font-size: 15px;
+}
+#opportunity .jumbotron #opp-title .engage-button {
+    margin-top: 25px;
 }
 #opportunity .opp-overview {
     margin-bottom: 20px;

@@ -23,8 +23,19 @@
     <div class="overlay">
         <div id="project-title" class="container">
              <div class="row">
-                <div class="col-xs-12">
+                <div class="col-xs-9">
                     <h1>{{ project.name }}</h1>
+                </div>
+                <div class="col-xs-3">
+                    {% if is_owner or is_admin %}
+                    <a href="/project/{{ project.id }}/manage" class="btn btn-primary pull-right">Manage this Project</a>
+                    {% else %}
+                    {% if is_following %}
+                    <button class="btn btn-primary follow login-required pull-right" data-action="unfollow" onclick="reAllocate.followProject(this, {{ project.id }});">Stop following</button>
+                    {% else %}
+                    <button class="btn btn-primary follow login-required pull-right" data-action="follow" onclick="reAllocate.followProject(this, {{ project.id }});">Follow this project</button>
+                    {% endif %}
+                    {% endif %}
                 </div>
             </div>
         </div>
@@ -84,16 +95,6 @@
                     <a class="share addthis_button_twitter"><i class="fa fa-twitter fa-2x"></i></a>
                     <a class="share addthis_button_facebook"><i class="fa fa-facebook fa-2x"></i></a>
                 </div>
-                {% if is_owner or is_admin %}
-                <a href="/project/{{ project.id }}/manage" class="btn btn-primary">Manage this Project</a>
-                {% else %}
-                {% if is_following %}
-                <button class="btn btn-primary follow login-required" data-action="unfollow" onclick="reAllocate.followProject(this, {{ project.id }});">Stop following</button>
-                {% else %}
-                <button class="btn btn-primary follow login-required" data-action="follow" onclick="reAllocate.followProject(this, {{ project.id }});">Follow this project</button>
-                {% endif %}
-                {% if not_sponsor %}&nbsp;&nbsp;<button class="btn btn-primary login-required" onclick="reAllocate.sponsorProject(this, {{ project.id }});">Be a sponsor</button>{% endif %}
-                {% endif %}
             </div>
             <!--
             <div>

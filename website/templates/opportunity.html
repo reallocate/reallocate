@@ -22,8 +22,17 @@
 <div class="jumbotron" style="background-image: url('{{ opportunity.media_url }}');">
     <div class="overlay">
         <div id="opp-title" class="container">
-            <h1>{{ opportunity.name }}</h1> 
-            <h4><a href="/project/{{ opportunity.project.id }}">{{ project.name }}</a></h4>
+            <div class="row">
+                <div class="col-xs-9">
+                    <h4><a href="/project/{{ opportunity.project.id }}">{{ project.name }}</a></h4>
+                    <h1>{{ opportunity.name }}</h1> 
+                </div>
+                <div class="col-xs-3">
+                    {% if is_open %}{% if not engaged or pending %}
+                    <a href="#engage-modal" class="engage-button btn btn-primary login-required pull-right" data-toggle="modal"{% if pending %} disabled=disabled {% endif %}>Engage this opportunity</a>
+                    {% endif %}{% endif %}
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -102,9 +111,6 @@
                             <i class="fa fa-linkedin-sign fa-2x"></i>
                         </a>
                     </div>     
-                    {% if is_open %}{% if not engaged or pending %}
-                        <a href="#engage-modal" class="engage-button btn btn-primary login-required" data-toggle="modal"{% if pending %} disabled=disabled {% endif %}>Engage this opportunity</a>
-                    {% endif %}{% endif %}
                 </div> 
                 {% if resources.length %}
                 <h4>Resources</h4>
