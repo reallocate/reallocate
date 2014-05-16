@@ -5,6 +5,7 @@ var RA = (function() {
   var modules = {
     mixins: {
       serializeForm: function($form) {
+
         var output = {},
             formData = $form.serializeArray();
 
@@ -31,10 +32,9 @@ var RA = (function() {
         return false;
       }
 
-      $el.typeahead(_.defaults(config, defaults));
+      $el.typeahead(null, _.defaults(config, defaults));
     }
   };
-
 
   return modules;
 
@@ -45,7 +45,7 @@ var reAllocate = window.reAllocate || {
 
     init: function() {
 
-
+        // experimental background repositioning for project images
         $('#project .jumbotron').on('mousedown', function(e) {
             
             var startY = e.pageY;
@@ -64,11 +64,8 @@ var reAllocate = window.reAllocate || {
                 $(this).on('mouseup', function(e) {
                     $(this).off('mousemove');
                 })
-
             });
-
         })
-
 
         this.setupAddThis();
         
@@ -93,7 +90,6 @@ var reAllocate = window.reAllocate || {
         $('[data-toggle="confirmation"]').confirmation();
 
         $('.delegate-file-upload').click(function() {
-
             $(this).siblings('input[type="file"]').trigger('click');
             return false;
         });

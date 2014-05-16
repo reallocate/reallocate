@@ -458,7 +458,8 @@ def get_orgs(request, *args):
     for org in Organization.objects.all():
 
         orgs.append({
-            'value': org.name,
+            'id': org.id,
+            'name': org.name,
             'phone': org.phone,
             'URL': org.URL,
             'country': org.country,

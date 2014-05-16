@@ -21,7 +21,8 @@
                 <div class="col-xs-5 current-org">
                     <h4>You're a member of<br /><b>{{ organization.name }}</b></h4>
                     <form method="post">{% csrf_token %}
-                        <input type="submit" value="Use this organization" name="use_users_org" class="btn btn-primary btn-lg" />
+                        <input type="hidden" name="id" value="{{ organization.id }}" />
+                        <input type="submit" class="btn btn-primary" value="Use this organization" />
                     </form>
                 </div>
                 <div class="vert-or col-xs-1">
@@ -32,7 +33,7 @@
             {% endif %}
 
                 <div class="col-xs-6">
-                    <form id="new-org-form" autocomplete="off" class="xs-12" method="post">{% csrf_token %}
+                    <form id="new-org-form" autocomplete="off" method="post">{% csrf_token %}
                         <div class="form-group">
                             <label for="name">Organization name</label>
                             <input class="form-control" type="text" id="name" name="name" />
@@ -41,20 +42,20 @@
 
                         <div class="form-group">
                             <label for="URL">Website</label>
-                            <input class="form-control" type="text" id="URL" name="URL" />
+                            <input class="form-control clearable" type="text" id="URL" name="URL" />
                         </div>
 
                         <div class="form-group">
                             
                             <label for="phone">Telephone</label>
-                            <input class="form-control" type="text" id="phone" name="phone" />
+                            <input class="form-control clearable" type="text" id="phone" name="phone" />
 
                         </div>
 
                         <div class="form-group">
                             
                             <label for="country">Country</label>
-                            <select class="form-control" id="country" name="country">
+                            <select class="form-control clearable" id="country" name="country">
                                 <option value=''>Select country</option>
                                 {% for c in COUNTRIES %}
                                   <option value="{{ c.0 }}">{{ c.1 }}</option>
@@ -66,10 +67,10 @@
                         <div class="form-group">
 
                             <label for="org_mission">Mission Statement</label>
-                            <textarea class="form-control" id="org_mission" name="org_mission"></textarea>
+                            <textarea class="form-control clearable" id="org_mission" name="org_mission"></textarea>
 
                         </div>
-
+                        <input type="hidden" name="id" />
                         <div class="form-group">
                             <button class="btn btn-primary pull-right" id="org-submit" type="submit">Next</button>
                         </div>
@@ -120,7 +121,8 @@
             "click #org-submit": "handleSubmitEvent",
             "blur textarea": "setModel",
             "change select": "setModel",
-            "blur input": "setModel"
+            "blur input": "setModel",
+            "typeahead:selected #name": "setOrg"
           },
 
           initialize: function() {
@@ -130,18 +132,48 @@
 
             this.listenTo(this.model, "change", this.handleModelUpdate);
 
-            RA.autocomplete(this.$el.find("#name"), {
-              header: '<h3 class="tt-header">Organizations</h3>',
-              prefetch: "/ajax/get-orgs"
+            var orgs = new Bloodhound({
+              datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
+              queryTokenizer: Bloodhound.tokenizers.whitespace,
+              prefetch: {
+                url: '/ajax/get-orgs'
+              }
             });
 
+            orgs.initialize();
+
+            RA.autocomplete(this.$el.find("#name"), {
+              source: orgs.ttAdapter(),
+              displayKey: 'name',
+              templates: {
+                suggestion: _.template("<div><%= name %><span class='pull-right'><%= country %></div>")
+              }
+            });
+          },
+
+          setOrg: function(ev, org) {
+
+            var self = this;
+            $.each(org, function(k, v) {
+
+              if (k != 'name') {
+                self.$el.find('[name='+k+']').val(v).attr('readonly', true);
+              }
+            });
+
+            this.$el.find('#name').one('change', function(ev) {
+              $('.clearable').val(null).removeAttr('readonly');
+            });
           },
 
           setModel: function() {
+
+            console.log('set model');
             this.model.set(RA.mixins.serializeForm(this.$el));
           },
 
           enableSubmit: function(enable) {
+
             if (enable) {
               this.$submitButton.removeAttr("disabled");
             } else {
@@ -160,13 +192,17 @@
           },
 
           submitForm: function() {
+
             this.$el.submit();
             this.isSubmitting = false;
           },
 
           handleModelUpdate: function(model) {
+
             var canSubmit = false,
                 self = this;
+
+            console.log(model.toJSON());
 
             _.each(model.toJSON(), function(value, id) {
               self.$el.find("#" + id).val(value);
@@ -178,39 +214,11 @@
 
             this.enableSubmit(canSubmit);
           }
-
         });
 
         new FormView({model: new FormModel});
+
       })();
 
-/*
-    $('#name').on('blur', function(e) {
-
-        var name = this;
-
-        if (!name.value) return;
-
-        $.ajax({
-            url : '/ajax/check-org-name',
-            method: 'GET',
-            data : {'name': name.value},
-            success: function(available) {
-                if (available) {
-                    $(name).parents('.form-group').removeClass('has-error');
-                } else {
-                    $(name).siblings('.help-block').text('That organization already exists');
-                    $(name).parents('.form-group').addClass('has-error');
-                }
-
-                reAllocate.validateForm($(name).parents('form'));
-            },
-            error: function(res) {
-                //console.log('error in ajax request: ' + res);
-            }
-        });
-    });
-
-*/
     </script>
 {% endblock %}

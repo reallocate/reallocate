@@ -101,7 +101,15 @@ body>.alert {
     top: 0px;
     width: 100%;
 }
-
+form input,
+form select,
+form textarea {
+    font-weight: 400;
+}
+form .tt-suggestion.tt-cursor {
+    color: white;
+    background-color: rgb(66,139,202);
+}
 .pre {
     white-space: pre-wrap;
 }

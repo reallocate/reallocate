@@ -552,7 +552,7 @@ def new_organization(request):
 
     if request.method == "POST":
 
-        if not request.POST.get('use_users_org'):
+        if not request.POST.get('id'):
 
             org_form = OrganizationForm(request.POST)
             org = org_form.save(commit=False)
@@ -580,7 +580,10 @@ def new_organization(request):
 
                 return HttpResponse("error")
 
-        next = '/project/new?org=%s' % org.id
+
+        org_id = request.POST['id'] if request.POST.get('id') else org.id
+
+        next = '/project/new?org=%s' % org_id 
 
         return HttpResponseRedirect(next)
 
