@@ -1,10 +1,14 @@
 from django.conf.urls import patterns, include, url
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, RedirectView
 
 from django.contrib import admin
 from website import settings
 
 admin.autodiscover()
+
+class TextPlainView(TemplateView):
+  def render_to_response(self, context, **kwargs):
+    return super(TextPlainView, self).render_to_response(context, content_type='text/plain', **kwargs)
 
 urlpatterns = patterns('',
 
@@ -68,4 +72,6 @@ urlpatterns = patterns('',
 
   # django static
   url(r'^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_ROOT, 'show_indexes': True}),
+  url(r'^robots\.txt$', TextPlainView.as_view(template_name='robots.txt')),
+  url(r'^favicon\.ico$', RedirectView.as_view(url='%simages/favicon.png' % settings.STATIC_URL)),
 )

@@ -448,16 +448,24 @@ def new_project(request):
 
     if request.GET.get('org'):
         org = Organization.objects.get(id=request.GET.get('org'))
-        context['organization'] = org
+
+    elif request.user and request.user.get_profile().organization:
+        org = request.user.get_profile().organization
+
+    else:
+        context['alert'] = {'type': 'danger', 'message': 'Could not find a valid organization'}
+        return render(request, 'new_project.html', context)
 
     if request.method == "POST":
+
+        context['organization'] = org
 
         project_form = ProjectForm(request.POST)
         project = project_form.save(commit=False)
 
         if project_form.is_valid():
 
-            project.organization = request.user.get_profile().organization
+            project.organization = org
             project.created_by = request.user
 
             project.save()
@@ -491,7 +499,8 @@ def new_project(request):
 
         else:
 
-            return HttpResponse("error")
+            context['alert'] = {'type': 'danger', 'message': 'The form is invalid'}
+            return render(request, 'new_project.html', context)
 
     else:
 
