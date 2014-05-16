@@ -159,6 +159,7 @@
               if (k != 'name') {
                 self.$el.find('[name='+k+']').val(v).attr('readonly', true);
               }
+
             });
 
             this.$el.find('#name').one('change', function(ev) {
@@ -168,7 +169,6 @@
 
           setModel: function() {
 
-            console.log('set model');
             this.model.set(RA.mixins.serializeForm(this.$el));
           },
 
@@ -201,8 +201,6 @@
 
             var canSubmit = false,
                 self = this;
-
-            console.log(model.toJSON());
 
             _.each(model.toJSON(), function(value, id) {
               self.$el.find("#" + id).val(value);
