@@ -1,9 +1,11 @@
 import logging, hashlib, random
-import boto
 import re, sys, os
 import json
-import stripe
+import settings
+import base
 
+import libs.stripe
+import boto
 from boto.s3.key import Key
 
 from django.contrib.auth.decorators import login_required
@@ -16,9 +18,6 @@ from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_exempt, csrf_protect
 from django.db.models import Q
 from django.utils.http import urlquote
-
-import settings
-import base
 
 from models import OrganizationForm, Organization, ProjectForm, Project, Update, UserProfile
 from models import OpportunityEngagement, Opportunity, OpportunityForm
@@ -98,7 +97,6 @@ def home(request):
 
     context = {}
 
-    logging.error(settings.SITE_IDS)
     projects = Project.objects.filter(status__iexact='active', sites__id=settings.SITE_ID)
 
     context['projects'] = projects[:50]
