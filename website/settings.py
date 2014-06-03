@@ -2,50 +2,6 @@ import os, sys, socket, re, logging
 
 ALLOWED_HOSTS = ['.reallocate.org', '.herokuapp.com', '.onearmenia.org']
 
-# OAuth keys for Social Auth
-TWITTER_CONSUMER_KEY = ''
-TWITTER_CONSUMER_SECRET = ''
-FACEBOOK_APP_ID = ''
-FACEBOOK_API_SECRET = ''
-LINKEDIN_CONSUMER_KEY = ''
-LINKEDIN_CONSUMER_SECRET = ''
-ORKUT_CONSUMER_KEY = ''
-ORKUT_CONSUMER_SECRET = ''
-GOOGLE_CONSUMER_KEY = ''
-GOOGLE_CONSUMER_SECRET = ''
-GOOGLE_OAUTH2_CLIENT_ID = ''
-GOOGLE_OAUTH2_CLIENT_SECRET = ''
-FOURSQUARE_CONSUMER_KEY = ''
-FOURSQUARE_CONSUMER_SECRET = ''
-VK_APP_ID = ''
-VK_API_SECRET = ''
-LIVE_CLIENT_ID = ''
-LIVE_CLIENT_SECRET = ''
-SKYROCK_CONSUMER_KEY = ''
-SKYROCK_CONSUMER_SECRET = ''
-YAHOO_CONSUMER_KEY = ''
-YAHOO_CONSUMER_SECRET = ''
-AWS_ACCESS_KEY_ID = ''
-AWS_SECRET_ACCESS_KEY = ''
-
-GOOGLE_OAUTH2_AUTH_EXTRA_ARGUMENTS = {'access_type': 'offline'}
-GOOGLE_EXTRA_DATA = [('oauth_token', 'oauth_token')]
-GOOGLE_SREG_EXTRA_DATA = [('oauth_token', 'oauth_token')]
-GOOGLE_AX_EXTRA_DATA = [('oauth_token', 'oauth_token')]
-
-FACEBOOK_EXTENDED_PERMISSIONS = ['email', 'publish_stream']
-
-# https://developer.linkedin.com/documents/profile-fields
-LINKEDIN_SCOPE = ['r_basicprofile', 'r_emailaddress']
-LINKEDIN_EXTRA_FIELD_SELECTORS = ['email-address', 'headline', 'industry', 'picture-url', 'first-name', 'last-name']
-LINKEDIN_EXTRA_DATA = [('id', 'id'),
-                       ('first-name', 'first_name'),
-                       ('last-name', 'last_name'),
-                       ('email-address', 'email_address'),
-                       ('headline', 'headline'),
-                       ('industry', 'industry'),
-                       ('picture-url', 'profile_picture')]
-
 # invite system
 INVITE_ONLY = True if 'INVITE_ONLY' in os.environ and os.environ['INVITE_ONLY'] == 'true' else False
 
@@ -56,11 +12,11 @@ ADMIN_EMAIL = "admin@reallocate.org"
 
 SEND_EMAILS = True if os.environ.get('SEND_EMAILS') and os.environ['SEND_EMAILS'] == 'true' else False
 
-# Parse database configuration from $DATABASE_URL
+# parse database configuration from $DATABASE_URL
 import dj_database_url
 DATABASES = {'default': dj_database_url.config(default='sqlite:/data.db')}
 
-# Allow any settings to be defined in local_settings.py which should be
+# allow any settings to be defined in local_settings.py which should be
 # ignored in your version control system allowing for settings to be defined per machine.
 if 'DEPLOY_ENV' in os.environ and os.environ['DEPLOY_ENV'] != 'local':
 
@@ -104,35 +60,18 @@ else:
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 APP_NAME = 'website'
 
-SITE_ORG_ID = os.environ.get('SITE_ORG_ID')   # used for match site with an org model
+SITE_ORG_ID = os.environ.get('SITE_ORG_ID')   # used for matching site with an org model
 SITE_IDS = os.environ.get('SITE_ID', '1').split(',')
 SITE_ID = SITE_IDS[0]
 
-ADMINS = (
-    # ('Your Name', 'your_email@example.com'),
-)
+ADMINS = (('admin', 'admin@reallocate.org'),)
 
 MANAGERS = ADMINS
 
-# Local time zone for this installation. Choices can be found here:
-# http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
-# although not all choices may be available on all operating systems.
-# In a Windows environment this must be set to your system time zone.
 TIME_ZONE = 'America/Vancouver'
-
-# Language code for this installation. All choices can be found here:
-# http://www.i18nguy.com/unicode/language-identifiers.html
 LANGUAGE_CODE = 'en-us'
-
-# If you set this to False, Django will make some optimizations so as not
-# to load the internationalization machinery.
 USE_I18N = True
-
-# If you set this to False, Django will not format dates, numbers and
-# calendars according to the current locale.
 USE_L10N = True
-
-# If you set this to False, Django will not use timezone-aware datetimes.
 USE_TZ = True
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
@@ -151,7 +90,7 @@ MEDIA_URL = ''
 #STATIC_ROOT = os.path.join(PROJECT_ROOT, "static_root")
 #STATIC_ROOT = os.path.join(PROJECT_ROOT, STATIC_URL.strip("/"))
 
-STATIC_ROOT = os.path.join(PROJECT_ROOT, 'website', 'staticfiles')
+STATIC_ROOT = os.path.join(PROJECT_ROOT, APP_NAME, 'staticfiles')
 STATIC_URL = '/static/'
 
 # Additional locations of static files
@@ -219,9 +158,6 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.admin',
     'south',
-    # jinja2
-    # 'coffin',
-    # end jinja2
     'widget_tweaks',
     'website',
     'reallocate_tastypie',
@@ -270,8 +206,6 @@ LOGGING = {
     }
 }
 
-# BEGIN - Social Auth Settings
-
 AUTHENTICATION_BACKENDS = (
     #    'social_auth.backends.twitter.TwitterBackend',
     'social_auth.backends.facebook.FacebookBackend',
@@ -290,7 +224,7 @@ AUTHENTICATION_BACKENDS = (
     #    'social_auth.backends.contrib.skyrock.SkyrockBackend',
     'social_auth.backends.contrib.yahoo.YahooOAuthBackend',
     #    'social_auth.backends.OpenIDBackend',
-    'django.contrib.auth.backends.ModelBackend',        #Django default auth
+    'django.contrib.auth.backends.ModelBackend',
 )
 
 SOCIAL_AUTH_PIPELINE = (
@@ -300,12 +234,57 @@ SOCIAL_AUTH_PIPELINE = (
     'social_auth.backends.pipeline.user.create_user',
     'social_auth.backends.pipeline.social.associate_user',
     'social_auth.backends.pipeline.user.update_user_details',
-    'website.base.associate_new_user_profile'
+    'website.base.associate_new_user_profile',
 )
 
 AUTH_PROFILE_MODULE = 'website.UserProfile'
 
-# Redirects after login
+# OAuth keys for Social Auth
+TWITTER_CONSUMER_KEY = ''
+TWITTER_CONSUMER_SECRET = ''
+FACEBOOK_APP_ID = ''
+FACEBOOK_API_SECRET = ''
+LINKEDIN_CONSUMER_KEY = ''
+LINKEDIN_CONSUMER_SECRET = ''
+ORKUT_CONSUMER_KEY = ''
+ORKUT_CONSUMER_SECRET = ''
+GOOGLE_CONSUMER_KEY = ''
+GOOGLE_CONSUMER_SECRET = ''
+GOOGLE_OAUTH2_CLIENT_ID = ''
+GOOGLE_OAUTH2_CLIENT_SECRET = ''
+FOURSQUARE_CONSUMER_KEY = ''
+FOURSQUARE_CONSUMER_SECRET = ''
+VK_APP_ID = ''
+VK_API_SECRET = ''
+LIVE_CLIENT_ID = ''
+LIVE_CLIENT_SECRET = ''
+SKYROCK_CONSUMER_KEY = ''
+SKYROCK_CONSUMER_SECRET = ''
+YAHOO_CONSUMER_KEY = ''
+YAHOO_CONSUMER_SECRET = ''
+AWS_ACCESS_KEY_ID = ''
+AWS_SECRET_ACCESS_KEY = ''
+
+GOOGLE_OAUTH2_AUTH_EXTRA_ARGUMENTS = {'access_type': 'offline'}
+GOOGLE_EXTRA_DATA = [('oauth_token', 'oauth_token')]
+GOOGLE_SREG_EXTRA_DATA = [('oauth_token', 'oauth_token')]
+GOOGLE_AX_EXTRA_DATA = [('oauth_token', 'oauth_token')]
+
+FACEBOOK_EXTENDED_PERMISSIONS = ['email', 'publish_stream']
+
+# https://developer.linkedin.com/documents/profile-fields
+LINKEDIN_SCOPE = ['r_basicprofile', 'r_emailaddress']
+LINKEDIN_EXTRA_FIELD_SELECTORS = ['email-address', 'headline', 'industry', 'picture-url', 'first-name', 'last-name']
+LINKEDIN_EXTRA_DATA = [
+    ('id', 'id'),
+    ('first-name', 'first_name'),
+    ('last-name', 'last_name'),
+    ('email-address', 'email_address'),
+    ('headline', 'headline'),
+    ('industry', 'industry'),
+    ('picture-url', 'profile_picture')
+]
+
 LOGIN_URL = '/login'
 LOGIN_REDIRECT_URL = '/'
 POST_LOGIN_URL = '/search'
@@ -315,7 +294,7 @@ POST_LOGIN_URL = '/search'
 SOCIAL_AUTH_DEFAULT_USERNAME = 'new_social_auth_user'
 SOCIAL_AUTH_UUID_LENGTH = 16
 
-# Honor the 'X-Forwarded-Proto' header for request.is_secure()
+# honor the 'X-Forwarded-Proto' header for request.is_secure()
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 TEMPLATE_DEBUG = DEBUG
