@@ -300,7 +300,7 @@ def sign_up(request):
     return response
 
 
-def login(request):
+def login_user(request):
 
     context = {}
 
