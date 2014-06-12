@@ -76,15 +76,10 @@ def send_email(recipients, subject, text_content, html_content=None, from_email=
     if not isinstance(recipients, list):
         recipients = recipients.split(",")
 
-    logging.error(from_email)
-
-
     # TODO: make sure we don't send real email to recipients if not production
     msg = EmailMultiAlternatives(subject, text_content, from_email, recipients, headers=headers)
 
     if html_content:
-
-        logging.error(html_content)
 
         msg.attach_alternative(html_content, "text/html")
         msg.content_subtype = "html" # defaults to show as html, txt if html not viewable
@@ -120,7 +115,7 @@ def associate_new_user_profile(request, user, *args, **kwargs):
         logging.error("IS NEW")
     
     extra_data = kwargs.get('response', {})
-    logging.error(extra_data)
+
     profile, unused = UserProfile.objects.get_or_create(user=user)
     if kwargs.get('linkedin'):
         pass
