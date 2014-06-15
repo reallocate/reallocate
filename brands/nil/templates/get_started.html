@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% trans "This is the title" as the_title %}
+
+{% block meta_description %}{{ the_title }}{% endblock %}
+
+{% block extra_css %}
+{% endblock %}
+
+{% block content %}
+    
+    <div class="container">
+        
+        <div class="row">
+
+            <div class="col-xs-8">
+
+                <h1>Sample Getting Started</h1>
+
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam non dictum risus. Nulla faucibus condimentum risus. Quisque ut tempor massa, sit amet rutrum libero. Mauris quam lorem, pulvinar vitae pellentesque a, malesuada vitae diam. Ut condimentum risus vel urna imperdiet sollicitudin. Duis adipiscing felis in enim commodo rutrum. In dolor sem, tristique ut tincidunt quis, sodales a mi. Sed tempus, ipsum ut aliquet egestas, ligula sapien dignissim tortor, non tincidunt enim orci eget tortor.</p>
+
+                <div class="get-started">
+                    <a href="/organization/new" class="btn btn-primary btn-lg">Get started</a>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+{% endblock %}
+
+{% block bottomscript %}
+
+{% endblock %}

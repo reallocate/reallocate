@@ -31,6 +31,12 @@ h5 {
 .navbar-header {
   float: left;
 }
+.navbar-header h1 {
+    margin: 0px;
+    font-size: 20px;
+    color: #777;
+    text-transform: uppercase;
+}
 /* Undo the collapsing navbar */
 .navbar-collapse {
   display: block !important;

@@ -1,0 +1,36 @@
+body {
+    font-family: Helvetica, sans-serif;
+    font-size: 16px;
+}
+h1, h2, h3, h4, h5 {
+    font-family: Arial;
+    color: #555;
+}
+#home .jumbotron {
+	background-color: rgb(194,194,192);
+    background-image: url('//s3-eu-west-1.amazonaws.com/');
+    background-size: 600px 100px;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 200px;
+}
+/* about */
+
+#about .jumbotron .overlay {
+    height: 100%;
+    width: 100%;
+    background: -webkit-gradient(linear, 0 0, 0 100%, from(rgba(0,0,0,0)), to(rgba(0,0,0,0.65)));
+    background: -webkit-linear-gradient(rgba(0,0,0,0) 0%, rgba(0,0,0,0.65) 100%);
+    background: -moz-linear-gradient(rgba(0,0,0,0) 0%, rgba(0,0,0,0.65) 100%);
+    background: -o-linear-gradient(rgba(0,0,0,0) 0%, rgba(0,0,0,0.65) 100%);
+    background: linear-gradient(rgba(0,0,0,0) 0%, rgba(0,0,0,0.65) 100%); /* FF3.6+ */ /* Chrome,Safari4+ */ /* Chrome10+,Safari5.1+ */ /* Opera 11.10+ */ /* IE10+ */ /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#a6000000',GradientType=0 ); /* IE6-9 */
+}
+#about .jumbotron {
+    padding: 0px;
+    background-image: url('');
+    background-size: cover;
+    background-color: rgb(254,173,39);
+    background-position: 0px -365px;
+    height: 90px;
+}
