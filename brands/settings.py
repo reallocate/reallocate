@@ -18,5 +18,5 @@ elif BRAND == 'freespace':
 else:
 
 	ALLOWED_HOSTS = ['.reallocate.org', '.herokuapp.org']
-	SITE_ID = 2
-	SITE_IDS = [2]
+	SITE_ID = 1
+	SITE_IDS = [1,2]

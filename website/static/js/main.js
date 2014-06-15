@@ -364,8 +364,8 @@ var reAllocate = window.reAllocate || {
     approveProject: function(pid) {
 
         $.ajax({
-            url : '/ajax/approve-project',
-            data : {'project_id': pid},
+            url : '/ajax/change-project',
+            data : {'id': pid, 'action': 'approve'},
             success: function(res) {
                 window.location.reload();
             },
