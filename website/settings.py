@@ -61,8 +61,6 @@ PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 APP_NAME = 'website'
 
 SITE_ORG_ID = os.environ.get('SITE_ORG_ID')   # used for matching site with an org model
-SITE_IDS = os.environ.get('SITE_ID', '1').split(',')
-SITE_ID = SITE_IDS[0]
 
 ADMINS = (('admin', 'admin@reallocate.org'),)
 
@@ -275,23 +273,9 @@ TEMPLATE_DEBUG = DEBUG
 DEBUG_PROPAGATE_EXCEPTIONS = DEBUG
 
 # setup brand
-from django.contrib.sites.models import Site
-s = Site.objects.get(id=SITE_ID)
-if s:
-    m = re.search(r'\((\w+)\)', s.name)
-    if m:
-        brand = m.group(1)
-        logging.info("Using brand ID '%s'" % brand)
-    else:
-        brand = 'reallocate'
-        logging.error("No valid brand ID found, using '%s'" % brand)
-else:
-    brand = 'reallocate'
-    logging.error("Invalid site ID (%s), using site ID 1" % SITE_ID)
+BRAND = os.environ.get('BRAND', 'reallocate')
 
-import importlib
-importlib.import_module('brands.%s.settings' % brand)
+from brands.settings import *
 
-STATICFILES_DIRS = (os.path.join(PROJECT_ROOT, 'brands', brand, 'static'),)
-TEMPLATE_DIRS = (os.path.join(PROJECT_ROOT, 'brands', brand, 'templates'),)
-
+STATICFILES_DIRS = (os.path.join(PROJECT_ROOT, 'brands', BRAND, 'static'),)
+TEMPLATE_DIRS = (os.path.join(PROJECT_ROOT, 'brands', BRAND, 'templates'),)

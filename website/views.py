@@ -1,13 +1,13 @@
 import logging, hashlib, random
 import re, sys, os
 import json
-import settings
 import base
 
 import libs.stripe
 import boto
 from boto.s3.key import Key
 
+from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render_to_response, get_object_or_404, render
 from django.template import RequestContext

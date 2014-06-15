@@ -2,7 +2,7 @@ from django.conf.urls import patterns, include, url
 from django.views.generic import TemplateView, RedirectView
 
 from django.contrib import admin
-from website import settings
+from django.conf import settings
 
 admin.autodiscover()
 

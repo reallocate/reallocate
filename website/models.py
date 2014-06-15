@@ -1,8 +1,8 @@
 import logging
-import settings
 
 from datetime import datetime
 
+from django.conf import settings
 from django.db import models
 from django.forms import ModelForm, Textarea
 from django.contrib.auth.models import User

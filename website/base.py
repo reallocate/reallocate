@@ -1,13 +1,13 @@
-import settings
 import re, logging, json
 
-from models import UserProfile
+
+from django.conf import settings
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 from django.core.urlresolvers import resolve
 
-from settings import FROM_EMAIL, ADMIN_EMAIL, DEPLOY_ENV, SEND_EMAILS
+from models import UserProfile
 
 from social_auth.backends.facebook import FacebookBackend
 from social_auth.backends.google import GoogleBackend
@@ -70,7 +70,7 @@ def send_email_template(request, email_type, context, subject, recipients, rende
     send_email(recipients, subject, text_content, html_content=html_content, *kwargs)
 
 
-def send_email(recipients, subject, text_content, html_content=None, from_email=FROM_EMAIL, headers=None):
+def send_email(recipients, subject, text_content, html_content=None, from_email=settings.FROM_EMAIL, headers=None):
 
     # https://docs.djangoproject.com/en/dev/topics/email/
     if not isinstance(recipients, list):
@@ -84,14 +84,14 @@ def send_email(recipients, subject, text_content, html_content=None, from_email=
         msg.attach_alternative(html_content, "text/html")
         msg.content_subtype = "html" # defaults to show as html, txt if html not viewable
 
-    if SEND_EMAILS:
+    if settings.SEND_EMAILS:
 
         msg.send()
 
 
 def send_admin_email(subject, text_content, html_content=None, headers=None):
 
-    send_email([ADMIN_EMAIL], subject, text_content, html_content=html_content)
+    send_email([settings.ADMIN_EMAIL], subject, text_content, html_content=html_content)
     
 
 def send_to_remote_storage(uploaded_file, filename, mime_type):

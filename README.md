@@ -1,11 +1,11 @@
-ReAllocate Web Platform 
+ReAllocate, The Platform 
 ============================
 This open source project is for the ReAllocate (reallocate.org) marketplace, where knowledge meets need.
 
 PREREQUISITES
 
 - Python 2.7
-- pip (Python)
+- pip
 - SQLite
 
 INITIAL SETUP
@@ -13,13 +13,7 @@ OPTIONAL: use [virtualenv](http://www.virtualenv.org/) to create an isolated pyt
 
 - git clone git@github.com:reallocate/reallocate.git
 - sudo pip-2.7 install -r requirements.txt (if using a virtualenv, omit sudo)
-- create a settings_local.py file next to settings.py
-- ./manage.py syncdb --all (it will ask to create a superuser; answer "no")
-- ./manage.py loaddata dev_data.json
+- mv website/settings_local_sample.py website/settings_local.py
+- ./manage.py syncdb --all (create a db superuser if you'd like)
+- ./manage.py migrate --fake
 - ./manage.py runserver
-
-ADDITIONAL SETUP
-If you want to be able to connnect to AWS, Google, LinkedIn, etc you will need to add those keys. To do so:
-
-- create website/settings_local.py
-- put all your overrides in there.  if you are a ReAllocate core team member, you can find this file in our Dropbox
