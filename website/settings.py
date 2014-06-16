@@ -58,6 +58,10 @@ else:
 
 
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+# add libs to PYTHONPATH
+sys.path.insert(0, os.path.join(PROJECT_ROOT, "website", "libs"))
+
 APP_NAME = 'website'
 
 SITE_ORG_ID = os.environ.get('SITE_ORG_ID')   # used for matching site with an org model

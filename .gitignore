@@ -7,6 +7,6 @@ settings_local.py
 .idea/
 /docs/original-images
 /data.db
-/Venv/
+/venv/
 *#
 *~
