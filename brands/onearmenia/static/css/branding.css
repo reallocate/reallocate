@@ -70,3 +70,7 @@ h1, h2, h3, h4, h5 {
     text-align: right;
     padding-top: 10px;
 }
+
+#profile .racing-stripe {
+    background-color: #10C2C0;
+}
