@@ -162,7 +162,6 @@ INSTALLED_APPS = (
     'south',
     'widget_tweaks',
     'website',
-    'reallocate_tastypie',
     #'taggit',
     'django.contrib.admin',
     'social_auth',
