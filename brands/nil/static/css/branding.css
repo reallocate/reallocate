@@ -33,11 +33,11 @@ h1, h2, h3, h4, h5 {
 }
 #about .jumbotron {
     padding: 0px;
-    background-image: url('/static/images/nil-eyewriter.png');
+    background-image: url('/static/images/nil-labs-jumbo.jpg');
     background-size: cover;
     background-color: #D35239;
-    background-position: 0px -365px;
-    height: 90px;
+    background-position: 0px -128px;
+    height: 300px;
 }
 
 #about .about-intro {
