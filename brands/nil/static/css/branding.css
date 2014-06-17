@@ -33,7 +33,7 @@ h1, h2, h3, h4, h5 {
 }
 #about .jumbotron {
     padding: 0px;
-    background-image: url('');
+    background-image: url('/static/images/nil-eyewriter.png');
     background-size: cover;
     background-color: #D35239;
     background-position: 0px -365px;
