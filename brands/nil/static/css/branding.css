@@ -6,13 +6,18 @@ h1, h2, h3, h4, h5 {
     font-family: Arial;
     color: #555;
 }
+
+.navbar .navbar-brand img {
+    width: 27px;
+}
+
 #home .jumbotron {
-	background-color: rgb(194,194,192);
-    background-image: url('//s3-eu-west-1.amazonaws.com/');
-    background-size: 600px 100px;
+    background-color: #D35239;
+    background-image: url('/static/images/nil-logo-white-271x300.png');
+    background-size: 158px 175px;
     background-repeat: no-repeat;
     background-position: center;
-    height: 200px;
+    height: 300px;
 }
 /* about */
 
@@ -28,9 +33,47 @@ h1, h2, h3, h4, h5 {
 }
 #about .jumbotron {
     padding: 0px;
-    background-image: url('');
+    background-image: url('/static/images/nil-labs-jumbo.jpg');
     background-size: cover;
-    background-color: rgb(254,173,39);
-    background-position: 0px -365px;
-    height: 90px;
+    background-color: #D35239;
+    background-position: 0px -128px;
+    height: 300px;
+}
+
+#about .about-intro {
+    margin-bottom: 25px;
+}
+
+#about .about-section {
+    padding-top: 25px;
+    border-bottom: 1px dashed black;
+    font-weight: bold;
+}
+
+#about .about-section h2 {
+    margin-top: 0;
+}
+
+#about .about-circle {
+    position: relative;
+    margin: 0 0 30px 30px;
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+    background-color: #D35239;
+}
+
+#about .about-circle-number {
+    position: absolute;
+    top: 15px;
+    left: 36px;
+}
+
+#about .about-circle-number p {
+    font-size: 50px;
+    color: #fff;
+}
+
+#profile .racing-stripe {
+    background-color: #D35239;
 }
