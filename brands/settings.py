@@ -19,6 +19,11 @@ elif BRAND == 'nil':
 	SITE_ID = 4
 	SITE_IDS = [4]
 
+elif BRAND == 'sfbrigade':
+
+	SITE_ID = 5
+	SITE_IDS = [5]
+
 else:
 
 	SITE_ID = 1
