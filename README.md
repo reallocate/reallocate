@@ -20,12 +20,15 @@ OPTIONAL: use [virtualenv](http://www.virtualenv.org/) to create an isolated pyt
 
 NEW BRAND SETUP
 
-- cp -R brands/sample brands/[BRAND_ID]
-- git add brands/[BRAND_ID]
-- create new heroku app
+- export BRAND=[BRAND ID]
+- cp -R brands/sample brands/$BRAND
+- git add brands/$BRAND
+- heroku create $BRAND-reallocate-staging
 - add new site id to django_sites on staging
-- add new settings to brands.settings
-- commit changes
-- inital push to heroku app
-- heroku config:set BRAND=[BRAND_ID] --app [HEROKU_APP_ID]
-- ./heroku_copy_config reallocate-staging [HEROKU_APP_ID]
+- add new settings to brands.settings (vim brands/settings.py)
+- git commit -am "Adding new brand ($BRAND)"
+- git remote add $BRAND-reallocate-staging git@heroku.com:$BRAND-reallocate-staging.git
+- git push $BRAND-reallocate-staging master
+- ./heroku-copy-config reallocate-staging $BRAND-reallocate-staging
+- heroku config:set BRAND=$BRAND --app $BRAND-reallocate-staging
+- curl http://$BRAND-reallocate-staging.herokuapp.com
