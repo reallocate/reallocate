@@ -682,9 +682,15 @@ form .tt-suggestion.tt-cursor {
 }
 #profile .bio {
     margin-top: 25px;
+    text-overflow: ellipsis;
+    overflow-x: hidden;
 }
 #profile .form-group {
     margin-bottom: 4px;
+}
+#profile #edit-profile-modal {
+    font-weight: normal;
+    font-size: 14px;
 }
 
 /* get-started */

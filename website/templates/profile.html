@@ -64,49 +64,49 @@
             <div class="modal-body clearfix">
                 <form id="update-profile" class="form-horizontal" method="post" enctype="multipart/form-data">{% csrf_token %}
                     <div class="form-group">
-                        <label class="control-label col-xs-2">First name</label>
-                        <div class="col-xs-10">
+                        <label class="control-label col-xs-3">First name</label>
+                        <div class="col-xs-9">
                             <input class="form-control"type="text" name="first_name" value="{{ user_profile.user.first_name }}" placeholder="First name" />
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-xs-2">Last name</label>
-                        <div class="col-xs-10">
+                        <label class="control-label col-xs-3">Last name</label>
+                        <div class="col-xs-9">
                             <input class="form-control" type="text" name="last_name" placeholder="Last name" value="{{ user_profile.user.last_name }}" />
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label col-xs-2">Email</label>
-                        <div class="col-xs-10">
+                        <label class="control-label col-xs-3">Email</label>
+                        <div class="col-xs-9">
                             <input class="form-control" type="text" id="email" name="email" value="{{ user_profile.user.email }}" placeholder="Contact Email" />
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-xs-2">Location</label>
-                        <div class="col-xs-10">
+                        <label class="control-label col-xs-3">Location</label>
+                        <div class="col-xs-9">
                             <input class="form-control" type="text" name="location" placeholder="Location" value="{{ user_profile.location }}" />
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-xs-2">Occupation</label>
-                        <div class="col-xs-10">
+                        <label class="control-label col-xs-3">Occupation</label>
+                        <div class="col-xs-9">
                             <input class="form-control" type="text" name="occupation" placeholder="Occupation" value="{{ user_profile.occupation }}" />
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-xs-2">Skills</label>
-                        <div class="col-xs-10">
+                        <label class="control-label col-xs-3">Skills</label>
+                        <div class="col-xs-9">
                             <input class="form-control" type="text" name="skills" placeholder="Comma separated skills" value="{{ user_profile.skills }}" />
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-xs-2">Bio</label>
-                        <div class="col-xs-10" id="bio">
+                        <label class="control-label col-xs-3">Bio</label>
+                        <div class="col-xs-9" id="bio">
                             <textarea class="form-control" name="bio">{{ user_profile.bio }}</textarea>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-primary">Save</button>
+                    <button type="submit" class="btn btn-primary pull-right">Save</button>
                 </form>
             </div>
         </div>

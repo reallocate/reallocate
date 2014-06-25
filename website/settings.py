@@ -1,6 +1,6 @@
 import os, sys, socket, re, logging
 
-ALLOWED_HOSTS = ['.reallocate.org', '.herokuapp.com', '.onearmenia.org']
+ALLOWED_HOSTS = ['.reallocate.org', '.herokuapp.com']
 
 # invite system
 INVITE_ONLY = True if 'INVITE_ONLY' in os.environ and os.environ['INVITE_ONLY'] == 'true' else False

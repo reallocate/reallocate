@@ -4,7 +4,7 @@ BRAND = os.environ.get('BRAND', 'reallocate')
 
 if BRAND == 'onearmenia':
 
-	ALLOWED_HOSTS = ['.onearmenia.org', '.herokuapp.org']
+	ALLOWED_HOSTS = ['.onearmenia.org', '.herokuapp.com']
 	SITE_ID = 3
 	SITE_IDS = [3]
 
