@@ -123,7 +123,7 @@ def change_project(request, *args):
 @login_required
 def engage_opportunity(request):
 
-    context = base.build_base_context(request)
+    context = {}
 
     pid = request.REQUEST.get('projectId')
     oid = request.REQUEST.get('opportunityId')
@@ -175,7 +175,8 @@ def close_opportunity(request):
     response = {}
 
     if pid and oid:
-        #close opportunity engagements
+
+        # close opportunity engagements
         for opp_eng in OpportunityEngagement.objects.filter(opportunity__id__exact=oid):
             opp_eng.status = STATUS_CLOSED
             opp_eng.save()
@@ -185,7 +186,7 @@ def close_opportunity(request):
         opp.status = STATUS_CLOSED
         opp.save()
 
-        #add final update about closing
+        # add final update about closing
         message = request.REQUEST.get('message')
         update = Update.objects.create(organization_id=opp.organization_id, project_id=pid, media_url="",
                                    opportunity_id=oid, text=message, created_by=request.user)
@@ -194,8 +195,8 @@ def close_opportunity(request):
         #now notify everyone involve about the close
         subject = "Opportunity,  %s, closed by %s" % (opp.name, request.user.email)
 
-        #context here only used by email template(s), so add the variables that your template will need.
-        context = base.build_base_context(request)
+        # context here only used by email template(s), so add the variables that your template will need.
+        context = {}
         context['opportunity_name'] = opp.name
         context['project_name'] = opp.project.name
         context['message'] = message
@@ -409,7 +410,7 @@ def invite_users(request):
 
             subject = "You've been invited to join ReAllocate!"
 
-            context = base.build_base_context(request)
+            context = {}
             context.update({
                 'email': email,
                 'subject': subject,
