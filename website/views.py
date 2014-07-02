@@ -674,7 +674,7 @@ def find_opportunity(request):
 
         if search:
 
-            opportunities = opportunities.filter(Q(tags__contains=search) | Q(name__contains=search) | Q(short_desc__contains=search) | Q(description__contains=search)).distinct()
+            opportunities = opportunities.filter(Q(tags__icontains=search) | Q(name__icontains=search) | Q(short_desc__icontains=search) | Q(description__icontains=search)).distinct()
 
         if opp_type:
 
@@ -702,7 +702,7 @@ def find_project(request):
 
         if search:
 
-            projects = projects.filter(Q(tags__contains=search) | Q(name__contains=search) | Q(short_desc__contains=search) | Q(description__contains=search)).distinct()
+            projects = projects.filter(Q(tags__icontains=search) | Q(name__icontains=search) | Q(short_desc__icontains=search) | Q(description__icontains=search)).distinct()
 
     context['projects'] = projects
 
@@ -729,7 +729,7 @@ def manage_projects(request):
 
             if search:
 
-                projects = projects.filter(Q(name__contains=search) | Q(short_desc__contains=search) | Q(description__contains=search)).distinct()
+                projects = projects.filter(Q(name__icontains=search) | Q(short_desc__icontains=search) | Q(description__icontains=search)).distinct()
 
         return render(request, 'manage_projects.html', context)
 
