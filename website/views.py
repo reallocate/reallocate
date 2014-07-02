@@ -95,6 +95,8 @@ def public_profile(request, username=None):
 
 def home(request):
 
+    logging.error(settings.SITE_ID)
+
     context = {}
 
     projects = Project.objects.filter(status__iexact='active', sites__id=settings.SITE_ID)
@@ -468,7 +470,7 @@ def new_project(request):
 
             project.save()
 
-            project.sites = settings.SITE_IDS
+            project.sites = [settings.SITE_ID]
             project.save()
 
             if allow_sponsorship:
@@ -622,6 +624,9 @@ def add_opportunity(request, pid=None, sponsorship=False):
 
             opp.save()
         
+            opp.sites = [settings.SITE_ID]
+            opp.save()
+
             # this has to occur after initial save b/c we use pk id as part of the s3 filepath
             media_file = request.FILES.get('file')
             if media_file:
@@ -656,7 +661,7 @@ def find_opportunity(request):
 
     context = {}
 
-    opportunities = Opportunity.objects.filter(status__iexact='Active', sites__id=settings.SITE_ID)
+    opportunities = Opportunity.objects.filter(sites__id=settings.SITE_ID)
 
     if request.method == 'POST': 
 

@@ -494,7 +494,7 @@ class Project(models.Model):
     followed_by = models.ManyToManyField(User, blank=True, related_name='followed_by')
     featured = models.BooleanField(default=False, blank=True)
     tags = models.CharField(max_length=200, blank=True)
-    sites = models.ManyToManyField(Site, default=settings.SITE_IDS)
+    sites = models.ManyToManyField(Site)
     
     def __unicode__(self):
         return "Name: %s" % self.name
@@ -560,7 +560,7 @@ class Opportunity(models.Model):
     engaged_by = models.ManyToManyField(User, blank=True, through='OpportunityEngagement')
     featured = models.BooleanField(default=False, blank=True)
     sponsorship = models.BooleanField(default=False, blank=True)
-    sites = models.ManyToManyField(Site, default=settings.SITE_IDS)
+    sites = models.ManyToManyField(Site)
 
     # prerequisites = models.ManyToManyField(Opportunity)  - assuming that pre-reqs = other opps
     # time estimate - TODO: See v2 Feature Doc https://docs.google.com/a/reallocate.org/document/d/1AY-2h9pa028USr3ofwUQjjoZ2kKGnRQZ0xoIQYk-urs/edit
