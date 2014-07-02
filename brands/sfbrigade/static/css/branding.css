@@ -1,38 +1,18 @@
-@font-face {
-    font-family: BebasNeue;
-    font-weight: bold;
-    src: url("https://s3-eu-west-1.amazonaws.com/onearmenia/fonts/BebasNeue.otf") format("opentype");
-}
 body {
-    font-family: 'Source Sans Pro', Helvetica, sans-serif;
+    font-family: Helvetica, sans-serif;
     font-size: 16px;
 }
 h1, h2, h3, h4, h5 {
-    font-family: BebasNeue, Arial;
+    font-family: Arial;
     color: #555;
 }
-.navbar {
-    font-size: 15px;
-    background-color: rgb(240,240,240);
-}
-.navbar-default .navbar-nav>li>a {
-    color: #333;
-}
-.navbar .navbar-brand img {
-    top: -1px;
-    width: 30px;
-}
-.navbar .navbar-brand img+img {
-    top: -1px;
-    width: 93px;
-}
 #home .jumbotron {
-	background-color: rgb(16,194,192);
-    background-image: url('//s3-eu-west-1.amazonaws.com/onearmenia/images/onearmenia-logo-wide-800.png');
+	background-color: rgb(194,194,192);
+    background-image: url('//s3-eu-west-1.amazonaws.com/');
     background-size: 600px 100px;
     background-repeat: no-repeat;
     background-position: center;
-    height: 300px;
+    height: 200px;
 }
 /* about */
 
@@ -53,34 +33,4 @@ h1, h2, h3, h4, h5 {
     background-color: rgb(254,173,39);
     background-position: 0px -365px;
     height: 90px;
-}
-#about h2 {
-    margin-bottom: 20px;
-}
-#about p {
-    font-size: 18px;
-}
-#about a.btn {
-	margin-right: 10px;
-}
-#about footer p {
-	font-size: 16px;
-}
-#get-started .get-started {
-    text-align: right;
-    padding-top: 10px;
-}
-
-#profile .racing-stripe {
-    background-color: #10C2C0;
-}
-
-/* Single Opportunity */
-
-#opportunity .jumbotron {
-height: 170px;
-}
-
-#opportunity .jumbotron #opp-title {
-padding-top: 60px;
 }
