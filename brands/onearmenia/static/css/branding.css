@@ -27,7 +27,7 @@ h1, h2, h3, h4, h5 {
     width: 93px;
 }
 #home .jumbotron {
-	background-color: rgb(16,194,192);
+    background-color: rgb(16,194,192);
     background-image: url('/static/images/onearmenia-home-splash.jpg');
     background-size: cover;
     background-repeat: no-repeat;
@@ -38,21 +38,24 @@ h1, h2, h3, h4, h5 {
 
 #about .jumbotron .overlay {
     height: 100%;
-    width: 100%;
+    width: 100%;    
+    /*
     background: -webkit-gradient(linear, 0 0, 0 100%, from(rgba(0,0,0,0)), to(rgba(0,0,0,0.65)));
     background: -webkit-linear-gradient(rgba(0,0,0,0) 0%, rgba(0,0,0,0.65) 100%);
     background: -moz-linear-gradient(rgba(0,0,0,0) 0%, rgba(0,0,0,0.65) 100%);
     background: -o-linear-gradient(rgba(0,0,0,0) 0%, rgba(0,0,0,0.65) 100%);
     background: linear-gradient(rgba(0,0,0,0) 0%, rgba(0,0,0,0.65) 100%); /* FF3.6+ */ /* Chrome,Safari4+ */ /* Chrome10+,Safari5.1+ */ /* Opera 11.10+ */ /* IE10+ */ /* W3C */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#a6000000',GradientType=0 ); /* IE6-9 */
+    */
 }
 #about .jumbotron {
     padding: 0px;
-    background-image: url('');
+    background-color: rgb(16,194,192);
+    background-image: url('/static/images/onearmenia-about-splash.jpg');
     background-size: cover;
-    background-color: rgb(254,173,39);
-    background-position: 0px -365px;
-    height: 90px;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 300px;
 }
 #about h2 {
     margin-bottom: 20px;
