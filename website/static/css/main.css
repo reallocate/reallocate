@@ -145,6 +145,10 @@ form .tt-suggestion.tt-cursor {
 .push-little {
     margin-top: 25px;
 }
+
+.hint {
+    font-size: .8em;
+}
 .thumbnail-container {
     background: #fff;
     margin-bottom: 30px;
